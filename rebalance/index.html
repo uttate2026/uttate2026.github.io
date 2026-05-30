@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>資産リバランスシミュレーター</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div id="auth_overlay" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: var(--bg-main); z-index: 9999; justify-content: center; align-items: center; padding: 20px;">
+        <div class="card" style="max-width: 400px; width: 100%; text-align: center; box-shadow: 0 10px 25px rgba(0,0,0,0.05);">
+            <div class="section-title" style="margin-bottom: 20px; text-align: center;">セキュリティ認証</div>
+            <p style="font-size: 14px; color: var(--text-secondary); margin-bottom: 20px; line-height: 1.6;">
+                このツールにアクセスするには、専用のトークン（パスワード）を入力してください。
+            </p>
+            <div style="margin-bottom: 16px;">
+                <input type="password" id="token_input" placeholder="パスワードを入力" style="width: 100%; text-align: center; font-size: 16px;">
+            </div>
+            <p id="auth_error" class="alert-text" style="display: none; font-weight: bold; margin-bottom: 16px; text-align: center;">
+                ⚠️ パスワードが正しくありません。
+            </p>
+            <button type="button" id="btn_auth" class="btn btn-primary" style="width: 100%; padding: 10px; font-weight: bold;">認証する</button>
+        </div>
+    </div>
+
+    <div class="app-container">
+        
+        <header>
+            <h1>資産リバランスシミュレーター</h1>
+        </header>
+
+        <div class="card">
+            <div class="section-title">1. リバランス方針設定</div>
+            <div class="radio-group">
+                <label class="radio-label">
+                    <input type="radio" name="rebalance_policy" value="normal" checked> 通常（売買あり）
+                </label>
+                <label class="radio-label">
+                    <input type="radio" name="rebalance_policy" value="no_sell"> 売却なし（追加投資のみ）
+                </label>
+                <label class="radio-label">
+                    <input type="radio" name="rebalance_policy" value="withdrawal"> 取り崩し
+                </label>
+            </div>
+        </div>
+
+        <div id="withdrawal_amount_container" style="display: none; margin-bottom: 20px; background: #fef2f2; padding: 20px; border-radius: 6px; border: 1px solid #fca5a5;">
+            <label for="withdrawal_total_amount" style="font-weight: bold; color: #991b1b; margin-right: 12px; font-size: 14px;">取り崩し希望総額:</label>
+            <div class="input-with-unit" style="display: inline-block; width: 220px; vertical-align: middle;">
+                <input type="text" id="withdrawal_total_amount" value="0" style="font-weight: bold; color: #b91c1c;" inputmode="numeric" autocomplete="off" spellcheck="false">
+                <span class="unit">円</span>
+            </div>
+            <p id="withdrawal_alert" class="alert-text" style="display: none; font-weight: bold; margin-left: 12px;">
+                ⚠️ エラー: 取り崩し希望総額が現在の総資産額を超えています。
+            </p>
+        </div>
+
+        <div class="card">
+            <div class="section-title">2. 資産項目と目標バランスの入力</div>
+            <form id="asset_form">
+                <div class="table-responsive">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th class="col-name">資産項目名</th>
+                                <th class="col-ratio">目標比率</th>
+                                <th class="col-amount">現在の資産額</th>
+                                <th class="col-action">操作</th>
+                            </tr>
+                        </thead>
+                        <tbody id="asset_table_body">
+                            <tr class="asset-row">
+                                <td><input type="text" class="asset-name" value="先進国株式インデックス" placeholder="例: 先進国株式"></td>
+                                <td>
+                                    <div class="input-with-unit">
+                                        <input type="text" class="asset-ratio" value="50" inputmode="numeric">
+                                        <span class="unit">%</span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="input-with-unit">
+                                        <input type="text" class="asset-amount" value="500000" inputmode="numeric" autocomplete="off" spellcheck="false">
+                                        <span class="unit">円</span>
+                                    </div>
+                                </td>
+                                <td class="text-center">
+                                    <button type="button" class="btn btn-danger btn-delete">削除</button>
+                                </td>
+                            </tr>
+                            <tr class="asset-row">
+                                <td><input type="text" class="asset-name" value="個人向け国債変動10年" placeholder="例: 個人向け国債"></td>
+                                <td>
+                                    <div class="input-with-unit">
+                                        <input type="text" class="asset-ratio" value="30" inputmode="numeric">
+                                        <span class="unit">%</span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="input-with-unit">
+                                        <input type="text" class="asset-amount" value="400000" inputmode="numeric" autocomplete="off" spellcheck="false">
+                                        <span class="unit">円</span>
+                                    </div>
+                                </td>
+                                <td class="text-center">
+                                    <button type="button" class="btn btn-danger btn-delete">削除</button>
+                                </td>
+                            </tr>
+                            <tr class="asset-row">
+                                <td><input type="text" class="asset-name" value="定期預金・現金" placeholder="例: 現金"></td>
+                                <td>
+                                    <div class="input-with-unit">
+                                        <input type="text" class="asset-ratio" value="20" inputmode="numeric">
+                                        <span class="unit">%</span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="input-with-unit">
+                                        <input type="text" class="asset-amount" value="100000" inputmode="numeric" autocomplete="off" spellcheck="false">
+                                        <span class="unit">円</span>
+                                    </div>
+                                </td>
+                                <td class="text-center">
+                                    <button type="button" class="btn btn-danger btn-delete">削除</button>
+                                </td>
+                            </tr>
+                        </tbody>
+                        <tfoot>
+                            <tr class="table-footer-row">
+                                <td><strong>合計</strong></td>
+                                <td class="text-right"><span id="total_ratio">100</span> %</td>
+                                <td class="text-right"><span id="total_amount">1,000,000</span> 円</td>
+                                <td></td>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+
+                <div style="margin-top: 12px;">
+                    <button type="button" id="btn_add_asset" class="btn btn-link">+ 資産項目を追加する</button>
+                </div>
+            </form>
+        </div>
+
+        <p id="ratio_alert" class="alert-text" style="display: none; font-size: 14px; font-weight: bold; margin-bottom: 16px;">⚠️ 目標比率の合計を 100% にしてください。</p>
+
+        <div style="margin-bottom: 24px;">
+            <button type="button" id="btn_execute_rebalance" class="btn btn-primary btn-large">リバランス計算を実行</button>
+        </div>
+
+        <div class="card">
+            <div class="section-title">3. 計算結果・おすすめの売買</div>
+            <div id="result_area">
+                <div class="result-placeholder">ここに計算結果が表示されます。</div>
+            </div>
+        </div>
+    </div>
+
+    <script src="storage.js"></script>
+    <script src="solver.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>
