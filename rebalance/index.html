@@ -186,6 +186,17 @@
     </div>
 
     <script src="storage.js"></script>
+    <script src="state.js"></script> 
+    <script>
+        // 💡 罠の核心：ブラウザ環境用に、state.js のクラスを実体化（インスタンス化）してグローバルに公開する
+        if (typeof AssetStateClass !== 'undefined') {
+            window.stateMgr = new AssetStateClass({
+                window: window,
+                storage: localStorage // 先ほど全通させた軽量ストレージマネージャーを注入
+            });
+            console.log("【Index】stateMgr のインスタンス化に成功しました。");
+        }
+    </script>
     <script src="auth.js"></script>
     <script src="solver.js"></script>
     <script src="app.js"></script>
