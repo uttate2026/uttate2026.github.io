@@ -198,6 +198,12 @@
         }
     </script>
     <script src="auth.js"></script>
+    <script>
+        // 明示的に初期化を発火させる（安全設計）
+        if (window.AssetAuth) {
+            window.AssetAuth.init();
+        }
+    </script>
     <script src="solver.js"></script>
     <script src="app.js"></script>
 </body>
