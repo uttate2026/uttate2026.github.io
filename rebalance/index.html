@@ -3,146 +3,91 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>資産リバランスシミュレーター - ステージ2</title>
+    <title>資産リバランスシミュレーター</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-    <div id="auth_overlay" style="display: flex; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: var(--bg-main); z-index: 9999; justify-content: center; align-items: center; padding: 20px;">
-        <div class="card" style="max-width: 400px; width: 100%; text-align: center; box-shadow: 0 10px 25px rgba(0,0,0,0.05);">
-            <div class="section-title" style="margin-bottom: 20px; text-align: center;">セキュリティ認証</div>
-            <p style="font-size: 14px; color: var(--text-secondary); margin-bottom: 20px; line-height: 1.6;">
-                このツールにアクセスするには、専用のトークン（パスワード）を入力してください。
-            </p>
-            <div style="margin-bottom: 16px;">
-                <input type="password" id="token_input" placeholder="パスワードを入力" style="width: 100%; text-align: center; font-size: 16px;">
-            </div>
-            <p id="auth_error" class="alert-text" style="display: none; font-weight: bold; margin-bottom: 16px; text-align: center;">
-                ⚠️ パスワードが正しくありません。
-            </p>
-            <button type="button" id="btn_auth" class="btn btn-primary" style="width: 100%; padding: 10px; font-weight: bold;">認証する</button>
+    <div id="auth_overlay" class="auth-overlay">
+        <div class="card auth-card">
+            <div class="section-title">セキュリティ認証</div>
+            <p class="auth-desc">このツールにアクセスするには、専用のトークン(パスワード)を入力してください。</p>
+            <input type="password" id="token_input" placeholder="パスワードを入力">
+            <p id="auth_error" class="alert-text" style="display: none;">⚠️ パスワードが正しくありません。</p>
+            <button type="button" id="btn_auth" class="btn btn-primary">認証する</button>
         </div>
     </div>
 
-    <div class="app-container">
-        
+    <div class="app-container" id="app_container" style="display: none;">
+
         <header>
-            <h1>資産リバランスシミュレーター <span class="badge">Stage 2</span></h1>
+            <h1>資産リバランスシミュレーター</h1>
         </header>
 
-        <div class="account-tabs-container" style="margin-bottom: 24px;">
-            <div class="tab-label" style="font-size: 12px; font-weight: bold; color: var(--text-secondary); margin-bottom: 8px;">編集・計算する口座を選択：</div>
-            <div class="tabs-row" style="display: flex; gap: 10px; flex-wrap: wrap;">
-                <button type="button" class="tab-btn active" data-account-id="main_brokerage">🟢 証券口座 (特定・NISA)</button>
-                <button type="button" class="tab-btn" data-account-id="ideco">🔵 iDeCo口座</button>
-                <button type="button" class="tab-btn tab-btn-dashboard" data-account-id="total_dashboard" style="background: #f1f5f9; border-color: #cbd5e1;">📊 全口座合算ダッシュボードを見る</button>
-                <button type="button" id="btn_add_account" class="btn btn-link" style="padding: 0 8px;">+ 口座を追加</button>
-            </div>
+        <div class="account-tabs-container">
+            <div class="tab-label">編集・計算する口座を選択:</div>
+            <div class="tabs-row" id="account_tabs_row"></div>
+            <button type="button" id="btn_toggle_dashboard" class="btn btn-secondary">📊 全口座合算ダッシュボードを見る</button>
         </div>
 
         <div id="account_workspace">
-            
-            <div class="card" style="background: #f8fafc; border: 1px dashed #cbd5e1; display: flex; justify-content: space-between; align-items: center; gap: 12px; flex-wrap: wrap; margin-bottom: 20px; padding: 12px 20px;">
-                <div style="display: flex; align-items: center; gap: 8px;">
-                    <label for="account_history_select" style="font-size: 13px; font-weight: bold; color: var(--text-secondary);">📁 この口座の過去履歴:</label>
-                    <select id="account_history_select" style="padding: 4px 8px; font-size: 13px;">
-                        <option value="latest">最新の入力状態（自動保持）</option>
+
+            <div class="card history-bar">
+                <div class="history-select-group">
+                    <label for="account_history_select">📁 この口座の過去履歴:</label>
+                    <select id="account_history_select">
+                        <option value="latest">最新の入力状態(自動保持)</option>
                     </select>
                 </div>
-                <button type="button" id="btn_save_snapshot" class="btn btn-secondary" style="font-size: 13px; padding: 6px 12px;">💾 現在の公式状態を履歴に保存</button>
+                <button type="button" id="btn_save_snapshot" class="btn btn-secondary">💾 現在の状態を履歴に保存</button>
             </div>
 
             <div class="card">
                 <div class="section-title">1. リバランス方針設定</div>
                 <div class="radio-group">
-                    <label class="radio-label">
-                        <input type="radio" name="rebalance_policy" value="normal" checked> 通常（売買あり）
-                    </label>
-                    <label class="radio-label">
-                        <input type="radio" name="rebalance_policy" value="no_sell"> 売却なし（追加投資のみ）
-                    </label>
-                    <label class="radio-label">
-                        <input type="radio" name="rebalance_policy" value="withdrawal"> 取り崩し
-                    </label>
+                    <label class="radio-label"><input type="radio" name="rebalance_policy" value="normal" checked> 通常(売買あり)</label>
+                    <label class="radio-label"><input type="radio" name="rebalance_policy" value="no_sell"> 売却なし(追加投資のみ)</label>
+                    <label class="radio-label"><input type="radio" name="rebalance_policy" value="withdrawal"> 取り崩し</label>
                 </div>
             </div>
 
-            <div id="withdrawal_amount_container" style="display: none; margin-bottom: 20px; background: #fef2f2; padding: 20px; border-radius: 6px; border: 1px solid #fca5a5;">
-                <label for="withdrawal_total_amount" style="font-weight: bold; color: #991b1b; margin-right: 12px; font-size: 14px;">取り崩し希望総額:</label>
-                <div class="input-with-unit" style="display: inline-block; width: 220px; vertical-align: middle;">
-                    <input type="text" id="withdrawal_total_amount" value="0" style="font-weight: bold; color: #b91c1c;" inputmode="numeric" autocomplete="off" spellcheck="false">
-                    <span class="unit">円</span>
-                </div>
-                <p id="withdrawal_alert" class="alert-text" style="display: none; font-weight: bold; margin-left: 12px;">
-                    ⚠️ エラー: 取り崩し希望総額が現在の総資産額を超えています。
-                </p>
+            <div id="withdrawal_amount_container" class="withdrawal-container" style="display: none;">
+                <label for="withdrawal_total_amount">取り崩し希望総額:</label>
+                <input type="text" id="withdrawal_total_amount" value="0" inputmode="numeric" autocomplete="off" spellcheck="false">
+                <span class="unit">円</span>
             </div>
 
             <div class="card">
                 <div class="section-title">2. 資産項目と目標バランスの入力</div>
-                <form id="asset_form">
-                    <div class="table-responsive">
-                        <table>
-                            <thead>
-                                <tr>
-                                    <th class="col-name">資産項目名</th>
-                                    <th class="col-ratio">目標比率</th>
-                                    <th class="col-amount">現在の資産額</th>
-                                    <th class="col-unit-type">売買単位</th>
-                                    <th class="col-action">操作</th>
-                                </tr>
-                            </thead>
-                            <tbody id="asset_table_body">
-                                <tr class="asset-row">
-                                    <td><input type="text" class="asset-name" value="先進国株式インデックス" placeholder="例: 先進国株式"></td>
-                                    <td>
-                                        <div class="input-with-unit">
-                                            <input type="text" class="asset-ratio" value="100" inputmode="numeric">
-                                            <span class="unit">%</span>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <div class="input-with-unit">
-                                            <input type="text" class="asset-amount" value="1000000" inputmode="numeric" autocomplete="off" spellcheck="false">
-                                            <span class="unit">円</span>
-                                        </div>
-                                        <div class="volume-input-subfield" style="display: none; margin-top: 6px; padding: 6px; background: #f8fafc; border-radius: 4px; border: 1px solid #e2e8f0; font-size: 12px;">
-                                            <label style="color: var(--text-secondary);">現在口数:</label>
-                                            <input type="text" class="asset-volume" value="0" style="width: 100px; padding: 2px 4px; font-size: 12px; display: inline-block;" inputmode="numeric"> 口
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <select class="asset-unit-mode" style="padding: 4px; font-size: 13px; width: 100%;">
-                                            <option value="amount">金額(円)</option>
-                                            <option value="volume">口数(口)</option>
-                                        </select>
-                                    </td>
-                                    <td class="text-center">
-                                        <button type="button" class="btn btn-danger btn-delete">削除</button>
-                                    </td>
-                                </tr>
-                            </tbody>
-                            <tfoot>
-                                <tr class="table-footer-row">
-                                    <td><strong>合計</strong></td>
-                                    <td class="text-right"><span id="total_ratio">100</span> %</td>
-                                    <td class="text-right"><span id="total_amount">1,000,000</span> 円</td>
-                                    <td></td>
-                                    <td></td>
-                                </tr>
-                            </tfoot>
-                        </table>
-                    </div>
-
-                    <div style="margin-top: 12px;">
-                        <button type="button" id="btn_add_asset" class="btn btn-link">+ 資産項目を追加する</button>
-                    </div>
-                </form>
+                <div class="table-responsive">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>資産項目名</th>
+                                <th>目標比率</th>
+                                <th>現在の資産額</th>
+                                <th>売買単位</th>
+                                <th>操作</th>
+                            </tr>
+                        </thead>
+                        <tbody id="asset_table_body"></tbody>
+                        <tfoot>
+                            <tr>
+                                <td><strong>合計</strong></td>
+                                <td class="text-right"><span id="total_ratio">0</span> %</td>
+                                <td class="text-right"><span id="total_amount">0</span> 円</td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+                <button type="button" id="btn_add_asset" class="btn btn-link">+ 資産項目を追加する</button>
             </div>
 
-            <p id="ratio_alert" class="alert-text" style="display: none; font-size: 14px; font-weight: bold; margin-bottom: 16px;">⚠️ 目標比率の合計を 100% にしてください。</p>
+            <p id="calc_error" class="alert-text" style="display: none;"></p>
 
-            <div style="margin-bottom: 24px;">
+            <div class="execute-row">
                 <button type="button" id="btn_execute_rebalance" class="btn btn-primary btn-large">リバランス計算を実行</button>
             </div>
 
@@ -154,26 +99,19 @@
             </div>
 
         </div>
+
         <div id="dashboard_workspace" style="display: none;">
             <div class="card">
                 <div class="section-title">📊 全口座合算アセットアロケーション</div>
-                <p style="font-size: 14px; color: var(--text-secondary); margin-bottom: 16px;">
-                    すべての口座を統合したマクロ視点での資産比率です。
-                </p>
-                
+                <p class="dashboard-desc">すべての口座を統合したマクロ視点での資産比率です。</p>
                 <div class="table-responsive">
-                    <table style="background: #fafafa;">
+                    <table>
                         <thead>
-                            <tr>
-                                <th>資産項目名</th>
-                                <th class="text-right">総資産額（合算）</th>
-                                <th class="text-right">全体に占める比率</th>
-                            </tr>
+                            <tr><th>資産項目名</th><th class="text-right">総資産額(合算)</th><th class="text-right">全体に占める比率</th></tr>
                         </thead>
-                        <tbody id="dashboard_table_body">
-                        </tbody>
+                        <tbody id="dashboard_table_body"></tbody>
                         <tfoot>
-                            <tr style="font-weight: bold; background: #e2e8f0;">
+                            <tr>
                                 <td>総合計</td>
                                 <td class="text-right"><span id="dashboard_grand_total">0</span> 円</td>
                                 <td class="text-right">100 %</td>
@@ -183,28 +121,17 @@
                 </div>
             </div>
         </div>
+
     </div>
 
     <script src="storage.js"></script>
-    <script src="state.js"></script> 
-    <script>
-        // 💡 罠の核心：ブラウザ環境用に、state.js のクラスを実体化（インスタンス化）してグローバルに公開する
-        if (typeof AssetStateClass !== 'undefined') {
-            window.stateMgr = new AssetStateClass({
-                window: window,
-                storage: localStorage // 先ほど全通させた軽量ストレージマネージャーを注入
-            });
-            console.log("【Index】stateMgr のインスタンス化に成功しました。");
-        }
-    </script>
-    <script src="auth.js"></script>
-    <script>
-        // 明示的に初期化を発火させる（安全設計）
-        if (window.AssetAuth) {
-            window.AssetAuth.init();
-        }
-    </script>
+    <script src="model.js"></script>
     <script src="solver.js"></script>
-    <script src="app.js"></script>
+    <script src="auth.js"></script>
+    <script src="ui.js"></script>
+    <script>
+        window.model = new AssetModel({ window: window, storage: AppStorage });
+        AssetAuth.init();
+    </script>
 </body>
 </html>

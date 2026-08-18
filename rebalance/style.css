@@ -1,231 +1,339 @@
-/* ==========================================================================
-   全体設定
-   ========================================================================== */
+/* src/style.css */
+
 :root {
-    --bg-main: #f4f6f9;
+    --bg-main: #f8fafc;
     --bg-card: #ffffff;
-    --text-primary: #1e293b;
-    --text-secondary: #64748b;
+    --border: #e2e8f0;
     --primary: #2563eb;
-    --primary-hover: #1d4ed8;
-    --success: #10b981;
-    --danger: #ef4444;
-    --border-color: #cbd5e1;
-    --input-bg: #f8fafc;
+    --primary-dark: #1d4ed8;
+    --success: #16a34a;
+    --danger: #dc2626;
+    --text-main: #0f172a;
+    --text-secondary: #64748b;
 }
 
-*, *::before, *::after {
+* {
     box-sizing: border-box;
 }
 
 body {
     margin: 0;
-    padding: 0;
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-    background-color: var(--bg-main);
-    color: var(--text-primary);
-    line-height: 1.5;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Hiragino Sans", "Yu Gothic", sans-serif;
+    background: var(--bg-main);
+    color: var(--text-main);
 }
 
 .app-container {
-    max-width: 900px;
+    max-width: 960px;
     margin: 0 auto;
-    padding: 20px;
-}
-
-header {
-    margin-bottom: 24px;
-    border-bottom: 2px solid var(--border-color);
-    padding-bottom: 12px;
+    padding: 24px 16px 64px;
 }
 
 header h1 {
-    font-size: 20px;
-    margin: 0;
-    color: var(--primary);
-    font-weight: 700;
+    font-size: 22px;
+    margin: 0 0 20px;
 }
 
-/* ==========================================================================
-   コンポーネント（カード・ボタン）
-   ========================================================================== */
 .card {
-    background-color: var(--bg-card);
-    border: 1px solid var(--border-color);
-    border-radius: 6px;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 8px;
     padding: 20px;
     margin-bottom: 20px;
-    box-shadow: 0 1px 3px rgba(0,0,0,0.05);
 }
 
 .section-title {
-    font-size: 14px;
-    font-weight: 700;
-    margin-top: 0;
-    margin-bottom: 16px;
-    color: var(--text-secondary);
-    border-left: 4px solid var(--primary);
-    padding-left: 8px;
+    font-weight: bold;
+    font-size: 15px;
+    margin-bottom: 12px;
 }
 
+/* 認証画面 */
+.auth-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: var(--bg-main);
+    z-index: 9999;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+.auth-card {
+    max-width: 400px;
+    width: 100%;
+    text-align: center;
+}
+
+.auth-desc {
+    font-size: 14px;
+    color: var(--text-secondary);
+    margin-bottom: 20px;
+    line-height: 1.6;
+}
+
+#token_input {
+    width: 100%;
+    text-align: center;
+    font-size: 16px;
+    padding: 8px;
+    margin-bottom: 16px;
+    border: 1px solid var(--border);
+    border-radius: 4px;
+}
+
+/* ボタン */
+.btn {
+    display: inline-block;
+    border: 1px solid var(--border);
+    background: var(--bg-card);
+    color: var(--text-main);
+    padding: 8px 14px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.btn-primary {
+    background: var(--primary);
+    border-color: var(--primary);
+    color: #fff;
+}
+
+.btn-primary:hover {
+    background: var(--primary-dark);
+}
+
+.btn-primary:disabled {
+    background: #94a3b8;
+    border-color: #94a3b8;
+    cursor: not-allowed;
+}
+
+.btn-secondary {
+    background: #f1f5f9;
+}
+
+.btn-link {
+    background: transparent;
+    border: none;
+    color: var(--primary);
+    padding: 4px 0;
+    text-decoration: underline;
+}
+
+.btn-large {
+    width: 100%;
+    padding: 12px;
+    font-weight: bold;
+    font-size: 15px;
+}
+
+.btn-delete {
+    background: transparent;
+    border: 1px solid var(--danger);
+    color: var(--danger);
+}
+
+.execute-row {
+    margin-bottom: 20px;
+}
+
+/* 口座タブ */
+.account-tabs-container {
+    margin-bottom: 20px;
+}
+
+.tab-label {
+    font-size: 12px;
+    font-weight: bold;
+    color: var(--text-secondary);
+    margin-bottom: 8px;
+}
+
+.tabs-row {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    margin-bottom: 8px;
+}
+
+.tab-btn {
+    position: relative;
+    padding: 8px 24px 8px 12px;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    background: var(--bg-card);
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.tab-btn.active {
+    border-color: var(--primary);
+    background: #eff6ff;
+    color: var(--primary);
+    font-weight: bold;
+}
+
+.tab-delete {
+    position: absolute;
+    top: 2px;
+    right: 6px;
+    color: var(--text-secondary);
+    cursor: pointer;
+    font-size: 12px;
+}
+
+.tab-delete:hover {
+    color: var(--danger);
+}
+
+/* 履歴バー */
+.history-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 12px;
+    background: #f8fafc;
+    border-style: dashed;
+}
+
+.history-select-group {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 13px;
+}
+
+/* 方針・取り崩し */
 .radio-group {
-    display: block;
-    margin-bottom: 10px;
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
 }
 
 .radio-label {
-    display: inline-block;
-    margin-right: 20px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
     font-size: 14px;
-    cursor: pointer;
 }
 
-.radio-label input {
-    margin-right: 6px;
-    vertical-align: middle;
+.withdrawal-container {
+    background: #fef2f2;
+    border: 1px solid #fca5a5;
+    border-radius: 6px;
+    padding: 16px 20px;
+    margin-bottom: 20px;
 }
 
-/* ==========================================================================
-   データテーブル
-   ========================================================================== */
+#withdrawal_total_amount {
+    width: 180px;
+    padding: 6px 8px;
+    font-weight: bold;
+    color: var(--danger);
+}
+
+/* テーブル */
 .table-responsive {
-    width: 100%;
     overflow-x: auto;
 }
 
 table {
     width: 100%;
     border-collapse: collapse;
+    font-size: 14px;
+}
+
+th, td {
+    padding: 8px;
+    border-bottom: 1px solid var(--border);
     text-align: left;
-    font-size: 14px;
+    white-space: nowrap;
 }
 
-th {
-    background-color: #f1f5f9;
-    color: var(--text-secondary);
-    font-weight: 600;
-    padding: 10px 12px;
-    border-bottom: 2px solid var(--border-color);
-}
-
-td {
-    padding: 8px 12px;
-    border-bottom: 1px solid var(--border-color);
-    vertical-align: middle;
-}
-
-input[type="text"],
-input[type="number"] {
-    width: 100%;
-    padding: 6px 10px;
-    font-size: 14px;
-    border: 1px solid var(--border-color);
-    border-radius: 4px;
-    background-color: var(--input-bg);
-    color: var(--text-primary);
-}
-
-input[type="text"]:focus,
-input[type="number"]:focus {
-    outline: none;
-    border-color: var(--primary);
-    background-color: #ffffff;
-}
-
-.col-name { width: 35%; }
-.col-ratio { width: 20%; }
-.col-amount { width: 30%; }
-.col-action { width: 15%; text-align: center; }
-
-.input-with-unit {
-    position: relative;
-    display: block;
-}
-.input-with-unit input {
-    padding-right: 24px;
+.text-right {
     text-align: right;
 }
-.input-with-unit .unit {
-    position: absolute;
-    right: 8px;
-    top: 50%;
-    transform: translateY(-50%);
-    font-size: 12px;
-    color: var(--text-secondary);
-}
 
-/* ボタン */
-.btn {
-    display: inline-block;
-    font-size: 13px;
-    font-weight: 600;
-    padding: 6px 12px;
-    border-radius: 4px;
-    border: 1px solid transparent;
-    cursor: pointer;
+.text-center {
     text-align: center;
 }
 
-.btn-primary {
-    background-color: var(--primary);
-    color: #ffffff;
+.text-success {
+    color: var(--success);
 }
 
-.btn-danger {
-    background-color: transparent;
-    border-color: var(--danger);
-    color: var(--danger);
-}
-.btn-danger:hover {
-    background-color: var(--danger);
-    color: #ffffff;
+.text-secondary {
+    color: var(--text-secondary);
 }
 
-.btn-link {
-    background-color: transparent;
-    color: var(--primary);
-    font-weight: 500;
-    padding: 6px 0;
+input[type="text"], input[type="number"], select {
+    padding: 4px 6px;
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    font-size: 13px;
 }
 
-.btn-large {
-    width: 100%;
-    padding: 12px;
-    font-size: 16px;
-    font-weight: 700;
+.input-asset-name {
+    width: 140px;
 }
 
-.table-footer-row td {
-    font-weight: 700;
-    background-color: #f8fafc;
-    border-top: 2px solid var(--border-color);
+.input-asset-ratio {
+    width: 60px;
+    text-align: right;
 }
-.text-right { text-align: right; }
-.text-center { text-align: center; }
 
+.input-asset-amount {
+    width: 110px;
+    text-align: right;
+}
+
+.volume-subfield {
+    margin-top: 6px;
+    padding: 6px;
+    background: #f8fafc;
+    border-radius: 4px;
+    border: 1px solid var(--border);
+    font-size: 12px;
+}
+
+.input-asset-volume {
+    width: 90px;
+    text-align: right;
+}
+
+/* アラート */
 .alert-text {
     color: var(--danger);
-    font-size: 12px;
-    margin-top: 4px;
-    display: block;
+    font-weight: bold;
+    font-size: 14px;
+    margin: 0 0 16px;
 }
-.text-success { color: var(--success); }
 
-/* ==========================================================================
-   結果表示エリア
-   ========================================================================== */
+/* 計算結果 */
 .result-placeholder {
-    text-align: center;
     color: var(--text-secondary);
-    padding: 20px 0;
-    font-style: italic;
+    font-size: 14px;
 }
 
-.result-table th {
-    background-color: #f0fdf4;
-    color: #166534;
+.result-table th, .result-table td {
+    white-space: normal;
 }
 
-.badge-buy { background-color: #dcfce7; color: #15803d; padding: 2px 6px; border-radius: 4px; font-size: 11px; font-weight: 700; margin-left: 6px; }
-.badge-sell { background-color: #fee2e2; color: #b91c1c; padding: 2px 6px; border-radius: 4px; font-size: 11px; font-weight: 700; margin-left: 6px; }
-.badge-stay { background-color: #f1f5f9; color: #475569; padding: 2px 6px; border-radius: 4px; font-size: 11px; font-weight: 700; margin-left: 6px; }
+.result-summary {
+    margin-top: 16px;
+    text-align: right;
+    font-size: 16px;
+}
+
+.dashboard-desc {
+    font-size: 14px;
+    color: var(--text-secondary);
+    margin-bottom: 16px;
+}
