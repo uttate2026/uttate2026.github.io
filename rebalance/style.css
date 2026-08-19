@@ -192,6 +192,37 @@ header h1 {
     color: var(--danger);
 }
 
+/* ダッシュボードタブ: 個別口座タブとは挙動が違うことを示すため見た目を変え、
+   行の右端に離して配置する(追加ボタンとの間を空ける) */
+.tab-btn-dashboard {
+    margin-left: auto;
+    background: #f1f5f9;
+    border-color: #cbd5e1;
+    color: var(--text-secondary);
+}
+
+.tab-btn-dashboard.active {
+    border-color: var(--primary);
+    background: #eff6ff;
+    color: var(--primary);
+    font-weight: bold;
+}
+
+.account-name-group {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 13px;
+    font-weight: bold;
+}
+
+#account_name_input {
+    padding: 4px 8px;
+    font-size: 14px;
+    font-weight: bold;
+    min-width: 160px;
+}
+
 /* 履歴バー */
 .history-bar {
     display: flex;

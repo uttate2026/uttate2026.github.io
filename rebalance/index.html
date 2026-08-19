@@ -27,12 +27,15 @@
         <div class="account-tabs-container">
             <div class="tab-label">編集・計算する口座を選択:</div>
             <div class="tabs-row" id="account_tabs_row"></div>
-            <button type="button" id="btn_toggle_dashboard" class="btn btn-secondary">📊 全口座合算ダッシュボードを見る</button>
         </div>
 
         <div id="account_workspace">
 
             <div class="card history-bar">
+                <div class="account-name-group">
+                    <label for="account_name_input">口座名:</label>
+                    <input type="text" id="account_name_input">
+                </div>
                 <div class="history-select-group">
                     <label for="account_history_select">📁 この口座の過去履歴:</label>
                     <select id="account_history_select">
@@ -85,6 +88,7 @@
                 <button type="button" id="btn_add_asset" class="btn btn-link">+ 資産項目を追加する</button>
             </div>
 
+            <p id="ratio_alert" class="alert-text" style="display: none;">⚠️ 目標比率の合計を100%にしてください。</p>
             <p id="calc_error" class="alert-text" style="display: none;"></p>
 
             <div class="execute-row">
