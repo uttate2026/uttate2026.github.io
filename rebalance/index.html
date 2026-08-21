@@ -18,6 +18,86 @@
         </div>
     </div>
 
+    <div id="consent_overlay" class="auth-overlay" style="display: none;">
+        <div class="card auth-card">
+            <div class="section-title">ご利用にあたって</div>
+            <ol class="consent-list">
+                <li>入力したデータは、運営側サーバーには保存されません。お使いのブラウザ内にのみ保存されます。</li>
+                <li>データを外部(スクショ入力機能で使うLLM等)に送信する場合は、送信前に必ず確認画面を表示します。</li>
+                <li>本サービスの計算結果の正確性は保証されません。外部LLMの利用を含め、自己責任でご利用ください。</li>
+            </ol>
+            <button type="button" id="btn_consent_agree" class="btn btn-primary btn-large">同意して利用を開始する</button>
+        </div>
+    </div>
+
+    <div id="ocr_modal" class="modal-overlay" style="display: none;">
+        <div class="card modal-card">
+            <button type="button" id="btn_ocr_close" class="modal-close" aria-label="閉じる">×</button>
+
+            <div id="ocr_stage_settings">
+                <div class="section-title">スクショ入力を使うには、LLMサーバーの設定が必要です</div>
+                <p class="auth-desc">以降はこの設定を保存し、再表示しません。</p>
+
+                <label for="ocr_provider_select">利用するサービス:</label>
+                <select id="ocr_provider_select">
+                    <option value="anthropic">Claude(Anthropic)</option>
+                    <option value="custom">任意のエンドポイント</option>
+                </select>
+
+                <div id="ocr_custom_endpoint_container" style="display: none;">
+                    <label for="ocr_endpoint_input">エンドポイントURL:</label>
+                    <input type="text" id="ocr_endpoint_input" placeholder="https://...">
+                </div>
+
+                <label for="ocr_apikey_input">APIキー:</label>
+                <input type="password" id="ocr_apikey_input">
+
+                <label for="ocr_model_input">モデルID(任意、空欄なら既定値を使用):</label>
+                <input type="text" id="ocr_model_input" placeholder="例: claude-sonnet-5">
+
+                <div id="ocr_model_fetch_container">
+                    <button type="button" id="btn_ocr_fetch_models" class="btn btn-secondary">Claudeのモデル一覧を取得</button>
+                    <select id="ocr_model_select" style="display: none;"></select>
+                    <p id="ocr_model_fetch_error" class="alert-text" style="display: none;"></p>
+                </div>
+
+                <button type="button" id="btn_ocr_save_settings" class="btn btn-primary">保存して次へ</button>
+            </div>
+
+            <div id="ocr_stage_input" style="display: none;">
+                <div class="radio-group">
+                    <label class="radio-label"><input type="radio" name="ocr_mode" value="new_account" checked> 新規口座として追加</label>
+                    <label class="radio-label"><input type="radio" name="ocr_mode" value="existing_account"> この口座に反映</label>
+                </div>
+
+                <div id="ocr_paste_area" class="ocr-paste-area" tabindex="0">ここにスクリーンショットを貼り付け(Ctrl+V)</div>
+                <img id="ocr_preview_image" alt="貼り付けた画像のプレビュー" style="display: none; max-width: 100%;">
+
+                <p class="auth-desc">送信先: <span id="ocr_endpoint_display"></span><br>送信内容: 貼り付けた画像 + 資産項目抽出用の指示文</p>
+                <p id="ocr_extract_error" class="alert-text" style="display: none;"></p>
+
+                <button type="button" id="btn_ocr_extract" class="btn btn-primary" disabled>抽出する</button>
+            </div>
+
+            <div id="ocr_stage_confirm" style="display: none;">
+                <div id="ocr_account_name_container" style="display: none;">
+                    <label for="ocr_account_name_input">口座名:</label>
+                    <input type="text" id="ocr_account_name_input">
+                </div>
+
+                <div class="table-responsive">
+                    <table>
+                        <thead><tr><th>資産名</th><th>資産額</th><th>除外</th></tr></thead>
+                        <tbody id="ocr_result_table_body"></tbody>
+                    </table>
+                </div>
+
+                <button type="button" id="btn_ocr_apply" class="btn btn-primary">反映する</button>
+                <button type="button" id="btn_ocr_cancel" class="btn btn-secondary">キャンセル</button>
+            </div>
+        </div>
+    </div>
+
     <div class="app-container" id="app_container" style="display: none;">
 
         <header>
@@ -86,6 +166,7 @@
                     </table>
                 </div>
                 <button type="button" id="btn_add_asset" class="btn btn-link">+ 資産項目を追加する</button>
+                <button type="button" id="btn_open_ocr" class="btn btn-link">📷 スクショから入力</button>
             </div>
 
             <p id="ratio_alert" class="alert-text" style="display: none;">⚠️ 目標比率の合計を100%にしてください。</p>
@@ -131,11 +212,14 @@
     <script src="storage.js"></script>
     <script src="model.js"></script>
     <script src="solver.js"></script>
+    <script src="ocr.js"></script>
     <script src="auth.js"></script>
+    <script src="consent.js"></script>
     <script src="ui.js"></script>
     <script>
         window.model = new AssetModel({ window: window, storage: AppStorage });
         AssetAuth.init();
+        AssetConsent.init();
     </script>
 </body>
 </html>

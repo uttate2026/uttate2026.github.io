@@ -368,3 +368,63 @@ input[type="text"], input[type="number"], select {
     color: var(--text-secondary);
     margin-bottom: 16px;
 }
+
+/* 同意画面(要件4.6) */
+.consent-list {
+    text-align: left;
+    font-size: 14px;
+    line-height: 1.8;
+    color: var(--text-main);
+    padding-left: 20px;
+    margin-bottom: 20px;
+}
+
+/* OCR入力モーダル(画面設計6章) */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(15, 23, 42, 0.5);
+    z-index: 9998;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+.modal-card {
+    max-width: 600px;
+    width: 100%;
+    max-height: 90vh;
+    overflow-y: auto;
+    position: relative;
+    text-align: left;
+}
+
+.modal-close {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    background: transparent;
+    border: none;
+    font-size: 20px;
+    line-height: 1;
+    cursor: pointer;
+    color: var(--text-secondary);
+}
+
+.ocr-paste-area {
+    border: 2px dashed var(--border);
+    border-radius: 6px;
+    padding: 40px 16px;
+    text-align: center;
+    color: var(--text-secondary);
+    margin: 16px 0;
+    cursor: text;
+}
+
+.ocr-paste-area:focus {
+    outline: 2px solid var(--primary);
+}
