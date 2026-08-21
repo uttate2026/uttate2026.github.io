@@ -126,6 +126,14 @@ header h1 {
     text-decoration: underline;
 }
 
+/* 隣接するbtn-link同士が詰まって1つのボタンに見えてしまうのを防ぐ(クリック領域の混同対策) */
+.button-row {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    flex-wrap: wrap;
+}
+
 .btn-large {
     width: 100%;
     padding: 12px;
