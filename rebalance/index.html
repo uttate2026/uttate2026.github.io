@@ -38,24 +38,30 @@
                 <div class="section-title">スクショ入力を使うには、LLMサーバーの設定が必要です</div>
                 <p class="auth-desc">以降はこの設定を保存し、再表示しません。</p>
 
-                <label for="ocr_provider_select">利用するサービス:</label>
-                <select id="ocr_provider_select">
-                    <option value="anthropic">Claude(Anthropic)</option>
-                    <option value="custom">任意のエンドポイント</option>
-                </select>
+                <div class="form-field">
+                    <label for="ocr_provider_select">利用するサービス:</label>
+                    <select id="ocr_provider_select">
+                        <option value="anthropic">Claude(Anthropic)</option>
+                        <option value="custom">任意のエンドポイント</option>
+                    </select>
+                </div>
 
-                <div id="ocr_custom_endpoint_container" style="display: none;">
+                <div id="ocr_custom_endpoint_container" class="form-field" style="display: none;">
                     <label for="ocr_endpoint_input">エンドポイントURL:</label>
                     <input type="text" id="ocr_endpoint_input" placeholder="https://...">
                 </div>
 
-                <label for="ocr_apikey_input">APIキー:</label>
-                <input type="password" id="ocr_apikey_input">
+                <div class="form-field">
+                    <label for="ocr_apikey_input">APIキー:</label>
+                    <input type="password" id="ocr_apikey_input">
+                </div>
 
-                <label for="ocr_model_input">モデルID(任意、空欄なら既定値を使用):</label>
-                <input type="text" id="ocr_model_input" placeholder="例: claude-sonnet-5">
+                <div class="form-field">
+                    <label for="ocr_model_input">モデルID(任意、空欄なら既定値を使用):</label>
+                    <input type="text" id="ocr_model_input" placeholder="例: claude-sonnet-5">
+                </div>
 
-                <div id="ocr_model_fetch_container">
+                <div id="ocr_model_fetch_container" class="form-field">
                     <button type="button" id="btn_ocr_fetch_models" class="btn btn-secondary">Claudeのモデル一覧を取得</button>
                     <select id="ocr_model_select" style="display: none;"></select>
                     <p id="ocr_model_fetch_error" class="alert-text" style="display: none;"></p>
@@ -80,7 +86,7 @@
             </div>
 
             <div id="ocr_stage_confirm" style="display: none;">
-                <div id="ocr_account_name_container" style="display: none;">
+                <div id="ocr_account_name_container" class="form-field" style="display: none;">
                     <label for="ocr_account_name_input">口座名:</label>
                     <input type="text" id="ocr_account_name_input">
                 </div>

@@ -436,3 +436,21 @@ input[type="text"], input[type="number"], select {
 .ocr-paste-area:focus {
     outline: 2px solid var(--primary);
 }
+
+/* フォーム項目(OCR設定画面等): ラベルと入力欄を1項目1行にする(隣接項目との折り返し混在を防ぐ) */
+.form-field {
+    margin-bottom: 14px;
+}
+
+.form-field label {
+    display: block;
+    font-size: 13px;
+    font-weight: bold;
+    margin-bottom: 4px;
+}
+
+.form-field input[type="text"],
+.form-field input[type="password"],
+.form-field select {
+    width: 100%;
+}
