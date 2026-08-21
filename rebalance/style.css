@@ -454,3 +454,13 @@ input[type="text"], input[type="number"], select {
 .form-field select {
     width: 100%;
 }
+
+.input-with-toggle {
+    display: flex;
+    gap: 8px;
+}
+
+.input-with-toggle input {
+    flex: 1;
+    min-width: 0;
+}

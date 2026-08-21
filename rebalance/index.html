@@ -53,7 +53,10 @@
 
                 <div class="form-field">
                     <label for="ocr_apikey_input">APIキー:</label>
-                    <input type="password" id="ocr_apikey_input">
+                    <div class="input-with-toggle">
+                        <input type="password" id="ocr_apikey_input">
+                        <button type="button" id="btn_ocr_toggle_apikey" class="btn btn-secondary">表示</button>
+                    </div>
                 </div>
 
                 <div class="form-field">
@@ -71,6 +74,7 @@
             </div>
 
             <div id="ocr_stage_input" style="display: none;">
+                <button type="button" id="btn_ocr_edit_settings" class="btn btn-link">⚙️ LLMサーバー設定を確認・変更</button>
                 <div class="radio-group">
                     <label class="radio-label"><input type="radio" name="ocr_mode" value="new_account" checked> 新規口座として追加</label>
                     <label class="radio-label"><input type="radio" name="ocr_mode" value="existing_account"> この口座に反映</label>
