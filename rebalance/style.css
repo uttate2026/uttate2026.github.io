@@ -437,6 +437,40 @@ input[type="text"], input[type="number"], select {
     outline: 2px solid var(--primary);
 }
 
+.ocr-preview-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin: 0 0 16px;
+}
+
+.ocr-preview-item {
+    position: relative;
+}
+
+.ocr-preview-item img {
+    display: block;
+    max-width: 140px;
+    max-height: 140px;
+    border: 1px solid var(--border);
+    border-radius: 4px;
+}
+
+.ocr-preview-item .btn-remove-image {
+    position: absolute;
+    top: -8px;
+    right: -8px;
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    border: 1px solid var(--border);
+    background: var(--bg-card);
+    color: var(--text-secondary);
+    cursor: pointer;
+    line-height: 1;
+    padding: 0;
+}
+
 /* フォーム項目(OCR設定画面等): ラベルと入力欄を1項目1行にする(隣接項目との折り返し混在を防ぐ) */
 .form-field {
     margin-bottom: 14px;

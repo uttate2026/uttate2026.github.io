@@ -81,10 +81,10 @@
                     <label class="radio-label"><input type="radio" name="ocr_mode" value="existing_account"> この口座に反映</label>
                 </div>
 
-                <div id="ocr_paste_area" class="ocr-paste-area" tabindex="0">ここにスクリーンショットを貼り付け(Ctrl+V)</div>
-                <img id="ocr_preview_image" alt="貼り付けた画像のプレビュー" style="display: none; max-width: 100%;">
+                <div id="ocr_paste_area" class="ocr-paste-area" tabindex="0">ここにスクリーンショットを貼り付け(Ctrl+V)。繰り返し貼り付けると複数枚まとめて送信できます(縮小して見づらい場合や、スマホで分割して撮影した場合に)。</div>
+                <div id="ocr_preview_list" class="ocr-preview-list"></div>
 
-                <p class="auth-desc">送信先: <span id="ocr_endpoint_display"></span><br>送信内容: 貼り付けた画像 + 資産項目抽出用の指示文</p>
+                <p class="auth-desc">送信先: <span id="ocr_endpoint_display"></span><br>送信内容: 貼り付けた画像(複数可) + 資産項目抽出用の指示文</p>
                 <p id="ocr_extract_error" class="alert-text" style="display: none;"></p>
 
                 <button type="button" id="btn_ocr_extract" class="btn btn-primary" disabled>抽出する</button>
