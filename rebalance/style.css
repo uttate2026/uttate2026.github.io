@@ -216,6 +216,24 @@ header h1 {
     font-weight: bold;
 }
 
+/* 口座プロパティ・履歴参照・履歴保存は、いずれも口座タブに付随するツール的な機能として
+   同じ段に並べる(頻度の低い口座プロパティの変更操作はさらにその下へ畳む)。 */
+.account-toolbar {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 16px;
+    margin-top: 8px;
+    padding-top: 8px;
+    border-top: 1px dashed var(--border);
+}
+
+/* 口座名は現在のタブ表示で常に見えているため、変更操作自体は使用頻度が低い。
+   普段は畳んでおき、「🏷️ 口座プロパティ」で開く(今後の属性追加の受け皿)。 */
+.account-properties-panel {
+    margin-top: 8px;
+}
+
 .account-name-group {
     display: flex;
     align-items: center;
@@ -229,17 +247,6 @@ header h1 {
     font-size: 14px;
     font-weight: bold;
     min-width: 160px;
-}
-
-/* 履歴バー */
-.history-bar {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    flex-wrap: wrap;
-    gap: 12px;
-    background: #f8fafc;
-    border-style: dashed;
 }
 
 .history-select-group {
@@ -283,6 +290,14 @@ header h1 {
     overflow-x: auto;
 }
 
+/* 資産項目名列(colgroupで唯一幅を指定していない列)が、他の列の固定幅を除いた
+   残り全部を使うようにする(名称が長いファンド名でも窮屈にならないようにするため)。
+   狭い画面では.table-responsiveの横スクロールに切り替わる。 */
+.asset-table {
+    table-layout: fixed;
+    min-width: 700px;
+}
+
 table {
     width: 100%;
     border-collapse: collapse;
@@ -320,7 +335,8 @@ input[type="text"], input[type="number"], select {
 }
 
 .input-asset-name {
-    width: 140px;
+    width: 100%;
+    box-sizing: border-box;
 }
 
 .input-asset-ratio {

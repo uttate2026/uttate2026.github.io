@@ -118,15 +118,9 @@
         <div class="account-tabs-container">
             <div class="tab-label">編集・計算する口座を選択:</div>
             <div class="tabs-row" id="account_tabs_row"></div>
-        </div>
 
-        <div id="account_workspace">
-
-            <div class="card history-bar">
-                <div class="account-name-group">
-                    <label for="account_name_input">口座名:</label>
-                    <input type="text" id="account_name_input">
-                </div>
+            <div class="account-toolbar">
+                <button type="button" id="btn_toggle_account_properties" class="btn btn-link">🏷️ 口座プロパティ</button>
                 <div class="history-select-group">
                     <label for="account_history_select">📁 この口座の過去履歴:</label>
                     <select id="account_history_select">
@@ -135,6 +129,16 @@
                 </div>
                 <button type="button" id="btn_save_snapshot" class="btn btn-secondary">💾 現在の状態を履歴に保存</button>
             </div>
+
+            <div id="account_properties_panel" class="account-properties-panel" style="display: none;">
+                <div class="account-name-group">
+                    <label for="account_name_input">口座名:</label>
+                    <input type="text" id="account_name_input">
+                </div>
+            </div>
+        </div>
+
+        <div id="account_workspace">
 
             <div class="card">
                 <div class="section-title">1. リバランス方針設定</div>
@@ -154,7 +158,14 @@
             <div class="card">
                 <div class="section-title">2. 資産項目と目標バランスの入力</div>
                 <div class="table-responsive">
-                    <table>
+                    <table class="asset-table">
+                        <colgroup>
+                            <col>
+                            <col style="width: 100px">
+                            <col style="width: 180px">
+                            <col style="width: 120px">
+                            <col style="width: 80px">
+                        </colgroup>
                         <thead>
                             <tr>
                                 <th>資産項目名</th>
