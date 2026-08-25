@@ -499,6 +499,68 @@ input[type="text"], input[type="number"], select {
     margin-bottom: 4px;
 }
 
+/* アセットクラス別集計(画面設計3-3節・4章・7章、要件3.7) */
+.section-title-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 12px;
+}
+
+.section-title-row .section-title {
+    margin-bottom: 0;
+}
+
+.small-tabs {
+    margin-bottom: 0;
+}
+
+/* 口座タブ(.tab-btn)とは別クラスにする(同じ「.active」との組み合わせで
+   E2Eテストのセレクタが複数要素にヒットして壊れるのを防ぐため)。見た目は共通化する。 */
+.subtab-btn {
+    position: relative;
+    padding: 6px 14px;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    background: var(--bg-card);
+    cursor: pointer;
+    font-size: 13px;
+}
+
+.subtab-btn.active {
+    border-color: var(--primary);
+    background: #eff6ff;
+    color: var(--primary);
+    font-weight: bold;
+}
+
+.asset-class-empty-notice {
+    color: var(--text-secondary);
+    font-size: 14px;
+    line-height: 1.6;
+    margin-bottom: 16px;
+}
+
+.asset-class-group-row {
+    cursor: pointer;
+    background: #f8fafc;
+}
+
+.asset-class-group-row:hover {
+    background: #eff6ff;
+}
+
+.asset-class-group-toggle {
+    display: inline-block;
+    width: 1em;
+}
+
+.asset-class-detail-row td {
+    background: #fbfdff;
+}
+
 .form-field input[type="text"],
 .form-field input[type="password"],
 .form-field select {

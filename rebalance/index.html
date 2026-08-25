@@ -156,40 +156,82 @@
             </div>
 
             <div class="card">
-                <div class="section-title">2. 資産項目と目標バランスの入力</div>
-                <div class="table-responsive">
-                    <table class="asset-table">
-                        <colgroup>
-                            <col>
-                            <col style="width: 100px">
-                            <col style="width: 180px">
-                            <col style="width: 120px">
-                            <col style="width: 80px">
-                        </colgroup>
-                        <thead>
-                            <tr>
-                                <th>資産項目名</th>
-                                <th>目標比率</th>
-                                <th>現在の資産額</th>
-                                <th>売買単位</th>
-                                <th>操作</th>
-                            </tr>
-                        </thead>
-                        <tbody id="asset_table_body"></tbody>
-                        <tfoot>
-                            <tr>
-                                <td><strong>合計</strong></td>
-                                <td class="text-right"><span id="total_ratio">0</span> %</td>
-                                <td class="text-right"><span id="total_amount">0</span> 円</td>
-                                <td></td>
-                                <td></td>
-                            </tr>
-                        </tfoot>
-                    </table>
+                <div class="section-title-row">
+                    <div class="section-title">2. 資産項目と目標バランスの入力</div>
+                    <div class="tabs-row small-tabs">
+                        <button type="button" id="btn_asset_tab_list" class="subtab-btn">一覧</button>
+                        <button type="button" id="btn_asset_tab_byclass" class="subtab-btn">アセットクラス別</button>
+                    </div>
                 </div>
-                <div class="button-row">
-                    <button type="button" id="btn_add_asset" class="btn btn-link">+ 資産項目を追加する</button>
-                    <button type="button" id="btn_open_ocr" class="btn btn-link">📷 スクショから入力</button>
+
+                <div id="asset_list_view">
+                    <div class="table-responsive">
+                        <table class="asset-table">
+                            <colgroup>
+                                <col>
+                                <col style="width: 100px">
+                                <col style="width: 180px">
+                                <col style="width: 120px">
+                                <col style="width: 80px">
+                            </colgroup>
+                            <thead>
+                                <tr>
+                                    <th>資産項目名</th>
+                                    <th>目標比率</th>
+                                    <th>現在の資産額</th>
+                                    <th>売買単位</th>
+                                    <th>操作</th>
+                                </tr>
+                            </thead>
+                            <tbody id="asset_table_body"></tbody>
+                            <tfoot>
+                                <tr>
+                                    <td><strong>合計</strong></td>
+                                    <td class="text-right"><span id="total_ratio">0</span> %</td>
+                                    <td class="text-right"><span id="total_amount">0</span> 円</td>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </div>
+                    <div class="button-row">
+                        <button type="button" id="btn_add_asset" class="btn btn-link">+ 資産項目を追加する</button>
+                        <button type="button" id="btn_open_ocr" class="btn btn-link">📷 スクショから入力</button>
+                    </div>
+                </div>
+
+                <div id="asset_byclass_view" style="display: none;">
+                    <p id="asset_byclass_empty_notice" class="asset-class-empty-notice" style="display: none;">
+                        アセットクラスが割り当てられた資産項目がありません。<br>
+                        下の「⚙️ アセットクラスを管理」から資産項目にアセットクラスを割り当てると、ここに集計結果が表示されます。
+                    </p>
+                    <div class="table-responsive">
+                        <table class="asset-table asset-class-table">
+                            <!-- 展開時の内訳行は「一覧」タブと同じ5列の編集可能な行(buildAssetRow)を
+                                 そのまま差し込むため、colgroupも同じ列幅にして揃える。集計行(グループ行・
+                                 合計行)はcolspanで同じ5列グリッドに収める(画面設計3-3節)。 -->
+                            <colgroup>
+                                <col>
+                                <col style="width: 100px">
+                                <col style="width: 180px">
+                                <col style="width: 120px">
+                                <col style="width: 80px">
+                            </colgroup>
+                            <tbody id="asset_byclass_table_body"></tbody>
+                            <tfoot>
+                                <tr>
+                                    <td><strong>合計</strong></td>
+                                    <td class="text-right">100 %</td>
+                                    <td class="text-right"><span id="asset_byclass_total_amount">0</span> 円</td>
+                                    <td colspan="2"></td>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </div>
+                    <div class="button-row">
+                        <button type="button" id="btn_open_asset_class_manager_account" class="btn btn-link">⚙️ アセットクラスを管理</button>
+                    </div>
                 </div>
             </div>
 
@@ -211,26 +253,83 @@
 
         <div id="dashboard_workspace" style="display: none;">
             <div class="card">
-                <div class="section-title">📊 全口座合算アセットアロケーション</div>
+                <div class="section-title-row">
+                    <div class="section-title">📊 全口座合算アセットアロケーション</div>
+                    <div class="tabs-row small-tabs">
+                        <button type="button" id="btn_dashboard_tab_list" class="subtab-btn">一覧</button>
+                        <button type="button" id="btn_dashboard_tab_byclass" class="subtab-btn">アセットクラス別</button>
+                    </div>
+                </div>
                 <p class="dashboard-desc">すべての口座を統合したマクロ視点での資産比率です。</p>
-                <div class="table-responsive">
-                    <table>
-                        <thead>
-                            <tr><th>資産項目名</th><th class="text-right">総資産額(合算)</th><th class="text-right">全体に占める比率</th></tr>
-                        </thead>
-                        <tbody id="dashboard_table_body"></tbody>
-                        <tfoot>
-                            <tr>
-                                <td>総合計</td>
-                                <td class="text-right"><span id="dashboard_grand_total">0</span> 円</td>
-                                <td class="text-right">100 %</td>
-                            </tr>
-                        </tfoot>
-                    </table>
+
+                <div id="dashboard_list_view">
+                    <div class="table-responsive">
+                        <table>
+                            <thead>
+                                <tr><th>資産項目名</th><th class="text-right">総資産額(合算)</th><th class="text-right">全体に占める比率</th></tr>
+                            </thead>
+                            <tbody id="dashboard_table_body"></tbody>
+                            <tfoot>
+                                <tr>
+                                    <td>総合計</td>
+                                    <td class="text-right"><span id="dashboard_grand_total">0</span> 円</td>
+                                    <td class="text-right">100 %</td>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </div>
+                </div>
+
+                <div id="dashboard_byclass_view" style="display: none;">
+                    <p id="dashboard_byclass_empty_notice" class="asset-class-empty-notice" style="display: none;">
+                        アセットクラスが割り当てられた資産項目がありません。<br>
+                        下の「⚙️ アセットクラスを管理」から資産項目にアセットクラスを割り当てると、ここに集計結果が表示されます。
+                    </p>
+                    <div class="table-responsive">
+                        <table class="asset-class-table">
+                            <thead>
+                                <tr>
+                                    <th>アセットクラス</th>
+                                    <th class="text-right">金額</th>
+                                    <th class="text-right">比率</th>
+                                </tr>
+                            </thead>
+                            <tbody id="dashboard_byclass_table_body"></tbody>
+                            <tfoot>
+                                <tr>
+                                    <td><strong>合計</strong></td>
+                                    <td class="text-right"><span id="dashboard_byclass_total_amount">0</span> 円</td>
+                                    <td class="text-right">100 %</td>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </div>
+                    <div class="button-row">
+                        <button type="button" id="btn_open_asset_class_manager_dashboard" class="btn btn-link">⚙️ アセットクラスを管理</button>
+                    </div>
                 </div>
             </div>
         </div>
 
+    </div>
+
+    <div id="asset_class_modal" class="modal-overlay" style="display: none;">
+        <div class="card modal-card">
+            <button type="button" id="btn_asset_class_modal_close" class="modal-close" aria-label="閉じる">×</button>
+            <div class="section-title">アセットクラスの管理</div>
+            <p class="auth-desc">資産項目名ごとにアセットクラスを設定すると、「アセットクラス別」表示で名前が違っても合算されます。未設定のままにしておけば、今まで通りの表示のままです。</p>
+
+            <div class="table-responsive">
+                <table>
+                    <thead>
+                        <tr><th>資産項目名</th><th>アセットクラス</th></tr>
+                    </thead>
+                    <tbody id="asset_class_manager_table_body"></tbody>
+                </table>
+            </div>
+
+            <button type="button" id="btn_asset_class_modal_done" class="btn btn-primary">閉じる</button>
+        </div>
     </div>
 
     <script src="storage.js"></script>
