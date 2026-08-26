@@ -170,6 +170,7 @@ header h1 {
     margin-bottom: 8px;
 }
 
+
 .tab-btn {
     position: relative;
     padding: 8px 24px 8px 12px;
@@ -575,4 +576,52 @@ input[type="text"], input[type="number"], select {
 .input-with-toggle input {
     flex: 1;
     min-width: 0;
+}
+
+/* 口座タブの最終保存表示(画面設計3章、機能仕様10.7節、要件3.8) */
+.tab-last-saved {
+    display: block;
+    font-size: 11px;
+    font-weight: normal;
+    color: var(--text-secondary);
+}
+
+.tab-btn.active .tab-last-saved {
+    color: var(--primary);
+}
+
+/* 計算結果直後の保存導線(機能仕様10.7節、要件3.8) */
+.save-nudge {
+    margin-top: 12px;
+    padding-top: 12px;
+    border-top: 1px dashed var(--border);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 13px;
+    color: var(--text-secondary);
+}
+
+/* 分析ダイアログ(画面設計8章、要件3.8) */
+.modal-card-wide {
+    max-width: 900px;
+}
+
+.analysis-controls {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 12px;
+    font-size: 13px;
+    color: var(--text-secondary);
+}
+
+#analysis_chart_view {
+    position: relative;
+    height: 360px;
+}
+
+#analysis_chart_canvas {
+    width: 100% !important;
+    height: 100% !important;
 }

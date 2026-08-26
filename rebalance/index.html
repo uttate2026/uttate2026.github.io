@@ -91,20 +91,31 @@
             </div>
 
             <div id="ocr_stage_confirm" style="display: none;">
-                <div id="ocr_account_name_container" class="form-field" style="display: none;">
-                    <label for="ocr_account_name_input">口座名:</label>
-                    <input type="text" id="ocr_account_name_input">
+                <div id="ocr_confirm_main">
+                    <div id="ocr_account_name_container" class="form-field" style="display: none;">
+                        <label for="ocr_account_name_input">口座名:</label>
+                        <input type="text" id="ocr_account_name_input">
+                    </div>
+
+                    <div class="table-responsive">
+                        <table>
+                            <thead><tr><th>資産名</th><th>資産額</th><th>除外</th></tr></thead>
+                            <tbody id="ocr_result_table_body"></tbody>
+                        </table>
+                    </div>
+
+                    <button type="button" id="btn_ocr_apply" class="btn btn-primary">反映する</button>
+                    <button type="button" id="btn_ocr_cancel" class="btn btn-secondary">キャンセル</button>
                 </div>
 
-                <div class="table-responsive">
-                    <table>
-                        <thead><tr><th>資産名</th><th>資産額</th><th>除外</th></tr></thead>
-                        <tbody id="ocr_result_table_body"></tbody>
-                    </table>
+                <div id="ocr_unsaved_confirm" style="display: none;">
+                    <p class="alert-text">⚠️ この口座には、まだ履歴に保存していない変更があります。このまま反映すると、その変更内容は履歴に残らず失われます。</p>
+                    <div class="button-row">
+                        <button type="button" id="btn_ocr_save_then_apply" class="btn btn-primary">💾 保存してから反映する</button>
+                        <button type="button" id="btn_ocr_apply_without_save" class="btn btn-secondary">保存せず反映する</button>
+                        <button type="button" id="btn_ocr_unsaved_confirm_close" class="btn btn-link">閉じる</button>
+                    </div>
                 </div>
-
-                <button type="button" id="btn_ocr_apply" class="btn btn-primary">反映する</button>
-                <button type="button" id="btn_ocr_cancel" class="btn btn-secondary">キャンセル</button>
             </div>
         </div>
     </div>
@@ -128,6 +139,7 @@
                     </select>
                 </div>
                 <button type="button" id="btn_save_snapshot" class="btn btn-secondary">💾 現在の状態を履歴に保存</button>
+                <button type="button" id="btn_open_analysis" class="btn btn-secondary">📈 分析</button>
             </div>
 
             <div id="account_properties_panel" class="account-properties-panel" style="display: none;">
@@ -332,12 +344,68 @@
         </div>
     </div>
 
+    <div id="analysis_modal" class="modal-overlay" style="display: none;">
+        <div class="card modal-card modal-card-wide">
+            <button type="button" id="btn_analysis_close" class="modal-close" aria-label="閉じる">×</button>
+            <div class="section-title">分析</div>
+            <p id="analysis_target_desc" class="auth-desc"></p>
+
+            <div id="analysis_content">
+                <div class="section-title-row">
+                    <div class="tabs-row small-tabs">
+                        <button type="button" id="btn_analysis_tab_table" class="subtab-btn">履歴表</button>
+                        <button type="button" id="btn_analysis_tab_chart" class="subtab-btn">履歴グラフ</button>
+                    </div>
+                    <div class="tabs-row small-tabs">
+                        <button type="button" id="btn_analysis_group_asset" class="subtab-btn">資産項目別</button>
+                        <button type="button" id="btn_analysis_group_class" class="subtab-btn">アセットクラス別</button>
+                    </div>
+                </div>
+
+                <div id="analysis_sort_controls" class="analysis-controls">
+                    <span>保存日:</span>
+                    <button type="button" id="btn_analysis_sort_asc" class="subtab-btn">昇順</button>
+                    <button type="button" id="btn_analysis_sort_desc" class="subtab-btn">降順</button>
+                </div>
+
+                <div id="analysis_unit_controls" class="analysis-controls" style="display: none;">
+                    <span>表示単位:</span>
+                    <button type="button" id="btn_analysis_unit_absolute" class="subtab-btn">絶対値</button>
+                    <button type="button" id="btn_analysis_unit_ratio" class="subtab-btn">比率</button>
+                </div>
+
+                <div id="analysis_table_view">
+                    <div class="table-responsive">
+                        <table>
+                            <thead id="analysis_table_head"></thead>
+                            <tbody id="analysis_table_body"></tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div id="analysis_chart_view" style="display: none;">
+                    <canvas id="analysis_chart_canvas"></canvas>
+                    <p id="analysis_chart_error" class="alert-text" style="display: none;">グラフを表示できませんでした。履歴表でご確認ください。</p>
+                </div>
+            </div>
+
+            <div id="analysis_empty_notice" class="asset-class-empty-notice" style="display: none;">
+                まだ保存された履歴がありません。履歴を保存すると、資産の推移をグラフや表で確認できるようになります。
+                <div id="analysis_empty_save_action" class="button-row" style="display: none;">
+                    <button type="button" id="btn_analysis_save_now" class="btn btn-primary">今すぐ現在の状態を履歴に保存する</button>
+                </div>
+                <p id="analysis_empty_dashboard_hint" style="display: none;">口座タブに戻り、各口座の「💾 現在の状態を履歴に保存」から保存してください。</p>
+            </div>
+        </div>
+    </div>
+
     <script src="storage.js"></script>
     <script src="model.js"></script>
     <script src="solver.js"></script>
     <script src="ocr.js"></script>
     <script src="auth.js"></script>
     <script src="consent.js"></script>
+    <script src="vendor/chart.js"></script>
     <script src="ui.js"></script>
     <script>
         window.model = new AssetModel({ window: window, storage: AppStorage });
