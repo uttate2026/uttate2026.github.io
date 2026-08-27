@@ -131,15 +131,20 @@
             <div class="tabs-row" id="account_tabs_row"></div>
 
             <div class="account-toolbar">
-                <button type="button" id="btn_toggle_account_properties" class="btn btn-link">🏷️ 口座プロパティ</button>
-                <div class="history-select-group">
-                    <label for="account_history_select">📁 この口座の過去履歴:</label>
-                    <select id="account_history_select">
-                        <option value="latest">最新の入力状態(自動保持)</option>
-                    </select>
+                <div class="toolbar-group">
+                    <button type="button" id="btn_toggle_account_properties" class="btn btn-link">🏷️ 口座プロパティ</button>
+                    <button type="button" id="btn_open_analysis" class="btn btn-secondary">📈 分析</button>
                 </div>
-                <button type="button" id="btn_save_snapshot" class="btn btn-secondary">💾 現在の状態を履歴に保存</button>
-                <button type="button" id="btn_open_analysis" class="btn btn-secondary">📈 分析</button>
+                <div class="toolbar-divider"></div>
+                <div class="toolbar-group">
+                    <div class="history-select-group">
+                        <label for="account_history_select">📁 この口座の過去履歴:</label>
+                        <select id="account_history_select">
+                            <option value="latest">最新の入力状態(自動保持)</option>
+                        </select>
+                    </div>
+                    <button type="button" id="btn_save_snapshot" class="btn btn-secondary">💾 現在の状態を履歴に保存</button>
+                </div>
             </div>
 
             <div id="account_properties_panel" class="account-properties-panel" style="display: none;">
@@ -189,8 +194,8 @@
                             <thead>
                                 <tr>
                                     <th>資産項目名</th>
-                                    <th>目標比率</th>
-                                    <th>現在の資産額</th>
+                                    <th class="text-right">目標比率</th>
+                                    <th class="text-right">現在の資産額</th>
                                     <th>売買単位</th>
                                     <th>操作</th>
                                 </tr>
