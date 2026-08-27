@@ -132,18 +132,32 @@
 
             <div class="account-toolbar">
                 <div class="toolbar-group">
-                    <button type="button" id="btn_toggle_account_properties" class="btn btn-link">🏷️ 口座プロパティ</button>
-                    <button type="button" id="btn_open_analysis" class="btn btn-secondary">📈 分析</button>
-                </div>
-                <div class="toolbar-divider"></div>
-                <div class="toolbar-group">
+                    <div id="toolbar_action_live">
+                        <button type="button" id="btn_save_snapshot" class="btn btn-secondary">💾 現在の状態を履歴に保存</button>
+                    </div>
+                    <div id="toolbar_action_history" class="button-row" style="display: none;">
+                        <button type="button" id="btn_toggle_history_edit" class="btn btn-secondary" title="この履歴を編集">✏️ 編集</button>
+                        <button type="button" id="btn_delete_snapshot" class="btn-delete" title="この履歴を削除">🗑️ 削除</button>
+                    </div>
                     <div class="history-select-group">
                         <label for="account_history_select">📁 この口座の過去履歴:</label>
                         <select id="account_history_select">
                             <option value="latest">最新の入力状態(自動保持)</option>
                         </select>
                     </div>
-                    <button type="button" id="btn_save_snapshot" class="btn btn-secondary">💾 現在の状態を履歴に保存</button>
+                </div>
+                <div class="toolbar-divider"></div>
+                <div class="toolbar-group">
+                    <button type="button" id="btn_open_analysis" class="btn btn-secondary">📈 分析</button>
+                    <button type="button" id="btn_toggle_account_properties" class="btn btn-link">🏷️ 口座プロパティ</button>
+                </div>
+            </div>
+
+            <div id="delete_snapshot_confirm" class="delete-confirm-banner" style="display: none;">
+                <span id="delete_snapshot_confirm_text"></span>
+                <div class="button-row">
+                    <button type="button" id="btn_delete_snapshot_confirm" class="btn-delete">🗑️ 削除する</button>
+                    <button type="button" id="btn_delete_snapshot_cancel" class="btn btn-link">キャンセル</button>
                 </div>
             </div>
 
@@ -204,8 +218,12 @@
                             <tfoot>
                                 <tr>
                                     <td><strong>合計</strong></td>
-                                    <td class="text-right"><span id="total_ratio">0</span> %</td>
-                                    <td class="text-right"><span id="total_amount">0</span> 円</td>
+                                    <td class="text-right">
+                                        <input type="text" id="total_ratio" class="input-asset-ratio text-right input-footer" value="0" disabled> %
+                                    </td>
+                                    <td class="text-right">
+                                        <input type="text" id="total_amount" class="input-asset-amount text-right input-footer" value="0" disabled> 円
+                                    </td>
                                     <td></td>
                                     <td></td>
                                 </tr>
@@ -239,8 +257,12 @@
                             <tfoot>
                                 <tr>
                                     <td><strong>合計</strong></td>
-                                    <td class="text-right">100 %</td>
-                                    <td class="text-right"><span id="asset_byclass_total_amount">0</span> 円</td>
+                                    <td class="text-right">
+                                        <input type="text" class="input-asset-ratio text-right input-footer" value="100" disabled> %
+                                    </td>
+                                    <td class="text-right">
+                                        <input type="text" id="asset_byclass_total_amount" class="input-asset-amount text-right input-footer" value="0" disabled> 円
+                                    </td>
                                     <td colspan="2"></td>
                                 </tr>
                             </tfoot>

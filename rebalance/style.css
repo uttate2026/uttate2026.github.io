@@ -16,6 +16,14 @@
     box-sizing: border-box;
 }
 
+/* 縦スクロールバーの表示・非表示でページ幅(中央寄せしている.app-containerの位置)が
+   変わらないよう、スクロールバー分の余白を常に確保しておく。履歴参照モードは計算結果を
+   都度表示するため口座編集モードよりページが長くなり、閲覧環境によってはスクロールバーの
+   有無が切り替わってページ全体が左右にずれて見えることがあったため。 */
+html {
+    overflow-y: scroll;
+}
+
 body {
     margin: 0;
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Hiragino Sans", "Yu Gothic", sans-serif;
@@ -129,6 +137,11 @@ header h1 {
     color: var(--primary);
     padding: 4px 0;
     text-decoration: underline;
+}
+
+.btn-link:disabled {
+    color: var(--text-secondary);
+    cursor: not-allowed;
 }
 
 /* 隣接するbtn-link同士が詰まって1つのボタンに見えてしまうのを防ぐ(クリック領域の混同対策) */
@@ -249,6 +262,28 @@ header h1 {
     background: var(--border);
 }
 
+/* 履歴の編集トグル・削除確認(画面設計5章、要件3.5) */
+#btn_toggle_history_edit.active {
+    border-color: var(--primary);
+    background: #eff6ff;
+    color: var(--primary);
+    font-weight: bold;
+}
+
+.delete-confirm-banner {
+    background: #fef2f2;
+    border: 1px solid #fca5a5;
+    border-radius: 6px;
+    padding: 12px 16px;
+    margin-top: 8px;
+    font-size: 14px;
+    color: var(--danger);
+}
+
+.delete-confirm-banner .button-row {
+    margin-top: 10px;
+}
+
 /* 口座名は現在のタブ表示で常に見えているため、変更操作自体は使用頻度が低い。
    普段は畳んでおき、「🏷️ 口座プロパティ」で開く(今後の属性追加の受け皿)。 */
 .account-properties-panel {
@@ -355,6 +390,15 @@ input[type="text"], input[type="number"], select {
     font-size: 13px;
 }
 
+/* 編集可能/不可の区別を明確にする(履歴参照モードの既定<読み取り専用>など)。
+   .input-footer(合計行の疑似入力欄)はこの見た目を継承しない<下記で個別に上書き>。 */
+input[type="text"]:disabled, input[type="number"]:disabled, select:disabled {
+    background: #f1f5f9;
+    color: var(--text-secondary);
+    border-color: var(--border);
+    cursor: not-allowed;
+}
+
 .input-asset-name {
     width: 100%;
     box-sizing: border-box;
@@ -368,6 +412,20 @@ input[type="text"], input[type="number"], select {
 .input-asset-amount {
     width: 110px;
     text-align: right;
+}
+
+/* 合計行の数値(画面設計3章、MEMO.md 8/27コメント4)。個別行の入力欄(.input-asset-ratio/
+   .input-asset-amount)と同じ幅・余白・枠線幅で組み立て、枠線の色だけ透明にすることで、
+   見た目は文字のみでも数字の位置は入力欄と1px単位で揃う(text-alignだけでは、入力欄の
+   内部余白の分だけ数字がずれてしまうため)。 */
+.input-footer,
+.input-footer:disabled {
+    border-color: transparent;
+    background: transparent;
+    font-weight: bold;
+    color: inherit;
+    cursor: default;
+    pointer-events: none;
 }
 
 .volume-subfield {
