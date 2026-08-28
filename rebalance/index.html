@@ -149,6 +149,7 @@
                 <div class="toolbar-divider"></div>
                 <div class="toolbar-group">
                     <button type="button" id="btn_open_analysis" class="btn btn-secondary">📈 分析</button>
+                    <button type="button" id="btn_open_backup" class="btn btn-secondary">📦 バックアップ</button>
                     <button type="button" id="btn_toggle_account_properties" class="btn btn-link">🏷️ 口座プロパティ</button>
                 </div>
             </div>
@@ -422,6 +423,45 @@
                     <button type="button" id="btn_analysis_save_now" class="btn btn-primary">今すぐ現在の状態を履歴に保存する</button>
                 </div>
                 <p id="analysis_empty_dashboard_hint" style="display: none;">口座タブに戻り、各口座の「💾 現在の状態を履歴に保存」から保存してください。</p>
+            </div>
+        </div>
+    </div>
+
+    <div id="backup_modal" class="modal-overlay" style="display: none;">
+        <div class="card modal-card">
+            <button type="button" id="btn_backup_close" class="modal-close" aria-label="閉じる">×</button>
+            <div class="section-title">バックアップ・リストア</div>
+
+            <div id="backup_stage_initial">
+                <p class="auth-desc">全口座のデータ(資産項目・方針・履歴)とアセットクラスの対応表を、お使いの端末のCSVファイルへ書き出し・読み込みできます。PCの買い替え時などのデータ引き継ぎにご利用ください。</p>
+
+                <div class="form-field">
+                    <label>エクスポート</label>
+                    <p class="auth-desc">現在のデータをCSVファイルとしてダウンロードします。</p>
+                    <button type="button" id="btn_backup_export" class="btn btn-primary">📤 エクスポートする</button>
+                </div>
+
+                <div class="form-field">
+                    <label>インポート</label>
+                    <p class="alert-text">⚠️ 現在保存されている全てのデータは、読み込むファイルの内容で完全に置き換えられます。</p>
+                    <button type="button" id="btn_backup_import_trigger" class="btn btn-secondary">📥 ファイルを選択</button>
+                    <input type="file" id="backup_import_file_input" accept=".csv" style="display: none;">
+                </div>
+            </div>
+
+            <div id="backup_stage_confirm" style="display: none;">
+                <p>読み込むファイルの内容:</p>
+                <p id="backup_confirm_summary"></p>
+                <p class="alert-text">⚠️ 現在保存されている全てのデータ(全ての口座・資産項目・履歴)は、このファイルの内容で完全に置き換えられます。この操作は取り消せません。</p>
+                <div class="button-row">
+                    <button type="button" id="btn_backup_confirm_apply" class="btn btn-primary">置き換える</button>
+                    <button type="button" id="btn_backup_confirm_cancel" class="btn btn-secondary">キャンセル</button>
+                </div>
+            </div>
+
+            <div id="backup_stage_error" style="display: none;">
+                <p class="alert-text">⚠️ このファイルはバックアップ用のCSVとして読み込めませんでした。別のファイルをお試しください。</p>
+                <button type="button" id="btn_backup_error_retry" class="btn btn-secondary">📥 ファイルを選択</button>
             </div>
         </div>
     </div>
