@@ -1,5 +1,11 @@
 /* src/style.css */
 
+/* 画面幅対応の基本方針(画面設計0-1節、要件4.4): 狭い画面(600px未満、スマートフォン想定)と
+   それ以外(タブレット・PC、同じレイアウトを共用)の2区分のみとする。600pxはui.jsの
+   renderAnalysisChart()のisNarrow判定と揃えている(値を変える場合は両方を合わせて直す)。
+   基本はフルードレイアウト+flex-wrapによる折り返しで対応し、個別の@media調整は
+   分析ダイアログの履歴グラフ(下記)など、折り返しだけでは対応できない箇所のみに限定する。 */
+
 :root {
     --bg-main: #f8fafc;
     --bg-card: #ffffff;
@@ -342,8 +348,75 @@ header h1 {
 }
 
 /* テーブル */
+/* 横スクロール可能な表であることを示す視覚的な手がかり(画面設計0-1節、要件4.4)。
+   iOS等はスクロールバーを既定で隠すため、スクロールバー以外にも「まだ続きがある」ことを
+   伝える必要がある。
+   背景グラデーションのみで実現するCSS定番手法(2枚の背景を要素と一緒にスクロールさせる
+   <local>ことで、隠れているはずの陰影レイヤー<scroll>をスクロール端で覆い隠す手法)も
+   検討したが、資産項目テーブル等ではセル内の<input>(不透明な白背景)が陰影の上に重なって
+   隠してしまう組み合わせがあり、データ行では陰影がほぼ見えないことが実機幅での確認で
+   判明した。そのためJSで実際のスクロール位置(scrollLeft/scrollWidth/clientWidth)を見て
+   表示・非表示を切り替える、要素として独立した陰影(.scroll-shadow、ui.jsのinitScrollShadows)
+   に切り替えた。セルの中身に関わらず必ず最前面に出せるため、この問題が起きない。
+   実際にスクロールする要素(.table-scroll-area)と、陰影の位置基準(containing block)に
+   なる要素(.table-responsive)を分けている。同じ要素に overflow-x:auto と
+   position:relative を両方持たせてその中に陰影(position:absolute)を置くと、陰影は
+   その要素のスクロール量の影響を受けてしまい、スクロールにつれて陰影自体が横に
+   移動してしまう(実機確認で判明、CSSの仕様上、絶対配置の要素はそれ自身が属する
+   スクロールコンテナのスクロール量の影響を受けるため)。陰影を「常に同じ端」に
+   固定表示するには、位置の基準をスクロールしない別要素に切り離す必要がある。 */
 .table-responsive {
+    position: relative;
+}
+
+.table-scroll-area {
     overflow-x: auto;
+}
+
+.scroll-shadow {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 24px;
+    pointer-events: none; /* 陰影の下にある削除ボタン等の操作を妨げないようにする */
+    opacity: 0;
+    transition: opacity 0.15s;
+    z-index: 1;
+}
+
+.scroll-shadow.is-visible {
+    opacity: 1;
+}
+
+.scroll-shadow-left {
+    left: 0;
+    background: linear-gradient(to right, rgba(15, 23, 42, 0.18), rgba(15, 23, 42, 0));
+}
+
+.scroll-shadow-right {
+    right: 0;
+    background: linear-gradient(to left, rgba(15, 23, 42, 0.18), rgba(15, 23, 42, 0));
+}
+
+/* 要件4.4が優先する一次動線(資産項目入力〜リバランス計算の実行)の入口にあたる、
+   口座ワークスペースの資産項目テーブル(3章、一覧タブ)専用の追加対応。
+   固定ピクセル幅の列境界を頼りに「次の列を必ず少しだけ見せる」案(peek)も検討したが、
+   実機幅を複数計算した結果、画面幅によっては列の境界とほぼ一致してしまい、途切れが
+   かえって分かりにくくなる組み合わせが避けられないと判明した(例: 412px幅では列の94%が
+   見えてしまい「続きがある」ようには見えない)。列幅に依存する対応は画面幅ごとの当たり外れが
+   避けられないため採用せず、代わりに列幅に依存しない陰影そのものを幅広にして
+   見落としにくくする方針とした(濃さは.scroll-shadowと共通、実機確認で「常時表示は
+   濃すぎる」というフィードバックを受けて調整済み)。 */
+.table-responsive-emphasis .scroll-shadow {
+    width: 40px;
+}
+
+.table-responsive-emphasis .scroll-shadow-left {
+    background: linear-gradient(to right, rgba(15, 23, 42, 0.3), rgba(15, 23, 42, 0));
+}
+
+.table-responsive-emphasis .scroll-shadow-right {
+    background: linear-gradient(to left, rgba(15, 23, 42, 0.3), rgba(15, 23, 42, 0));
 }
 
 /* 資産項目名列(colgroupで唯一幅を指定していない列)が、他の列の固定幅を除いた
@@ -703,4 +776,15 @@ input[type="text"]:disabled, input[type="number"]:disabled, select:disabled {
 #analysis_chart_canvas {
     width: 100% !important;
     height: 100% !important;
+}
+
+/* 狭い画面での履歴グラフ簡易表示(画面設計0-1節・8-4節、要件4.4)。
+   凡例(系列名の一覧)が下部で折り返す行数が増えても、Chart.js側の凡例サイズ縮小
+   (renderAnalysisChartのisNarrow分岐、ui.js)と合わせて描画領域を確保するため、
+   高さのみを広げる。グラフの種類・データ・軸の考え方(積み上げ面グラフ、実際の
+   年月日に比例した時間軸)は変更しない。 */
+@media (max-width: 600px) {
+    #analysis_chart_view {
+        height: 480px;
+    }
 }
