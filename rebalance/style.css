@@ -319,6 +319,15 @@ header h1 {
 }
 
 /* 方針・取り崩し */
+/* 選択肢と金額欄を横並びにし、画面が狭い場合は自然に折り返す(画面設計0-1節と同じ
+   フルードレイアウト+flex-wrap方針、MEMO.md 8/30コメント2)。個別の@media分岐は設けない。 */
+.policy-row {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
 .radio-group {
     display: flex;
     gap: 20px;
@@ -332,18 +341,16 @@ header h1 {
     font-size: 14px;
 }
 
-.withdrawal-container {
-    background: #fef2f2;
-    border: 1px solid #fca5a5;
-    border-radius: 6px;
-    padding: 16px 20px;
-    margin-bottom: 20px;
-}
-
 .policy-amount-input {
-    width: 180px;
+    width: 120px; /* 資産項目の金額欄(.input-asset-amount、110px)と同程度の実用幅にする(MEMO.md 8/30コメント4) */
     padding: 6px 8px;
     font-weight: bold;
+    text-align: right;
+}
+
+/* マイナス(出金)の場合のみ警告色にする(MEMO.md 8/30コメント3)。
+   取り崩し希望総額・追加投資額は仕様上0以上しか入らないため、常にこの色にはならない。 */
+.policy-amount-input.negative {
     color: var(--danger);
 }
 
