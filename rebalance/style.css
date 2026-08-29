@@ -340,7 +340,7 @@ header h1 {
     margin-bottom: 20px;
 }
 
-#withdrawal_total_amount {
+.policy-amount-input {
     width: 180px;
     padding: 6px 8px;
     font-weight: bold;

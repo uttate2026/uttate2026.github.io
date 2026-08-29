@@ -176,14 +176,26 @@
                 <div class="section-title">1. リバランス方針設定</div>
                 <div class="radio-group">
                     <label class="radio-label"><input type="radio" name="rebalance_policy" value="normal" checked> 通常(売買あり)</label>
-                    <label class="radio-label"><input type="radio" name="rebalance_policy" value="no_sell"> 売却なし(追加投資のみ)</label>
+                    <label class="radio-label"><input type="radio" name="rebalance_policy" value="no_sell"> ノーセル(追加投資のみ)</label>
                     <label class="radio-label"><input type="radio" name="rebalance_policy" value="withdrawal"> 取り崩し</label>
                 </div>
             </div>
 
+            <div id="deposit_withdrawal_amount_container" class="withdrawal-container" style="display: none;">
+                <label for="deposit_withdrawal_amount">入出金額(任意、マイナスで出金):</label>
+                <input type="text" id="deposit_withdrawal_amount" class="policy-amount-input" value="0" inputmode="numeric" autocomplete="off" spellcheck="false">
+                <span class="unit">円</span>
+            </div>
+
+            <div id="additional_investment_amount_container" class="withdrawal-container" style="display: none;">
+                <label for="additional_investment_amount">追加投資額(任意):</label>
+                <input type="text" id="additional_investment_amount" class="policy-amount-input" value="0" inputmode="numeric" autocomplete="off" spellcheck="false">
+                <span class="unit">円</span>
+            </div>
+
             <div id="withdrawal_amount_container" class="withdrawal-container" style="display: none;">
                 <label for="withdrawal_total_amount">取り崩し希望総額:</label>
-                <input type="text" id="withdrawal_total_amount" value="0" inputmode="numeric" autocomplete="off" spellcheck="false">
+                <input type="text" id="withdrawal_total_amount" class="policy-amount-input" value="0" inputmode="numeric" autocomplete="off" spellcheck="false">
                 <span class="unit">円</span>
             </div>
 
