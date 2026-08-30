@@ -372,9 +372,18 @@
     <div id="asset_class_modal" class="modal-overlay" style="display: none;">
         <div class="card modal-card">
             <button type="button" id="btn_asset_class_modal_close" class="modal-close" aria-label="閉じる">×</button>
+            <button type="button" id="btn_asset_class_modal_back_to_analysis" class="btn btn-link" style="display: none;">← 分析に戻る</button>
             <div class="section-title">アセットクラスの管理</div>
             <p class="auth-desc">資産項目名ごとにアセットクラスを設定すると、「アセットクラス別」表示で名前が違っても合算されます。未設定のままにしておけば、今まで通りの表示のままです。</p>
 
+            <div class="section-title-row">
+                <span>表示順(ダッシュボード・分析機能に共通で反映されます)</span>
+            </div>
+            <ul id="asset_class_order_list" class="asset-class-order-list"></ul>
+
+            <div class="section-title-row">
+                <span>資産項目ごとの割り当て</span>
+            </div>
             <div class="table-responsive">
                 <table>
                     <thead>
@@ -383,6 +392,7 @@
                     <tbody id="asset_class_manager_table_body"></tbody>
                 </table>
             </div>
+            <datalist id="asset_class_suggestions"></datalist>
 
             <button type="button" id="btn_asset_class_modal_done" class="btn btn-primary">閉じる</button>
         </div>
@@ -403,6 +413,7 @@
                     <div class="tabs-row small-tabs">
                         <button type="button" id="btn_analysis_group_asset" class="subtab-btn">資産項目別</button>
                         <button type="button" id="btn_analysis_group_class" class="subtab-btn">アセットクラス別</button>
+                        <button type="button" id="btn_analysis_manage_classes" class="btn btn-link" style="display: none;">⚙️ 管理</button>
                     </div>
                 </div>
 

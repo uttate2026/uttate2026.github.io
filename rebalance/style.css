@@ -795,3 +795,90 @@ input[type="text"]:disabled, input[type="number"]:disabled, select:disabled {
         height: 480px;
     }
 }
+
+/* アセットクラスの表示順一覧(画面設計7章、機能仕様9.4節)。
+   ドラッグ&ドロップ・[▲][▼]の両方で並び替えられる。 */
+.asset-class-order-list {
+    list-style: none;
+    margin: 0 0 16px;
+    padding: 0;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+}
+
+.asset-class-order-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 12px;
+    border-bottom: 1px solid var(--border);
+    background: var(--surface);
+}
+
+.asset-class-order-item:last-child {
+    border-bottom: none;
+}
+
+.asset-class-order-item.dragging {
+    opacity: 0.4;
+}
+
+.asset-class-order-item .drag-handle {
+    cursor: grab;
+    color: var(--text-secondary);
+    touch-action: none;
+}
+
+.asset-class-order-item .asset-class-order-name {
+    flex: 1;
+}
+
+.asset-class-order-item .asset-class-rename-input {
+    flex: 1;
+}
+
+.asset-class-order-item-other {
+    display: flex;
+    align-items: center;
+    padding: 8px 12px;
+    color: var(--text-secondary);
+    font-size: 13px;
+}
+
+/* 分析ダイアログ⇔アセットクラス管理モーダルの横スライド遷移(画面設計8-5節)。
+   モーダルを閉じずに中身を切り替えるため、簡易的なスライドアニメーションのみ付与する。 */
+.modal-card.slide-out-to-left {
+    animation: slide-out-to-left 0.18s ease-in forwards;
+}
+
+.modal-card.slide-in-from-right {
+    animation: slide-in-from-right 0.18s ease-out;
+}
+
+.modal-card.slide-out-to-right {
+    animation: slide-out-to-right 0.18s ease-in forwards;
+}
+
+.modal-card.slide-in-from-left {
+    animation: slide-in-from-left 0.18s ease-out;
+}
+
+@keyframes slide-out-to-left {
+    from { transform: translateX(0); opacity: 1; }
+    to { transform: translateX(-40px); opacity: 0; }
+}
+
+@keyframes slide-in-from-right {
+    from { transform: translateX(40px); opacity: 0; }
+    to { transform: translateX(0); opacity: 1; }
+}
+
+@keyframes slide-out-to-right {
+    from { transform: translateX(0); opacity: 1; }
+    to { transform: translateX(40px); opacity: 0; }
+}
+
+@keyframes slide-in-from-left {
+    from { transform: translateX(-40px); opacity: 0; }
+    to { transform: translateX(0); opacity: 1; }
+}
