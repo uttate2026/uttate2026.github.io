@@ -892,3 +892,18 @@ input[type="text"]:disabled, input[type="number"]:disabled, select:disabled {
 .analysis-diff-up { color: var(--success); }
 .analysis-diff-down { color: var(--danger); }
 .analysis-diff-flat { color: var(--text-secondary); }
+
+/* 目標比率/現在比率の円グラフ(画面設計3-4節、機能仕様12章) */
+#asset_allocation_chart_wrap {
+    margin-top: 16px;
+}
+
+#asset_allocation_chart_view {
+    position: relative;
+    height: 260px;
+}
+
+#asset_allocation_chart_canvas {
+    width: 100% !important;
+    height: 100% !important;
+}

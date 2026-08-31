@@ -289,6 +289,13 @@
                         <button type="button" id="btn_open_asset_class_manager_account" class="btn btn-link">⚙️ アセットクラスを管理</button>
                     </div>
                 </div>
+
+                <div id="asset_allocation_chart_wrap" style="display: none;">
+                    <div id="asset_allocation_chart_view">
+                        <canvas id="asset_allocation_chart_canvas"></canvas>
+                    </div>
+                    <p id="asset_allocation_chart_error" class="alert-text" style="display: none;">円グラフを表示できませんでした。</p>
+                </div>
             </div>
 
             <p id="ratio_alert" class="alert-text" style="display: none;">⚠️ 目標比率の合計を100%にしてください。</p>
