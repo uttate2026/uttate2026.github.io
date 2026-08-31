@@ -882,3 +882,13 @@ input[type="text"]:disabled, input[type="number"]:disabled, select:disabled {
     from { transform: translateX(-40px); opacity: 0; }
     to { transform: translateX(0); opacity: 1; }
 }
+
+/* 履歴表の差分・変化率表示(画面設計8-1節、機能仕様10.10節) */
+.analysis-diff-line {
+    display: block;
+    font-size: 11px;
+}
+
+.analysis-diff-up { color: var(--success); }
+.analysis-diff-down { color: var(--danger); }
+.analysis-diff-flat { color: var(--text-secondary); }
