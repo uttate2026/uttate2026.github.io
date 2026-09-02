@@ -10,8 +10,10 @@
     --bg-main: #f8fafc;
     --bg-card: #ffffff;
     --border: #e2e8f0;
-    --primary: #2563eb;
-    --primary-dark: #1d4ed8;
+    --border-strong: #cbd5e1;
+    --primary: #155e75;
+    --primary-dark: #164e63;
+    --primary-tint: #cfe6ec;
     --success: #16a34a;
     --danger: #dc2626;
     --text-main: #0f172a;
@@ -51,9 +53,10 @@ header h1 {
 .card {
     background: var(--bg-card);
     border: 1px solid var(--border);
-    border-radius: 8px;
+    border-radius: 12px;
     padding: 20px;
     margin-bottom: 20px;
+    box-shadow: 0 1px 2px rgba(15, 23, 42, 0.04), 0 4px 10px rgba(15, 23, 42, 0.04);
 }
 
 .section-title {
@@ -97,7 +100,7 @@ header h1 {
     padding: 8px;
     margin-bottom: 16px;
     border: 1px solid var(--border);
-    border-radius: 4px;
+    border-radius: 6px;
 }
 
 /* ボタン */
@@ -107,7 +110,7 @@ header h1 {
     background: var(--bg-card);
     color: var(--text-main);
     padding: 8px 14px;
-    border-radius: 6px;
+    border-radius: 8px;
     cursor: pointer;
     font-size: 14px;
 }
@@ -194,12 +197,41 @@ header h1 {
     margin-bottom: 8px;
 }
 
+/* 口座タブ行(#account_tabs_row)は折り返さず横スクロールにする(下記の「タブの一体感」
+   演出が2段以上に折り返ると崩れるため、MEMO.md 9/1のやり取りを踏まえた対応)。
+   スマホでは横スワイプで、PCではトラックパッド/ドラッグで操作できる想定
+   (実機のスマホではスワイプで問題なく操作できることを確認済み)。 */
+.account-tabs-bar {
+    display: flex;
+    align-items: flex-end;
+    gap: 12px;
+    margin-bottom: 8px;
+}
+
+/* 縦方向のスクロールは不要なので明示的に抑止する(overflow-xだけをautoにすると
+   CSSの仕様上overflow-yも自動的にスクロール扱いになってしまうため)。 */
+.account-tabs-scroll {
+    flex: 1;
+    min-width: 0;
+    overflow-x: auto;
+    overflow-y: hidden;
+}
+
+#account_tabs_row {
+    flex-wrap: nowrap;
+    margin-bottom: 0;
+}
+
+#account_tabs_row .tab-btn,
+#account_tabs_row .btn-link {
+    flex-shrink: 0;
+}
 
 .tab-btn {
     position: relative;
     padding: 8px 24px 8px 12px;
     border: 1px solid var(--border);
-    border-radius: 6px;
+    border-radius: 8px;
     background: var(--bg-card);
     cursor: pointer;
     font-size: 14px;
@@ -207,9 +239,63 @@ header h1 {
 
 .tab-btn.active {
     border-color: var(--primary);
-    background: #eff6ff;
+    background: var(--primary-tint);
     color: var(--primary);
     font-weight: bold;
+}
+
+/* 口座タブの一体感(ユーザー提案の擬似的な表現)。ツールバー・カード群を実際に1枚の面
+   として再構成する(レイアウト構造そのものを変える)本格対応の代わりに、タブ自身に
+   下線(border-bottom)を持たせ、選択中のタブだけその下線の色を自身の背景色と同じに
+   して見えなくする。これによりタブの箱がその線を突き破って下の作業領域と地続きに
+   なっているように見える。
+   以前は.account-tabs-bar側に共有の1本線を引き、タブを1px重ねて隠す方式を試したが、
+   (a) タブ行の横スクロール領域(.account-tabs-scroll)のoverflow-y:hiddenが、線に
+   重ねるための「はみ出し」を一緒に切り取ってしまい選択タブの線を消せない、
+   (b) 余白で回避しようとすると線自体も一緒に動いてしまい追いつけない、という
+   構造的な問題があり実機で不具合が見つかった(MEMO.md 9/2のやり取り)。タブ自身が
+   下線を持つ方式なら、はみ出し・overflow-clipに一切依存しないためこの問題が起きない。
+   ページ地色(--bg-main)の上の線なので、白背景向けの淡い--borderではなく
+   コントラストの強い--border-strongを使う。 */
+#account_tabs_row .tab-btn,
+#dashboard_tab_slot .tab-btn {
+    border-bottom: 1px solid var(--border-strong);
+    /* 下部角丸は直角にする。角丸のままだと背景が丸く欠けて、線との間に
+       三角形の隙間ができて見えるため(選択タブに限らず全タブ共通の問題)。 */
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+}
+
+#account_tabs_row .tab-btn.active,
+#dashboard_tab_slot .tab-btn.active {
+    border-bottom-color: var(--primary-tint);
+}
+
+/* タブの下部角丸を「外側に開く」形にする(通常の角丸のように内側にすぼめると、線と
+   繋がる箇所に三角形の隙間ができて地続きに見えないため)。タブ自身の下端角は直角にし、
+   その外側にタブの塗り色(--primary-tint)を丸く継ぎ足す疑似要素を置くことで、
+   タブ本体からページ地色(--bg-main)へ滑らかに裾が開いて見えるようにする。 */
+#account_tabs_row .tab-btn.active::before,
+#account_tabs_row .tab-btn.active::after,
+#dashboard_tab_slot .tab-btn.active::before,
+#dashboard_tab_slot .tab-btn.active::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    width: 8px;
+    height: 8px;
+}
+
+#account_tabs_row .tab-btn.active::before,
+#dashboard_tab_slot .tab-btn.active::before {
+    left: -8px;
+    background: radial-gradient(circle at top left, transparent 8px, var(--primary-tint) 8.5px);
+}
+
+#account_tabs_row .tab-btn.active::after,
+#dashboard_tab_slot .tab-btn.active::after {
+    right: -8px;
+    background: radial-gradient(circle at top right, transparent 8px, var(--primary-tint) 8.5px);
 }
 
 .tab-delete {
@@ -226,9 +312,16 @@ header h1 {
 }
 
 /* ダッシュボードタブ: 個別口座タブとは挙動が違うことを示すため見た目を変え、
-   行の右端に離して配置する(追加ボタンとの間を空ける) */
+   横スクロール領域(.account-tabs-scroll)の外(#dashboard_tab_slot)に固定配置する。
+   ラベルが長く1行だと横に間延びするため、幅を固定して2行・小さめフォントで折り返す。 */
 .tab-btn-dashboard {
-    margin-left: auto;
+    flex-shrink: 0;
+    width: 140px;
+    padding: 6px 8px;
+    white-space: normal;
+    text-align: center;
+    font-size: 12px;
+    line-height: 1.3;
     background: #f1f5f9;
     border-color: #cbd5e1;
     color: var(--text-secondary);
@@ -236,9 +329,10 @@ header h1 {
 
 .tab-btn-dashboard.active {
     border-color: var(--primary);
-    background: #eff6ff;
+    background: var(--primary-tint);
     color: var(--primary);
     font-weight: bold;
+    border-bottom-color: var(--bg-main);
 }
 
 /* 口座プロパティ・履歴参照・履歴保存は、いずれも口座タブに付随するツール的な機能として
@@ -271,7 +365,7 @@ header h1 {
 /* 履歴の編集トグル・削除確認(画面設計5章、要件3.5) */
 #btn_toggle_history_edit.active {
     border-color: var(--primary);
-    background: #eff6ff;
+    background: var(--primary-tint);
     color: var(--primary);
     font-weight: bold;
 }
@@ -279,7 +373,7 @@ header h1 {
 .delete-confirm-banner {
     background: #fef2f2;
     border: 1px solid #fca5a5;
-    border-radius: 6px;
+    border-radius: 8px;
     padding: 12px 16px;
     margin-top: 8px;
     font-size: 14px;
@@ -328,17 +422,55 @@ header h1 {
     flex-wrap: wrap;
 }
 
+/* 角丸セグメント風のラジオボタン。選択状態はセグメントの背景(白浮き)で示すため、
+   ネイティブのラジオ丸自体は視覚上隠す(キーボード操作・スクリーンリーダー向けに
+   input要素自体はDOM上に残し、フォーカスリングだけ:has()でラベルに転写する)。 */
 .radio-group {
-    display: flex;
-    gap: 20px;
+    display: inline-flex;
+    gap: 2px;
     flex-wrap: wrap;
+    background: var(--bg-main);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 3px;
 }
 
 .radio-label {
+    position: relative;
     display: flex;
     align-items: center;
     gap: 6px;
     font-size: 14px;
+    padding: 6px 12px;
+    border: 1px solid transparent; /* 選択時に枠線を足してもサイズがガタつかないよう、
+                                       非選択時から同じ太さの透明な枠線を確保しておく */
+    border-radius: 6px;
+    color: var(--text-secondary);
+    cursor: pointer;
+}
+
+/* 選択中はタブ類(.tab-btn.active/.subtab-btn.active)と同じprimary色(背景・文字・枠線)を
+   使い、「primary色=選択中」という見た目のルールをアプリ全体で統一する。単なる白背景+
+   太字だけだと、ラジオボタンの代替であることが伝わりにくい懸念もあるため、色・枠線でも
+   選択状態を明示する。 */
+.radio-label:has(input:checked) {
+    background: var(--primary-tint);
+    border-color: var(--primary);
+    color: var(--primary);
+    font-weight: bold;
+    box-shadow: 0 1px 2px rgba(15, 23, 42, 0.1);
+}
+
+.radio-label:has(input:focus-visible) {
+    outline: 2px solid var(--primary);
+    outline-offset: 1px;
+}
+
+.radio-label input[type="radio"] {
+    position: absolute;
+    opacity: 0;
+    width: 1px;
+    height: 1px;
 }
 
 .policy-amount-input {
@@ -466,8 +598,19 @@ th, td {
 input[type="text"], input[type="number"], select {
     padding: 4px 6px;
     border: 1px solid var(--border);
-    border-radius: 4px;
+    border-radius: 6px;
     font-size: 13px;
+}
+
+/* ネイティブのプルダウン矢印(OSごとに見た目がまちまち)をSVGの矢印に統一する */
+select {
+    appearance: none;
+    -webkit-appearance: none;
+    background-color: var(--bg-card);
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='%2364748b' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 6px center;
+    padding-right: 24px;
 }
 
 /* 編集可能/不可の区別を明確にする(履歴参照モードの既定<読み取り専用>など)。
@@ -512,7 +655,7 @@ input[type="text"]:disabled, input[type="number"]:disabled, select:disabled {
     margin-top: 6px;
     padding: 6px;
     background: #f8fafc;
-    border-radius: 4px;
+    border-radius: 6px;
     border: 1px solid var(--border);
     font-size: 12px;
     text-align: left; /* 親td(現在の資産額列)の右寄せを継承しないようにする */
@@ -601,7 +744,7 @@ input[type="text"]:disabled, input[type="number"]:disabled, select:disabled {
 
 .ocr-paste-area {
     border: 2px dashed var(--border);
-    border-radius: 6px;
+    border-radius: 8px;
     padding: 40px 16px;
     text-align: center;
     color: var(--text-secondary);
@@ -683,15 +826,58 @@ input[type="text"]:disabled, input[type="number"]:disabled, select:disabled {
     position: relative;
     padding: 6px 14px;
     border: 1px solid var(--border);
-    border-radius: 6px;
+    border-radius: 8px;
     background: var(--bg-card);
     cursor: pointer;
     font-size: 13px;
 }
 
+/* タブの一体感(資産項目表・ダッシュボードの「一覧/アセットクラス別」、分析ダイアログの
+   「履歴表/履歴グラフ」に適用)。口座タブ(#account_tabs_row)と同じ方式で、タブ自身に
+   下線を持たせ選択中だけ自身の背景色で上書きして消す(共有の1本線+はみ出しで重ねる
+   方式は、口座タブの横スクロール領域で不具合が見つかったため採用しない、詳細は
+   #account_tabs_rowのコメントを参照)。
+   選択/非選択の配色も口座タブ(.tab-btn/.tab-btn.active)と統一する(以前は非選択を
+   グレー塗り、選択を白背景+グレー枠という別ルールにしていたが、口座タブと見た目が
+   揃わず一貫性がないという指摘を受けて統一した)。 */
+.section-title-row.tabs-merge {
+    align-items: flex-end;
+}
+
+.tabs-merge .merge-tabs .subtab-btn {
+    border-bottom: 1px solid var(--border-strong);
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+}
+
+.tabs-merge .merge-tabs .subtab-btn.active {
+    border-bottom-color: var(--primary-tint);
+}
+
+/* 口座タブ(#account_tabs_row)と同じ「外側に開く」裾の表現(疑似要素で角を丸く継ぎ足す)。
+   見た目の一貫性のため同じ手法・同じ半径(8px)・同じ塗り色(--primary-tint)にする。 */
+.tabs-merge .merge-tabs .subtab-btn.active::before,
+.tabs-merge .merge-tabs .subtab-btn.active::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    width: 8px;
+    height: 8px;
+}
+
+.tabs-merge .merge-tabs .subtab-btn.active::before {
+    left: -8px;
+    background: radial-gradient(circle at top left, transparent 8px, var(--primary-tint) 8.5px);
+}
+
+.tabs-merge .merge-tabs .subtab-btn.active::after {
+    right: -8px;
+    background: radial-gradient(circle at top right, transparent 8px, var(--primary-tint) 8.5px);
+}
+
 .subtab-btn.active {
     border-color: var(--primary);
-    background: #eff6ff;
+    background: var(--primary-tint);
     color: var(--primary);
     font-weight: bold;
 }
@@ -709,7 +895,7 @@ input[type="text"]:disabled, input[type="number"]:disabled, select:disabled {
 }
 
 .asset-class-group-row:hover {
-    background: #eff6ff;
+    background: var(--primary-tint);
 }
 
 .asset-class-group-toggle {
@@ -803,7 +989,7 @@ input[type="text"]:disabled, input[type="number"]:disabled, select:disabled {
     margin: 0 0 16px;
     padding: 0;
     border: 1px solid var(--border);
-    border-radius: 6px;
+    border-radius: 8px;
 }
 
 .asset-class-order-item {

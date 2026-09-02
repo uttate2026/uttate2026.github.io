@@ -128,7 +128,12 @@
 
         <div class="account-tabs-container">
             <div class="tab-label">編集・計算する口座を選択:</div>
-            <div class="tabs-row" id="account_tabs_row"></div>
+            <div class="account-tabs-bar">
+                <div class="account-tabs-scroll">
+                    <div class="tabs-row" id="account_tabs_row"></div>
+                </div>
+                <div id="dashboard_tab_slot"></div>
+            </div>
 
             <div class="account-toolbar">
                 <div class="toolbar-group">
@@ -204,9 +209,9 @@
             </div>
 
             <div class="card">
-                <div class="section-title-row">
+                <div class="section-title-row tabs-merge">
                     <div class="section-title">2. 資産項目と目標バランスの入力</div>
-                    <div class="tabs-row small-tabs">
+                    <div class="tabs-row small-tabs merge-tabs">
                         <button type="button" id="btn_asset_tab_list" class="subtab-btn">一覧</button>
                         <button type="button" id="btn_asset_tab_byclass" class="subtab-btn">アセットクラス別</button>
                     </div>
@@ -316,9 +321,9 @@
 
         <div id="dashboard_workspace" style="display: none;">
             <div class="card">
-                <div class="section-title-row">
+                <div class="section-title-row tabs-merge">
                     <div class="section-title">📊 全口座合算アセットアロケーション</div>
-                    <div class="tabs-row small-tabs">
+                    <div class="tabs-row small-tabs merge-tabs">
                         <button type="button" id="btn_dashboard_tab_list" class="subtab-btn">一覧</button>
                         <button type="button" id="btn_dashboard_tab_byclass" class="subtab-btn">アセットクラス別</button>
                     </div>
@@ -412,8 +417,8 @@
             <p id="analysis_target_desc" class="auth-desc"></p>
 
             <div id="analysis_content">
-                <div class="section-title-row">
-                    <div class="tabs-row small-tabs">
+                <div class="section-title-row tabs-merge">
+                    <div class="tabs-row small-tabs merge-tabs">
                         <button type="button" id="btn_analysis_tab_table" class="subtab-btn">履歴表</button>
                         <button type="button" id="btn_analysis_tab_chart" class="subtab-btn">履歴グラフ</button>
                     </div>
