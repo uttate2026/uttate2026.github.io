@@ -514,12 +514,14 @@
     <script src="ocr.js"></script>
     <script src="auth.js"></script>
     <script src="consent.js"></script>
+    <script src="resize-notifier.js"></script>
     <script src="vendor/chart.js"></script>
     <script src="ui.js"></script>
     <script>
         window.model = new AssetModel({ window: window, storage: AppStorage });
         AssetAuth.init();
         AssetConsent.init();
+        ResizeNotifier.init();
     </script>
 </body>
 </html>
