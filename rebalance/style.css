@@ -40,7 +40,10 @@ body {
 }
 
 .app-container {
-    max-width: 960px;
+    /* iframe埋め込み先(要件1章①)によっては表示幅が960pxを超えるため、
+       中央寄せによる無駄な左右余白でツール画面が縮小されないよう上限を拡大している
+       (ADR 0008参照)。 */
+    max-width: 1400px;
     margin: 0 auto;
     padding: 24px 16px 64px;
 }
