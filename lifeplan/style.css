@@ -1,0 +1,674 @@
+/* src/style.css */
+
+/* 画面幅対応の基本方針(screen-design.md 0-1節、rebalanceの方針を踏襲): 狭い画面(600px未満、
+   スマートフォン想定)とそれ以外(タブレット・PC)の2区分のみとする。基本はフルードレイアウト+
+   flex-wrap/gridの折り返しで対応し、表だけは横スクロール(.table-responsive)に切り替える。 */
+
+:root {
+    --bg-main: #f8fafc;
+    --bg-card: #ffffff;
+    --border: #e2e8f0;
+    --border-strong: #cbd5e1;
+    --primary: #155e75;
+    --primary-dark: #164e63;
+    --primary-tint: #cfe6ec;
+    --success: #16a34a;
+    --danger: #dc2626;
+    --text-main: #0f172a;
+    --text-secondary: #64748b;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+html {
+    overflow-y: scroll;
+}
+
+body {
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Hiragino Sans", Meiryo, sans-serif;
+    background: var(--bg-main);
+    color: var(--text-main);
+}
+
+.app-container {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 24px 16px 64px;
+}
+
+header h1 {
+    font-size: 22px;
+    margin: 0 0 20px;
+}
+
+.card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 20px;
+    margin-bottom: 20px;
+    box-shadow: 0 1px 2px rgba(15, 23, 42, 0.04), 0 4px 10px rgba(15, 23, 42, 0.04);
+}
+
+.section-title {
+    font-weight: bold;
+    font-size: 15px;
+    margin-bottom: 12px;
+}
+
+.section-title-sub {
+    font-weight: bold;
+    font-size: 13px;
+    color: var(--text-secondary);
+    margin: 16px 0 8px;
+}
+
+/* 認証・同意画面(rebalanceと同じパターン) */
+.auth-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: var(--bg-main);
+    z-index: 9999;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+.auth-card {
+    max-width: 420px;
+    width: 100%;
+    text-align: center;
+}
+
+.auth-desc {
+    font-size: 14px;
+    color: var(--text-secondary);
+    margin-bottom: 20px;
+    line-height: 1.6;
+}
+
+#token_input {
+    width: 100%;
+    text-align: center;
+    font-size: 16px;
+    padding: 8px;
+    margin-bottom: 16px;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+}
+
+.consent-list {
+    text-align: left;
+    font-size: 14px;
+    line-height: 1.8;
+    color: var(--text-main);
+    padding-left: 20px;
+    margin-bottom: 20px;
+}
+
+/* ボタン */
+.btn {
+    display: inline-block;
+    border: 1px solid var(--border);
+    background: var(--bg-card);
+    color: var(--text-main);
+    padding: 8px 14px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.btn-primary {
+    background: var(--primary);
+    border-color: var(--primary);
+    color: #fff;
+}
+
+.btn-primary:hover {
+    background: var(--primary-dark);
+}
+
+.btn-link {
+    background: transparent;
+    border: none;
+    color: var(--primary);
+    padding: 4px 0;
+    text-decoration: underline;
+}
+
+.btn-delete {
+    background: transparent;
+    border: 1px solid var(--danger);
+    color: var(--danger);
+}
+
+.btn-large {
+    width: 100%;
+    padding: 12px;
+    font-weight: bold;
+    font-size: 15px;
+}
+
+.button-row {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    flex-wrap: wrap;
+}
+
+/* プランタブ(rebalanceの口座タブと同じ挙動: 折り返さず横スクロール) */
+.account-tabs-container {
+    margin-bottom: 20px;
+}
+
+.tab-label {
+    font-size: 12px;
+    font-weight: bold;
+    color: var(--text-secondary);
+    margin-bottom: 8px;
+}
+
+.tabs-row {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    margin-bottom: 8px;
+}
+
+.account-tabs-bar {
+    display: flex;
+    align-items: flex-end;
+    gap: 12px;
+    margin-bottom: 8px;
+}
+
+.account-tabs-scroll {
+    flex: 1;
+    min-width: 0;
+    overflow-x: auto;
+    overflow-y: hidden;
+}
+
+#pattern_tabs_row {
+    flex-wrap: nowrap;
+    margin-bottom: 0;
+}
+
+#pattern_tabs_row .tab-btn,
+#pattern_tabs_row .btn-link {
+    flex-shrink: 0;
+}
+
+.tab-btn {
+    position: relative;
+    padding: 8px 24px 8px 12px;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    background: var(--bg-card);
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.tab-btn.active {
+    border-color: var(--primary);
+    background: var(--primary-tint);
+    color: var(--primary);
+    font-weight: bold;
+}
+
+/* プランタブの一体感(rebalanceの口座タブと同じ演出、2026-09-07のフィードバックでrebalanceに
+   合わせた)。選択中タブに下線(border-bottom)を持たせ、その色を自身の背景色と同じにして
+   見えなくすることで、タブの箱がその線を突き破って下の作業領域と地続きになっているように見せる。 */
+#pattern_tabs_row .tab-btn,
+#compare_tab_slot .tab-btn-compare {
+    border-bottom: 1px solid var(--border-strong);
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+}
+
+#pattern_tabs_row .tab-btn.active,
+#compare_tab_slot .tab-btn-compare.active {
+    border-bottom-color: var(--primary-tint);
+}
+
+/* タブの下部角丸を「外側に開く」形にする(タブ本体の裾がページ地色<--bg-main>へ滑らかに
+   繋がって見えるようにする、rebalanceと同じ手法) */
+#pattern_tabs_row .tab-btn.active::before,
+#pattern_tabs_row .tab-btn.active::after,
+#compare_tab_slot .tab-btn-compare.active::before,
+#compare_tab_slot .tab-btn-compare.active::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    width: 8px;
+    height: 8px;
+}
+
+#pattern_tabs_row .tab-btn.active::before,
+#compare_tab_slot .tab-btn-compare.active::before {
+    left: -8px;
+    background: radial-gradient(circle at top left, transparent 8px, var(--primary-tint) 8.5px);
+}
+
+#pattern_tabs_row .tab-btn.active::after,
+#compare_tab_slot .tab-btn-compare.active::after {
+    right: -8px;
+    background: radial-gradient(circle at top right, transparent 8px, var(--primary-tint) 8.5px);
+}
+
+.tab-delete {
+    position: absolute;
+    top: 2px;
+    right: 6px;
+    color: var(--text-secondary);
+    cursor: pointer;
+    font-size: 12px;
+}
+
+.tab-delete:hover {
+    color: var(--danger);
+}
+
+/* 「全プラン比較」タブ: 個別プランタブとは挙動が違うことを示す(rebalanceのダッシュボードタブと同じ) */
+.tab-btn-compare {
+    flex-shrink: 0;
+    width: 130px;
+    padding: 6px 8px;
+    white-space: normal;
+    text-align: center;
+    font-size: 12px;
+    line-height: 1.3;
+    background: #f1f5f9;
+    border-color: #cbd5e1;
+    color: var(--text-secondary);
+}
+
+.tab-btn-compare.active {
+    border-color: var(--primary);
+    background: var(--primary-tint);
+    color: var(--primary);
+    font-weight: bold;
+}
+
+/* プラン名変更ボタンの段(rebalanceの「🏷️ 口座プロパティ」と同じ配置、2026-09-07のフィードバック) */
+.account-toolbar {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 16px;
+    margin-top: 8px;
+    padding-top: 8px;
+    border-top: 1px dashed var(--border);
+}
+
+.account-properties-panel {
+    margin-top: 8px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    flex-wrap: wrap;
+}
+
+.account-name-group {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 13px;
+    font-weight: bold;
+}
+
+#pattern_name_input {
+    padding: 4px 8px;
+    font-size: 14px;
+    font-weight: bold;
+    min-width: 160px;
+}
+
+/* フォーム */
+.form-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 14px 20px;
+}
+
+/* 調整可能かつ比較が重要な2項目を、画面幅によらず同じ行に固定する(2026-09-06のフィードバック。
+   退職年齢と公的年金受給開始年齢のペア) */
+.form-grid-pair {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.form-field {
+    margin-bottom: 14px;
+}
+
+.form-field label {
+    display: block;
+    font-size: 13px;
+    font-weight: bold;
+    margin-bottom: 4px;
+}
+
+.field-with-unit {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.field-with-unit input {
+    flex: 1;
+    min-width: 0;
+}
+
+.unit {
+    font-size: 13px;
+    color: var(--text-secondary);
+    white-space: nowrap;
+}
+
+.field-note {
+    font-size: 12px;
+    color: var(--text-secondary);
+    margin: 4px 0 0;
+}
+
+.info-note {
+    font-size: 13px;
+    color: var(--primary-dark);
+    background: var(--primary-tint);
+    border-radius: 8px;
+    padding: 10px 12px;
+    margin-top: 8px;
+    line-height: 1.6;
+}
+
+input[type="text"], input[type="number"], select {
+    padding: 6px 8px;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    font-size: 14px;
+    width: 100%;
+}
+
+/* 数値入力欄では日本語入力モードを自動解除する(要件4.4節、rebalance踏襲) */
+input[inputmode="numeric"], input[inputmode="decimal"] {
+    ime-mode: disabled;
+}
+
+.range-input {
+    width: 100%;
+    accent-color: var(--primary);
+}
+
+/* 資産残高推移グラフ・全プラン比較グラフ(ADR 0004、Chart.js) */
+#asset_chart_wrap, #compare_chart_wrap {
+    position: relative;
+    height: 280px;
+    margin-top: 16px;
+}
+
+/* #asset_chart_wrapは下に住民税非課税簡易診断のセグメントバーが隙間なく続くため、
+   下マージンを持たせない(2026-09-08のフィードバック、「グラフの真下に挿入」)。
+   #compare_chart_wrapは各カードの最後の要素のため、従来通り下マージンを残す */
+#compare_chart_wrap {
+    margin-bottom: 16px;
+}
+
+.result-summary {
+    display: flex;
+    gap: 24px;
+    flex-wrap: wrap;
+    margin-top: 12px;
+}
+
+.result-summary-item {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.result-summary-label {
+    font-size: 12px;
+    color: var(--text-secondary);
+}
+
+.result-summary-value {
+    font-size: 18px;
+    font-weight: bold;
+}
+
+/* 出口戦略の結果マトリックス(現在の配分による1件分、機能仕様8.3節、
+   2026-09-07のフィードバックで一時金/年金の単純表示から3行×3列のマトリックスに置き換えた) */
+.result-matrix-label {
+    font-size: 13px;
+    font-weight: bold;
+    color: var(--text-secondary);
+    margin-bottom: 8px;
+}
+
+.result-matrix-wrap {
+    overflow-x: auto;
+}
+
+.result-matrix {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13px;
+}
+
+.result-matrix th,
+.result-matrix td {
+    padding: 6px 8px;
+    text-align: right;
+    white-space: nowrap;
+}
+
+.result-matrix thead th {
+    color: var(--text-secondary);
+    font-weight: normal;
+    border-bottom: 1px solid var(--border);
+}
+
+.result-matrix tbody th {
+    text-align: left;
+    font-weight: normal;
+    color: var(--text-secondary);
+}
+
+.result-matrix tbody td {
+    font-weight: bold;
+    color: var(--success);
+}
+
+.result-matrix-total th,
+.result-matrix-total td {
+    border-top: 1px solid var(--border);
+    font-weight: bold;
+}
+
+.result-matrix-total th {
+    color: var(--text-main);
+}
+
+/* iDeCoによる節税額(拠出時の所得控除効果のみ、機能仕様8.2節、2026-09-07のフィードバックで追加) */
+.tax-savings-box {
+    margin-top: 16px;
+    padding-top: 12px;
+    border-top: 1px dashed var(--border);
+}
+
+.tax-savings-value {
+    font-size: 14px;
+    font-weight: bold;
+    color: var(--success);
+}
+
+.unit-note {
+    font-weight: normal;
+    color: var(--text-secondary);
+    font-size: 12px;
+}
+
+.net-amount-label {
+    font-size: 12px;
+    color: var(--text-secondary);
+    margin-bottom: 2px;
+}
+
+.net-amount {
+    font-size: 20px;
+    font-weight: bold;
+    color: var(--success);
+    margin-bottom: 4px;
+}
+
+.checkbox-label {
+    display: flex !important;
+    align-items: center;
+    gap: 6px;
+    font-weight: normal !important;
+    cursor: pointer;
+}
+
+.checkbox-label input[type="checkbox"] {
+    width: auto;
+    accent-color: var(--primary);
+}
+
+.net-amount-sub {
+    font-size: 14px;
+    font-weight: bold;
+    color: var(--success);
+    margin-bottom: 8px;
+}
+
+/* 住民税非課税簡易診断(任意、機能仕様8.4節、2026-09-06のフィードバックで追加) */
+.resident-tax-check-toggle {
+    margin: 4px 0 8px;
+}
+
+.resident-tax-check-fields {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin: 0 0 8px 26px;
+}
+
+.resident-tax-check-fields select {
+    padding: 6px 8px;
+    border: 1px solid var(--border-strong);
+    border-radius: 6px;
+    font-size: 13px;
+}
+
+#resident_tax_check_note {
+    margin-left: 26px;
+}
+
+/* グラフの真下に隙間なく挿入する(2026-09-08のフィードバック) */
+#resident_tax_bar_wrap {
+    margin-top: 2px;
+}
+
+/* 上の資産残高推移グラフ(Chart.js)のx軸ピクセル位置に合わせて、各セグメントをJSから
+   position:absoluteで配置する(2026-09-08のフィードバック。グラフとの軸ずれで、特に単色一色の
+   場合に何を示しているか分かりにくいという指摘への対応) */
+.resident-tax-bar {
+    position: relative;
+    height: 34px;
+    border-radius: 6px;
+    overflow: hidden;
+    border: 1px solid var(--border);
+}
+
+.resident-tax-bar-segment {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    font-weight: bold;
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+.resident-tax-bar-segment.taxable {
+    background: #fde8e8;
+    color: #9f1c1c;
+}
+
+.resident-tax-bar-segment.exempt {
+    background: #dcf5e3;
+    color: #166534;
+}
+
+.breakdown-list {
+    text-align: left;
+    font-size: 12px;
+    color: var(--text-secondary);
+    margin: 8px 0 0;
+}
+
+.breakdown-list dt {
+    float: left;
+    clear: left;
+    margin-right: 6px;
+}
+
+.breakdown-list dd {
+    margin: 0 0 4px;
+    text-align: right;
+}
+
+details summary {
+    cursor: pointer;
+    color: var(--primary);
+    font-size: 12px;
+}
+
+/* 表(全プラン比較の一覧表・出口戦略比較3列の共通スタイル) */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 14px;
+}
+
+th, td {
+    padding: 8px;
+    border-bottom: 1px solid var(--border);
+    text-align: left;
+}
+
+.text-right {
+    text-align: right;
+}
+
+.table-responsive {
+    overflow-x: auto;
+}
+
+.alert-text {
+    color: var(--danger);
+    font-weight: bold;
+    font-size: 14px;
+    margin: 0 0 16px;
+}
+
+@media (max-width: 600px) {
+    .app-container {
+        padding: 16px 10px 48px;
+    }
+
+    .form-grid,
+    .form-grid-pair {
+        grid-template-columns: 1fr;
+    }
+}

@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>iDeCoシミュレーター</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div id="auth_overlay" class="auth-overlay">
+        <div class="card auth-card">
+            <div class="section-title">セキュリティ認証</div>
+            <p class="auth-desc">このツールにアクセスするには、専用のトークン(パスワード)を入力してください。</p>
+            <input type="password" id="token_input" placeholder="パスワードを入力">
+            <p id="auth_error" class="alert-text" style="display: none;">⚠️ パスワードが正しくありません。</p>
+            <button type="button" id="btn_auth" class="btn btn-primary">認証する</button>
+        </div>
+    </div>
+
+    <div id="consent_overlay" class="auth-overlay" style="display: none;">
+        <div class="card auth-card">
+            <div class="section-title">ご利用にあたって</div>
+            <ol class="consent-list">
+                <li>入力したデータは、運営側サーバーには保存されません。お使いのブラウザ内にのみ保存されます。</li>
+                <li>外部への送信は行いません。</li>
+                <li>本サービスの試算結果は、税務・年金相談の代替にはなりません。控除額表・税率等の「制度の値」は変更されることがあり、最新の制度と異なる場合があります。自己責任でご利用ください。</li>
+            </ol>
+            <button type="button" id="btn_consent_agree" class="btn btn-primary btn-large">同意して利用を開始する</button>
+        </div>
+    </div>
+
+    <div class="app-container" id="app_container" style="display: none;">
+
+        <header>
+            <h1>iDeCoシミュレーター</h1>
+        </header>
+
+        <div class="account-tabs-container">
+            <div class="tab-label">編集・計算するプランを選択:</div>
+            <div class="account-tabs-bar">
+                <div class="account-tabs-scroll">
+                    <div class="tabs-row" id="pattern_tabs_row"></div>
+                </div>
+                <div id="compare_tab_slot"></div>
+            </div>
+
+            <div class="account-toolbar">
+                <button type="button" id="btn_toggle_pattern_properties" class="btn btn-link">🏷️ プラン名を変更</button>
+            </div>
+
+            <div id="pattern_properties_panel" class="account-properties-panel" style="display: none;">
+                <div class="account-name-group">
+                    <label for="pattern_name_input">プラン名:</label>
+                    <input type="text" id="pattern_name_input">
+                </div>
+            </div>
+        </div>
+
+        <div id="ideco_workspace">
+
+            <div class="card">
+                <div class="section-title">1. 収入・ライフプラン</div>
+                <div class="form-grid">
+                    <div class="form-field">
+                        <label for="input_current_age">現在の年齢</label>
+                        <div class="field-with-unit">
+                            <input type="text" id="input_current_age" inputmode="numeric" autocomplete="off" spellcheck="false">
+                            <span class="unit">歳</span>
+                        </div>
+                        <p class="field-note">シミュレーション全体の基準年齢</p>
+                    </div>
+                    <div class="form-field">
+                        <label for="input_salary_income">給与収入(年額)</label>
+                        <div class="field-with-unit">
+                            <input type="text" id="input_salary_income" inputmode="numeric" autocomplete="off" spellcheck="false">
+                            <span class="unit">円</span>
+                        </div>
+                    </div>
+                    <div class="form-field">
+                        <label for="input_dependents">扶養家族数</label>
+                        <div class="field-with-unit">
+                            <input type="text" id="input_dependents" inputmode="numeric" autocomplete="off" spellcheck="false">
+                            <span class="unit">人</span>
+                        </div>
+                    </div>
+                    <div class="form-field">
+                        <label for="input_basic_pension">老齢基礎年金(年額)</label>
+                        <div class="field-with-unit">
+                            <input type="text" id="input_basic_pension" inputmode="numeric" autocomplete="off" spellcheck="false">
+                            <span class="unit">円</span>
+                        </div>
+                    </div>
+                    <div class="form-field">
+                        <label for="input_employee_pension">老齢厚生年金(報酬比例部分、年額)</label>
+                        <div class="field-with-unit">
+                            <input type="text" id="input_employee_pension" inputmode="numeric" autocomplete="off" spellcheck="false">
+                            <span class="unit">円</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-grid form-grid-pair">
+                    <div class="form-field">
+                        <label for="input_retirement_age">退職年齢</label>
+                        <div class="field-with-unit">
+                            <input type="text" id="input_retirement_age" inputmode="numeric" autocomplete="off" spellcheck="false">
+                            <span class="unit">歳</span>
+                        </div>
+                    </div>
+                    <div class="form-field">
+                        <label for="input_pension_start_age">公的年金受給開始年齢</label>
+                        <div class="field-with-unit">
+                            <input type="text" id="input_pension_start_age" inputmode="numeric" autocomplete="off" spellcheck="false">
+                            <span class="unit">歳</span>
+                        </div>
+                    </div>
+                </div>
+                <p class="info-note">
+                    ℹ️ 老齢基礎年金・老齢厚生年金の金額は、下の「公的年金受給開始年齢」で実際に受け取る金額(繰上げ受給・繰り下げ受給による増減を反映済みの金額)を入力してください。本サイトは、受給開始年齢に応じた増減額を自動計算しません。
+                </p>
+                <p id="pension_estimate_notice" class="info-note" style="display: none;">
+                    ℹ️ 50歳未満の方へ: ねんきん定期便の年金額は、これまでの加入実績に基づく金額であり、将来の受給時点の見込額ではありません。「ねんきんネット」(日本年金機構の公式サイト)で将来の見込額を試算してから入力してください。
+                </p>
+                <p id="working_pension_notice" class="info-note" style="display: none;">
+                    ℹ️ 退職年齢が公的年金受給開始年齢より後のため、その重複期間は「働きながら年金を受け取る」期間として扱われます。この期間は在職老齢年金による老齢厚生年金の支給停止調整が結果に反映されます。
+                </p>
+            </div>
+
+            <div class="card">
+                <div class="section-title">2. iDeCo拠出プラン</div>
+                <div class="form-grid">
+                    <div class="form-field">
+                        <label for="input_current_balance">現在のiDeCo残高</label>
+                        <div class="field-with-unit">
+                            <input type="text" id="input_current_balance" inputmode="numeric" autocomplete="off" spellcheck="false">
+                            <span class="unit">円</span>
+                        </div>
+                    </div>
+                    <div class="form-field">
+                        <label for="input_enrolled_years">これまでの加入年数</label>
+                        <div class="field-with-unit">
+                            <input type="text" id="input_enrolled_years" inputmode="numeric" autocomplete="off" spellcheck="false">
+                            <span class="unit">年</span>
+                        </div>
+                    </div>
+                    <div class="form-field">
+                        <label for="input_monthly_contribution">毎月の拠出額</label>
+                        <div class="field-with-unit">
+                            <input type="text" id="input_monthly_contribution" inputmode="numeric" autocomplete="off" spellcheck="false">
+                            <span class="unit">円</span>
+                        </div>
+                        <p id="monthly_contribution_warning" class="alert-text" style="display: none;">⚠️ iDeCoの毎月の拠出額は5,000円以上である必要があります。</p>
+                    </div>
+                    <div class="form-field">
+                        <label for="input_expected_return_rate">想定利回り(年率)</label>
+                        <div class="field-with-unit">
+                            <input type="text" id="input_expected_return_rate" inputmode="decimal" autocomplete="off" spellcheck="false">
+                            <span class="unit">%</span>
+                        </div>
+                    </div>
+                    <div class="form-field">
+                        <label for="input_contribution_end_age">拠出終了年齢</label>
+                        <div class="field-with-unit">
+                            <input type="text" id="input_contribution_end_age" inputmode="numeric" autocomplete="off" spellcheck="false">
+                            <span class="unit">歳</span>
+                        </div>
+                        <p class="field-note">公的年金受給開始年齢以下の値に自動的に制限されます(老齢基礎年金の受給開始でiDeCoの拠出を続けられなくなるため)。</p>
+                    </div>
+                    <div class="form-field">
+                        <label for="input_contribution_limit">あなたの拠出限度額(月額)</label>
+                        <div class="field-with-unit">
+                            <input type="text" id="input_contribution_limit" inputmode="numeric" autocomplete="off" spellcheck="false">
+                            <span class="unit">円</span>
+                        </div>
+                        <p class="field-note">iDeCoの拠出限度額は、自営業者・公務員・会社員(企業年金の有無)によって異なります。ご自身の限度額を調べて入力してください(既定値は企業年金なし会社員の23,000円)。</p>
+                        <p id="contribution_limit_warning" class="alert-text" style="display: none;">⚠️ 毎月の拠出額が、あなたの拠出限度額を超えています。</p>
+                    </div>
+                </div>
+
+                <div class="result-summary">
+                    <div class="result-summary-item">
+                        <span class="result-summary-label">拠出終了時点の資産額</span>
+                        <span class="result-summary-value" id="contribution_end_balance">¥0</span>
+                    </div>
+                    <div class="result-summary-item">
+                        <span class="result-summary-label">シミュレーション開始からの総拠出額</span>
+                        <span class="result-summary-value" id="total_contribution">¥0</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="section-title">3. iDeCo出口戦略</div>
+
+                <div class="form-field">
+                    <label for="input_lump_sum_ratio">
+                        一時金の受取比率: <span id="lump_sum_ratio_display">100</span>%
+                        (残り<span id="pension_ratio_display">0</span>%が年金の受取比率)
+                    </label>
+                    <input type="range" id="input_lump_sum_ratio" class="range-input" min="0" max="100" step="1">
+                </div>
+
+                <div class="form-grid">
+                    <div class="form-field">
+                        <label for="input_lump_sum_receipt_age">一時金受取年齢</label>
+                        <div class="field-with-unit">
+                            <input type="text" id="input_lump_sum_receipt_age" inputmode="numeric" autocomplete="off" spellcheck="false">
+                            <span class="unit">歳</span>
+                        </div>
+                    </div>
+                    <div class="form-field">
+                        <label for="input_pension_receipt_start_age">年金受取開始年齢</label>
+                        <div class="field-with-unit">
+                            <input type="text" id="input_pension_receipt_start_age" inputmode="numeric" autocomplete="off" spellcheck="false">
+                            <span class="unit">歳</span>
+                        </div>
+                    </div>
+                    <div class="form-field">
+                        <label for="input_pension_receipt_years">年金の受給期間</label>
+                        <div class="field-with-unit">
+                            <input type="text" id="input_pension_receipt_years" inputmode="numeric" autocomplete="off" spellcheck="false">
+                            <span class="unit">年間</span>
+                        </div>
+                    </div>
+                </div>
+                <p class="field-note">一時金受取年齢・年金受取開始年齢は、拠出終了年齢以降の値に自動的に制限されます。</p>
+
+                <div class="section-title-sub">勤務先からの退職金</div>
+                <div class="form-field">
+                    <label class="checkbox-label">
+                        <input type="checkbox" id="input_employer_exists">
+                        勤務先からの退職金がある(受け取り済みの場合も含みます)
+                    </label>
+                    <p class="field-note">退職一時金だけでなく、確定給付企業年金(DB)・企業型確定拠出年金(企業型DC)を一時金で受け取る場合も対象です(いずれもiDeCo一時金との9年/19年ルールの対象になるため)。年金<分割>形式で受け取る企業年金は対象外です。</p>
+                </div>
+                <div id="employer_severance_fields" class="form-grid" style="display: none;">
+                    <div class="form-field">
+                        <label for="input_employer_receipt_age">受給年齢</label>
+                        <div class="field-with-unit">
+                            <input type="text" id="input_employer_receipt_age" inputmode="numeric" autocomplete="off" spellcheck="false">
+                            <span class="unit">歳</span>
+                        </div>
+                        <p class="field-note">既に受け取っている場合は、実際に受け取った年齢を入力してください。</p>
+                    </div>
+                    <div class="form-field">
+                        <label for="input_employer_amount">金額</label>
+                        <div class="field-with-unit">
+                            <input type="text" id="input_employer_amount" inputmode="numeric" autocomplete="off" spellcheck="false">
+                            <span class="unit">円</span>
+                        </div>
+                    </div>
+                    <div class="form-field">
+                        <label for="input_employer_service_years">勤続年数</label>
+                        <div class="field-with-unit">
+                            <input type="text" id="input_employer_service_years" inputmode="numeric" autocomplete="off" spellcheck="false">
+                            <span class="unit">年</span>
+                        </div>
+                        <p class="field-note">9年/19年ルールの重複排除計算に用います。未入力(0)なら調整しません。</p>
+                    </div>
+                </div>
+
+                <p class="field-note">一時金の受取比率を100%/0%にすれば、それぞれ一時金のみ/年金のみの結果を確認できます。異なる配分を並べて比較したい場合は、プランを複製して「全プラン比較」をご利用ください。</p>
+            </div>
+
+            <div class="card">
+                <div class="section-title">4. 出口戦略の結果・資産推移</div>
+
+                <div class="result-matrix-label">現在の配分による結果</div>
+                <div class="result-matrix-wrap">
+                    <table class="result-matrix">
+                        <thead>
+                            <tr>
+                                <th></th>
+                                <th>手取り</th>
+                                <th>税金</th>
+                                <th>社会保険料</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <th>一時金</th>
+                                <td id="matrix_lump_sum_net">¥0</td>
+                                <td id="matrix_lump_sum_tax">¥0</td>
+                                <td id="matrix_lump_sum_social">¥0</td>
+                            </tr>
+                            <tr>
+                                <th>年金(生涯)</th>
+                                <td id="matrix_pension_net">¥0</td>
+                                <td id="matrix_pension_tax">¥0</td>
+                                <td id="matrix_pension_social">¥0</td>
+                            </tr>
+                            <tr class="result-matrix-total">
+                                <th>トータル(生涯)</th>
+                                <td id="matrix_total_net">¥0</td>
+                                <td id="matrix_total_tax">¥0</td>
+                                <td id="matrix_total_social">¥0</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <details>
+                    <summary>内訳を見る</summary>
+                    <dl class="breakdown-list" id="exit_breakdown"></dl>
+                </details>
+
+                <div class="tax-savings-box">
+                    <div class="net-amount-label">iDeCoによる節税額<span class="unit-note">(拠出時の所得控除効果)</span></div>
+                    <div class="tax-savings-value">
+                        年間 <span id="tax_savings_annual">¥0</span>/年
+                        × 残り拠出<span id="tax_savings_years">0</span>年
+                        = 生涯 <span id="tax_savings_total">¥0</span>
+                    </div>
+                </div>
+
+                <div id="asset_chart_wrap">
+                    <canvas id="asset_chart_canvas"></canvas>
+                    <p id="asset_chart_error" class="alert-text" style="display: none;">グラフを表示できませんでした。</p>
+                </div>
+                <div id="resident_tax_bar_wrap" style="display: none;">
+                    <div class="resident-tax-bar" id="resident_tax_bar"></div>
+                </div>
+
+                <div class="section-title-sub">住民税非課税 簡易診断(任意)</div>
+                <label class="checkbox-label resident-tax-check-toggle">
+                    <input type="checkbox" id="input_resident_tax_check_enabled">
+                    上のグラフの真下に、住民税非課税(目安)の期間を表示する
+                </label>
+                <div id="resident_tax_check_fields" class="resident-tax-check-fields" style="display: none;">
+                    <label for="input_resident_tax_area_grade">お住まいの級地:</label>
+                    <select id="input_resident_tax_area_grade">
+                        <option value="1">1級地</option>
+                        <option value="2">2級地</option>
+                        <option value="3">3級地</option>
+                    </select>
+                </div>
+                <p id="resident_tax_check_note" class="field-note" style="display: none;">
+                    均等割の非課税基準は級地(生活保護基準の地域区分)により異なります。分からない場合はお住まいの市区町村のWebサイトでご確認ください。
+                </p>
+                <p id="resident_tax_disclaimer" class="field-note" style="display: none;">
+                    ⚠️ 目安です。合計所得金額をもとにした簡易判定であり、実際の非課税判定はお住まいの市区町村にご確認ください。
+                </p>
+            </div>
+
+        </div>
+
+        <div id="compare_workspace" style="display: none;">
+            <div class="card">
+                <div class="section-title">全プラン比較</div>
+
+                <div class="table-responsive">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>プラン名</th>
+                                <th class="text-right">手取り</th>
+                                <th class="text-right">税金</th>
+                                <th class="text-right">社会保険料</th>
+                            </tr>
+                        </thead>
+                        <tbody id="compare_table_body"></tbody>
+                    </table>
+                </div>
+
+                <div id="compare_chart_wrap">
+                    <canvas id="compare_chart_canvas"></canvas>
+                    <p id="compare_chart_error" class="alert-text" style="display: none;">グラフを表示できませんでした。</p>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <script src="storage.js"></script>
+    <script src="constants.js"></script>
+    <script src="model.js"></script>
+    <script src="calculator.js"></script>
+    <script src="auth.js"></script>
+    <script src="consent.js"></script>
+    <script src="vendor/chart.js"></script>
+    <script src="ui.js"></script>
+    <script>
+        window.model = new IdecoModel({ window: window, storage: AppStorage });
+        AppAuth.init();
+        AppConsent.init();
+    </script>
+</body>
+</html>
