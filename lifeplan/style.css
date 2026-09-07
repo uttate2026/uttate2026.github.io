@@ -675,3 +675,169 @@ th, td {
         grid-template-columns: 1fr;
     }
 }
+
+/* ===========================================================================
+   lifeplan Stage 2 固有のスタイル(docs/lifeplan/design/screen-design.md)
+   =========================================================================== */
+
+/* セクション内サブタブ(所得の人物タブ・支出のタブ・資産の資産クラスタブ、tab-btnより一段小さい) */
+.sub-tabs-bar {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+    margin-bottom: 16px;
+}
+
+.sub-tabs-scroll {
+    flex: 1;
+    min-width: 0;
+    overflow-x: auto;
+    display: flex;
+    gap: 8px;
+}
+
+.sub-tab-btn {
+    position: relative;
+    flex-shrink: 0;
+    padding: 6px 20px 6px 10px;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    background: var(--bg-card);
+    cursor: pointer;
+    font-size: 13px;
+    white-space: nowrap;
+}
+
+.sub-tab-btn.active {
+    border-color: var(--primary);
+    background: var(--primary-tint);
+    color: var(--primary);
+    font-weight: bold;
+}
+
+.sub-tab-add {
+    flex-shrink: 0;
+    padding: 6px 10px;
+    border: 1px dashed var(--border-strong);
+    border-radius: 8px;
+    background: transparent;
+    color: var(--text-secondary);
+    cursor: pointer;
+    font-size: 13px;
+}
+
+.section-toolbar {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex-wrap: wrap;
+    margin-bottom: 12px;
+}
+
+/* 「[推定値]」バッジ(iDeCoからの初期値コピー、ADR 0002) */
+.badge-estimated {
+    display: inline-block;
+    font-size: 11px;
+    font-weight: bold;
+    color: var(--primary-dark);
+    background: var(--primary-tint);
+    border-radius: 4px;
+    padding: 1px 6px;
+    margin-left: 6px;
+}
+
+/* 動的リスト(不定期支出・生前贈与)の一覧テーブル */
+.dynamic-list-table th,
+.dynamic-list-table td {
+    font-size: 13px;
+}
+
+.dynamic-list-table input,
+.dynamic-list-table select {
+    font-size: 13px;
+    padding: 4px 6px;
+}
+
+.dynamic-list-add {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-top: 8px;
+}
+
+.dynamic-list-add select {
+    width: auto;
+}
+
+.row-delete-btn {
+    background: transparent;
+    border: none;
+    color: var(--text-secondary);
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.row-delete-btn:hover {
+    color: var(--danger);
+}
+
+/* 資産タブ追加時の種別・名義人選択ダイアログ(簡易版、screen-design.md 3章) */
+.asset-add-form {
+    display: flex;
+    align-items: flex-end;
+    gap: 16px;
+    flex-wrap: wrap;
+    margin-bottom: 16px;
+    padding: 12px;
+    border: 1px dashed var(--border-strong);
+    border-radius: 8px;
+}
+
+.asset-add-form select {
+    width: auto;
+}
+
+/* 相続税検討画面(ADR 0007) */
+.inheritance-toggle-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-bottom: 16px;
+}
+
+.inheritance-result-box {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    row-gap: 10px;
+    column-gap: 16px;
+    font-size: 14px;
+    padding: 16px;
+    background: var(--bg-main);
+    border-radius: 8px;
+}
+
+.inheritance-result-box .label {
+    color: var(--text-secondary);
+}
+
+.inheritance-result-box .value {
+    font-weight: bold;
+    text-align: right;
+}
+
+.inheritance-result-box .value.total {
+    font-size: 18px;
+    color: var(--primary-dark);
+}
+
+/* ダッシュボードの5(相当)セクションを縦に並べるナビ(プラン比較・相続税への導線) */
+.dashboard-nav {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+    margin-bottom: 12px;
+}
