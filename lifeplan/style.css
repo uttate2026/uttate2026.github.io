@@ -697,12 +697,17 @@ th, td {
     gap: 8px;
 }
 
+/* プランタブ(#pattern_tabs_row .tab-btn)・rebalanceの口座タブ/subtab-btnと同じ「一体感」の演出
+   (2026-09-08のフィードバックで、単なる角丸矩形からideco/rebalanceと同じ見た目に統一) */
 .sub-tab-btn {
     position: relative;
     flex-shrink: 0;
     padding: 6px 20px 6px 10px;
     border: 1px solid var(--border);
+    border-bottom: 1px solid var(--border-strong);
     border-radius: 8px;
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
     background: var(--bg-card);
     cursor: pointer;
     font-size: 13px;
@@ -714,6 +719,26 @@ th, td {
     background: var(--primary-tint);
     color: var(--primary);
     font-weight: bold;
+    border-bottom-color: var(--primary-tint);
+}
+
+.sub-tab-btn.active::before,
+.sub-tab-btn.active::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    width: 8px;
+    height: 8px;
+}
+
+.sub-tab-btn.active::before {
+    left: -8px;
+    background: radial-gradient(circle at top left, transparent 8px, var(--primary-tint) 8.5px);
+}
+
+.sub-tab-btn.active::after {
+    right: -8px;
+    background: radial-gradient(circle at top right, transparent 8px, var(--primary-tint) 8.5px);
 }
 
 .sub-tab-add {
