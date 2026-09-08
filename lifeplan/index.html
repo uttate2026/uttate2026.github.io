@@ -46,7 +46,6 @@
             </div>
             <div class="account-toolbar">
                 <button type="button" id="btn_toggle_pattern_properties" class="btn btn-link">🏷️ プラン名を変更</button>
-                <button type="button" id="btn_delete_pattern" class="btn btn-link">🗑️ このプランを削除</button>
             </div>
             <div id="pattern_properties_panel" class="account-properties-panel" style="display: none;">
                 <div class="account-name-group">
@@ -62,6 +61,15 @@
                 <div class="section-title">1. 所得</div>
                 <div class="sub-tabs-bar">
                     <div class="sub-tabs-scroll" id="person_tabs_row"></div>
+                </div>
+                <div class="section-toolbar">
+                    <button type="button" id="btn_toggle_person_properties" class="btn btn-link" style="display:none;">🏷️ 名前を変更</button>
+                </div>
+                <div id="person_properties_panel" class="account-properties-panel" style="display: none;">
+                    <div class="account-name-group">
+                        <label for="person_name_input">名前:</label>
+                        <input type="text" id="person_name_input">
+                    </div>
                 </div>
                 <div id="person_form_container"></div>
             </div>
@@ -83,7 +91,7 @@
                     </div>
                 </div>
                 <div id="expense_durable_panel" style="display:none;">
-                    <p class="field-note">任意入力です(0件でも構いません)。用意済みの項目から選ぶと耐用年数が自動で入ります。「その他」を選ぶと自由に名前を付けられます。</p>
+                    <p class="field-note">任意入力です(0件でも構いません)。「項目」欄は候補(給湯器・外壁塗装・自家用車)から選ぶと耐用年数が自動で入ります。候補にない名前を入力すると自由な項目として扱われます。</p>
                     <div class="table-responsive">
                         <table class="dynamic-list-table">
                             <thead>
@@ -92,13 +100,12 @@
                             <tbody id="durable_expense_rows"></tbody>
                         </table>
                     </div>
+                    <datalist id="durable_expense_suggestions">
+                        <option value="給湯器"></option>
+                        <option value="外壁塗装"></option>
+                        <option value="自家用車"></option>
+                    </datalist>
                     <div class="dynamic-list-add">
-                        <select id="select_durable_preset">
-                            <option value="給湯器">給湯器</option>
-                            <option value="外壁塗装">外壁塗装</option>
-                            <option value="自家用車">自家用車</option>
-                            <option value="">その他(自由入力)</option>
-                        </select>
                         <button type="button" id="btn_add_durable" class="btn btn-link">+ 耐久消費財を追加</button>
                     </div>
                 </div>
