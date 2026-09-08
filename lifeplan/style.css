@@ -833,11 +833,70 @@ th, td {
     color: var(--primary-dark);
 }
 
-/* ダッシュボードの5(相当)セクションを縦に並べるナビ(プラン比較・相続税への導線) */
-.dashboard-nav {
+/* 「全プラン比較」タブ(2026-09-08のフィードバックで、プランタブと同じ段に配置。
+   ideco/rebalanceのtab-btn-compare/tab-btn-dashboardと同じ考え方) */
+.tab-btn-compare {
+    flex-shrink: 0;
+    width: 130px;
+    padding: 6px 8px;
+    white-space: normal;
+    text-align: center;
+    font-size: 12px;
+    line-height: 1.3;
+    background: #f1f5f9;
+    border-color: #cbd5e1;
+    color: var(--text-secondary);
+}
+
+.tab-btn-compare.active {
+    border-color: var(--primary);
+    background: var(--primary-tint);
+    color: var(--primary);
+    font-weight: bold;
+}
+
+/* タブ列末尾の追加ボタン(人物・資産、2026-09-08のフィードバックでタブ列に統合) */
+.tab-add-btn {
+    flex-shrink: 0;
+}
+
+/* モーダルダイアログ(資産タブ追加、rebalanceのasset_class_modal等と同じパターン) */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(15, 23, 42, 0.5);
+    z-index: 9998;
     display: flex;
-    gap: 12px;
-    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+.modal-card {
+    max-width: 480px;
+    width: 100%;
+    max-height: 90vh;
+    overflow-y: auto;
+    position: relative;
+    text-align: left;
+}
+
+.modal-close {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    background: transparent;
+    border: none;
+    font-size: 20px;
+    line-height: 1;
+    cursor: pointer;
+    color: var(--text-secondary);
+}
+
+.modal-actions {
     justify-content: flex-end;
-    margin-bottom: 12px;
+    margin-top: 16px;
 }

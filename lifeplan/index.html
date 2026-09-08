@@ -36,20 +36,15 @@
             <h1>lifeplan ダッシュボード</h1>
         </header>
 
-        <div class="dashboard-nav">
-            <button type="button" id="btn_show_inheritance" class="btn btn-link">相続税(任意)</button>
-            <button type="button" id="btn_show_compare" class="btn btn-link">全プラン比較 →</button>
-        </div>
-
         <div class="account-tabs-container">
             <div class="tab-label">編集・計算するプランを選択:</div>
             <div class="account-tabs-bar">
                 <div class="account-tabs-scroll">
                     <div class="tabs-row" id="pattern_tabs_row"></div>
                 </div>
+                <div id="compare_tab_slot"></div>
             </div>
             <div class="account-toolbar">
-                <button type="button" id="btn_add_pattern" class="btn btn-link">+ プランを追加</button>
                 <button type="button" id="btn_toggle_pattern_properties" class="btn btn-link">🏷️ プラン名を変更</button>
                 <button type="button" id="btn_delete_pattern" class="btn btn-link">🗑️ このプランを削除</button>
             </div>
@@ -67,7 +62,6 @@
                 <div class="section-title">1. 所得</div>
                 <div class="sub-tabs-bar">
                     <div class="sub-tabs-scroll" id="person_tabs_row"></div>
-                    <button type="button" id="btn_add_person" class="sub-tab-add">+</button>
                 </div>
                 <div id="person_form_container"></div>
             </div>
@@ -89,6 +83,7 @@
                     </div>
                 </div>
                 <div id="expense_durable_panel" style="display:none;">
+                    <p class="field-note">任意入力です(0件でも構いません)。用意済みの項目から選ぶと耐用年数が自動で入ります。「その他」を選ぶと自由に名前を付けられます。</p>
                     <div class="table-responsive">
                         <table class="dynamic-list-table">
                             <thead>
@@ -102,7 +97,7 @@
                             <option value="給湯器">給湯器</option>
                             <option value="外壁塗装">外壁塗装</option>
                             <option value="自家用車">自家用車</option>
-                            <option value="">その他</option>
+                            <option value="">その他(自由入力)</option>
                         </select>
                         <button type="button" id="btn_add_durable" class="btn btn-link">+ 耐久消費財を追加</button>
                     </div>
@@ -125,21 +120,6 @@
 
             <div class="card">
                 <div class="section-title">3. 資産</div>
-                <div class="asset-add-form">
-                    <div class="form-field">
-                        <label for="select_asset_type">種類</label>
-                        <select id="select_asset_type">
-                            <option value="ideco">iDeCo</option>
-                            <option value="nisa">NISA</option>
-                            <option value="brokerage">特定口座</option>
-                        </select>
-                    </div>
-                    <div class="form-field">
-                        <label for="select_asset_owner">名義人</label>
-                        <select id="select_asset_owner"></select>
-                    </div>
-                    <button type="button" id="btn_add_asset" class="btn btn-link">+ 資産タブを追加</button>
-                </div>
                 <div class="sub-tabs-bar">
                     <div class="sub-tabs-scroll" id="asset_tabs_row"></div>
                 </div>
@@ -168,35 +148,8 @@
                 </div>
             </div>
 
-        </div>
-
-        <div id="compare_workspace" style="display: none;">
             <div class="card">
-                <div class="section-title">全プラン比較</div>
-                <button type="button" id="btn_back_from_compare" class="btn btn-link">← ダッシュボードに戻る</button>
-                <div class="table-responsive">
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>プラン名</th>
-                                <th class="text-right">退職時点資産</th>
-                                <th class="text-right">シミュレーション終了時点資産</th>
-                            </tr>
-                        </thead>
-                        <tbody id="compare_table_body"></tbody>
-                    </table>
-                </div>
-                <div id="compare_chart_wrap">
-                    <canvas id="compare_chart_canvas"></canvas>
-                    <p id="compare_chart_error" class="alert-text" style="display: none;">グラフを表示できませんでした。</p>
-                </div>
-            </div>
-        </div>
-
-        <div id="inheritance_workspace" style="display: none;">
-            <div class="card">
-                <div class="section-title">相続税(任意の検討機能)</div>
-                <button type="button" id="btn_back_from_inheritance" class="btn btn-link">← ダッシュボードに戻る</button>
+                <div class="section-title">5. 相続税(任意)</div>
                 <div class="inheritance-toggle-row">
                     <label class="checkbox-label">
                         <input type="checkbox" id="input_inheritance_enabled">
@@ -229,8 +182,54 @@
                     <div class="inheritance-result-box" id="inheritance_result_box"></div>
                 </div>
             </div>
+
         </div>
 
+        <div id="compare_workspace" style="display: none;">
+            <div class="card">
+                <div class="section-title">全プラン比較</div>
+                <div class="table-responsive">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>プラン名</th>
+                                <th class="text-right">退職時点資産</th>
+                                <th class="text-right">シミュレーション終了時点資産</th>
+                            </tr>
+                        </thead>
+                        <tbody id="compare_table_body"></tbody>
+                    </table>
+                </div>
+                <div id="compare_chart_wrap">
+                    <canvas id="compare_chart_canvas"></canvas>
+                    <p id="compare_chart_error" class="alert-text" style="display: none;">グラフを表示できませんでした。</p>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <div id="asset_add_modal" class="modal-overlay" style="display: none;">
+        <div class="card modal-card">
+            <button type="button" id="btn_asset_add_modal_close" class="modal-close" aria-label="閉じる">×</button>
+            <div class="section-title">資産タブを追加</div>
+            <div class="form-field">
+                <label for="select_asset_type">種類</label>
+                <select id="select_asset_type">
+                    <option value="ideco">iDeCo</option>
+                    <option value="nisa">NISA</option>
+                    <option value="brokerage">特定口座</option>
+                </select>
+            </div>
+            <div class="form-field">
+                <label for="select_asset_owner">名義人</label>
+                <select id="select_asset_owner"></select>
+            </div>
+            <div class="button-row modal-actions">
+                <button type="button" id="btn_asset_add_cancel" class="btn btn-link">キャンセル</button>
+                <button type="button" id="btn_asset_add_confirm" class="btn btn-primary">追加する</button>
+            </div>
+        </div>
     </div>
 
     <script src="storage.js"></script>
