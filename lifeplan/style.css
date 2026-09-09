@@ -341,12 +341,6 @@ header h1 {
     gap: 14px 20px;
 }
 
-/* 調整可能かつ比較が重要な2項目を、画面幅によらず同じ行に固定する(2026-09-06のフィードバック。
-   退職年齢と公的年金受給開始年齢のペア) */
-.form-grid-pair {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-}
-
 .form-field {
     margin-bottom: 14px;
 }
@@ -367,6 +361,14 @@ header h1 {
 .field-with-unit input {
     flex: 1;
     min-width: 0;
+}
+
+/* 項目が1つしか無いform-grid内の入力欄(現在の年齢・退職年齢・その他の被扶養者数等)が
+   全幅に伸びて単位表示が右端に離れて見づらくなるのを防ぐ(2026-09-09のフィードバック)。
+   form-grid自体ではなくfield-with-unitの幅だけを抑えることで、隣接するfield-noteの
+   折り返しには影響させない */
+.field-with-unit-narrow {
+    max-width: 220px;
 }
 
 .unit {
@@ -670,8 +672,7 @@ th, td {
         padding: 16px 10px 48px;
     }
 
-    .form-grid,
-    .form-grid-pair {
+    .form-grid {
         grid-template-columns: 1fr;
     }
 }
@@ -680,7 +681,22 @@ th, td {
    lifeplan Stage 2 固有のスタイル(docs/lifeplan/design/screen-design.md)
    =========================================================================== */
 
-/* セクション内サブタブ(所得の人物タブ・支出のタブ・資産の資産クラスタブ、tab-btnより一段小さい) */
+/* 3階層目のタブ(収入タブ<公的年金/給与収入/非課税所得>、人物タブの中にネストする)を、
+   外側の人物タブと区別しやすいよう、背景色と枠線で囲んだパネルにする(2026-09-09の
+   フィードバック。マージンだけでは「別の独立したタブ列」に見え、包含関係が伝わりにくかった) */
+.sub-panel {
+    background: var(--bg-main);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 16px;
+    margin-bottom: 16px;
+}
+
+.sub-panel .sub-tabs-bar {
+    margin-bottom: 12px;
+}
+
+/* セクション内サブタブ(収入の人物タブ・支出のタブ・資産の資産クラスタブ、tab-btnより一段小さい) */
 .sub-tabs-bar {
     display: flex;
     align-items: center;

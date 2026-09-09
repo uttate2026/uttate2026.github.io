@@ -58,7 +58,7 @@
         <div id="dashboard_workspace">
 
             <div class="card">
-                <div class="section-title">1. 所得</div>
+                <div class="section-title">1. 収入</div>
                 <div class="sub-tabs-bar">
                     <div class="sub-tabs-scroll" id="person_tabs_row"></div>
                 </div>
@@ -235,6 +235,21 @@
             <div class="button-row modal-actions">
                 <button type="button" id="btn_asset_add_cancel" class="btn btn-link">キャンセル</button>
                 <button type="button" id="btn_asset_add_confirm" class="btn btn-primary">追加する</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="income_add_modal" class="modal-overlay" style="display: none;">
+        <div class="card modal-card">
+            <button type="button" id="btn_income_add_modal_close" class="modal-close" aria-label="閉じる">×</button>
+            <div class="section-title">収入タブを追加</div>
+            <div class="form-field">
+                <label for="select_income_type">種類</label>
+                <select id="select_income_type"></select>
+            </div>
+            <div class="button-row modal-actions">
+                <button type="button" id="btn_income_add_cancel" class="btn btn-link">キャンセル</button>
+                <button type="button" id="btn_income_add_confirm" class="btn btn-primary">追加する</button>
             </div>
         </div>
     </div>
