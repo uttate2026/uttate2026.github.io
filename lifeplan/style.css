@@ -760,18 +760,6 @@ th, td {
     margin-bottom: 12px;
 }
 
-/* 「[推定値]」バッジ(iDeCoからの初期値コピー、ADR 0002) */
-.badge-estimated {
-    display: inline-block;
-    font-size: 11px;
-    font-weight: bold;
-    color: var(--primary-dark);
-    background: var(--primary-tint);
-    border-radius: 4px;
-    padding: 1px 6px;
-    margin-left: 6px;
-}
-
 /* 動的リスト(不定期支出・生前贈与)の一覧テーブル */
 .dynamic-list-table th,
 .dynamic-list-table td {
