@@ -660,6 +660,13 @@ th, td {
     overflow-x: auto;
 }
 
+/* シミュレーション結果の明細表、開閉可能なグループ見出し(2026-09-11のフィードバックで追加) */
+.result-table-group-header {
+    cursor: pointer;
+    user-select: none;
+    background: var(--bg-main);
+}
+
 .alert-text {
     color: var(--danger);
     font-weight: bold;

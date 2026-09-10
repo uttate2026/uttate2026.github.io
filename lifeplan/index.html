@@ -151,36 +151,17 @@
                 </div>
                 <div class="sub-tabs-bar" id="result_view_tabs_row">
                     <button type="button" class="sub-tab-btn active" data-action="select-result-view" data-result-view="graph">グラフ</button>
-                    <button type="button" class="sub-tab-btn" data-action="select-result-view" data-result-view="table">表</button>
+                    <button type="button" class="sub-tab-btn" data-action="select-result-view" data-result-view="table">明細</button>
                 </div>
                 <div id="asset_chart_wrap">
                     <canvas id="asset_chart_canvas"></canvas>
                     <p id="asset_chart_error" class="alert-text" style="display: none;">グラフを表示できませんでした。</p>
                 </div>
                 <div id="result_table_wrap" style="display: none;">
-                    <div class="sub-tabs-bar" id="result_table_tabs_row">
-                        <button type="button" class="sub-tab-btn active" data-action="select-result-table-tab" data-result-table-tab="perPerson">世帯人別</button>
-                        <button type="button" class="sub-tab-btn" data-action="select-result-table-tab" data-result-table-tab="total">合計</button>
-                    </div>
-                    <div class="form-field" id="result_table_person_selector">
-                        <label>対象の世帯人</label>
-                        <select id="select_result_table_person"></select>
-                    </div>
+                    <div class="sub-tabs-bar" id="result_table_tabs_row"></div>
                     <div class="table-responsive">
                         <table>
-                            <thead>
-                                <tr>
-                                    <th>年齢</th>
-                                    <th class="text-right">社会保険料(在職中)</th>
-                                    <th class="text-right">国民健康保険料</th>
-                                    <th class="text-right">介護保険料</th>
-                                    <th class="text-right">後期高齢者医療費保険料</th>
-                                    <th class="text-right">国民年金保険料</th>
-                                    <th class="text-right">所得税</th>
-                                    <th class="text-right">住民税</th>
-                                    <th class="text-right">贈与税</th>
-                                </tr>
-                            </thead>
+                            <thead id="result_table_head"></thead>
                             <tbody id="result_table_body"></tbody>
                         </table>
                     </div>
