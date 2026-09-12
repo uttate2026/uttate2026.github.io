@@ -401,6 +401,16 @@ input[type="text"], input[type="number"], select {
     width: 100%;
 }
 
+/* 編集不可の欄であることを明確にする(iDeCoの一時金/年金比率が0%・100%のときのグレーアウト等、
+   2026-09-13のフィードバック、rebalance style.css踏襲)。opacityだけでなく背景色・文字色も
+   変えることで、単に薄いだけでなく「触れない」ことが視覚的にはっきり伝わるようにする */
+input[type="text"]:disabled, input[type="number"]:disabled, select:disabled {
+    background: #f1f5f9;
+    color: var(--text-secondary);
+    border-color: var(--border);
+    cursor: not-allowed;
+}
+
 /* 数値入力欄では日本語入力モードを自動解除する(要件4.4節、rebalance踏襲) */
 input[inputmode="numeric"], input[inputmode="decimal"] {
     ime-mode: disabled;
