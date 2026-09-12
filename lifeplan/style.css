@@ -666,6 +666,12 @@ th, td {
     text-align: right;
 }
 
+/* マイナスの金額表示(2026-09-13のフィードバック)。色だけに頼らず、formatYen側で先頭に
+   「▲」を付けるのと併用する(色覚特性によらず判別できるようにするため) */
+.negative {
+    color: var(--danger);
+}
+
 .table-responsive {
     overflow-x: auto;
 }

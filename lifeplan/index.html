@@ -154,6 +154,10 @@
                     <button type="button" class="sub-tab-btn" data-action="select-result-view" data-result-view="table">明細</button>
                 </div>
                 <div id="asset_chart_wrap">
+                    <div class="sub-tabs-bar" id="asset_chart_type_tabs_row">
+                        <button type="button" class="sub-tab-btn active" data-action="select-asset-chart-type" data-asset-chart-type="stacked">積み上げ面グラフ</button>
+                        <button type="button" class="sub-tab-btn" data-action="select-asset-chart-type" data-asset-chart-type="line">折れ線グラフ</button>
+                    </div>
                     <canvas id="asset_chart_canvas"></canvas>
                     <p id="asset_chart_error" class="alert-text" style="display: none;">グラフを表示できませんでした。</p>
                 </div>
