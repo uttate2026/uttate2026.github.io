@@ -421,10 +421,11 @@ input[inputmode="numeric"], input[inputmode="decimal"] {
     accent-color: var(--primary);
 }
 
-/* 資産残高推移グラフ・全プラン比較グラフ(ADR 0004、Chart.js) */
+/* 資産残高推移グラフ・全プラン比較グラフ(ADR 0004、Chart.js)。高さは2026-09-14の
+   フィードバックで280pxから560px(約2倍)に拡大した */
 #asset_chart_wrap, #compare_chart_wrap {
     position: relative;
-    height: 280px;
+    height: 560px;
     margin-top: 16px;
 }
 
@@ -672,8 +673,45 @@ th, td {
     color: var(--danger);
 }
 
+/* 横スクロール可能な表であることを示す視覚的な手がかり(2026-09-14のフィードバック、
+   rebalance<src/rebalance/style.css>の実装をそのまま踏襲)。iOS等はスクロールバーを既定で
+   隠すため、スクロールバー以外にも「まだ続きがある」ことを伝える必要がある。
+   陰影(.scroll-shadow)の位置基準(containing block)は、実際にスクロールする要素
+   (.table-scroll-area、ui.jsのinitScrollShadowsが動的に生成する)とは別の、スクロールしない
+   外側の要素(.table-responsive)にする。同じ要素にoverflow-x:autoとposition:relativeを
+   両方持たせてその中に陰影を置くと、CSSの仕様上、陰影自身もその要素のスクロール量の影響を
+   受けてしまい、スクロールにつれて陰影が横に動いてしまう(rebalanceでの実機確認で判明)。 */
 .table-responsive {
+    position: relative;
+}
+
+.table-scroll-area {
     overflow-x: auto;
+}
+
+.scroll-shadow {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 24px;
+    pointer-events: none; /* 陰影の下にある削除ボタン等の操作を妨げないようにする */
+    opacity: 0;
+    transition: opacity 0.15s;
+    z-index: 1;
+}
+
+.scroll-shadow.is-visible {
+    opacity: 1;
+}
+
+.scroll-shadow-left {
+    left: 0;
+    background: linear-gradient(to right, rgba(15, 23, 42, 0.18), rgba(15, 23, 42, 0));
+}
+
+.scroll-shadow-right {
+    right: 0;
+    background: linear-gradient(to left, rgba(15, 23, 42, 0.18), rgba(15, 23, 42, 0));
 }
 
 /* シミュレーション結果の明細表、開閉可能なグループ見出し(2026-09-11のフィードバックで追加) */
