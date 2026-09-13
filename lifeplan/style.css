@@ -393,6 +393,40 @@ header h1 {
     line-height: 1.6;
 }
 
+/* 「検討トピック」セクションのカード一覧(2026-09-14のフィードバックで追加、ADR 0019参照) */
+.topic-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 14px;
+}
+
+.topic-card {
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 14px;
+    background: var(--bg-main);
+}
+
+.topic-card h3 {
+    margin: 0 0 6px;
+    font-size: 14px;
+}
+
+.topic-card p {
+    margin: 0 0 10px;
+    font-size: 13px;
+    color: var(--text-secondary);
+}
+
+/* 全プラン比較の「比較中」バナー(2026-09-14のフィードバックで追加、.info-noteを流用し
+   ラベル+「比較を終了」ボタンを横並びにする) */
+#compare_group_banner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+}
+
 input[type="text"], input[type="number"], select {
     padding: 6px 8px;
     border: 1px solid var(--border);
