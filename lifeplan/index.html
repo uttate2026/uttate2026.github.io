@@ -91,6 +91,11 @@
                         <p>受給開始年齢60〜75歳のプランを自動生成し、「全プラン比較」で見比べます。</p>
                         <button type="button" id="btn_topic_pension_compare" class="btn btn-primary">比較する</button>
                     </div>
+                    <div class="topic-card">
+                        <h3>iDeCoは始めるべき？</h3>
+                        <p>世帯主のiDeCoの有無を切り替えたプランを自動生成し、「全プラン比較」で見比べます。</p>
+                        <button type="button" id="btn_topic_ideco_compare" class="btn btn-primary">比較する</button>
+                    </div>
                 </div>
             </div>
 
@@ -325,6 +330,18 @@
             <div class="button-row modal-actions">
                 <button type="button" id="btn_pension_comparison_cancel" class="btn btn-link">キャンセル</button>
                 <button type="button" id="btn_pension_comparison_confirm" class="btn btn-primary">生成して比較</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="ideco_comparison_modal" class="modal-overlay" style="display: none;">
+        <div class="card modal-card">
+            <button type="button" id="btn_ideco_comparison_modal_close" class="modal-close" aria-label="閉じる">×</button>
+            <div class="section-title">iDeCoの要否を比較</div>
+            <div id="ideco_comparison_body"></div>
+            <div class="button-row modal-actions">
+                <button type="button" id="btn_ideco_comparison_cancel" class="btn btn-link">キャンセル</button>
+                <button type="button" id="btn_ideco_comparison_confirm" class="btn btn-primary">生成して比較</button>
             </div>
         </div>
     </div>
