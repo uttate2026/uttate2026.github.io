@@ -360,6 +360,7 @@
                         <tbody id="compare_table_body"></tbody>
                     </table>
                 </div>
+                <p class="field-note">各値は、そのプランの内容で「iDeCoに加入しなかった場合」と比べた差分です(拠出控除による節税効果を含みます)。</p>
 
                 <div id="compare_chart_wrap">
                     <canvas id="compare_chart_canvas"></canvas>
@@ -378,6 +379,15 @@
     <script src="consent.js"></script>
     <script src="resize-notifier.js"></script>
     <script src="vendor/chart.js"></script>
+    <!-- 「全プラン比較」がlifeplanエンジンを再利用するための共有モジュール(2026-09-15のフィードバック
+         で追加、docs/shared/decisions/0004-multi-app-funnel-architecture.md参照)。scripts/sync-shared.js
+         がsrc/shared/からコピーする(このディレクトリ自体はGit管理対象外)。shared/lifeplan-constants.js
+         はshared/calculator.jsが参照するブラウザグローバルLifeplanConstantsを用意するためのもので、
+         このページ自体のconstants.js(IdecoConstants)とは別名のため衝突しない -->
+    <script src="shared/lifeplan-constants.js"></script>
+    <script src="shared/pattern-builders.js"></script>
+    <script src="shared/calculator.js"></script>
+    <script src="shared/ideco-bridge.js"></script>
     <script src="ui.js"></script>
     <script>
         window.model = new IdecoModel({ window: window, storage: AppStorage });
