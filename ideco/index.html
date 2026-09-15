@@ -71,6 +71,16 @@
                         <p class="field-note">シミュレーション全体の基準年齢</p>
                     </div>
                     <div class="form-field">
+                        <label for="input_dependents">扶養家族数</label>
+                        <div class="field-with-unit">
+                            <input type="text" id="input_dependents" inputmode="numeric" autocomplete="off" spellcheck="false">
+                            <span class="unit">人</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="section-title-sub">源泉徴収票から転記する項目</div>
+                <div class="form-grid">
+                    <div class="form-field">
                         <label for="input_salary_income">給与収入(年額)</label>
                         <div class="field-with-unit">
                             <input type="text" id="input_salary_income" inputmode="numeric" autocomplete="off" spellcheck="false">
@@ -78,12 +88,30 @@
                         </div>
                     </div>
                     <div class="form-field">
-                        <label for="input_dependents">扶養家族数</label>
+                        <label for="input_withholding_tax">源泉徴収税額(年額)</label>
                         <div class="field-with-unit">
-                            <input type="text" id="input_dependents" inputmode="numeric" autocomplete="off" spellcheck="false">
-                            <span class="unit">人</span>
+                            <input type="text" id="input_withholding_tax" inputmode="numeric" autocomplete="off" spellcheck="false">
+                            <span class="unit">円</span>
                         </div>
                     </div>
+                    <div class="form-field">
+                        <label for="input_resident_tax">住民税(年額)</label>
+                        <div class="field-with-unit">
+                            <input type="text" id="input_resident_tax" inputmode="numeric" autocomplete="off" spellcheck="false">
+                            <span class="unit">円</span>
+                        </div>
+                    </div>
+                    <div class="form-field">
+                        <label for="input_social_insurance">社会保険料(年額)</label>
+                        <div class="field-with-unit">
+                            <input type="text" id="input_social_insurance" inputmode="numeric" autocomplete="off" spellcheck="false">
+                            <span class="unit">円</span>
+                        </div>
+                    </div>
+                </div>
+                <p class="field-note">「全プラン比較」画面の手取り・税金は、この実額を使って計算します(扶養家族の年齢構成による控除額の違いも、実額を使えば個別に入力しなくても正しく反映されます)。手元に無い場合のみ、給与収入・扶養家族数からの概算で一時的に代用しますが、精度は下がります。</p>
+                <div class="section-title-sub">ねんきん定期便の年金見込額(年額)から転記する項目</div>
+                <div class="form-grid">
                     <div class="form-field">
                         <label for="input_basic_pension">老齢基礎年金(年額)</label>
                         <div class="field-with-unit">
@@ -99,6 +127,12 @@
                         </div>
                     </div>
                 </div>
+                <p class="info-note">
+                    ℹ️ 老齢基礎年金・老齢厚生年金の金額は、下の「公的年金受給開始年齢」で実際に受け取る金額(繰上げ受給・繰り下げ受給による増減を反映済みの金額)を入力してください。本サイトは、受給開始年齢に応じた増減額を自動計算しません。
+                </p>
+                <p id="pension_estimate_notice" class="info-note" style="display: none;">
+                    ℹ️ 50歳未満の方へ: ねんきん定期便の年金額は、これまでの加入実績に基づく金額であり、将来の受給時点の見込額ではありません。「ねんきんネット」(日本年金機構の公式サイト)で将来の見込額を試算してから入力してください。
+                </p>
                 <div class="form-grid form-grid-pair">
                     <div class="form-field">
                         <label for="input_retirement_age">退職年齢</label>
@@ -115,20 +149,33 @@
                         </div>
                     </div>
                 </div>
-                <p class="info-note">
-                    ℹ️ 老齢基礎年金・老齢厚生年金の金額は、下の「公的年金受給開始年齢」で実際に受け取る金額(繰上げ受給・繰り下げ受給による増減を反映済みの金額)を入力してください。本サイトは、受給開始年齢に応じた増減額を自動計算しません。
-                </p>
-                <p id="pension_estimate_notice" class="info-note" style="display: none;">
-                    ℹ️ 50歳未満の方へ: ねんきん定期便の年金額は、これまでの加入実績に基づく金額であり、将来の受給時点の見込額ではありません。「ねんきんネット」(日本年金機構の公式サイト)で将来の見込額を試算してから入力してください。
-                </p>
                 <p id="working_pension_notice" class="info-note" style="display: none;">
                     ℹ️ 退職年齢が公的年金受給開始年齢より後のため、その重複期間は「働きながら年金を受け取る」期間として扱われます。この期間は在職老齢年金による老齢厚生年金の支給停止調整が結果に反映されます。
                 </p>
             </div>
 
             <div class="card">
-                <div class="section-title">2. iDeCo拠出プラン</div>
-                <div class="form-grid">
+                <div class="section-title">2. 検討トピック</div>
+                <p class="field-note">現在の入力を基に、よくある悩みを自動でプラン比較します。iDeCoをまだ始めていない方も、下の「iDeCo拠出プラン」を入力せずにこちらからお試しいただけます。</p>
+                <div class="topic-cards">
+                    <div class="topic-card">
+                        <h3>iDeCoとNISA、どちらを優先すべき？</h3>
+                        <p>投資に回せる金額(月額)を、iDeCo優先・NISA優先・半々の3パターンに振り分けたプランを自動生成し、「全プラン比較」で見比べます。</p>
+                        <button type="button" id="btn_topic_nisa_compare" class="btn btn-primary">比較する</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="section-title">3. iDeCo拠出プラン</div>
+                <div class="form-field">
+                    <label class="checkbox-label">
+                        <input type="checkbox" id="input_currently_contributing">
+                        現在、iDeCoに拠出中である(既に加入済み)
+                    </label>
+                    <p class="field-note">これから始める方はチェック不要です(下の「毎月の拠出額」以降に、これから拠出する想定の金額を入力してください)。</p>
+                </div>
+                <div id="current_contribution_fields" class="form-grid" style="display: none;">
                     <div class="form-field">
                         <label for="input_current_balance">現在のiDeCo残高</label>
                         <div class="field-with-unit">
@@ -143,6 +190,8 @@
                             <span class="unit">年</span>
                         </div>
                     </div>
+                </div>
+                <div class="form-grid">
                     <div class="form-field">
                         <label for="input_monthly_contribution">毎月の拠出額</label>
                         <div class="field-with-unit">
@@ -190,7 +239,7 @@
             </div>
 
             <div class="card">
-                <div class="section-title">3. iDeCo出口戦略</div>
+                <div class="section-title">4. iDeCo出口戦略</div>
 
                 <div class="form-field">
                     <label for="input_lump_sum_ratio">
@@ -207,6 +256,10 @@
                             <input type="text" id="input_lump_sum_receipt_age" inputmode="numeric" autocomplete="off" spellcheck="false">
                             <span class="unit">歳</span>
                         </div>
+                        <p id="lump_sum_tax_min_suggestion" class="field-note" style="display: none;">
+                            <span id="lump_sum_tax_min_text"></span>
+                            <button type="button" id="btn_apply_tax_min_age" class="btn btn-link" style="display: none;">この年齢を適用</button>
+                        </p>
                     </div>
                     <div class="form-field">
                         <label for="input_pension_receipt_start_age">年金受取開始年齢</label>
@@ -263,7 +316,7 @@
             </div>
 
             <div class="card">
-                <div class="section-title">4. 出口戦略の結果・資産推移</div>
+                <div class="section-title">5. 出口戦略の結果・資産推移</div>
 
                 <div class="result-matrix-label">現在の配分による結果</div>
                 <div class="result-matrix-wrap">
@@ -346,17 +399,14 @@
         <div id="compare_workspace" style="display: none;">
             <div class="card">
                 <div class="section-title">全プラン比較</div>
+                <div id="compare_group_banner" class="info-note" style="display: none;">
+                    <span id="compare_group_banner_label"></span>
+                    <button type="button" id="btn_compare_group_end" class="btn btn-link">比較を終了</button>
+                </div>
 
                 <div class="table-responsive">
                     <table>
-                        <thead>
-                            <tr>
-                                <th>プラン名</th>
-                                <th class="text-right">手取り</th>
-                                <th class="text-right">税金</th>
-                                <th class="text-right">社会保険料</th>
-                            </tr>
-                        </thead>
+                        <thead id="compare_table_head"></thead>
                         <tbody id="compare_table_body"></tbody>
                     </table>
                 </div>
@@ -369,6 +419,73 @@
             </div>
         </div>
 
+    </div>
+
+    <div id="nisa_comparison_modal" class="modal-overlay" style="display: none;">
+        <div class="card modal-card">
+            <button type="button" id="btn_nisa_comparison_modal_close" class="modal-close" aria-label="閉じる">×</button>
+            <div class="section-title">iDeCoとNISA、どちらを優先すべき？</div>
+            <p class="field-note">「iDeCo拠出プラン」をまだ入力していない方は、ここでまとめて入力できます。</p>
+            <div class="form-field">
+                <label for="input_nisa_comparison_budget">投資に回せる金額(月額)</label>
+                <div class="field-with-unit">
+                    <input type="text" id="input_nisa_comparison_budget" inputmode="numeric" autocomplete="off" spellcheck="false">
+                    <span class="unit">円</span>
+                </div>
+                <p class="field-note">この金額を、iDeCo優先・NISA優先・半々の3パターンに振り分けたプランを生成します。NISAの想定利回りはiDeCoと同じ値を使います。</p>
+            </div>
+            <div class="form-grid">
+                <div class="form-field">
+                    <label for="input_nisa_comparison_contribution_limit">あなたの拠出限度額(月額)</label>
+                    <div class="field-with-unit">
+                        <input type="text" id="input_nisa_comparison_contribution_limit" inputmode="numeric" autocomplete="off" spellcheck="false">
+                        <span class="unit">円</span>
+                    </div>
+                    <p class="field-note">iDeCoの拠出限度額は、自営業者・公務員・会社員(企業年金の有無)によって異なります。ご自身の限度額を調べて入力してください(既定値は企業年金なし会社員の23,000円)。</p>
+                </div>
+                <div class="form-field">
+                    <label for="input_nisa_comparison_expected_return_rate">想定利回り(年率)</label>
+                    <div class="field-with-unit">
+                        <input type="text" id="input_nisa_comparison_expected_return_rate" inputmode="decimal" autocomplete="off" spellcheck="false">
+                        <span class="unit">%</span>
+                    </div>
+                </div>
+                <div class="form-field">
+                    <label for="input_nisa_comparison_contribution_end_age">拠出終了年齢</label>
+                    <div class="field-with-unit">
+                        <input type="text" id="input_nisa_comparison_contribution_end_age" inputmode="numeric" autocomplete="off" spellcheck="false">
+                        <span class="unit">歳</span>
+                    </div>
+                    <p class="field-note">既定値は退職年齢です。</p>
+                </div>
+            </div>
+            <div class="form-field">
+                <label class="checkbox-label">
+                    <input type="checkbox" id="input_nisa_comparison_currently_contributing">
+                    現在、iDeCoに拠出中である(既に加入済み)
+                </label>
+            </div>
+            <div id="nisa_comparison_current_contribution_fields" class="form-grid" style="display: none;">
+                <div class="form-field">
+                    <label for="input_nisa_comparison_current_balance">現在のiDeCo残高</label>
+                    <div class="field-with-unit">
+                        <input type="text" id="input_nisa_comparison_current_balance" inputmode="numeric" autocomplete="off" spellcheck="false">
+                        <span class="unit">円</span>
+                    </div>
+                </div>
+                <div class="form-field">
+                    <label for="input_nisa_comparison_enrolled_years">これまでの加入年数</label>
+                    <div class="field-with-unit">
+                        <input type="text" id="input_nisa_comparison_enrolled_years" inputmode="numeric" autocomplete="off" spellcheck="false">
+                        <span class="unit">年</span>
+                    </div>
+                </div>
+            </div>
+            <div class="button-row modal-actions">
+                <button type="button" id="btn_nisa_comparison_cancel" class="btn btn-link">キャンセル</button>
+                <button type="button" id="btn_nisa_comparison_confirm" class="btn btn-primary">生成して比較</button>
+            </div>
+        </div>
     </div>
 
     <script src="storage.js"></script>
@@ -387,6 +504,7 @@
     <script src="shared/lifeplan-constants.js"></script>
     <script src="shared/pattern-builders.js"></script>
     <script src="shared/calculator.js"></script>
+    <script src="shared/comparison-topics.js"></script>
     <script src="shared/ideco-bridge.js"></script>
     <script src="ui.js"></script>
     <script>

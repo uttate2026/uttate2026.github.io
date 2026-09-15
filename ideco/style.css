@@ -654,6 +654,20 @@ th, td {
     text-align: right;
 }
 
+/* マイナスの金額表示(2026-09-15のフィードバック、lifeplanと同じ表記に統一)。色だけに頼らず、
+   formatYen側で先頭に「▲」を付けるのと併用する(色覚特性によらず判別できるようにするため) */
+.negative {
+    color: var(--danger);
+}
+
+/* 全プラン比較表、開閉可能なグループ見出し(2026-09-15のフィードバックで追加、
+   lifeplanのresult-table-group-headerをそのまま踏襲) */
+.result-table-group-header {
+    cursor: pointer;
+    user-select: none;
+    background: var(--bg-main);
+}
+
 .table-responsive {
     overflow-x: auto;
 }
@@ -663,6 +677,82 @@ th, td {
     font-weight: bold;
     font-size: 14px;
     margin: 0 0 16px;
+}
+
+/* 検討トピック(2026-09-15のフィードバックで追加、lifeplanのtopic-cards/topic-cardを踏襲、
+   docs/ideco/decisions/0007参照) */
+.topic-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 14px;
+}
+
+.topic-card {
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 14px;
+    background: var(--bg-main);
+}
+
+.topic-card h3 {
+    margin: 0 0 6px;
+    font-size: 14px;
+}
+
+.topic-card p {
+    margin: 0 0 10px;
+    font-size: 13px;
+    color: var(--text-secondary);
+}
+
+/* 全プラン比較の「比較中」バナー(lifeplanのcompare_group_bannerを踏襲) */
+#compare_group_banner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+}
+
+/* モーダル(検討トピックの確認モーダル用に新設。lifeplanのmodal-overlay/modal-card/
+   modal-close/modal-actionsをそのまま踏襲) */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(15, 23, 42, 0.5);
+    z-index: 9998;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+.modal-card {
+    max-width: 480px;
+    width: 100%;
+    max-height: 90vh;
+    overflow-y: auto;
+    position: relative;
+    text-align: left;
+}
+
+.modal-close {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    background: transparent;
+    border: none;
+    font-size: 20px;
+    line-height: 1;
+    cursor: pointer;
+    color: var(--text-secondary);
+}
+
+.modal-actions {
+    justify-content: flex-end;
+    margin-top: 16px;
 }
 
 @media (max-width: 600px) {
