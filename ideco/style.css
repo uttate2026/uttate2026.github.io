@@ -409,17 +409,12 @@ input[inputmode="numeric"], input[inputmode="decimal"] {
     accent-color: var(--primary);
 }
 
-/* 資産残高推移グラフ・全プラン比較グラフ(ADR 0004、Chart.js) */
-#asset_chart_wrap, #compare_chart_wrap {
+/* 全プラン比較グラフ(Chart.js)。出口戦略セクション自身の資産推移グラフは、目的別最適化の
+   導入に伴い廃止した(2026-09-16のフィードバック、docs/ideco/decisions/0008参照) */
+#compare_chart_wrap {
     position: relative;
     height: 280px;
     margin-top: 16px;
-}
-
-/* #asset_chart_wrapは下に住民税非課税簡易診断のセグメントバーが隙間なく続くため、
-   下マージンを持たせない(2026-09-08のフィードバック、「グラフの真下に挿入」)。
-   #compare_chart_wrapは各カードの最後の要素のため、従来通り下マージンを残す */
-#compare_chart_wrap {
     margin-bottom: 16px;
 }
 
@@ -444,59 +439,6 @@ input[inputmode="numeric"], input[inputmode="decimal"] {
 .result-summary-value {
     font-size: 18px;
     font-weight: bold;
-}
-
-/* 出口戦略の結果マトリックス(現在の配分による1件分、機能仕様8.3節、
-   2026-09-07のフィードバックで一時金/年金の単純表示から3行×3列のマトリックスに置き換えた) */
-.result-matrix-label {
-    font-size: 13px;
-    font-weight: bold;
-    color: var(--text-secondary);
-    margin-bottom: 8px;
-}
-
-.result-matrix-wrap {
-    overflow-x: auto;
-}
-
-.result-matrix {
-    width: 100%;
-    border-collapse: collapse;
-    font-size: 13px;
-}
-
-.result-matrix th,
-.result-matrix td {
-    padding: 6px 8px;
-    text-align: right;
-    white-space: nowrap;
-}
-
-.result-matrix thead th {
-    color: var(--text-secondary);
-    font-weight: normal;
-    border-bottom: 1px solid var(--border);
-}
-
-.result-matrix tbody th {
-    text-align: left;
-    font-weight: normal;
-    color: var(--text-secondary);
-}
-
-.result-matrix tbody td {
-    font-weight: bold;
-    color: var(--success);
-}
-
-.result-matrix-total th,
-.result-matrix-total td {
-    border-top: 1px solid var(--border);
-    font-weight: bold;
-}
-
-.result-matrix-total th {
-    color: var(--text-main);
 }
 
 /* iDeCoによる節税額(拠出時の所得控除効果のみ、機能仕様8.2節、2026-09-07のフィードバックで追加) */
@@ -572,69 +514,6 @@ input[inputmode="numeric"], input[inputmode="decimal"] {
 
 #resident_tax_check_note {
     margin-left: 26px;
-}
-
-/* グラフの真下に隙間なく挿入する(2026-09-08のフィードバック) */
-#resident_tax_bar_wrap {
-    margin-top: 2px;
-}
-
-/* 上の資産残高推移グラフ(Chart.js)のx軸ピクセル位置に合わせて、各セグメントをJSから
-   position:absoluteで配置する(2026-09-08のフィードバック。グラフとの軸ずれで、特に単色一色の
-   場合に何を示しているか分かりにくいという指摘への対応) */
-.resident-tax-bar {
-    position: relative;
-    height: 34px;
-    border-radius: 6px;
-    overflow: hidden;
-    border: 1px solid var(--border);
-}
-
-.resident-tax-bar-segment {
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 12px;
-    font-weight: bold;
-    white-space: nowrap;
-    overflow: hidden;
-}
-
-.resident-tax-bar-segment.taxable {
-    background: #fde8e8;
-    color: #9f1c1c;
-}
-
-.resident-tax-bar-segment.exempt {
-    background: #dcf5e3;
-    color: #166534;
-}
-
-.breakdown-list {
-    text-align: left;
-    font-size: 12px;
-    color: var(--text-secondary);
-    margin: 8px 0 0;
-}
-
-.breakdown-list dt {
-    float: left;
-    clear: left;
-    margin-right: 6px;
-}
-
-.breakdown-list dd {
-    margin: 0 0 4px;
-    text-align: right;
-}
-
-details summary {
-    cursor: pointer;
-    color: var(--primary);
-    font-size: 12px;
 }
 
 /* 表(全プラン比較の一覧表・出口戦略比較3列の共通スタイル) */
