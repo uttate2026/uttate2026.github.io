@@ -138,6 +138,15 @@ header h1 {
     background: var(--primary-dark);
 }
 
+/* disabled状態の見た目(2026-09-18のフィードバックで追加)。従来はdisabled時も.btn-primaryの
+   背景色・cursor: pointerがそのまま残り、クリックしても反応しないだけの「効かないボタン」に
+   見えてしまう不具合があった(①②③ボタンが給与収入未入力・拠出中の場合にdisabledになる、
+   MEMO.mdコメント2026-09-18参照)。 */
+.btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
 .btn-link {
     background: transparent;
     border: none;
@@ -243,8 +252,8 @@ input[inputmode="numeric"], input[inputmode="decimal"] {
 
 /* 比較結果のグラフ(Chart.js、旧・全プラン比較。2026-09-17のフィードバックでページ(2)(3)内への
    埋め込みに変更、docs/ideco/decisions/0009参照)。出口戦略セクション自身の資産推移グラフは、
-   目的別最適化の導入に伴い廃止した(2026-09-16のフィードバック、docs/ideco/decisions/0008参照) */
-#page2_compare_chart_wrap,
+   目的別最適化の導入に伴い廃止した(2026-09-16のフィードバック、docs/ideco/decisions/0008参照)。
+   ページ(2)のグラフも、情報量を絞る目的で削除した(2026-09-18のフィードバック) */
 #page3_compare_chart_wrap {
     position: relative;
     height: 280px;
