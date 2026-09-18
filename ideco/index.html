@@ -32,8 +32,11 @@
 
     <div class="app-container" id="app_container" style="display: none;">
 
-        <header>
-            <h1>iDeCoシミュレーター</h1>
+        <header class="wizard-header">
+            <button type="button" id="btn_nav_back" class="nav-back-btn" style="display: none;">
+                <span aria-hidden="true">‹</span> 戻る
+            </button>
+            <h1 id="nav_page_title">あなたの収入・年金</h1>
         </header>
 
         <!-- (1) あなたの収入・年金(2026-09-17のフィードバックでウィザード化、ADR 0009参照。
@@ -52,16 +55,6 @@
                         <p class="field-note">シミュレーション全体の基準年齢</p>
                     </div>
                     <div class="form-field">
-                        <label for="input_dependents">扶養家族数</label>
-                        <div class="field-with-unit">
-                            <input type="text" id="input_dependents" inputmode="numeric" autocomplete="off" spellcheck="false">
-                            <span class="unit">人</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="section-title-sub">源泉徴収票から転記する項目</div>
-                <div class="form-grid">
-                    <div class="form-field">
                         <label for="input_salary_income">給与収入(年額)</label>
                         <div class="field-with-unit">
                             <input type="text" id="input_salary_income" inputmode="numeric" autocomplete="off" spellcheck="false">
@@ -69,6 +62,24 @@
                         </div>
                         <p id="salary_income_required_note" class="alert-text" style="display: none;">⚠️ 給与収入を入力すると、下の質問に進めます(iDeCoの節税効果は課税対象の収入が無いと計算できないため)。</p>
                     </div>
+                    <div class="form-field">
+                        <label for="input_dependents">扶養家族数</label>
+                        <div class="field-with-unit">
+                            <input type="text" id="input_dependents" inputmode="numeric" autocomplete="off" spellcheck="false">
+                            <span class="unit">人</span>
+                        </div>
+                    </div>
+                </div>
+
+                <p class="field-note">以下は、お手元の書類がある場合にチェックを入れて入力してください。最初はラフな概算値のまま先に進み、本格的にシミュレーションしたくなったら戻って正確に入力する、という使い方もできます(未入力の間は給与収入・扶養家族数からの概算で計算します)。</p>
+
+                <div class="form-field">
+                    <label class="checkbox-label">
+                        <input type="checkbox" id="input_has_withholding_slip">
+                        手元に源泉徴収票がある
+                    </label>
+                </div>
+                <div id="withholding_slip_fields" class="form-grid" style="display: none;">
                     <div class="form-field">
                         <label for="input_withholding_tax">源泉徴収税額(年額)</label>
                         <div class="field-with-unit">
@@ -84,8 +95,14 @@
                         </div>
                     </div>
                 </div>
-                <div class="section-title-sub">住民税決定通知書から転記する項目</div>
-                <div class="form-grid">
+
+                <div class="form-field">
+                    <label class="checkbox-label">
+                        <input type="checkbox" id="input_has_resident_tax_notice">
+                        手元に住民税決定通知書がある
+                    </label>
+                </div>
+                <div id="resident_tax_notice_fields" class="form-grid" style="display: none;">
                     <div class="form-field">
                         <label for="input_resident_tax">住民税(年額)</label>
                         <div class="field-with-unit">
@@ -94,30 +111,39 @@
                         </div>
                     </div>
                 </div>
-                <p class="field-note">「全プラン比較」画面の手取り・税金は、この実額を使って計算します(扶養家族の年齢構成による控除額の違いも、実額を使えば個別に入力しなくても正しく反映されます)。手元に無い場合のみ、給与収入・扶養家族数からの概算で一時的に代用しますが、精度は下がります。</p>
-                <div class="section-title-sub">ねんきん定期便の年金見込額(年額)から転記する項目</div>
-                <div class="form-grid">
-                    <div class="form-field">
-                        <label for="input_basic_pension">老齢基礎年金(年額)</label>
-                        <div class="field-with-unit">
-                            <input type="text" id="input_basic_pension" inputmode="numeric" autocomplete="off" spellcheck="false">
-                            <span class="unit">円</span>
-                        </div>
-                    </div>
-                    <div class="form-field">
-                        <label for="input_employee_pension">老齢厚生年金(報酬比例部分、年額)</label>
-                        <div class="field-with-unit">
-                            <input type="text" id="input_employee_pension" inputmode="numeric" autocomplete="off" spellcheck="false">
-                            <span class="unit">円</span>
-                        </div>
-                    </div>
+                <p class="field-note">源泉徴収税額・社会保険料・住民税を入力すると、比較結果の手取り・税金の精度が上がります(扶養家族の年齢構成による控除額の違いも、実額を使えば個別に入力しなくても正しく反映されます)。</p>
+
+                <div class="form-field">
+                    <label class="checkbox-label">
+                        <input type="checkbox" id="input_has_pension_notice">
+                        手元にねんきん定期便がある
+                    </label>
                 </div>
-                <p class="info-note">
-                    ℹ️ 老齢基礎年金・老齢厚生年金の金額は、下の「公的年金受給開始年齢」で実際に受け取る金額(繰上げ受給・繰り下げ受給による増減を反映済みの金額)を入力してください。本サイトは、受給開始年齢に応じた増減額を自動計算しません。
-                </p>
-                <p id="pension_estimate_notice" class="info-note" style="display: none;">
-                    ℹ️ 50歳未満の方へ: ねんきん定期便の年金額は、これまでの加入実績に基づく金額であり、将来の受給時点の見込額ではありません。「ねんきんネット」(日本年金機構の公式サイト)で将来の見込額を試算してから入力してください。
-                </p>
+                <div id="pension_notice_fields" style="display: none;">
+                    <div class="form-grid">
+                        <div class="form-field">
+                            <label for="input_basic_pension">老齢基礎年金(年額)</label>
+                            <div class="field-with-unit">
+                                <input type="text" id="input_basic_pension" inputmode="numeric" autocomplete="off" spellcheck="false">
+                                <span class="unit">円</span>
+                            </div>
+                        </div>
+                        <div class="form-field">
+                            <label for="input_employee_pension">老齢厚生年金(報酬比例部分、年額)</label>
+                            <div class="field-with-unit">
+                                <input type="text" id="input_employee_pension" inputmode="numeric" autocomplete="off" spellcheck="false">
+                                <span class="unit">円</span>
+                            </div>
+                        </div>
+                    </div>
+                    <p class="info-note">
+                        ℹ️ 老齢基礎年金・老齢厚生年金の金額は、下の「公的年金受給開始年齢」で実際に受け取る金額(繰上げ受給・繰り下げ受給による増減を反映済みの金額)を入力してください。本サイトは、受給開始年齢に応じた増減額を自動計算しません。
+                    </p>
+                    <p id="pension_estimate_notice" class="info-note" style="display: none;">
+                        ℹ️ 50歳未満の方へ: ねんきん定期便の年金額は、これまでの加入実績に基づく金額であり、将来の受給時点の見込額ではありません。「ねんきんネット」(日本年金機構の公式サイト)で将来の見込額を試算してから入力してください。
+                    </p>
+                </div>
+
                 <div class="form-grid form-grid-pair">
                     <div class="form-field">
                         <label for="input_retirement_age">退職年齢</label>
@@ -173,8 +199,7 @@
              「NISAとのバランスを考慮したい」の2チェックボックスの状態から動的に決まる) -->
         <div id="page2_planner" class="wizard-page" style="display: none;">
             <div class="card">
-                <div class="section-title">iDeCo拠出プランナー</div>
-                <p class="field-note">現在の拠出状況と、iDeCoへの配分を入力してください。</p>
+                <div class="section-title">現在の拠出状況と、iDeCoへの配分を入力してください</div>
 
                 <div class="form-grid">
                     <div class="form-field">
@@ -283,8 +308,7 @@
                 </div>
                 <p class="field-note">各値は、そのプランの内容で「iDeCoに加入しなかった場合」と比べた差分です(拠出控除による節税効果を含みます)。</p>
 
-                <div class="button-row">
-                    <button type="button" id="btn_page2_back" class="btn">戻る</button>
+                <div class="button-row button-row-end">
                     <button type="button" id="btn_page2_next" class="btn btn-primary">次へ(出口戦略へ)</button>
                 </div>
             </div>
@@ -378,8 +402,7 @@
                 </div>
             </div>
 
-            <div class="button-row">
-                <button type="button" id="btn_page3_back" class="btn">戻る</button>
+            <div class="button-row button-row-end">
                 <a href="/lifeplan/" target="_blank" rel="noopener" class="btn">lifeplanで詳しく検討する</a>
             </div>
         </div><!-- /#page3_strategist -->

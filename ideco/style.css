@@ -42,9 +42,37 @@ body {
     padding: 24px 16px 64px;
 }
 
-header h1 {
-    font-size: 22px;
-    margin: 0 0 20px;
+/* ヘッダー(2026-09-19のフィードバックで、画面名+戻るボタンをスマホアプリのように左上へ固定する
+   構成に変更。戻るボタンは(1)では非表示、(2)(3)ではUI._currentPageに応じて表示する) */
+.wizard-header {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    margin-bottom: 20px;
+}
+
+.wizard-header h1 {
+    font-size: 20px;
+    margin: 0;
+}
+
+.nav-back-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 2px;
+    border: none;
+    background: transparent;
+    color: var(--primary);
+    font-size: 15px;
+    font-weight: bold;
+    padding: 4px 6px 4px 0;
+    margin-right: 4px;
+    cursor: pointer;
+}
+
+.nav-back-btn span {
+    font-size: 20px;
+    line-height: 1;
 }
 
 .card {
@@ -173,6 +201,12 @@ header h1 {
     align-items: center;
     gap: 16px;
     flex-wrap: wrap;
+}
+
+/* 「戻る」がヘッダーへ移動したことに伴い、ページ最下部に残るボタンは右寄せにする
+   (2026-09-19のフィードバック) */
+.button-row-end {
+    justify-content: flex-end;
 }
 
 /* フォーム */
