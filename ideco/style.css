@@ -250,6 +250,35 @@ input[inputmode="numeric"], input[inputmode="decimal"] {
     accent-color: var(--primary);
 }
 
+/* スライダー+editable数値入力の複合部品(2026-09-18のフィードバックで追加、ADR 0010参照)。
+   ドラッグでの大まかな調整と、数値直接入力での正確な調整を両立させる(iDeCo拠出額・死亡予測年齢)。
+   スライダーを伸縮領域、数値入力は幅を固定して横並びにする */
+.slider-with-input {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.slider-with-input .range-input {
+    flex: 1;
+    min-width: 0;
+}
+
+.slider-with-input .slider-number {
+    width: 130px;
+    flex-shrink: 0;
+}
+
+@media (max-width: 600px) {
+    .slider-with-input {
+        flex-wrap: wrap;
+    }
+
+    .slider-with-input .slider-number {
+        width: 100%;
+    }
+}
+
 /* 比較結果のグラフ(Chart.js、旧・全プラン比較。2026-09-17のフィードバックでページ(2)(3)内への
    埋め込みに変更、docs/ideco/decisions/0009参照)。出口戦略セクション自身の資産推移グラフは、
    目的別最適化の導入に伴い廃止した(2026-09-16のフィードバック、docs/ideco/decisions/0008参照)。

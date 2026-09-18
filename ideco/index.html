@@ -141,23 +141,22 @@
 
             <div class="card" id="topic_gate_card">
                 <div class="section-title">iDeCoに対する今の悩みは何ですか？</div>
-                <p class="field-note">選んだ質問に応じて、自動でプラン比較するか、そのまま拠出プランを入力していただきます。</p>
+                <p class="field-note">選んだ質問に応じて、共通の「iDeCo拠出プランナー」画面へ進みます(チェックボックスの初期状態だけが変わります)。</p>
                 <div class="topic-cards">
                     <div class="topic-card">
                         <h3>① iDeCoでどれくらい得をする？</h3>
-                        <p>まだiDeCoを始めていない方向け。「始めない場合」と「始めた場合」を比較し、節税・手取りへの効果を確認します。</p>
-                        <button type="button" id="btn_topic_benefit_compare" class="btn btn-primary">比較する</button>
-                        <p id="topic_benefit_disabled_note" class="field-note" style="display: none;">既にiDeCoに拠出中の方は、下の「③」からお進みください。</p>
+                        <p>まだiDeCoを始めていない方向け。拠出プランを入力し、「始めない場合」と比較しながら検討します。</p>
+                        <button type="button" id="btn_topic_benefit_compare" class="btn btn-primary">検討する</button>
                     </div>
                     <div class="topic-card">
                         <h3>② iDeCoとNISA、どちらを優先すべき？</h3>
                         <p>投資に回せる金額(月額)をiDeCoとNISAにどう配分するか、スライダーで調整しながら比較します。</p>
-                        <button type="button" id="btn_topic_nisa_compare" class="btn btn-primary">比較する</button>
+                        <button type="button" id="btn_topic_nisa_compare" class="btn btn-primary">検討する</button>
                     </div>
                     <div class="topic-card">
                         <h3>③ 今すでに拠出しており、出口戦略に迷っている</h3>
                         <p>現在のiDeCo拠出プランをそのまま入力し、受け取り方の最適化へ進みます。</p>
-                        <button type="button" id="btn_topic_existing" class="btn btn-primary">入力する</button>
+                        <button type="button" id="btn_topic_existing" class="btn btn-primary">検討する</button>
                     </div>
                 </div>
                 <p class="field-note">
@@ -169,110 +168,110 @@
 
         </div><!-- /#page1_income -->
 
-        <!-- (2) iDeCo拠出プランナー(①②選択時のみ。2026-09-17のフィードバックでウィザード化、ADR 0009参照。
-             旧モーダルダイアログの入力欄をページに埋め込み、実行ボタン無しでライブに比較結果を更新する) -->
+        <!-- (2) iDeCo拠出プランナー(①②③共通。2026-09-18のフィードバックで統合、ADR 0010参照。
+             従来①②で別々だった入力欄を1つに統合し、比較の基準列は「現在、拠出中である」
+             「NISAとのバランスを考慮したい」の2チェックボックスの状態から動的に決まる) -->
         <div id="page2_planner" class="wizard-page" style="display: none;">
             <div class="card">
-                <div class="section-title" id="page2_title">iDeCo拠出プランナー</div>
+                <div class="section-title">iDeCo拠出プランナー</div>
+                <p class="field-note">現在の拠出状況と、iDeCoへの配分を入力してください。</p>
 
-                <div id="page2_benefit_fields" style="display: none;">
-                    <p class="field-note">これから始める場合の拠出プランを入力してください。「始めない場合」と比較します。</p>
-                    <div class="form-grid">
-                        <div class="form-field">
-                            <label for="input_benefit_contribution_limit">あなたの拠出限度額(月額)</label>
-                            <div class="field-with-unit">
-                                <input type="text" id="input_benefit_contribution_limit" inputmode="numeric" autocomplete="off" spellcheck="false">
-                                <span class="unit">円</span>
-                            </div>
-                            <p class="field-note">iDeCoの拠出限度額は、自営業者・公務員・会社員(企業年金の有無)によって異なります。ご自身の限度額を調べて入力してください(既定値は企業年金なし会社員の62,000円(2026年12月の制度改正反映))。</p>
+                <div class="form-grid">
+                    <div class="form-field">
+                        <label for="input_planner_contribution_limit">あなたの拠出限度額(月額)</label>
+                        <div class="field-with-unit">
+                            <input type="text" id="input_planner_contribution_limit" inputmode="numeric" autocomplete="off" spellcheck="false">
+                            <span class="unit">円</span>
                         </div>
-                        <div class="form-field">
-                            <label for="input_benefit_monthly_contribution">毎月の拠出額</label>
-                            <div class="field-with-unit">
-                                <input type="text" id="input_benefit_monthly_contribution" inputmode="numeric" autocomplete="off" spellcheck="false">
-                                <span class="unit">円</span>
-                            </div>
-                            <p class="field-note">拠出限度額を超えないよう自動的に調整されます。</p>
+                        <p class="field-note">iDeCoの拠出限度額は、自営業者・公務員・会社員(企業年金の有無)によって異なります。ご自身の限度額を調べて入力してください(既定値は企業年金なし会社員の62,000円(2026年12月の制度改正反映))。</p>
+                    </div>
+                    <div class="form-field">
+                        <label for="input_planner_expected_return_rate">想定利回り(年率)</label>
+                        <div class="field-with-unit">
+                            <input type="text" id="input_planner_expected_return_rate" inputmode="decimal" autocomplete="off" spellcheck="false">
+                            <span class="unit">%</span>
                         </div>
-                        <div class="form-field">
-                            <label for="input_benefit_expected_return_rate">想定利回り(年率)</label>
-                            <div class="field-with-unit">
-                                <input type="text" id="input_benefit_expected_return_rate" inputmode="decimal" autocomplete="off" spellcheck="false">
-                                <span class="unit">%</span>
-                            </div>
+                    </div>
+                    <div class="form-field">
+                        <label for="input_planner_contribution_end_age">拠出終了年齢</label>
+                        <div class="field-with-unit">
+                            <input type="text" id="input_planner_contribution_end_age" inputmode="numeric" autocomplete="off" spellcheck="false">
+                            <span class="unit">歳</span>
                         </div>
-                        <div class="form-field">
-                            <label for="input_benefit_contribution_end_age">拠出終了年齢</label>
-                            <div class="field-with-unit">
-                                <input type="text" id="input_benefit_contribution_end_age" inputmode="numeric" autocomplete="off" spellcheck="false">
-                                <span class="unit">歳</span>
-                            </div>
-                            <p class="field-note">既定値は、iDeCoの拠出可能年齢の上限(70歳)と公的年金受給開始年齢の小さい方です。</p>
+                        <p class="field-note">既定値は、iDeCoの拠出可能年齢の上限(70歳)と公的年金受給開始年齢の小さい方です。</p>
+                    </div>
+                </div>
+
+                <div class="form-field">
+                    <label class="checkbox-label">
+                        <input type="checkbox" id="input_planner_currently_contributing">
+                        現在、iDeCoに拠出中である(既に加入済み)
+                    </label>
+                    <p class="field-note">ONにすると、比較表の基準列が「現状維持(今の拠出額のまま)」になります。</p>
+                </div>
+                <div id="planner_current_contribution_fields" class="form-grid" style="display: none;">
+                    <div class="form-field">
+                        <label for="input_planner_current_balance">現在のiDeCo残高</label>
+                        <div class="field-with-unit">
+                            <input type="text" id="input_planner_current_balance" inputmode="numeric" autocomplete="off" spellcheck="false">
+                            <span class="unit">円</span>
+                        </div>
+                    </div>
+                    <div class="form-field">
+                        <label for="input_planner_enrolled_years">これまでの加入年数</label>
+                        <div class="field-with-unit">
+                            <input type="text" id="input_planner_enrolled_years" inputmode="numeric" autocomplete="off" spellcheck="false">
+                            <span class="unit">年</span>
                         </div>
                     </div>
                 </div>
 
-                <div id="page2_nisa_fields" style="display: none;">
-                    <p class="field-note">「iDeCo拠出プラン」をまだ入力していない方は、ここでまとめて入力できます。</p>
-                    <div class="form-grid">
-                        <div class="form-field">
-                            <label for="input_nisa_contribution_limit">あなたの拠出限度額(月額)</label>
-                            <div class="field-with-unit">
-                                <input type="text" id="input_nisa_contribution_limit" inputmode="numeric" autocomplete="off" spellcheck="false">
-                                <span class="unit">円</span>
-                            </div>
-                            <p class="field-note">iDeCoの拠出限度額は、自営業者・公務員・会社員(企業年金の有無)によって異なります。ご自身の限度額を調べて入力してください(既定値は企業年金なし会社員の62,000円(2026年12月の制度改正反映))。</p>
-                        </div>
-                        <div class="form-field">
-                            <label for="input_nisa_budget">投資に回せる金額(月額)</label>
-                            <div class="field-with-unit">
-                                <input type="text" id="input_nisa_budget" inputmode="numeric" autocomplete="off" spellcheck="false">
-                                <span class="unit">円</span>
-                            </div>
-                            <p class="field-note">下のスライダーで、この金額をiDeCoとNISAにどう配分するか調整できます。NISAの想定利回りはiDeCoと同じ値を使います。</p>
-                        </div>
-                        <div class="form-field">
-                            <label for="input_nisa_expected_return_rate">想定利回り(年率)</label>
-                            <div class="field-with-unit">
-                                <input type="text" id="input_nisa_expected_return_rate" inputmode="decimal" autocomplete="off" spellcheck="false">
-                                <span class="unit">%</span>
-                            </div>
-                        </div>
-                        <div class="form-field">
-                            <label for="input_nisa_contribution_end_age">拠出終了年齢</label>
-                            <div class="field-with-unit">
-                                <input type="text" id="input_nisa_contribution_end_age" inputmode="numeric" autocomplete="off" spellcheck="false">
-                                <span class="unit">歳</span>
-                            </div>
-                            <p class="field-note">既定値は退職年齢です。</p>
+                <div class="form-field">
+                    <label class="checkbox-label">
+                        <input type="checkbox" id="input_planner_nisa_balance_considered">
+                        NISAとのバランスを考慮したい
+                    </label>
+                    <p class="field-note">ONにすると、比較表に「NISA全振り」列が追加されます。</p>
+                </div>
+                <div id="planner_nisa_fields" class="form-field" style="display: none;">
+                    <label for="input_planner_monthly_budget">投資に回せる金額(月額)</label>
+                    <div class="field-with-unit">
+                        <input type="text" id="input_planner_monthly_budget" inputmode="numeric" autocomplete="off" spellcheck="false">
+                        <span class="unit">円</span>
+                    </div>
+                    <p class="field-note">下のスライダーで、この金額をiDeCoとNISAにどう配分するか調整できます。NISAの想定利回りはiDeCoと同じ値を使います。</p>
+                </div>
+
+                <div class="form-field">
+                    <label for="input_planner_ideco_slider" id="planner_ideco_slider_label">毎月の拠出額</label>
+                    <div class="slider-with-input">
+                        <input type="range" id="input_planner_ideco_slider" class="range-input" min="0" max="0" step="1000" value="0">
+                        <div class="field-with-unit slider-number">
+                            <input type="text" id="input_planner_ideco_value" inputmode="numeric" autocomplete="off" spellcheck="false">
+                            <span class="unit">円</span>
                         </div>
                     </div>
-                    <div class="form-field">
-                        <label for="input_nisa_ideco_slider">iDeCoへの配分(月額): <span id="nisa_ideco_slider_value">¥0</span></label>
-                        <input type="range" id="input_nisa_ideco_slider" class="range-input" min="0" max="0" step="1000" value="0">
-                        <p class="field-note">残りはNISAへ配分されます。上限は「投資に回せる金額」と「あなたの拠出限度額」の小さい方です。</p>
+                    <p class="field-note" id="planner_ideco_slider_note">上限は「あなたの拠出限度額」です。</p>
+                    <p id="monthly_contribution_warning" class="alert-text" style="display: none;">⚠️ iDeCoの毎月の拠出額は5,000円以上である必要があります。</p>
+                </div>
+
+                <div class="result-summary">
+                    <div class="result-summary-item">
+                        <span class="result-summary-label">拠出終了時点の資産額</span>
+                        <span class="result-summary-value" id="contribution_end_balance">¥0</span>
                     </div>
-                    <div class="form-field">
-                        <label class="checkbox-label">
-                            <input type="checkbox" id="input_nisa_currently_contributing">
-                            現在、iDeCoに拠出中である(既に加入済み)
-                        </label>
+                    <div class="result-summary-item">
+                        <span class="result-summary-label">シミュレーション開始からの総拠出額</span>
+                        <span class="result-summary-value" id="total_contribution">¥0</span>
                     </div>
-                    <div id="nisa_current_contribution_fields" class="form-grid" style="display: none;">
-                        <div class="form-field">
-                            <label for="input_nisa_current_balance">現在のiDeCo残高</label>
-                            <div class="field-with-unit">
-                                <input type="text" id="input_nisa_current_balance" inputmode="numeric" autocomplete="off" spellcheck="false">
-                                <span class="unit">円</span>
-                            </div>
-                        </div>
-                        <div class="form-field">
-                            <label for="input_nisa_enrolled_years">これまでの加入年数</label>
-                            <div class="field-with-unit">
-                                <input type="text" id="input_nisa_enrolled_years" inputmode="numeric" autocomplete="off" spellcheck="false">
-                                <span class="unit">年</span>
-                            </div>
-                        </div>
+                </div>
+
+                <div class="tax-savings-box">
+                    <div class="net-amount-label">iDeCoによる節税額<span class="unit-note">(拠出時の所得控除効果)</span></div>
+                    <div class="tax-savings-value">
+                        年間 <span id="tax_savings_annual">¥0</span>/年
+                        × 残り拠出<span id="tax_savings_years">0</span>年
+                        = 生涯 <span id="tax_savings_total">¥0</span>
                     </div>
                 </div>
 
@@ -286,100 +285,29 @@
 
                 <div class="button-row">
                     <button type="button" id="btn_page2_back" class="btn">戻る</button>
+                    <button type="button" id="btn_page2_next" class="btn btn-primary">次へ(出口戦略へ)</button>
                 </div>
             </div>
         </div><!-- /#page2_planner -->
 
-        <!-- (3) iDeCo出口ストラテジスト(③直接、または(2)で採用した場合。2026-09-17のフィードバックで
-             ウィザード化、ADR 0009参照。旧「iDeCo拠出プラン」「iDeCoの受け取り方を最適化します」の
-             2枚のカードをそのまま使い、出口戦略の比較結果もページ内にライブ表示する) -->
+        <!-- (3) iDeCo出口ストラテジスト(2026-09-18のフィードバックで出口戦略最適化専用に絞った、
+             ADR 0010参照。拠出プラン関連の入力はすべてページ(2)へ統合済み) -->
         <div id="page3_strategist" class="wizard-page" style="display: none;">
-
-            <div class="card">
-                <div class="section-title">現在のiDeCo拠出プランを入力してください</div>
-                <div class="form-field">
-                    <label class="checkbox-label">
-                        <input type="checkbox" id="input_currently_contributing">
-                        現在、iDeCoに拠出中である(既に加入済み)
-                    </label>
-                    <p class="field-note">これから始める方はチェック不要です(下の「毎月の拠出額」以降に、これから拠出する想定の金額を入力してください)。</p>
-                </div>
-                <div id="current_contribution_fields" class="form-grid" style="display: none;">
-                    <div class="form-field">
-                        <label for="input_current_balance">現在のiDeCo残高</label>
-                        <div class="field-with-unit">
-                            <input type="text" id="input_current_balance" inputmode="numeric" autocomplete="off" spellcheck="false">
-                            <span class="unit">円</span>
-                        </div>
-                    </div>
-                    <div class="form-field">
-                        <label for="input_enrolled_years">これまでの加入年数</label>
-                        <div class="field-with-unit">
-                            <input type="text" id="input_enrolled_years" inputmode="numeric" autocomplete="off" spellcheck="false">
-                            <span class="unit">年</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="form-grid">
-                    <div class="form-field">
-                        <label for="input_monthly_contribution">毎月の拠出額</label>
-                        <div class="field-with-unit">
-                            <input type="text" id="input_monthly_contribution" inputmode="numeric" autocomplete="off" spellcheck="false">
-                            <span class="unit">円</span>
-                        </div>
-                        <p id="monthly_contribution_warning" class="alert-text" style="display: none;">⚠️ iDeCoの毎月の拠出額は5,000円以上である必要があります。</p>
-                    </div>
-                    <div class="form-field">
-                        <label for="input_expected_return_rate">想定利回り(年率)</label>
-                        <div class="field-with-unit">
-                            <input type="text" id="input_expected_return_rate" inputmode="decimal" autocomplete="off" spellcheck="false">
-                            <span class="unit">%</span>
-                        </div>
-                    </div>
-                    <div class="form-field">
-                        <label for="input_contribution_end_age">拠出終了年齢</label>
-                        <div class="field-with-unit">
-                            <input type="text" id="input_contribution_end_age" inputmode="numeric" autocomplete="off" spellcheck="false">
-                            <span class="unit">歳</span>
-                        </div>
-                        <p class="field-note">公的年金受給開始年齢以下の値に自動的に制限されます(老齢基礎年金の受給開始でiDeCoの拠出を続けられなくなるため)。</p>
-                    </div>
-                    <div class="form-field">
-                        <label for="input_contribution_limit">あなたの拠出限度額(月額)</label>
-                        <div class="field-with-unit">
-                            <input type="text" id="input_contribution_limit" inputmode="numeric" autocomplete="off" spellcheck="false">
-                            <span class="unit">円</span>
-                        </div>
-                        <p class="field-note">iDeCoの拠出限度額は、自営業者・公務員・会社員(企業年金の有無)によって異なります。ご自身の限度額を調べて入力してください(既定値は企業年金なし会社員の62,000円(2026年12月の制度改正反映))。</p>
-                        <p id="contribution_limit_warning" class="alert-text" style="display: none;">⚠️ 毎月の拠出額が、あなたの拠出限度額を超えています。</p>
-                    </div>
-                </div>
-
-                <div class="result-summary">
-                    <div class="result-summary-item">
-                        <span class="result-summary-label">拠出終了時点の資産額</span>
-                        <span class="result-summary-value" id="contribution_end_balance">¥0</span>
-                    </div>
-                    <div class="result-summary-item">
-                        <span class="result-summary-label">シミュレーション開始からの総拠出額</span>
-                        <span class="result-summary-value" id="total_contribution">¥0</span>
-                    </div>
-                </div>
-            </div>
 
             <div class="card">
                 <div class="section-title">iDeCoの受け取り方を最適化します</div>
                 <p class="field-note">「死亡予測年齢」を前提に、受取比率・一時金受取年齢・年金受取開始年齢の組み合わせを自動で探索し、目的別に最適な組み合わせを提案します。ご自身で受取比率・受取年齢を調整する必要はありません。</p>
 
-                <div class="form-grid form-grid-pair">
-                    <div class="form-field">
-                        <label for="input_death_age">死亡予測年齢</label>
-                        <div class="field-with-unit">
+                <div class="form-field">
+                    <label for="input_death_age_slider">死亡予測年齢</label>
+                    <div class="slider-with-input">
+                        <input type="range" id="input_death_age_slider" class="range-input" min="40" max="110" step="1" value="90">
+                        <div class="field-with-unit slider-number">
                             <input type="text" id="input_death_age" inputmode="numeric" autocomplete="off" spellcheck="false">
                             <span class="unit">歳</span>
                         </div>
-                        <p class="field-note">何歳まで生きる想定で最適化するかの前提です。長く見積もるほど、年金として長期間・少額ずつ受け取る配分が有利になりやすくなります。</p>
                     </div>
+                    <p class="field-note">何歳まで生きる想定で最適化するかの前提です。長く見積もるほど、年金として長期間・少額ずつ受け取る配分が有利になりやすくなります。</p>
                 </div>
 
                 <div class="section-title-sub">勤務先からの退職金</div>
@@ -413,15 +341,6 @@
                             <span class="unit">年</span>
                         </div>
                         <p class="field-note">9年/19年ルールの重複排除計算に用います。未入力(0)なら調整しません。</p>
-                    </div>
-                </div>
-
-                <div class="tax-savings-box">
-                    <div class="net-amount-label">iDeCoによる節税額<span class="unit-note">(拠出時の所得控除効果)</span></div>
-                    <div class="tax-savings-value">
-                        年間 <span id="tax_savings_annual">¥0</span>/年
-                        × 残り拠出<span id="tax_savings_years">0</span>年
-                        = 生涯 <span id="tax_savings_total">¥0</span>
                     </div>
                 </div>
 
