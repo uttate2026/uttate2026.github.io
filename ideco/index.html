@@ -264,39 +264,50 @@
                 <div class="section-title">iDeCoの受け取り方を最適化します</div>
                 <p class="field-note">「死亡予測年齢」を前提に、受取比率・一時金受取年齢・年金受取開始年齢の組み合わせを自動で探索し、目的別に最適な組み合わせを提案します。ご自身で受取比率・受取年齢を調整する必要はありません。</p>
 
-                <div class="section-title-sub">ねんきん定期便の年金見込額(年額)から転記する項目</div>
-                <div class="form-grid">
-                    <div class="form-field">
-                        <label for="input_basic_pension">老齢基礎年金(年額)</label>
-                        <div class="field-with-unit">
-                            <input type="text" id="input_basic_pension" inputmode="numeric" autocomplete="off" spellcheck="false">
-                            <span class="unit">円</span>
-                        </div>
-                    </div>
-                    <div class="form-field">
-                        <label for="input_employee_pension">老齢厚生年金(報酬比例部分、年額)</label>
-                        <div class="field-with-unit">
-                            <input type="text" id="input_employee_pension" inputmode="numeric" autocomplete="off" spellcheck="false">
-                            <span class="unit">円</span>
-                        </div>
-                    </div>
-                </div>
-                <p class="info-note">
-                    ℹ️ 老齢基礎年金・老齢厚生年金の金額は、下の「公的年金受給開始年齢」で実際に受け取る金額(繰上げ受給・繰り下げ受給による増減を反映済みの金額)を入力してください。本サイトは、受給開始年齢に応じた増減額を自動計算しません。
-                </p>
-                <p id="pension_estimate_notice" class="info-note" style="display: none;">
-                    ℹ️ 50歳未満の方へ: ねんきん定期便の年金額は、これまでの加入実績に基づく金額であり、将来の受給時点の見込額ではありません。「ねんきんネット」(日本年金機構の公式サイト)で将来の見込額を試算してから入力してください。
-                </p>
                 <div class="form-field">
-                    <label for="input_pension_start_age">公的年金受給開始年齢</label>
-                    <div class="field-with-unit">
-                        <input type="text" id="input_pension_start_age" inputmode="numeric" autocomplete="off" spellcheck="false">
-                        <span class="unit">歳</span>
-                    </div>
-                    <p class="field-note">拠出終了年齢(ページ2で設定)より前には設定できません。</p>
+                    <label class="checkbox-label">
+                        <input type="checkbox" id="input_has_pension_notice">
+                        手元にねんきん定期便がある
+                    </label>
                 </div>
-                <p id="working_pension_notice" class="info-note" style="display: none;">
-                    ℹ️ 退職年齢が公的年金受給開始年齢より後のため、その重複期間は「働きながら年金を受け取る」期間として扱われます。この期間は在職老齢年金による老齢厚生年金の支給停止調整が結果に反映されます。
+                <div id="pension_notice_fields" style="display: none;">
+                    <div class="section-title-sub">ねんきん定期便の年金見込額(年額)から転記する項目</div>
+                    <div class="form-grid">
+                        <div class="form-field">
+                            <label for="input_basic_pension">老齢基礎年金(年額)</label>
+                            <div class="field-with-unit">
+                                <input type="text" id="input_basic_pension" inputmode="numeric" autocomplete="off" spellcheck="false">
+                                <span class="unit">円</span>
+                            </div>
+                        </div>
+                        <div class="form-field">
+                            <label for="input_employee_pension">老齢厚生年金(報酬比例部分、年額)</label>
+                            <div class="field-with-unit">
+                                <input type="text" id="input_employee_pension" inputmode="numeric" autocomplete="off" spellcheck="false">
+                                <span class="unit">円</span>
+                            </div>
+                        </div>
+                    </div>
+                    <p class="info-note">
+                        ℹ️ 老齢基礎年金・老齢厚生年金の金額は、下の「公的年金受給開始年齢」で実際に受け取る金額(繰上げ受給・繰り下げ受給による増減を反映済みの金額)を入力してください。本サイトは、受給開始年齢に応じた増減額を自動計算しません。
+                    </p>
+                    <p id="pension_estimate_notice" class="info-note" style="display: none;">
+                        ℹ️ 50歳未満の方へ: ねんきん定期便の年金額は、これまでの加入実績に基づく金額であり、将来の受給時点の見込額ではありません。「ねんきんネット」(日本年金機構の公式サイト)で将来の見込額を試算してから入力してください。
+                    </p>
+                    <div class="form-field">
+                        <label for="input_pension_start_age">公的年金受給開始年齢</label>
+                        <div class="field-with-unit">
+                            <input type="text" id="input_pension_start_age" inputmode="numeric" autocomplete="off" spellcheck="false">
+                            <span class="unit">歳</span>
+                        </div>
+                        <p class="field-note">拠出終了年齢(ページ2で設定)より前には設定できません。</p>
+                    </div>
+                    <p id="working_pension_notice" class="info-note" style="display: none;">
+                        ℹ️ 退職年齢が公的年金受給開始年齢より後のため、その重複期間は「働きながら年金を受け取る」期間として扱われます。この期間は在職老齢年金による老齢厚生年金の支給停止調整が結果に反映されます。
+                    </p>
+                </div>
+                <p class="alert-text">
+                    ⚠️ 未入力の場合、公的年金収入が無いものとして最適化を計算します。多くの方は老齢基礎年金だけでも受給対象のため、年金受給開始後の税金・社会保険料の見積もりに大きな誤差が生じる可能性があります。
                 </p>
 
                 <div class="form-field">
