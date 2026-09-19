@@ -453,6 +453,13 @@ th, td {
     background: var(--bg-main);
 }
 
+/* ページ(2)拠出プラン比較表の区切り見出し行(2026-09-20のフィードバックで追加)。
+   result-table-group-headerと違い開閉トグルを持たないため、cursor: pointerは付けない */
+.compare-table-section-header {
+    background: var(--bg-main);
+    font-weight: bold;
+}
+
 .table-responsive {
     overflow-x: auto;
 }
