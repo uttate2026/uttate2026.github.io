@@ -323,7 +323,6 @@
                     <p class="field-note">何歳まで生きる想定で最適化するかの前提です。長く見積もるほど、年金として長期間・少額ずつ受け取る配分が有利になりやすくなります。</p>
                 </div>
 
-                <div class="section-title-sub">勤務先からの退職金</div>
                 <div class="form-field">
                     <label class="checkbox-label">
                         <input type="checkbox" id="input_employer_exists">
@@ -357,17 +356,16 @@
                     </div>
                 </div>
 
-                <div class="section-title-sub">住民税非課税 簡易診断(任意)</div>
                 <label class="checkbox-label resident-tax-check-toggle">
                     <input type="checkbox" id="input_resident_tax_check_enabled">
-                    比較結果に、住民税非課税(目安)の期間を表示する
+                    比較結果に、住民税が非課税になる期間(目安)を表示する
                 </label>
                 <div id="resident_tax_check_fields" class="resident-tax-check-fields" style="display: none;">
                     <label for="input_resident_tax_area_grade">お住まいの級地:</label>
                     <select id="input_resident_tax_area_grade">
-                        <option value="1">1級地</option>
-                        <option value="2">2級地</option>
-                        <option value="3">3級地</option>
+                        <option value="1">1級地(東京23区や多くの政令指定都市など)</option>
+                        <option value="2">2級地(一部の県庁所在市や大都市周辺の市など)</option>
+                        <option value="3">3級地(その他の一般市区町村、全国の約8割が該当)</option>
                     </select>
                 </div>
                 <p id="resident_tax_check_note" class="field-note" style="display: none;">

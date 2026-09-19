@@ -402,6 +402,10 @@ input[inputmode="numeric"], input[inputmode="decimal"] {
 /* 住民税非課税簡易診断(任意、機能仕様8.4節、2026-09-06のフィードバックで追加) */
 .resident-tax-check-toggle {
     margin: 4px 0 8px;
+    /* 他のチェックボックスラベル(.form-field labelを継承する)とフォントサイズを揃える
+       (2026-09-20の追加フィードバックで追加。この要素は.form-fieldの外にあるため、
+       それまでブラウザ既定のフォントサイズのまま他のテキストより大きく見えていた) */
+    font-size: 13px;
 }
 
 .resident-tax-check-fields {
@@ -409,6 +413,13 @@ input[inputmode="numeric"], input[inputmode="decimal"] {
     align-items: center;
     gap: 10px;
     margin: 0 0 8px 26px;
+}
+
+.resident-tax-check-fields label {
+    /* 他のフィールドラベル(.form-field label)とフォントサイズ・太さを揃える
+       (2026-09-20の追加フィードバックで追加、上記と同じ理由) */
+    font-size: 13px;
+    font-weight: bold;
 }
 
 .resident-tax-check-fields select {
