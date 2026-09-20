@@ -39,8 +39,7 @@
             <h1 id="nav_page_title">ステップ1 あなたの収入</h1>
         </header>
 
-        <!-- (1) あなたの収入・年金(2026-09-17のフィードバックでウィザード化、ADR 0009参照。
-             「＋プランを追加」等の複数プラン管理UIは廃止し、常に単一プランを3ページで進める) -->
+        <!-- (1) あなたの収入・年金(単一プランのウィザード構成、ADR 0009参照) -->
         <div id="page1_income" class="wizard-page">
 
             <div class="card">
@@ -152,11 +151,9 @@
 
         </div><!-- /#page1_income -->
 
-        <!-- (2) 拠出プラン(旧「iDeCo拠出プランナー」、①②③共通。2026-09-18のフィードバックで統合、
-             ADR 0010参照。従来①②で別々だった入力欄を1つに統合し、比較の基準列は「現在、拠出中である」
-             「NISAとのバランスを考慮したい」の2チェックボックスの状態から動的に決まる。2026-09-19の
-             フィードバックで、出口戦略(受け取り方)に依存しない積立フェーズだけの比較に絞った、
-             ADR 0011参照) -->
+        <!-- (2) 拠出プラン(①②③共通。比較の基準列は「現在、拠出中である」「NISAとのバランスを
+             考慮したい」の2チェックボックスの状態から動的に決まる。積立フェーズだけの比較、
+             ADR 0010・0011参照) -->
         <div id="page2_planner" class="wizard-page" style="display: none;">
             <div class="card">
                 <div class="section-title">現在の拠出状況と、iDeCoへの配分を入力してください</div>
@@ -255,10 +252,8 @@
             </div>
         </div><!-- /#page2_planner -->
 
-        <!-- (3) 出口戦略(旧「iDeCo出口ストラテジスト」、2026-09-18のフィードバックで出口戦略最適化
-             専用に絞った、ADR 0010参照。拠出プラン関連の入力はすべてページ(2)へ統合済み。
-             2026-09-19のフィードバックで、公的年金受給額・受給開始年齢の入力もページ(1)から
-             ここへ移設した、ADR 0011参照) -->
+        <!-- (3) 出口戦略(出口戦略最適化専用。拠出プラン関連の入力はページ(2)にある、ADR 0010参照。
+             公的年金受給額・受給開始年齢の入力はここにある、ADR 0011参照) -->
         <div id="page3_strategist" class="wizard-page" style="display: none;">
 
             <div class="card">
@@ -404,11 +399,11 @@
     <script src="consent.js"></script>
     <script src="resize-notifier.js"></script>
     <script src="vendor/chart.js"></script>
-    <!-- 「全プラン比較」がlifeplanエンジンを再利用するための共有モジュール(2026-09-15のフィードバック
-         で追加、docs/shared/decisions/0004-multi-app-funnel-architecture.md参照)。scripts/sync-shared.js
-         がsrc/shared/からコピーする(このディレクトリ自体はGit管理対象外)。shared/lifeplan-constants.js
-         はshared/calculator.jsが参照するブラウザグローバルLifeplanConstantsを用意するためのもので、
-         このページ自体のconstants.js(IdecoConstants)とは別名のため衝突しない -->
+    <!-- 比較結果表示がlifeplanエンジンを再利用するための共有モジュール
+         (docs/shared/decisions/0004参照)。scripts/sync-shared.jsがsrc/shared/からコピーする
+         (このディレクトリ自体はGit管理対象外)。shared/lifeplan-constants.jsはshared/calculator.jsが
+         参照するブラウザグローバルLifeplanConstantsを用意するためのもので、このページ自体の
+         constants.js(IdecoConstants)とは別名のため衝突しない -->
     <script src="shared/lifeplan-constants.js"></script>
     <script src="shared/pattern-builders.js"></script>
     <script src="shared/calculator.js"></script>

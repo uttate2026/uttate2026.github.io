@@ -42,8 +42,8 @@ body {
     padding: 24px 16px 64px;
 }
 
-/* ヘッダー(2026-09-19のフィードバックで、画面名+戻るボタンをスマホアプリのように左上へ固定する
-   構成に変更。戻るボタンは(1)では非表示、(2)(3)ではUI._currentPageに応じて表示する) */
+/* ヘッダー: 画面名+戻るボタンをスマホアプリのように左上へ固定する。戻るボタンは(1)では非表示、
+   (2)(3)ではUI._currentPageに応じて表示する */
 .wizard-header {
     display: flex;
     align-items: center;
@@ -166,10 +166,7 @@ body {
     background: var(--primary-dark);
 }
 
-/* disabled状態の見た目(2026-09-18のフィードバックで追加)。従来はdisabled時も.btn-primaryの
-   背景色・cursor: pointerがそのまま残り、クリックしても反応しないだけの「効かないボタン」に
-   見えてしまう不具合があった(①②③ボタンが給与収入未入力・拠出中の場合にdisabledになる、
-   MEMO.mdコメント2026-09-18参照)。 */
+/* disabled状態の見た目(見た目でも無効と分かるようにする) */
 .btn:disabled {
     opacity: 0.5;
     cursor: not-allowed;
@@ -203,8 +200,7 @@ body {
     flex-wrap: wrap;
 }
 
-/* 「戻る」がヘッダーへ移動したことに伴い、ページ最下部に残るボタンは右寄せにする
-   (2026-09-19のフィードバック) */
+/* 「戻る」はヘッダーにあるため、ページ最下部に残るボタンは右寄せにする */
 .button-row-end {
     justify-content: flex-end;
 }
@@ -216,8 +212,8 @@ body {
     gap: 14px 20px;
 }
 
-/* 調整可能かつ比較が重要な2項目を、画面幅によらず同じ行に固定する(2026-09-06のフィードバック。
-   退職年齢と公的年金受給開始年齢のペア) */
+/* 調整可能かつ比較が重要な2項目(退職年齢と公的年金受給開始年齢のペア)を、
+   画面幅によらず同じ行に固定する */
 .form-grid-pair {
     grid-template-columns: repeat(2, minmax(0, 1fr));
 }
@@ -284,8 +280,7 @@ input[inputmode="numeric"], input[inputmode="decimal"] {
     accent-color: var(--primary);
 }
 
-/* スライダー+editable数値入力の複合部品(2026-09-18のフィードバックで追加、ADR 0010参照)。
-   ドラッグでの大まかな調整と、数値直接入力での正確な調整を両立させる(iDeCo拠出額・死亡予測年齢)。
+/* スライダー+editable数値入力の複合部品(iDeCo拠出額・死亡予測年齢、ADR 0010参照)。
    スライダーを伸縮領域、数値入力は幅を固定して横並びにする */
 .slider-with-input {
     display: flex;
@@ -313,10 +308,8 @@ input[inputmode="numeric"], input[inputmode="decimal"] {
     }
 }
 
-/* 比較結果のグラフ(Chart.js、旧・全プラン比較。2026-09-17のフィードバックでページ(2)(3)内への
-   埋め込みに変更、docs/ideco/decisions/0009参照)。出口戦略セクション自身の資産推移グラフは、
-   目的別最適化の導入に伴い廃止した(2026-09-16のフィードバック、docs/ideco/decisions/0008参照)。
-   ページ(2)のグラフも、情報量を絞る目的で削除した(2026-09-18のフィードバック) */
+/* 比較結果のグラフ(Chart.js、ページ(3)内に埋め込み。ページ(2)は情報量を絞るため持たない、
+   docs/ideco/decisions/0008・0009参照) */
 #page3_compare_chart_wrap {
     position: relative;
     height: 280px;
@@ -347,7 +340,7 @@ input[inputmode="numeric"], input[inputmode="decimal"] {
     font-weight: bold;
 }
 
-/* iDeCoによる節税額(拠出時の所得控除効果のみ、機能仕様8.2節、2026-09-07のフィードバックで追加) */
+/* iDeCoによる節税額(拠出時の所得控除効果のみ、機能仕様8.2節) */
 .tax-savings-box {
     margin-top: 16px;
     padding-top: 12px;
@@ -399,12 +392,10 @@ input[inputmode="numeric"], input[inputmode="decimal"] {
     margin-bottom: 8px;
 }
 
-/* 住民税非課税簡易診断(任意、機能仕様8.4節、2026-09-06のフィードバックで追加) */
+/* 住民税非課税簡易診断(任意、機能仕様8.4節) */
 .resident-tax-check-toggle {
     margin: 4px 0 8px;
-    /* 他のチェックボックスラベル(.form-field labelを継承する)とフォントサイズを揃える
-       (2026-09-20の追加フィードバックで追加。この要素は.form-fieldの外にあるため、
-       それまでブラウザ既定のフォントサイズのまま他のテキストより大きく見えていた) */
+    /* .form-fieldの外にあるため、他のチェックボックスラベルとフォントサイズを明示的に揃える */
     font-size: 13px;
 }
 
@@ -416,8 +407,7 @@ input[inputmode="numeric"], input[inputmode="decimal"] {
 }
 
 .resident-tax-check-fields label {
-    /* 他のフィールドラベル(.form-field label)とフォントサイズ・太さを揃える
-       (2026-09-20の追加フィードバックで追加、上記と同じ理由) */
+    /* .form-field labelの外にあるため、他のフィールドラベルとフォントサイズ・太さを揃える */
     font-size: 13px;
     font-weight: bold;
 }
@@ -450,21 +440,20 @@ th, td {
     text-align: right;
 }
 
-/* マイナスの金額表示(2026-09-15のフィードバック、lifeplanと同じ表記に統一)。色だけに頼らず、
-   formatYen側で先頭に「▲」を付けるのと併用する(色覚特性によらず判別できるようにするため) */
+/* マイナスの金額表示(lifeplanと同じ表記)。色だけに頼らず、formatYen側で先頭に「▲」を
+   付けるのと併用する(色覚特性によらず判別できるようにするため) */
 .negative {
     color: var(--danger);
 }
 
-/* 全プラン比較表、開閉可能なグループ見出し(2026-09-15のフィードバックで追加、
-   lifeplanのresult-table-group-headerをそのまま踏襲) */
+/* 比較表、開閉可能なグループ見出し(lifeplanのresult-table-group-headerをそのまま踏襲) */
 .result-table-group-header {
     cursor: pointer;
     user-select: none;
     background: var(--bg-main);
 }
 
-/* ページ(2)拠出プラン比較表の区切り見出し行(2026-09-20のフィードバックで追加)。
+/* ページ(2)拠出プラン比較表の区切り見出し行。
    result-table-group-headerと違い開閉トグルを持たないため、cursor: pointerは付けない */
 .compare-table-section-header {
     background: var(--bg-main);
@@ -482,8 +471,7 @@ th, td {
     margin: 0 0 16px;
 }
 
-/* 検討トピック(2026-09-15のフィードバックで追加、lifeplanのtopic-cards/topic-cardを踏襲、
-   docs/ideco/decisions/0007参照) */
+/* 検討トピック(lifeplanのtopic-cards/topic-cardを踏襲、docs/ideco/decisions/0007参照) */
 .topic-cards {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
