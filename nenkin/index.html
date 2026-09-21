@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ねんきんプランナー</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div id="auth_overlay" class="auth-overlay">
+        <div class="card auth-card">
+            <div class="section-title">セキュリティ認証</div>
+            <p class="auth-desc">このツールにアクセスするには、専用のトークン(パスワード)を入力してください。</p>
+            <input type="password" id="token_input" placeholder="パスワードを入力">
+            <p id="auth_error" class="alert-text" style="display: none;">⚠️ パスワードが正しくありません。</p>
+            <button type="button" id="btn_auth" class="btn btn-primary">認証する</button>
+        </div>
+    </div>
+
+    <div id="consent_overlay" class="auth-overlay" style="display: none;">
+        <div class="card auth-card">
+            <div class="section-title">ご利用にあたって</div>
+            <ol class="consent-list">
+                <li>入力したデータは、運営側サーバーには保存されません。お使いのブラウザ内にのみ保存されます。</li>
+                <li>外部への送信は行いません。</li>
+                <li>本サービスの試算結果は、税務・年金相談の代替にはなりません。控除額表・税率等の「制度の値」は変更されることがあり、最新の制度と異なる場合があります。自己責任でご利用ください。</li>
+            </ol>
+            <button type="button" id="btn_consent_agree" class="btn btn-primary btn-large">同意して利用を開始する</button>
+        </div>
+    </div>
+
+    <div class="app-container" id="app_container" style="display: none;">
+
+        <!-- 2ページのウィザード構成(MEMO.md 2026/9/22コメント3-(3)(7)、ideco[ADR 0009・0010]の
+             紙芝居ウィザードを踏襲。①②はいずれも共通のステップ2「詳細設定」へ合流する。
+             当初はステップ2「詳細設定」・ステップ3「比較結果」を分けていたが、コメント(7)
+             「ステップ2とステップ3の画面を一体化できないか」を受けて1ページに統合した
+             (docs/nenkin/decisions/0001「2026-09-22改訂(続き2)」参照) -->
+        <header class="wizard-header">
+            <div class="wizard-header-top">
+                <button type="button" id="btn_nav_back" class="nav-back-btn" style="display: none;">
+                    <span aria-hidden="true">‹</span> 戻る
+                </button>
+                <h1 id="nav_page_title">ステップ1 基本情報</h1>
+            </div>
+            <ol class="wizard-steps" id="wizard_steps" aria-hidden="true">
+                <li class="wizard-step wizard-step-active" data-step="1">
+                    <span class="wizard-step-num">1</span><span class="wizard-step-label">基本情報</span>
+                </li>
+                <li class="wizard-step" data-step="2">
+                    <span class="wizard-step-num">2</span><span class="wizard-step-label">詳細設定・比較結果</span>
+                </li>
+            </ol>
+        </header>
+
+        <!-- (1) 基本情報 -->
+        <div id="page1_income" class="wizard-page">
+
+            <div class="card">
+                <div class="section-title">まず、現在の状況についてお聞きします</div>
+
+                <div class="form-grid form-grid-pair">
+                    <div class="form-field">
+                        <label for="input_current_age">現在の年齢</label>
+                        <div class="field-with-unit">
+                            <input type="text" id="input_current_age" inputmode="numeric" autocomplete="off" spellcheck="false">
+                            <span class="unit">歳</span>
+                        </div>
+                    </div>
+                    <div class="form-field">
+                        <label for="input_salary_income">給与収入(年額)</label>
+                        <div class="field-with-unit">
+                            <input type="text" id="input_salary_income" inputmode="numeric" autocomplete="off" spellcheck="false">
+                            <span class="unit">円</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-field">
+                    <label class="checkbox-label">
+                        <input type="checkbox" id="input_has_spouse">
+                        配偶者がいる
+                    </label>
+                </div>
+                <div id="spouse_fields" class="form-grid form-grid-pair" style="display: none;">
+                    <div class="form-field">
+                        <label for="input_spouse_age">配偶者の年齢</label>
+                        <div class="field-with-unit">
+                            <input type="text" id="input_spouse_age" inputmode="numeric" autocomplete="off" spellcheck="false">
+                            <span class="unit">歳</span>
+                        </div>
+                    </div>
+                    <div class="form-field">
+                        <label for="input_spouse_income">配偶者の年収(概算)</label>
+                        <div class="field-with-unit">
+                            <input type="text" id="input_spouse_income" inputmode="numeric" autocomplete="off" spellcheck="false">
+                            <span class="unit">円</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ねんきん定期便は必須項目のため、他の書類系フィールド(任意、ステップ2へ移動)とは
+                 別カードにし、チェックボックスでの開閉もしない(MEMO.md 2026/9/22コメント3-(2)) -->
+            <div class="card">
+                <div class="section-title">ねんきん定期便の年金見込額(年額)</div>
+                <p class="field-note">年金は何歳からもらうのが得かを試算するために必須の項目です。</p>
+                <div class="form-grid form-grid-pair">
+                    <div class="form-field">
+                        <label for="input_basic_pension_estimate">老齢基礎年金の見込額(年額)</label>
+                        <div class="field-with-unit">
+                            <input type="text" id="input_basic_pension_estimate" inputmode="numeric" autocomplete="off" spellcheck="false">
+                            <span class="unit">円</span>
+                        </div>
+                    </div>
+                    <div class="form-field">
+                        <label for="input_employee_pension_estimate">老齢厚生年金の見込額(年額)</label>
+                        <div class="field-with-unit">
+                            <input type="text" id="input_employee_pension_estimate" inputmode="numeric" autocomplete="off" spellcheck="false">
+                            <span class="unit">円</span>
+                        </div>
+                    </div>
+                </div>
+                <p class="info-note">50歳未満の場合、ねんきん定期便の金額はこれまでの加入実績に基づくもので、将来の受給見込額ではありません。<a href="https://www.nenkin.go.jp/n_net/" target="_blank" rel="noopener">ねんきんネット</a>で将来の見込額を試算してから入力してください。</p>
+            </div>
+
+            <!-- トピックB本体は未実装([docs/nenkin/decisions/0001](../../docs/nenkin/decisions/0001-nenkin-planner-kickoff.md)
+                 「今後の見直し条件」参照)。①②いずれも共通のステップ2へ進む(ideco[ADR 0010]と同じ、
+                 MEMO.md 2026/9/22コメント3-(3)「idecoの①②③が同じページ(2)に合流する形」) -->
+            <div class="card">
+                <div class="section-title">年金・退職について何を調べたいですか？</div>
+                <p class="field-note">選んだ項目に応じて、共通のステップ2「詳細設定」へ進みます。</p>
+                <div class="topic-cards">
+                    <div class="topic-card">
+                        <h3>① 年金は何歳からもらうのが得？</h3>
+                        <p>繰上げ・繰下げ受給による受給額の違いを比較します。</p>
+                        <button type="button" id="btn_topic_pension_start_age" class="btn btn-primary">検討する</button>
+                    </div>
+                    <div class="topic-card">
+                        <h3>② いつまで働く？収入の推移を比較</h3>
+                        <p>継続雇用でいつまで働くかによる収入・税金・手取りの推移を比較します。</p>
+                        <button type="button" id="btn_topic_work_until" class="btn btn-primary">検討する</button>
+                    </div>
+                </div>
+                <p id="topic_gate_required_note" class="alert-text" style="display: none;">⚠️ 給与収入・ねんきん定期便の見込額(いずれか)を入力すると、検討を始められます。</p>
+            </div>
+
+        </div><!-- /#page1_income -->
+
+        <!-- (2) 詳細設定・比較結果(①②共通、MEMO.md 2026/9/22コメント3-(3)(4)(5)(6)(7)) -->
+        <div id="page2_details" class="wizard-page" style="display: none;">
+
+            <div class="card">
+                <div class="section-title">引退年齢・死亡予測年齢</div>
+
+                <div class="form-field">
+                    <label for="input_retirement_age_slider">引退年齢</label>
+                    <div class="slider-with-input">
+                        <input type="range" id="input_retirement_age_slider" class="range-input" min="50" max="80" step="1" value="65">
+                        <div class="field-with-unit slider-number">
+                            <input type="text" id="input_retirement_age" inputmode="numeric" autocomplete="off" spellcheck="false">
+                            <span class="unit">歳</span>
+                        </div>
+                    </div>
+                    <p class="field-note">再雇用等で働き続けるケースもあるため、完全に働くのをやめる年齢を指します。死亡予測年齢を超えて設定することはできません。</p>
+                </div>
+
+                <div class="form-field">
+                    <label for="input_death_age_slider">死亡予測年齢</label>
+                    <div class="slider-with-input">
+                        <input type="range" id="input_death_age_slider" class="range-input" min="60" max="110" step="1" value="90">
+                        <div class="field-with-unit slider-number">
+                            <input type="text" id="input_death_age_estimate" inputmode="numeric" autocomplete="off" spellcheck="false">
+                            <span class="unit">歳</span>
+                        </div>
+                    </div>
+                    <p class="field-note">何歳まで生きるかによって損得が変わるため、目安の年齢を入力してください。</p>
+                </div>
+            </div>
+
+            <!-- 任意項目(ステップ1から移動、MEMO.md 2026/9/22コメント3-(4)) -->
+            <div class="card">
+                <div class="section-title">より正確に試算する(任意)</div>
+                <p class="field-note">以下は、お手元の書類がある場合にチェックを入れて入力してください。未入力のままでも概算で試算を続けられます。</p>
+
+                <div class="form-field">
+                    <label class="checkbox-label">
+                        <input type="checkbox" id="input_has_withholding_slip">
+                        手元に源泉徴収票がある
+                    </label>
+                </div>
+                <div id="withholding_slip_fields" class="form-grid" style="display: none;">
+                    <div class="form-field">
+                        <label for="input_income_tax_withheld">源泉徴収税額(年額)</label>
+                        <div class="field-with-unit">
+                            <input type="text" id="input_income_tax_withheld" inputmode="numeric" autocomplete="off" spellcheck="false">
+                            <span class="unit">円</span>
+                        </div>
+                    </div>
+                    <div class="form-field">
+                        <label for="input_social_insurance">社会保険料(年額)</label>
+                        <div class="field-with-unit">
+                            <input type="text" id="input_social_insurance" inputmode="numeric" autocomplete="off" spellcheck="false">
+                            <span class="unit">円</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-field">
+                    <label class="checkbox-label">
+                        <input type="checkbox" id="input_has_resident_tax_notice">
+                        手元に住民税決定通知書がある
+                    </label>
+                </div>
+                <div id="resident_tax_notice_fields" class="form-grid" style="display: none;">
+                    <div class="form-field">
+                        <label for="input_resident_tax">住民税(年額)</label>
+                        <div class="field-with-unit">
+                            <input type="text" id="input_resident_tax" inputmode="numeric" autocomplete="off" spellcheck="false">
+                            <span class="unit">円</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-field">
+                    <label class="checkbox-label">
+                        <input type="checkbox" id="input_has_position_retirement">
+                        役職定年等で年収が下がる予定がある
+                    </label>
+                </div>
+                <div id="position_retirement_fields" style="display: none;">
+                    <div class="form-field">
+                        <label for="input_position_retirement_age_slider">年収が下がる年齢</label>
+                        <div class="slider-with-input">
+                            <input type="range" id="input_position_retirement_age_slider" class="range-input" min="45" max="80" step="1" value="60">
+                            <div class="field-with-unit slider-number">
+                                <input type="text" id="input_position_retirement_age" inputmode="numeric" autocomplete="off" spellcheck="false">
+                                <span class="unit">歳</span>
+                            </div>
+                        </div>
+                        <p class="field-note">引退年齢を超えて設定することはできません(2026-09-22の追加フィードバック)。</p>
+                    </div>
+                    <div class="form-field">
+                        <label for="input_income_after_position_retirement">下がった後の年収(年額)</label>
+                        <div class="field-with-unit">
+                            <input type="text" id="input_income_after_position_retirement" inputmode="numeric" autocomplete="off" spellcheck="false">
+                            <span class="unit">円</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 比較結果(旧ステップ3。コメント(7)を受けてこのページに統合、実行ボタン無しで
+                 常にリアルタイムに更新される。トピックAのみたたき台実装済み、トピックBは近日公開 -->
+            <div id="page2_pension_start_age_results" class="card" style="display: none;">
+                <div class="section-title">年金受給開始年齢の比較</div>
+                <p class="field-note">受給開始年齢60〜75歳を1年刻みで探索した結果です。評価基準は手取りの最大化です(税・社会保険料の最小化は、繰上げ受給ほど有利になりやすく実用的な示唆になりにくいため、2026-09-22の追加フィードバックで比較対象から外しました)。</p>
+                <div id="page2_chart_wrap">
+                    <canvas id="page2_chart_canvas"></canvas>
+                    <p id="page2_chart_error" class="alert-text" style="display: none;">グラフを表示できませんでした。</p>
+                </div>
+
+                <div class="form-field">
+                    <label for="input_selected_pension_start_age_slider">詳しく確認したい受給開始年齢</label>
+                    <div class="slider-with-input">
+                        <input type="range" id="input_selected_pension_start_age_slider" class="range-input" min="60" max="75" step="1" value="65">
+                        <div class="field-with-unit slider-number">
+                            <input type="text" id="input_selected_pension_start_age" inputmode="numeric" autocomplete="off" spellcheck="false">
+                            <span class="unit">歳</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="table-responsive">
+                    <table>
+                        <thead id="page2_results_head"></thead>
+                        <tbody id="page2_results_body"></tbody>
+                    </table>
+                </div>
+                <p class="field-note">「手取り最大」の列は参考値です(その受給開始年齢を選んだ場合の結果)。税金合計・社会保険料合計の内訳も参考情報として掲載しています。</p>
+            </div>
+
+            <div id="page2_work_until_results" class="card" style="display: none;">
+                <div class="section-title">いつまで働く？収入の推移を比較</div>
+                <p class="field-note">近日公開予定です。</p>
+            </div>
+
+        </div><!-- /#page2_details -->
+
+    </div>
+
+    <script src="storage.js"></script>
+    <script src="model.js"></script>
+    <script src="auth.js"></script>
+    <script src="consent.js"></script>
+    <script src="resize-notifier.js"></script>
+    <script src="vendor/chart.js"></script>
+    <!-- トピックA(年金受給開始年齢の比較)がlifeplanエンジンを再利用するための共有モジュール
+         (docs/shared/decisions/0004参照)。scripts/sync-shared.jsがsrc/shared/からコピーする
+         (このディレクトリ自体はGit管理対象外)。shared/lifeplan-constants.jsはshared/calculator.jsが
+         参照するブラウザグローバルLifeplanConstantsを用意するためのもの -->
+    <script src="shared/lifeplan-constants.js"></script>
+    <script src="shared/pattern-builders.js"></script>
+    <script src="shared/calculator.js"></script>
+    <script src="shared/nenkin-bridge.js"></script>
+    <script src="ui.js"></script>
+    <script>
+        window.model = new NenkinModel({ window: window, storage: AppStorage });
+        AppAuth.init();
+        AppConsent.init();
+        ResizeNotifier.init();
+    </script>
+</body>
+</html>
