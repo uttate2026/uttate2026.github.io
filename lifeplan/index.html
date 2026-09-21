@@ -83,24 +83,7 @@
             </div>
 
             <div class="card">
-                <div class="section-title">3. 検討トピック</div>
-                <p class="field-note">現在の入力を基に、よくある悩みを自動でプラン比較します。</p>
-                <div class="topic-cards">
-                    <div class="topic-card">
-                        <h3>年金は何歳から受け取る？</h3>
-                        <p>受給開始年齢60〜75歳のプランを自動生成し、「全プラン比較」で見比べます。</p>
-                        <button type="button" id="btn_topic_pension_compare" class="btn btn-primary">比較する</button>
-                    </div>
-                    <div class="topic-card">
-                        <h3>iDeCoはどう使うのが得？</h3>
-                        <p>世帯主のiDeCoの有無・一時金の受取年齢を組み合わせたプランを自動生成し、「全プラン比較」で見比べます。退職金との9年/19年ルールの影響を含めて確認できます。</p>
-                        <button type="button" id="btn_topic_ideco_compare" class="btn btn-primary">比較する</button>
-                    </div>
-                </div>
-            </div>
-
-            <div class="card">
-                <div class="section-title">4. 支出</div>
+                <div class="section-title">3. 支出</div>
                 <div class="sub-tabs-bar">
                     <button type="button" class="sub-tab-btn" data-expense-tab="living">生活費</button>
                     <button type="button" class="sub-tab-btn" data-expense-tab="durable">不定期支出</button>
@@ -151,7 +134,7 @@
             </div>
 
             <div class="card">
-                <div class="section-title">5. シミュレーション結果</div>
+                <div class="section-title">4. シミュレーション結果</div>
                 <div class="result-summary">
                     <div class="result-summary-item">
                         <span class="result-summary-label">総手取り額(生涯)</span>
@@ -190,7 +173,7 @@
             </div>
 
             <div class="card">
-                <div class="section-title">6. 相続税(任意)</div>
+                <div class="section-title">5. 相続税(任意)</div>
                 <div class="inheritance-toggle-row">
                     <label class="checkbox-label">
                         <input type="checkbox" id="input_inheritance_enabled">
@@ -229,10 +212,6 @@
         <div id="compare_workspace" style="display: none;">
             <div class="card">
                 <div class="section-title">全プラン比較</div>
-                <div id="compare_group_banner" class="info-note" style="display: none;">
-                    <span id="compare_group_banner_label"></span>
-                    <button type="button" id="btn_compare_group_end" class="btn btn-link">比較を終了</button>
-                </div>
                 <div class="form-field field-with-unit-narrow">
                     <label for="compare_death_age">死亡予測年齢</label>
                     <div class="field-with-unit">
@@ -271,9 +250,74 @@
                 <label for="select_asset_owner">名義人</label>
                 <select id="select_asset_owner"></select>
             </div>
+            <!-- iDeCo拠出プラン・出口戦略ウィザード(2026-09-20のフィードバックで追加。廃止した
+                 「検討トピック」の後継、ADR 0026参照) -->
+            <div class="form-field" id="asset_add_ideco_wizard_field" hidden>
+                <label class="checkbox-label">
+                    <input type="checkbox" id="input_asset_add_ideco_wizard">
+                    ウィザードを使う(おすすめの拠出額・受け取り方を提案します)
+                </label>
+            </div>
+            <div id="asset_add_ideco_wizard_body" hidden>
+                <div class="form-field field-with-unit-narrow">
+                    <label for="ideco_wizard_monthly_contribution">投資に回せる金額(月)</label>
+                    <div class="field-with-unit">
+                        <input type="text" id="ideco_wizard_monthly_contribution" inputmode="numeric" value="20000">
+                        <span class="unit">円</span>
+                    </div>
+                </div>
+                <div class="form-field field-with-unit-narrow">
+                    <label for="ideco_wizard_contribution_end_age">拠出終了年齢</label>
+                    <select id="ideco_wizard_contribution_end_age"></select>
+                </div>
+                <div class="form-field field-with-unit-narrow">
+                    <label for="ideco_wizard_death_age">死亡予測年齢</label>
+                    <select id="ideco_wizard_death_age"></select>
+                </div>
+                <div class="form-field">
+                    <label>出口戦略の目的</label>
+                    <label class="checkbox-label"><input type="radio" name="ideco_wizard_objective" value="netIncome" checked> 手取り最大化</label>
+                    <label class="checkbox-label"><input type="radio" name="ideco_wizard_objective" value="taxAndSocial"> 税金・社会保険最小化</label>
+                </div>
+                <p class="field-note">※ 投資に回せる金額はそのままiDeCoの掛金として設定されます(NISAとの配分比較は今後の検討課題です)。拠出終了年齢は公的年金受給開始年齢までの範囲で選べます(実際には受給しながら拠出を続けられる場合もありますが、ウィザードでは選択肢をシンプルにするため絞っています。資産タブ本体では引き続き自由に変更できます)。退職金・公的年金が未入力/概算のままだと、最適化の精度が下がります。</p>
+            </div>
             <div class="button-row modal-actions">
                 <button type="button" id="btn_asset_add_cancel" class="btn btn-link">キャンセル</button>
                 <button type="button" id="btn_asset_add_confirm" class="btn btn-primary">追加する</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- iDeCo資産タブの「ウィザードで見直す」(2026-09-20のフィードバックで追加、ADR 0026参照)。
+         追加時のウィザードと同じ入力項目・計算を、既存のiDeCo資産タブに対して再実行する -->
+    <div id="ideco_wizard_review_modal" class="modal-overlay" style="display: none;">
+        <div class="card modal-card">
+            <button type="button" id="btn_ideco_wizard_review_modal_close" class="modal-close" aria-label="閉じる">×</button>
+            <div class="section-title">iDeCoウィザードで見直す</div>
+            <div class="form-field field-with-unit-narrow">
+                <label for="ideco_wizard_review_monthly_contribution">投資に回せる金額(月)</label>
+                <div class="field-with-unit">
+                    <input type="text" id="ideco_wizard_review_monthly_contribution" inputmode="numeric">
+                    <span class="unit">円</span>
+                </div>
+            </div>
+            <div class="form-field field-with-unit-narrow">
+                <label for="ideco_wizard_review_contribution_end_age">拠出終了年齢</label>
+                <select id="ideco_wizard_review_contribution_end_age"></select>
+            </div>
+            <div class="form-field field-with-unit-narrow">
+                <label for="ideco_wizard_review_death_age">死亡予測年齢</label>
+                <select id="ideco_wizard_review_death_age"></select>
+            </div>
+            <div class="form-field">
+                <label>出口戦略の目的</label>
+                <label class="checkbox-label"><input type="radio" name="ideco_wizard_review_objective" value="netIncome" checked> 手取り最大化</label>
+                <label class="checkbox-label"><input type="radio" name="ideco_wizard_review_objective" value="taxAndSocial"> 税金・社会保険最小化</label>
+            </div>
+            <p class="field-note">※ 拠出額・出口戦略ともにここで計算した内容で上書きされます。拠出終了年齢は公的年金受給開始年齢までの範囲で選べます(実際には受給しながら拠出を続けられる場合もありますが、ウィザードでは選択肢をシンプルにするため絞っています。資産タブ本体では引き続き自由に変更できます)。退職金・公的年金が未入力/概算のままだと、最適化の精度が下がります。</p>
+            <div class="button-row modal-actions">
+                <button type="button" id="btn_ideco_wizard_review_cancel" class="btn btn-link">キャンセル</button>
+                <button type="button" id="btn_ideco_wizard_review_confirm" class="btn btn-primary">この内容で更新する</button>
             </div>
         </div>
     </div>
@@ -315,42 +359,10 @@
         </div>
     </div>
 
-    <div id="pension_comparison_modal" class="modal-overlay" style="display: none;">
-        <div class="card modal-card">
-            <button type="button" id="btn_pension_comparison_modal_close" class="modal-close" aria-label="閉じる">×</button>
-            <div class="section-title">年金受給開始年齢を比較</div>
-            <p class="field-note">現在のプランを基に、以下の受給開始年齢(世帯主)のプランを自動生成し、「全プラン比較」画面で見比べます。</p>
-            <div class="form-field">
-                <label class="checkbox-label"><input type="checkbox" data-pension-age="60" checked> 60歳</label>
-                <label class="checkbox-label"><input type="checkbox" data-pension-age="65" checked> 65歳</label>
-                <label class="checkbox-label"><input type="checkbox" data-pension-age="70" checked> 70歳</label>
-                <label class="checkbox-label"><input type="checkbox" data-pension-age="75" checked> 75歳</label>
-            </div>
-            <p class="field-note">※ どちらが得かは「何歳まで生きるか」の想定次第です。生成後、「全プラン比較」画面で死亡予測年齢を指定して確認できます。</p>
-            <div class="button-row modal-actions">
-                <button type="button" id="btn_pension_comparison_cancel" class="btn btn-link">キャンセル</button>
-                <button type="button" id="btn_pension_comparison_confirm" class="btn btn-primary">生成して比較</button>
-            </div>
-        </div>
-    </div>
-
-    <div id="ideco_comparison_modal" class="modal-overlay" style="display: none;">
-        <div class="card modal-card">
-            <button type="button" id="btn_ideco_comparison_modal_close" class="modal-close" aria-label="閉じる">×</button>
-            <div class="section-title">iDeCoの活用方法を比較</div>
-            <div id="ideco_comparison_body"></div>
-            <div class="button-row modal-actions">
-                <button type="button" id="btn_ideco_comparison_cancel" class="btn btn-link">キャンセル</button>
-                <button type="button" id="btn_ideco_comparison_confirm" class="btn btn-primary">生成して比較</button>
-            </div>
-        </div>
-    </div>
-
     <script src="storage.js"></script>
     <script src="constants.js"></script>
     <script src="shared/pattern-builders.js"></script>
     <script src="shared/calculator.js"></script>
-    <script src="shared/comparison-topics.js"></script>
     <!-- ideco→lifeplanへのデータ引き継ぎ(model.jsのcheckIdecoHandoff/importHandoffPatternが
          IdecoBridge.HANDOFF_STORAGE_KEYを参照する、docs/shared/decisions/0006参照) -->
     <script src="shared/ideco-bridge.js"></script>
