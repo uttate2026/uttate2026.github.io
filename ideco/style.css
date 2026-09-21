@@ -46,9 +46,15 @@ body {
    (2)(3)ではUI._currentPageに応じて表示する */
 .wizard-header {
     display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-bottom: 20px;
+}
+
+.wizard-header-top {
+    display: flex;
     align-items: center;
     gap: 4px;
-    margin-bottom: 20px;
 }
 
 .wizard-header h1 {
@@ -73,6 +79,53 @@ body {
 .nav-back-btn span {
     font-size: 20px;
     line-height: 1;
+}
+
+/* ウィザード全体の見取り図+現在位置(装飾のみ、クリック不可。MEMO.md 2026/9/22コメント1-(5)) */
+.wizard-steps {
+    display: flex;
+    align-items: center;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.wizard-step {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    color: var(--text-secondary);
+    font-size: 13px;
+}
+
+.wizard-step:not(:last-child)::after {
+    content: '→';
+    margin: 0 8px;
+    color: var(--border-strong);
+}
+
+.wizard-step-num {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 20px;
+    height: 20px;
+    flex-shrink: 0;
+    border-radius: 50%;
+    background: var(--border);
+    color: var(--text-secondary);
+    font-size: 12px;
+    font-weight: bold;
+}
+
+.wizard-step-active {
+    color: var(--primary-dark);
+    font-weight: bold;
+}
+
+.wizard-step-active .wizard-step-num {
+    background: var(--primary);
+    color: #fff;
 }
 
 .card {
@@ -306,6 +359,11 @@ input[inputmode="numeric"], input[inputmode="decimal"] {
     .slider-with-input .slider-number {
         width: 100%;
     }
+
+    /* 狭い画面では非アクティブなステップ名を省略し、番号(丸)と矢印だけで見取り図を保つ */
+    .wizard-step:not(.wizard-step-active) .wizard-step-label {
+        display: none;
+    }
 }
 
 /* 比較結果のグラフ(Chart.js、ページ(3)内に埋め込み。ページ(2)は情報量を絞るため持たない、
@@ -438,6 +496,14 @@ th, td {
 
 .text-right {
     text-align: right;
+}
+
+/* 比較表: 起点プラン(現在の入力欄の設定値そのもの)の列を強調する(2026-09-22のフィードバック)。
+   .info-noteと同じ配色(--primary-tint地に--primary-dark文字)を流用する */
+th.compare-col-source, td.compare-col-source {
+    background: var(--primary-tint);
+    color: var(--primary-dark);
+    font-weight: bold;
 }
 
 /* マイナスの金額表示(lifeplanと同じ表記)。色だけに頼らず、formatYen側で先頭に「▲」を

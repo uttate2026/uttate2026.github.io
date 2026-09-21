@@ -33,10 +33,26 @@
     <div class="app-container" id="app_container" style="display: none;">
 
         <header class="wizard-header">
-            <button type="button" id="btn_nav_back" class="nav-back-btn" style="display: none;">
-                <span aria-hidden="true">‹</span> 戻る
-            </button>
-            <h1 id="nav_page_title">ステップ1 あなたの収入</h1>
+            <div class="wizard-header-top">
+                <button type="button" id="btn_nav_back" class="nav-back-btn" style="display: none;">
+                    <span aria-hidden="true">‹</span> 戻る
+                </button>
+                <h1 id="nav_page_title">ステップ1 あなたの収入</h1>
+            </div>
+            <!-- ウィザード全体の見取り図と現在位置(MEMO.md 2026/9/22コメント1-(5)への対応)。
+                 クリックでの直接ジャンプは提供しない現在位置表示のみのため、装飾的な要素として
+                 スクリーンリーダーからは隠す(現在位置はh1側で既に伝わる) -->
+            <ol class="wizard-steps" id="wizard_steps" aria-hidden="true">
+                <li class="wizard-step wizard-step-active" data-step="1">
+                    <span class="wizard-step-num">1</span><span class="wizard-step-label">あなたの収入</span>
+                </li>
+                <li class="wizard-step" data-step="2">
+                    <span class="wizard-step-num">2</span><span class="wizard-step-label">拠出プラン</span>
+                </li>
+                <li class="wizard-step" data-step="3">
+                    <span class="wizard-step-num">3</span><span class="wizard-step-label">出口戦略</span>
+                </li>
+            </ol>
         </header>
 
         <!-- (1) あなたの収入・年金(単一プランのウィザード構成、ADR 0009参照) -->
@@ -158,6 +174,7 @@
             <div class="card">
                 <div class="section-title">現在の拠出状況と、iDeCoへの配分を入力してください</div>
 
+                <h4>拠出プラン</h4>
                 <div class="form-grid">
                     <div class="form-field">
                         <label for="input_planner_contribution_limit">あなたの拠出限度額(月額)</label>
@@ -222,6 +239,11 @@
                         <span class="unit">円</span>
                     </div>
                     <p class="field-note">下のスライダーで、この金額をiDeCoとNISAにどう配分するか調整できます。NISAの想定利回りはiDeCoと同じ値を使います。</p>
+                    <label class="checkbox-label">
+                        <input type="checkbox" id="input_planner_nisa_reinvest_savings" checked>
+                        iDeCoによる節税分をNISAに投資
+                    </label>
+                    <p class="field-note">iDeCoの拠出による所得控除効果(節税額)を、毎年NISAへの追加投資に回すかどうかです。</p>
                 </div>
 
                 <div class="form-field">
@@ -247,7 +269,7 @@
                 <p class="field-note">拠出終了時点までの積立フェーズだけを見た数値です(受け取り方によって変わる税金・手取りは、ページ3「出口戦略」で確認できます)。</p>
 
                 <div class="button-row button-row-end">
-                    <button type="button" id="btn_page2_next" class="btn btn-primary">次へ(出口戦略へ)</button>
+                    <button type="button" id="btn_page2_next" class="btn btn-primary">この拠出プランで出口戦略を最適化する</button>
                 </div>
             </div>
         </div><!-- /#page2_planner -->
@@ -257,7 +279,7 @@
         <div id="page3_strategist" class="wizard-page" style="display: none;">
 
             <div class="card">
-                <div class="section-title">iDeCoの受け取り方を最適化します</div>
+                <div class="section-title">手取りや節税を最大化する受け取り方を調べます</div>
                 <p class="field-note">「死亡予測年齢」を前提に、受取比率・一時金受取年齢・年金受取開始年齢の組み合わせを自動で探索し、目的別に最適な組み合わせを提案します。ご自身で受取比率・受取年齢を調整する必要はありません。</p>
 
                 <div class="form-field">
@@ -371,6 +393,7 @@
                 </p>
 
                 <p id="exit_strategy_optimize_unavailable" class="alert-text" style="display: none;">拠出終了年齢がiDeCoの受給上限年齢(75歳)を超えているため、最適化を計算できません。</p>
+                <h4>最適化結果</h4>
                 <div class="table-responsive">
                     <table>
                         <thead id="page3_compare_table_head"></thead>
