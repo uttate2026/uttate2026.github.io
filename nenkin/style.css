@@ -287,6 +287,19 @@ body {
     flex-shrink: 0;
 }
 
+/* 「明細を表示したい年齢」のスライダーを、グラフの実際の描画範囲(Chart.jsのchartArea)に
+   位置合わせするための左余白(2026-09-23の追加フィードバック「グラフの左右のx座標をスライダの
+   調整範囲のx座標に合わせてほしい」)。padding-leftはJS側(_alignWorkUntilDetailSlider)で
+   描画後に動的に設定する(右端は#page2_work_until_chart_wrapの固定paddingで静的に揃える) */
+.range-input-align {
+    flex: 1;
+    min-width: 0;
+    box-sizing: border-box;
+}
+.range-input-align .range-input {
+    width: 100%;
+}
+
 .button-row {
     display: flex;
     align-items: center;
@@ -348,11 +361,20 @@ input[inputmode="numeric"], input[inputmode="decimal"] {
     margin: 0 0 16px;
 }
 
-/* トピックAの比較結果グラフ(Chart.js、ideco[page3_compare_chart_wrap]踏襲) */
-#page2_chart_wrap {
+/* トピックA・Bの比較結果グラフ(Chart.js、ideco[page3_compare_chart_wrap]踏襲) */
+#page2_chart_wrap, #page2_work_until_chart_wrap {
     position: relative;
     height: 280px;
     margin-bottom: 16px;
+}
+
+/* グラフ(②)の右端を、下の「明細を表示したい年齢」スライダーの右端(.slider-number側の
+   数値入力欄<130px>+隙間<12px>の分だけ、スライダーの可動範囲より右にある)に静的に揃える
+   (2026-09-23の追加フィードバック「グラフの左右のx座標をスライダの調整範囲のx座標に
+   合わせてほしい」)。左端はY軸ラベルの幅(表示金額の桁数で変動する)がありJSで動的に計算する
+   (_alignWorkUntilDetailSlider参照)が、右端はこの固定値だけで静的に揃えられる */
+#page2_work_until_chart_wrap {
+    padding-right: 142px;
 }
 
 /* トピックAの比較表(ideco/lifeplanの表スタイルを踏襲) */
@@ -389,6 +411,25 @@ td.row-indent {
     padding-left: 28px;
     color: var(--text-secondary);
     font-size: 13px;
+}
+
+/* トピックBのグラフ下の折り畳み明細(2026-09-23の追加フィードバック(11))。グループ見出し行
+   (収入・社会保険料・税金)。lifeplan本体の明細表と違いクリックでの開閉は持たない(1年分のみの
+   縦一覧のため)ため、cursor: pointerは付けない */
+.detail-group-header {
+    background: var(--bg-main);
+    text-align: left;
+}
+
+/* 折り畳み明細の開閉(ネイティブの<details>要素、2026-09-23の追加フィードバック(11)
+   「グラフの下に折り畳みで明細を出してほしい」) */
+.detail-toggle summary {
+    cursor: pointer;
+    font-weight: bold;
+    padding: 8px 0;
+}
+.detail-toggle {
+    margin-top: 16px;
 }
 
 /* トピックA/Bの入口カード(idecoの検討トピックカードを踏襲) */
@@ -432,6 +473,13 @@ td.row-indent {
 
     .slider-with-input .slider-number {
         width: 100%;
+    }
+
+    /* 狭い画面では.slider-with-inputが折り返し、数値入力欄がスライダーの下の全幅行になる
+       (.slider-number { width: 100% }参照)ため、スライダーの右端はもう数値入力欄に制約されず
+       ほぼ全幅まで動ける。グラフの右端を揃えるための固定余白(142px)は不要になるため打ち消す */
+    #page2_work_until_chart_wrap {
+        padding-right: 0;
     }
 
     /* 狭い画面では非アクティブなステップ名を省略し、番号(丸)と矢印だけで見取り図を保つ */

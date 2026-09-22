@@ -151,8 +151,18 @@
         <!-- (2) 詳細設定・比較結果(①②共通、MEMO.md 2026/9/22コメント3-(3)(4)(5)(6)(7)) -->
         <div id="page2_details" class="wizard-page" style="display: none;">
 
+            <!-- 「簡易ライフプラン」カード(2026-09-23の追加フィードバック(9)(10)。旧名称
+                 「引退年齢・死亡予測年齢」。死亡予測年齢を一番上にし、公的年金受給年齢(②のみ)も
+                 このカードへ統合することで、下の結果カード(グラフ)にスライダー群を直接隣接させる
+                 「スライダとグラフを近づけたい」への対応) -->
             <div class="card">
-                <div class="section-title">引退年齢・死亡予測年齢</div>
+                <div class="section-title">簡易ライフプラン</div>
+
+                <div class="form-field">
+                    <label for="input_death_age_estimate">死亡予測年齢</label>
+                    <select id="input_death_age_estimate"></select>
+                    <p class="field-note">何歳まで生きるかによって損得が変わるため、目安の年齢を選んでください。死亡予測年齢は「決断」するものではなく見積もる推定値のため、他の項目と違いスライダーではなくドロップダウンにしています(2026-09-23の追加フィードバック)。</p>
+                </div>
 
                 <div class="form-field">
                     <label for="input_retirement_age_slider">引退年齢</label>
@@ -166,20 +176,99 @@
                     <p class="field-note">再雇用等で働き続けるケースもあるため、完全に働くのをやめる年齢を指します。死亡予測年齢を超えて設定することはできません。</p>
                 </div>
 
-                <div class="form-field">
-                    <label for="input_death_age_slider">死亡予測年齢</label>
+                <!-- ②(トピックB)専用。①の場合は非表示(_populatePage2参照) -->
+                <div id="public_pension_claim_age_field" class="form-field" style="display: none;">
+                    <label for="input_public_pension_claim_age_slider">公的年金受給年齢</label>
                     <div class="slider-with-input">
-                        <input type="range" id="input_death_age_slider" class="range-input" min="60" max="110" step="1" value="90">
+                        <input type="range" id="input_public_pension_claim_age_slider" class="range-input" min="60" max="75" step="1" value="65">
                         <div class="field-with-unit slider-number">
-                            <input type="text" id="input_death_age_estimate" inputmode="numeric" autocomplete="off" spellcheck="false">
+                            <input type="text" id="input_public_pension_claim_age" inputmode="numeric" autocomplete="off" spellcheck="false">
                             <span class="unit">歳</span>
                         </div>
                     </div>
-                    <p class="field-note">何歳まで生きるかによって損得が変わるため、目安の年齢を入力してください。</p>
+                    <p class="field-note">引退年齢とは別に、公的年金をいつから受け取るかを指定します(グラフに直接反映されます)。</p>
                 </div>
             </div>
 
-            <!-- 任意項目(ステップ1から移動、MEMO.md 2026/9/22コメント3-(4)) -->
+            <!-- 比較結果(旧ステップ3。コメント(7)を受けてこのページに統合、実行ボタン無しで
+                 常にリアルタイムに更新される)。「簡易ライフプラン」カードのスライダー/ドロップダウンと
+                 直接隣接させるため、下の「より正確に試算する(任意)」より先に置く
+                 (2026-09-23の追加フィードバック「スライダーとグラフが離れて見づらい」) -->
+            <div id="page2_pension_start_age_results" class="card" style="display: none;">
+                <div class="section-title">年金受給開始年齢の比較</div>
+                <p class="field-note">受給開始年齢60〜75歳を1年刻みで探索した結果です。評価基準は手取りの最大化です(税・社会保険料の最小化は、繰上げ受給ほど有利になりやすく実用的な示唆になりにくいため、2026-09-22の追加フィードバックで比較対象から外しました)。</p>
+                <div id="page2_chart_wrap">
+                    <canvas id="page2_chart_canvas"></canvas>
+                    <p id="page2_chart_error" class="alert-text" style="display: none;">グラフを表示できませんでした。</p>
+                </div>
+
+                <div class="form-field">
+                    <label for="input_selected_pension_start_age_slider">詳しく確認したい受給開始年齢</label>
+                    <div class="slider-with-input">
+                        <input type="range" id="input_selected_pension_start_age_slider" class="range-input" min="60" max="75" step="1" value="65">
+                        <div class="field-with-unit slider-number">
+                            <input type="text" id="input_selected_pension_start_age" inputmode="numeric" autocomplete="off" spellcheck="false">
+                            <span class="unit">歳</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="table-responsive">
+                    <table>
+                        <thead id="page2_results_head"></thead>
+                        <tbody id="page2_results_body"></tbody>
+                    </table>
+                </div>
+                <p class="field-note">「手取り最大」の列は参考値です(その受給開始年齢を選んだ場合の結果)。税金合計・社会保険料合計の内訳も参考情報として掲載しています。</p>
+            </div>
+
+            <!-- 見出し・説明文(カード単位)は削除済み(2026-09-23の追加フィードバック「不要です」)。
+                 公的年金受給年齢は上の「簡易ライフプラン」カードへ移動済み(コメント(10))。
+                 グラフの見出しはChart.jsのtitleプラグインで直接付ける(コメント(10)
+                 「グラフに適切な見出しをつけてください」) -->
+            <div id="page2_work_until_results" class="card" style="display: none;">
+                <div id="page2_work_until_chart_wrap">
+                    <canvas id="page2_work_until_chart_canvas"></canvas>
+                    <p id="page2_work_until_chart_error" class="alert-text" style="display: none;">グラフを表示できませんでした。</p>
+                </div>
+
+                <!-- グラフの下の折り畳み明細(2026-09-23の追加フィードバック(11)「グラフの下に
+                     折り畳みで明細を出してほしいです。具体的には明細を表示したい年齢をスライダにして、
+                     その下に、lifeplanレベルの明細です」)。lifeplan本体の明細表([ADR 0010]
+                     (../../docs/nenkin/decisions/0001-nenkin-planner-kickoff.md))と同じ「収入・
+                     社会保険料・税金」の3グループを、選んだ1年分だけ表示する。世帯合計のみ。
+                     年齢のスライダーも折り畳みの中に含める(2026-09-23の追加フィードバック) -->
+                <details class="detail-toggle" id="work_until_detail_toggle">
+                    <summary>明細を見る</summary>
+                    <div class="form-field">
+                        <label for="input_work_until_detail_age_slider">明細を表示したい年齢</label>
+                        <!-- range-input-alignは、グラフ(#page2_work_until_chart_canvas)の実際の
+                             描画範囲(Chart.jsのchartArea)にスライダーの可動範囲の左端を合わせるため、
+                             JS側で描画後にpadding-leftを動的に設定する(Y軸ラベルの幅は表示金額の
+                             桁数で変動するため)。右端は#page2_work_until_chart_wrapの固定paddingで
+                             静的に揃える(2026-09-23の追加フィードバック「グラフの左右のx座標を
+                             スライダの調整範囲のx座標に合わせてほしい」、
+                             _alignWorkUntilDetailSlider参照) -->
+                        <div class="slider-with-input">
+                            <div class="range-input-align" id="work_until_detail_age_slider_align">
+                                <input type="range" id="input_work_until_detail_age_slider" class="range-input" min="40" max="105" step="1" value="40">
+                            </div>
+                            <div class="field-with-unit slider-number">
+                                <input type="text" id="input_work_until_detail_age" inputmode="numeric" autocomplete="off" spellcheck="false">
+                                <span class="unit">歳</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="table-responsive">
+                        <table>
+                            <tbody id="work_until_detail_body"></tbody>
+                        </table>
+                    </div>
+                </details>
+            </div>
+
+            <!-- 任意項目(ステップ1から移動、MEMO.md 2026/9/22コメント3-(4))。結果カードより下に置く
+                 (2026-09-23の追加フィードバック) -->
             <div class="card">
                 <div class="section-title">より正確に試算する(任意)</div>
                 <p class="field-note">以下は、お手元の書類がある場合にチェックを入れて入力してください。未入力のままでも概算で試算を続けられます。</p>
@@ -229,17 +318,11 @@
                         役職定年等で年収が下がる予定がある
                     </label>
                 </div>
-                <div id="position_retirement_fields" style="display: none;">
+                <div id="position_retirement_fields" class="form-grid form-grid-pair" style="display: none;">
                     <div class="form-field">
-                        <label for="input_position_retirement_age_slider">年収が下がる年齢</label>
-                        <div class="slider-with-input">
-                            <input type="range" id="input_position_retirement_age_slider" class="range-input" min="45" max="80" step="1" value="60">
-                            <div class="field-with-unit slider-number">
-                                <input type="text" id="input_position_retirement_age" inputmode="numeric" autocomplete="off" spellcheck="false">
-                                <span class="unit">歳</span>
-                            </div>
-                        </div>
-                        <p class="field-note">引退年齢を超えて設定することはできません(2026-09-22の追加フィードバック)。</p>
+                        <label for="input_position_retirement_age">年収が下がる年齢</label>
+                        <select id="input_position_retirement_age"></select>
+                        <p class="field-note">引退年齢を超えて設定することはできません。</p>
                     </div>
                     <div class="form-field">
                         <label for="input_income_after_position_retirement">下がった後の年収(年額)</label>
@@ -249,41 +332,6 @@
                         </div>
                     </div>
                 </div>
-            </div>
-
-            <!-- 比較結果(旧ステップ3。コメント(7)を受けてこのページに統合、実行ボタン無しで
-                 常にリアルタイムに更新される。トピックAのみたたき台実装済み、トピックBは近日公開 -->
-            <div id="page2_pension_start_age_results" class="card" style="display: none;">
-                <div class="section-title">年金受給開始年齢の比較</div>
-                <p class="field-note">受給開始年齢60〜75歳を1年刻みで探索した結果です。評価基準は手取りの最大化です(税・社会保険料の最小化は、繰上げ受給ほど有利になりやすく実用的な示唆になりにくいため、2026-09-22の追加フィードバックで比較対象から外しました)。</p>
-                <div id="page2_chart_wrap">
-                    <canvas id="page2_chart_canvas"></canvas>
-                    <p id="page2_chart_error" class="alert-text" style="display: none;">グラフを表示できませんでした。</p>
-                </div>
-
-                <div class="form-field">
-                    <label for="input_selected_pension_start_age_slider">詳しく確認したい受給開始年齢</label>
-                    <div class="slider-with-input">
-                        <input type="range" id="input_selected_pension_start_age_slider" class="range-input" min="60" max="75" step="1" value="65">
-                        <div class="field-with-unit slider-number">
-                            <input type="text" id="input_selected_pension_start_age" inputmode="numeric" autocomplete="off" spellcheck="false">
-                            <span class="unit">歳</span>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="table-responsive">
-                    <table>
-                        <thead id="page2_results_head"></thead>
-                        <tbody id="page2_results_body"></tbody>
-                    </table>
-                </div>
-                <p class="field-note">「手取り最大」の列は参考値です(その受給開始年齢を選んだ場合の結果)。税金合計・社会保険料合計の内訳も参考情報として掲載しています。</p>
-            </div>
-
-            <div id="page2_work_until_results" class="card" style="display: none;">
-                <div class="section-title">いつまで働く？収入の推移を比較</div>
-                <p class="field-note">近日公開予定です。</p>
             </div>
 
         </div><!-- /#page2_details -->
