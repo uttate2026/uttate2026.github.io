@@ -352,6 +352,29 @@ header h1 {
     margin-bottom: 4px;
 }
 
+/* 老齢基礎年金・老齢厚生年金で受給状況が食い違う場合(ADR 0012「2026-09-24改訂」)に、
+   各金額欄のラベル横へ「実額」「見込額」を示すチップ */
+.status-chip {
+    display: inline-block;
+    font-size: 11px;
+    font-weight: normal;
+    padding: 1px 7px;
+    border-radius: 999px;
+    margin-left: 6px;
+    vertical-align: middle;
+}
+
+.status-chip-actual {
+    background: var(--primary-tint);
+    color: var(--primary-dark);
+}
+
+.status-chip-estimate {
+    background: var(--bg-main);
+    color: var(--text-secondary);
+    border: 1px solid var(--border);
+}
+
 .field-with-unit {
     display: flex;
     align-items: center;
