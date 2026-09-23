@@ -341,12 +341,14 @@
 
                     <!-- lifeplanへの導線(2026-09-23コメント2-(1)、および「idecoサイトに合わせた
                          ボタンにしてください」フィードバック)。ideco[index.html]のトピックカード
-                         (説明文+class="btn btn-primary"のボタン)と同じ見た目にする。まずは
-                         データ引き継ぎ無しの単純リンクから始める(データ引き継ぎは別途検討課題
-                         <マッピング設計>とする) -->
+                         (説明文+class="btn btn-primary"のボタン)と同じ見た目にする。クリック時に
+                         現在の入力内容をlifeplanへの引き継ぎ用one-shotキーへ書き出してから遷移する
+                         (第2段階、[docs/shared/decisions/0006]
+                         (../../docs/shared/decisions/0006-ideco-to-lifeplan-handoff-concept.md)の
+                         設計を踏襲、ui.jsのclickハンドラ参照) -->
                     <div class="optional-section-link" id="lifeplan_handoff_link_wrap">
                         <p class="field-note">もっと詳しく試算したい場合は、lifeplanで入力し直すこともできます(全項目を自分で入力する、より詳細な試算サイトです)。</p>
-                        <a href="/lifeplan/" target="_blank" rel="noopener" class="btn btn-primary">lifeplanで詳しく試算する</a>
+                        <a href="/lifeplan/" target="_blank" rel="noopener" class="btn btn-primary" id="btn_lifeplan_handoff">lifeplanで詳しく試算する</a>
                     </div>
                 </div>
             </div>
