@@ -366,6 +366,11 @@
     <!-- ideco→lifeplanへのデータ引き継ぎ(model.jsのcheckIdecoHandoff/importHandoffPatternが
          IdecoBridge.HANDOFF_STORAGE_KEYを参照する、docs/shared/decisions/0006参照) -->
     <script src="shared/ideco-bridge.js"></script>
+    <!-- nenkin→lifeplanへのデータ引き継ぎ(同上、model.jsのcheckNenkinHandoffが
+         NenkinBridge.HANDOFF_STORAGE_KEYを参照する、docs/nenkin/decisions/0001
+         「2026-09-23改訂(続き11)」参照。2026-09-20にideco版で発覚した「スクリプトタグ漏れで
+         引き継ぎキーを読めない」不具合の再発防止のため、必ずmodel.jsより前に追加すること) -->
+    <script src="shared/nenkin-bridge.js"></script>
     <script src="model.js"></script>
     <script src="auth.js"></script>
     <script src="consent.js"></script>
