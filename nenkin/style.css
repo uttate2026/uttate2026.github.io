@@ -201,6 +201,10 @@ body {
     border-radius: 8px;
     cursor: pointer;
     font-size: 14px;
+    /* .btnは元々<button>専用だったが、lifeplanへの導線(#lifeplan_handoff_link_wrap)で
+       <a class="btn btn-primary">として初めて使うため、リンクの下線を消す
+       (2026-09-23の追加フィードバック「idecoサイトに合わせたボタンにしてください」) */
+    text-decoration: none;
 }
 
 .btn-primary {
@@ -235,6 +239,26 @@ body {
 
 .form-grid-pair {
     grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+/* 「より正確に試算する(任意)」内の2カラム化(2026-09-23コメント2-(1)「lifeplanへの連携ボタンを
+   置く場所」への対応)。左に既存の任意項目(可変長)、右にlifeplanへの導線を配置する。
+   align-items: endで、右列(短い)を左列の下端に揃え、「右下」に導線が来るようにする */
+.optional-section-split {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 24px;
+    align-items: end;
+}
+
+.optional-section-split .optional-section-link {
+    padding: 14px;
+    background: var(--bg-main);
+    border-radius: 8px;
+}
+
+.optional-section-split .optional-section-link .field-note {
+    margin: 0 0 10px;
 }
 
 .form-field {
@@ -464,6 +488,11 @@ td.row-indent {
 
     .form-grid,
     .form-grid-pair {
+        grid-template-columns: 1fr;
+    }
+
+    /* 狭い画面では1列に積み、lifeplanへの導線(DOM順で後ろ)は既存の任意項目の下に表示される */
+    .optional-section-split {
         grid-template-columns: 1fr;
     }
 

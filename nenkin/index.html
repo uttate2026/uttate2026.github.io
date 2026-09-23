@@ -268,68 +268,85 @@
             </div>
 
             <!-- 任意項目(ステップ1から移動、MEMO.md 2026/9/22コメント3-(4))。結果カードより下に置く
-                 (2026-09-23の追加フィードバック) -->
+                 (2026-09-23の追加フィードバック)。2026/9/23コメント2-(1)「lifeplanへの連携ボタンを
+                 置く場所」への対応で、カードを増やさず2カラム化した(左: 既存の任意項目、
+                 右: lifeplanへの導線)。右列は左列<可変長>の下端に揃える(.optional-section-split
+                 のalign-items: end)ことで「右下」に導線が来るようにする -->
             <div class="card">
                 <div class="section-title">より正確に試算する(任意)</div>
-                <p class="field-note">以下は、お手元の書類がある場合にチェックを入れて入力してください。未入力のままでも概算で試算を続けられます。</p>
+                <div class="optional-section-split">
+                    <div>
+                        <p class="field-note">以下は、お手元の書類がある場合にチェックを入れて入力してください。未入力のままでも概算で試算を続けられます。</p>
 
-                <div class="form-field">
-                    <label class="checkbox-label">
-                        <input type="checkbox" id="input_has_withholding_slip">
-                        手元に源泉徴収票がある
-                    </label>
-                </div>
-                <div id="withholding_slip_fields" class="form-grid" style="display: none;">
-                    <div class="form-field">
-                        <label for="input_income_tax_withheld">源泉徴収税額(年額)</label>
-                        <div class="field-with-unit">
-                            <input type="text" id="input_income_tax_withheld" inputmode="numeric" autocomplete="off" spellcheck="false">
-                            <span class="unit">円</span>
+                        <div class="form-field">
+                            <label class="checkbox-label">
+                                <input type="checkbox" id="input_has_withholding_slip">
+                                手元に源泉徴収票がある
+                            </label>
                         </div>
-                    </div>
-                    <div class="form-field">
-                        <label for="input_social_insurance">社会保険料(年額)</label>
-                        <div class="field-with-unit">
-                            <input type="text" id="input_social_insurance" inputmode="numeric" autocomplete="off" spellcheck="false">
-                            <span class="unit">円</span>
+                        <div id="withholding_slip_fields" class="form-grid" style="display: none;">
+                            <div class="form-field">
+                                <label for="input_income_tax_withheld">源泉徴収税額(年額)</label>
+                                <div class="field-with-unit">
+                                    <input type="text" id="input_income_tax_withheld" inputmode="numeric" autocomplete="off" spellcheck="false">
+                                    <span class="unit">円</span>
+                                </div>
+                            </div>
+                            <div class="form-field">
+                                <label for="input_social_insurance">社会保険料(年額)</label>
+                                <div class="field-with-unit">
+                                    <input type="text" id="input_social_insurance" inputmode="numeric" autocomplete="off" spellcheck="false">
+                                    <span class="unit">円</span>
+                                </div>
+                            </div>
                         </div>
-                    </div>
-                </div>
 
-                <div class="form-field">
-                    <label class="checkbox-label">
-                        <input type="checkbox" id="input_has_resident_tax_notice">
-                        手元に住民税決定通知書がある
-                    </label>
-                </div>
-                <div id="resident_tax_notice_fields" class="form-grid" style="display: none;">
-                    <div class="form-field">
-                        <label for="input_resident_tax">住民税(年額)</label>
-                        <div class="field-with-unit">
-                            <input type="text" id="input_resident_tax" inputmode="numeric" autocomplete="off" spellcheck="false">
-                            <span class="unit">円</span>
+                        <div class="form-field">
+                            <label class="checkbox-label">
+                                <input type="checkbox" id="input_has_resident_tax_notice">
+                                手元に住民税決定通知書がある
+                            </label>
                         </div>
-                    </div>
-                </div>
+                        <div id="resident_tax_notice_fields" class="form-grid" style="display: none;">
+                            <div class="form-field">
+                                <label for="input_resident_tax">住民税(年額)</label>
+                                <div class="field-with-unit">
+                                    <input type="text" id="input_resident_tax" inputmode="numeric" autocomplete="off" spellcheck="false">
+                                    <span class="unit">円</span>
+                                </div>
+                            </div>
+                        </div>
 
-                <div class="form-field">
-                    <label class="checkbox-label">
-                        <input type="checkbox" id="input_has_position_retirement">
-                        役職定年等で年収が下がる予定がある
-                    </label>
-                </div>
-                <div id="position_retirement_fields" class="form-grid form-grid-pair" style="display: none;">
-                    <div class="form-field">
-                        <label for="input_position_retirement_age">年収が下がる年齢</label>
-                        <select id="input_position_retirement_age"></select>
-                        <p class="field-note">引退年齢を超えて設定することはできません。</p>
-                    </div>
-                    <div class="form-field">
-                        <label for="input_income_after_position_retirement">下がった後の年収(年額)</label>
-                        <div class="field-with-unit">
-                            <input type="text" id="input_income_after_position_retirement" inputmode="numeric" autocomplete="off" spellcheck="false">
-                            <span class="unit">円</span>
+                        <div class="form-field">
+                            <label class="checkbox-label">
+                                <input type="checkbox" id="input_has_position_retirement">
+                                役職定年等で年収が下がる予定がある
+                            </label>
                         </div>
+                        <div id="position_retirement_fields" class="form-grid form-grid-pair" style="display: none;">
+                            <div class="form-field">
+                                <label for="input_position_retirement_age">年収が下がる年齢</label>
+                                <select id="input_position_retirement_age"></select>
+                                <p class="field-note">引退年齢を超えて設定することはできません。</p>
+                            </div>
+                            <div class="form-field">
+                                <label for="input_income_after_position_retirement">下がった後の年収(年額)</label>
+                                <div class="field-with-unit">
+                                    <input type="text" id="input_income_after_position_retirement" inputmode="numeric" autocomplete="off" spellcheck="false">
+                                    <span class="unit">円</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- lifeplanへの導線(2026-09-23コメント2-(1)、および「idecoサイトに合わせた
+                         ボタンにしてください」フィードバック)。ideco[index.html]のトピックカード
+                         (説明文+class="btn btn-primary"のボタン)と同じ見た目にする。まずは
+                         データ引き継ぎ無しの単純リンクから始める(データ引き継ぎは別途検討課題
+                         <マッピング設計>とする) -->
+                    <div class="optional-section-link" id="lifeplan_handoff_link_wrap">
+                        <p class="field-note">もっと詳しく試算したい場合は、lifeplanで入力し直すこともできます(全項目を自分で入力する、より詳細な試算サイトです)。</p>
+                        <a href="/lifeplan/" target="_blank" rel="noopener" class="btn btn-primary">lifeplanで詳しく試算する</a>
                     </div>
                 </div>
             </div>
