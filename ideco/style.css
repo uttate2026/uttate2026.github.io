@@ -572,3 +572,10 @@ th.compare-col-source, td.compare-col-source {
         grid-template-columns: 1fr;
     }
 }
+
+/* 出口戦略の目的別最適化の再計算待ち(入力中、docs/shared/decisions/0007「2026-09-25改訂」)。
+   表示中の結果が入力と食い違っていることを示す */
+table.is-stale {
+    opacity: 0.5;
+    transition: opacity 0.15s;
+}
