@@ -405,9 +405,14 @@
     <script src="constants.js"></script>
     <script src="shared/pattern-builders.js"></script>
     <script src="shared/calculator.js"></script>
+    <!-- 生涯合計の集計(全プラン比較・各ウィザード・ideco-bridge.js等が使う、docs/shared/decisions/0007参照) -->
+    <script src="shared/lifetime-totals.js"></script>
     <!-- ideco→lifeplanへのデータ引き継ぎ(model.jsのcheckIdecoHandoff/importHandoffPatternが
          IdecoBridge.HANDOFF_STORAGE_KEYを参照する、docs/shared/decisions/0006参照) -->
     <script src="shared/ideco-bridge.js"></script>
+    <!-- iDeCo出口戦略のグリッド探索(iDeCo資産追加ウィザードが使う、idecoと共通、
+         docs/shared/decisions/0007参照) -->
+    <script src="shared/ideco-exit-optimizer.js"></script>
     <!-- nenkin→lifeplanへのデータ引き継ぎ(同上、model.jsのcheckNenkinHandoffが
          NenkinBridge.HANDOFF_STORAGE_KEYを参照する、docs/nenkin/decisions/0001
          「2026-09-23改訂(続き11)」参照。2026-09-20にideco版で発覚した「スクリプトタグ漏れで
