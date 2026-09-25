@@ -213,6 +213,13 @@
                     </div>
                 </div>
 
+                <!-- 老齢基礎年金・老齢厚生年金を別々の年齢で受け取る案を比較表に加えるか(MEMO.md 2026/9/26
+                     コメント1-(2)の追加フィードバック、docs/nenkin/decisions/0002「2026-09-26改訂」)。
+                     既定OFF、老齢厚生年金の見込額がある場合のみ表示 -->
+                <div class="form-field" id="split_pension_claim_field" hidden>
+                    <label class="checkbox-label"><input type="checkbox" id="input_consider_split_pension_claim"> 老齢厚生年金を別の年齢にすることも検討する</label>
+                </div>
+
                 <div class="table-responsive">
                     <table>
                         <thead id="page2_results_head"></thead>
@@ -220,6 +227,9 @@
                     </table>
                 </div>
                 <p class="field-note">「手取り最大」の列は参考値です(その受給開始年齢を選んだ場合の結果)。税金合計・社会保険料合計の内訳も参考情報として掲載しています。</p>
+                <!-- 老齢基礎年金・老齢厚生年金を別々の年齢で受け取る場合との比較(MEMO.md 2026/9/26
+                     コメント1-(2)、docs/nenkin/decisions/0002参照)。老齢厚生年金の見込額がある場合のみ -->
+                <p id="page2_split_note" class="info-note" hidden></p>
             </div>
 
             <!-- 見出し・説明文(カード単位)は削除済み(2026-09-23の追加フィードバック「不要です」)。

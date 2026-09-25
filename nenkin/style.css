@@ -437,6 +437,17 @@ td.row-indent {
     font-size: 13px;
 }
 
+/* トピックAの比較表。別々の年齢で受け取る案の3列目(MEMO.md 2026/9/26コメント1-(2))を加えると
+   狭い画面で行見出しが1文字ずつ折り返されるため、行見出しに最小幅を確保し、金額は折り返さない
+   (収まらない分は.table-responsiveで横スクロール) */
+#page2_results_body td:first-child {
+    min-width: 9em;
+}
+
+#page2_results_body td.text-right {
+    white-space: nowrap;
+}
+
 /* トピックBのグラフ下の折り畳み明細(2026-09-23の追加フィードバック(11))。グループ見出し行
    (収入・社会保険料・税金)。lifeplan本体の明細表と違いクリックでの開閉は持たない(1年分のみの
    縦一覧のため)ため、cursor: pointerは付けない */
