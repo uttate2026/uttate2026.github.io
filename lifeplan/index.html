@@ -238,6 +238,12 @@
         <div class="card modal-card">
             <button type="button" id="btn_asset_add_modal_close" class="modal-close" aria-label="閉じる">×</button>
             <div class="section-title">資産タブを追加</div>
+            <!-- 名義人を先に選ぶ(MEMO.md 2026/9/25コメント2-(2))。名義人を切り替えると、その人物が
+                 既に持つ種類が「種類」の選択肢から除外されるため、上から順に選択肢が絞られる並びにする -->
+            <div class="form-field">
+                <label for="select_asset_owner">名義人</label>
+                <select id="select_asset_owner"></select>
+            </div>
             <div class="form-field">
                 <label for="select_asset_type">種類</label>
                 <select id="select_asset_type">
@@ -245,10 +251,6 @@
                     <option value="brokerage">特定口座</option>
                     <option value="ideco">iDeCo</option>
                 </select>
-            </div>
-            <div class="form-field">
-                <label for="select_asset_owner">名義人</label>
-                <select id="select_asset_owner"></select>
             </div>
             <!-- iDeCo拠出プラン・出口戦略ウィザード(2026-09-20のフィードバックで追加。廃止した
                  「検討トピック」の後継、ADR 0026参照) -->
