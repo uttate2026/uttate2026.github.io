@@ -204,8 +204,13 @@
 
                 <div class="form-field">
                     <label for="input_selected_pension_start_age_slider">詳しく確認したい受給開始年齢</label>
+                    <!-- range-input-alignは、グラフ(#page2_chart_canvas)の横軸にスライダーの可動範囲を
+                         合わせるための位置合わせ用(トピックBの明細スライダーと同じ仕組み、MEMO.md
+                         2026/9/26コメント1-(5)、ui.jsの_alignSliderToChart参照) -->
                     <div class="slider-with-input">
-                        <input type="range" id="input_selected_pension_start_age_slider" class="range-input" min="60" max="75" step="1" value="65">
+                        <div class="range-input-align" id="selected_pension_start_age_slider_align">
+                            <input type="range" id="input_selected_pension_start_age_slider" class="range-input" min="60" max="75" step="1" value="65">
+                        </div>
                         <div class="field-with-unit slider-number">
                             <input type="text" id="input_selected_pension_start_age" inputmode="numeric" autocomplete="off" spellcheck="false">
                             <span class="unit">歳</span>
@@ -358,6 +363,9 @@
                          設計を踏襲、ui.jsのclickハンドラ参照) -->
                     <div class="optional-section-link" id="lifeplan_handoff_link_wrap">
                         <p class="field-note">もっと詳しく試算したい場合は、lifeplanで入力し直すこともできます(全項目を自分で入力する、より詳細な試算サイトです)。</p>
+                        <!-- 引き継ぐ公的年金受給開始年齢(MEMO.md 2026/9/26コメント1-(3)。ui.jsの_renderHandoffNoteが
+                             トピックに応じた文言と現在の年齢を表示する) -->
+                        <p class="field-note" id="lifeplan_handoff_note"></p>
                         <a href="/lifeplan/" target="_blank" rel="noopener" class="btn btn-primary" id="btn_lifeplan_handoff">lifeplanで詳しく試算する</a>
                     </div>
                 </div>

@@ -397,7 +397,8 @@ input[inputmode="numeric"], input[inputmode="decimal"] {
    (2026-09-23の追加フィードバック「グラフの左右のx座標をスライダの調整範囲のx座標に
    合わせてほしい」)。左端はY軸ラベルの幅(表示金額の桁数で変動する)がありJSで動的に計算する
    (_alignWorkUntilDetailSlider参照)が、右端はこの固定値だけで静的に揃えられる */
-#page2_work_until_chart_wrap {
+#page2_work_until_chart_wrap,
+#page2_chart_wrap {
     padding-right: 142px;
 }
 
@@ -518,7 +519,8 @@ td.row-indent {
     /* 狭い画面では.slider-with-inputが折り返し、数値入力欄がスライダーの下の全幅行になる
        (.slider-number { width: 100% }参照)ため、スライダーの右端はもう数値入力欄に制約されず
        ほぼ全幅まで動ける。グラフの右端を揃えるための固定余白(142px)は不要になるため打ち消す */
-    #page2_work_until_chart_wrap {
+    #page2_work_until_chart_wrap,
+    #page2_chart_wrap {
         padding-right: 0;
     }
 
@@ -526,4 +528,26 @@ td.row-indent {
     .wizard-step:not(.wizard-step-active) .wizard-step-label {
         display: none;
     }
+}
+
+/* トピックAの比較表・トピックBの明細の内訳行(MEMO.md 2026/9/26コメント1-(4))。小計の行
+   (.breakdown-group-header)をクリックするとグループごとに開閉する(lifeplanの明細表と同じ操作感)。
+   既定は畳んだ状態 */
+tr.breakdown-row[hidden] {
+    display: none;
+}
+
+tr.breakdown-group-header {
+    cursor: pointer;
+    user-select: none;
+}
+
+tr.breakdown-group-header:hover td {
+    background: var(--bg-main);
+}
+
+/* 手取り・小計行(収入・社会保険料・税金)。トピックAの比較表・トピックBの明細で共通
+   (MEMO.md 2026/9/26コメント1-(4))。内訳(インデント行)より目立たせる */
+tr.subtotal-row td:first-child {
+    font-weight: 600;
 }
