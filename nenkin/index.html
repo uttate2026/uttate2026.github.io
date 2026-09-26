@@ -388,15 +388,15 @@
          (docs/shared/decisions/0004参照)。scripts/sync-shared.jsがsrc/shared/からコピーする
          (このディレクトリ自体はGit管理対象外)。shared/lifeplan-constants.jsはshared/calculator.jsが
          参照するブラウザグローバルLifeplanConstantsを用意するためのもの -->
-    <script src="shared/lifeplan-constants.84c33b4dce.js"></script>
+    <script src="shared/lifeplan-constants.1312f11290.js"></script>
     <script src="shared/pattern-builders.72ec993c2f.js"></script>
-    <script src="shared/calculator.4fdbc421ce.js"></script>
+    <script src="shared/calculator.bfa8102643.js"></script>
     <!-- 生涯合計の集計(docs/shared/decisions/0007参照)。以降の共通モジュールが参照するため、その前に読み込む -->
     <script src="shared/lifetime-totals.5a9df7c345.js"></script>
     <!-- 公的年金受給開始年齢のグリッド探索(nenkinトピックA・lifeplan「公的年金」タブのウィザードで共通、
          lifeplan ADR 0027参照)。nenkin-bridge.jsが参照するため、必ずその前に読み込む -->
     <script src="shared/pension-claim-optimizer.527d43ebc3.js"></script>
-    <script src="shared/nenkin-bridge.f4cf902f64.js"></script>
+    <script src="shared/nenkin-bridge.77f816ed1a.js"></script>
     <script src="ui.19da528287.js"></script>
     <script>
         window.model = new NenkinModel({ window: window, storage: AppStorage });
