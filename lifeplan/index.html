@@ -407,32 +407,32 @@
         </div>
     </div>
 
-    <script src="storage.9bca21b407.js"></script>
-    <script src="constants.621b8ef9ed.js"></script>
-    <script src="shared/pattern-builders.19833b9aeb.js"></script>
-    <script src="shared/calculator.5770348338.js"></script>
+    <script src="storage.2ec613f10e.js"></script>
+    <script src="constants.ccbc245fe8.js"></script>
+    <script src="shared/pattern-builders.72ec993c2f.js"></script>
+    <script src="shared/calculator.482618c947.js"></script>
     <!-- 生涯合計の集計(全プラン比較・各ウィザード・ideco-bridge.js等が使う、docs/shared/decisions/0007参照) -->
-    <script src="shared/lifetime-totals.9915862994.js"></script>
+    <script src="shared/lifetime-totals.5a9df7c345.js"></script>
     <!-- ideco→lifeplanへのデータ引き継ぎ(model.jsのcheckIdecoHandoff/importHandoffPatternが
          IdecoBridge.HANDOFF_STORAGE_KEYを参照する、docs/shared/decisions/0006参照) -->
-    <script src="shared/ideco-bridge.3da590faea.js"></script>
+    <script src="shared/ideco-bridge.36e2cab931.js"></script>
     <!-- iDeCo出口戦略のグリッド探索(iDeCo資産追加ウィザードが使う、idecoと共通、
          docs/shared/decisions/0007参照) -->
-    <script src="shared/ideco-exit-optimizer.0383138ac4.js"></script>
+    <script src="shared/ideco-exit-optimizer.0d253c4e9a.js"></script>
     <!-- nenkin→lifeplanへのデータ引き継ぎ(同上、model.jsのcheckNenkinHandoffが
          NenkinBridge.HANDOFF_STORAGE_KEYを参照する、docs/nenkin/decisions/0001
          「2026-09-23改訂(続き11)」参照。2026-09-20にideco版で発覚した「スクリプトタグ漏れで
          引き継ぎキーを読めない」不具合の再発防止のため、必ずmodel.jsより前に追加すること) -->
     <!-- 公的年金受給開始年齢のグリッド探索(nenkinトピックA・lifeplan「公的年金」タブのウィザードで共通、
          lifeplan ADR 0027参照)。nenkin-bridge.jsが参照するため、必ずその前に読み込む -->
-    <script src="shared/pension-claim-optimizer.0e764897a5.js"></script>
-    <script src="shared/nenkin-bridge.bf931a4cb3.js"></script>
-    <script src="model.1541bd2b3a.js"></script>
-    <script src="auth.9621f6d3be.js"></script>
-    <script src="consent.75eb1ffe10.js"></script>
-    <script src="resize-notifier.6d2b60131a.js"></script>
-    <script src="vendor/chart.1159b4e64e.js"></script>
-    <script src="ui.3fc191d757.js"></script>
+    <script src="shared/pension-claim-optimizer.527d43ebc3.js"></script>
+    <script src="shared/nenkin-bridge.f4cf902f64.js"></script>
+    <script src="model.8acb5f4175.js"></script>
+    <script src="auth.f95b7f2cb8.js"></script>
+    <script src="consent.6a30cb2135.js"></script>
+    <script src="resize-notifier.bbc2b52d92.js"></script>
+    <script src="vendor/chart.5e218aa7fa.js"></script>
+    <script src="ui.382f9cfeb1.js"></script>
     <script>
         window.model = new LifeplanModel({ window: window, storage: AppStorage });
         AppAuth.init();
