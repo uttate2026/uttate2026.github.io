@@ -1,0 +1,19 @@
+{
+  "deploys": [
+    {
+      "deployedAt": "2026-09-26T20:38:31.618Z",
+      "files": [
+        "auth.23129380ea.js",
+        "consent.baa6d690e1.js",
+        "model.0b9b6791d7.js",
+        "ocr.91d0f1973c.js",
+        "resize-notifier.ca0dd6c921.js",
+        "solver.2faab8bf87.js",
+        "storage.32f10697d3.js",
+        "style.9005e827b6.css",
+        "ui.01590b5cde.js",
+        "vendor/chart.da56cdf6d6.js"
+      ]
+    }
+  ]
+}
