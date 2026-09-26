@@ -902,11 +902,6 @@ th, td {
     margin-top: 8px;
 }
 
-.dynamic-list-add-top {
-    /* 表の上に置く追加ボタン(生前贈与<世帯外>タブ、MEMO.md 2026/9/26のフィードバック) */
-    margin: 8px 0 12px;
-}
-
 .dynamic-list-add select {
     width: auto;
 }
