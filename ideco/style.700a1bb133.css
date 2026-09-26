@@ -1,0 +1,593 @@
+/* src/style.css */
+
+/* 画面幅対応の基本方針(screen-design.md 0-1節、rebalanceの方針を踏襲): 狭い画面(600px未満、
+   スマートフォン想定)とそれ以外(タブレット・PC)の2区分のみとする。基本はフルードレイアウト+
+   flex-wrap/gridの折り返しで対応し、表だけは横スクロール(.table-responsive)に切り替える。 */
+
+:root {
+    --bg-main: #f8fafc;
+    --bg-card: #ffffff;
+    --border: #e2e8f0;
+    --border-strong: #cbd5e1;
+    --primary: #155e75;
+    --primary-dark: #164e63;
+    --primary-tint: #cfe6ec;
+    --success: #16a34a;
+    --danger: #dc2626;
+    --text-main: #0f172a;
+    --text-secondary: #64748b;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+html {
+    overflow-y: scroll;
+}
+
+body {
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Hiragino Sans", Meiryo, sans-serif;
+    background: var(--bg-main);
+    color: var(--text-main);
+}
+
+.app-container {
+    /* iframe埋め込み先(要件1章①)によっては表示幅が960pxを超えるため、
+       中央寄せによる無駄な左右余白でツール画面が縮小されないよう上限を拡大している
+       (rebalance ADR 0008参照)。 */
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 24px 16px 64px;
+}
+
+/* ヘッダー: 画面名+戻るボタンをスマホアプリのように左上へ固定する。戻るボタンは(1)では非表示、
+   (2)(3)ではUI._currentPageに応じて表示する */
+.wizard-header {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-bottom: 20px;
+}
+
+/* サイト名(MEMO.md 2026/9/26コメント1-(8))。rebalance・lifeplanのヘッダーh1と同じ左上に置き、
+   下線でステップ見出しと区切る。主見出しはステップ名(h1)のため、それより控えめにする */
+.site-name {
+    font-size: 15px;
+    font-weight: bold;
+    color: var(--primary-dark);
+    letter-spacing: 0.02em;
+    padding-bottom: 8px;
+    margin-bottom: 4px;
+    border-bottom: 1px solid var(--border);
+}
+
+.wizard-header-top {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.wizard-header h1 {
+    font-size: 20px;
+    margin: 0;
+}
+
+.nav-back-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 2px;
+    border: none;
+    background: transparent;
+    color: var(--primary);
+    font-size: 15px;
+    font-weight: bold;
+    padding: 4px 6px 4px 0;
+    margin-right: 4px;
+    cursor: pointer;
+}
+
+.nav-back-btn span {
+    font-size: 20px;
+    line-height: 1;
+}
+
+/* ウィザード全体の見取り図+現在位置(装飾のみ、クリック不可。MEMO.md 2026/9/22コメント1-(5)) */
+.wizard-steps {
+    display: flex;
+    align-items: center;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.wizard-step {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    color: var(--text-secondary);
+    font-size: 13px;
+}
+
+.wizard-step:not(:last-child)::after {
+    content: '→';
+    margin: 0 8px;
+    color: var(--border-strong);
+}
+
+.wizard-step-num {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 20px;
+    height: 20px;
+    flex-shrink: 0;
+    border-radius: 50%;
+    background: var(--border);
+    color: var(--text-secondary);
+    font-size: 12px;
+    font-weight: bold;
+}
+
+.wizard-step-active {
+    color: var(--primary-dark);
+    font-weight: bold;
+}
+
+.wizard-step-active .wizard-step-num {
+    background: var(--primary);
+    color: #fff;
+}
+
+.card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 20px;
+    margin-bottom: 20px;
+    box-shadow: 0 1px 2px rgba(15, 23, 42, 0.04), 0 4px 10px rgba(15, 23, 42, 0.04);
+}
+
+.section-title {
+    font-weight: bold;
+    font-size: 15px;
+    margin-bottom: 12px;
+}
+
+.section-title-sub {
+    font-weight: bold;
+    font-size: 13px;
+    color: var(--text-secondary);
+    margin: 16px 0 8px;
+}
+
+/* 認証・同意画面(rebalanceと同じパターン) */
+.auth-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: var(--bg-main);
+    z-index: 9999;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+.auth-card {
+    max-width: 420px;
+    width: 100%;
+    text-align: center;
+}
+
+.auth-desc {
+    font-size: 14px;
+    color: var(--text-secondary);
+    margin-bottom: 20px;
+    line-height: 1.6;
+}
+
+#token_input {
+    width: 100%;
+    text-align: center;
+    font-size: 16px;
+    padding: 8px;
+    margin-bottom: 16px;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+}
+
+.consent-list {
+    text-align: left;
+    font-size: 14px;
+    line-height: 1.8;
+    color: var(--text-main);
+    padding-left: 20px;
+    margin-bottom: 20px;
+}
+
+/* ボタン */
+.btn {
+    display: inline-block;
+    border: 1px solid var(--border);
+    background: var(--bg-card);
+    color: var(--text-main);
+    padding: 8px 14px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.btn-primary {
+    background: var(--primary);
+    border-color: var(--primary);
+    color: #fff;
+}
+
+.btn-primary:hover {
+    background: var(--primary-dark);
+}
+
+/* disabled状態の見た目(見た目でも無効と分かるようにする) */
+.btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.btn-link {
+    background: transparent;
+    border: none;
+    color: var(--primary);
+    padding: 4px 0;
+    text-decoration: underline;
+}
+
+.btn-delete {
+    background: transparent;
+    border: 1px solid var(--danger);
+    color: var(--danger);
+}
+
+.btn-large {
+    width: 100%;
+    padding: 12px;
+    font-weight: bold;
+    font-size: 15px;
+}
+
+.button-row {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    flex-wrap: wrap;
+}
+
+/* 「戻る」はヘッダーにあるため、ページ最下部に残るボタンは右寄せにする */
+.button-row-end {
+    justify-content: flex-end;
+}
+
+/* フォーム */
+.form-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 14px 20px;
+}
+
+/* 調整可能かつ比較が重要な2項目(退職年齢と公的年金受給開始年齢のペア)を、
+   画面幅によらず同じ行に固定する */
+.form-grid-pair {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.form-field {
+    margin-bottom: 14px;
+}
+
+.form-field label {
+    display: block;
+    font-size: 13px;
+    font-weight: bold;
+    margin-bottom: 4px;
+}
+
+.field-with-unit {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.field-with-unit input {
+    flex: 1;
+    min-width: 0;
+}
+
+.unit {
+    font-size: 13px;
+    color: var(--text-secondary);
+    white-space: nowrap;
+}
+
+.field-note {
+    font-size: 12px;
+    color: var(--text-secondary);
+    margin: 4px 0 0;
+}
+
+.info-note {
+    font-size: 13px;
+    color: var(--primary-dark);
+    background: var(--primary-tint);
+    border-radius: 8px;
+    padding: 10px 12px;
+    margin-top: 8px;
+    line-height: 1.6;
+}
+
+input[type="text"], input[type="number"], select {
+    padding: 6px 8px;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    font-size: 14px;
+    width: 100%;
+}
+
+/* 数値入力欄では日本語入力モードを自動解除する(要件4.4節、rebalance踏襲) */
+input[inputmode="numeric"], input[inputmode="decimal"] {
+    ime-mode: disabled;
+}
+
+.range-input {
+    width: 100%;
+    accent-color: var(--primary);
+}
+
+/* スライダー+editable数値入力の複合部品(iDeCo拠出額・死亡予測年齢、ADR 0010参照)。
+   スライダーを伸縮領域、数値入力は幅を固定して横並びにする */
+.slider-with-input {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.slider-with-input .range-input {
+    flex: 1;
+    min-width: 0;
+}
+
+.slider-with-input .slider-number {
+    width: 130px;
+    flex-shrink: 0;
+}
+
+@media (max-width: 600px) {
+    .slider-with-input {
+        flex-wrap: wrap;
+    }
+
+    .slider-with-input .slider-number {
+        width: 100%;
+    }
+
+    /* 狭い画面では非アクティブなステップ名を省略し、番号(丸)と矢印だけで見取り図を保つ */
+    .wizard-step:not(.wizard-step-active) .wizard-step-label {
+        display: none;
+    }
+}
+
+/* 比較結果のグラフ(Chart.js、ページ(3)内に埋め込み。ページ(2)は情報量を絞るため持たない、
+   docs/ideco/decisions/0008・0009参照) */
+#page3_compare_chart_wrap {
+    position: relative;
+    height: 280px;
+    margin-top: 16px;
+    margin-bottom: 16px;
+}
+
+.result-summary {
+    display: flex;
+    gap: 24px;
+    flex-wrap: wrap;
+    margin-top: 12px;
+}
+
+.result-summary-item {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.result-summary-label {
+    font-size: 12px;
+    color: var(--text-secondary);
+}
+
+.result-summary-value {
+    font-size: 18px;
+    font-weight: bold;
+}
+
+/* iDeCoによる節税額(拠出時の所得控除効果のみ、機能仕様8.2節) */
+.tax-savings-box {
+    margin-top: 16px;
+    padding-top: 12px;
+    border-top: 1px dashed var(--border);
+}
+
+.tax-savings-value {
+    font-size: 14px;
+    font-weight: bold;
+    color: var(--success);
+}
+
+.unit-note {
+    font-weight: normal;
+    color: var(--text-secondary);
+    font-size: 12px;
+}
+
+.net-amount-label {
+    font-size: 12px;
+    color: var(--text-secondary);
+    margin-bottom: 2px;
+}
+
+.net-amount {
+    font-size: 20px;
+    font-weight: bold;
+    color: var(--success);
+    margin-bottom: 4px;
+}
+
+.checkbox-label {
+    display: flex !important;
+    align-items: center;
+    gap: 6px;
+    font-weight: normal !important;
+    cursor: pointer;
+}
+
+.checkbox-label input[type="checkbox"] {
+    width: auto;
+    accent-color: var(--primary);
+}
+
+.net-amount-sub {
+    font-size: 14px;
+    font-weight: bold;
+    color: var(--success);
+    margin-bottom: 8px;
+}
+
+/* 住民税非課税簡易診断(任意、機能仕様8.4節) */
+.resident-tax-check-toggle {
+    margin: 4px 0 8px;
+    /* .form-fieldの外にあるため、他のチェックボックスラベルとフォントサイズを明示的に揃える */
+    font-size: 13px;
+}
+
+.resident-tax-check-fields {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin: 0 0 8px 26px;
+}
+
+.resident-tax-check-fields label {
+    /* .form-field labelの外にあるため、他のフィールドラベルとフォントサイズ・太さを揃える */
+    font-size: 13px;
+    font-weight: bold;
+}
+
+.resident-tax-check-fields select {
+    padding: 6px 8px;
+    border: 1px solid var(--border-strong);
+    border-radius: 6px;
+    font-size: 13px;
+}
+
+#resident_tax_check_note {
+    margin-left: 26px;
+}
+
+/* 表(全プラン比較の一覧表・出口戦略比較3列の共通スタイル) */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 14px;
+}
+
+th, td {
+    padding: 8px;
+    border-bottom: 1px solid var(--border);
+    text-align: left;
+}
+
+.text-right {
+    text-align: right;
+}
+
+/* 比較表: 起点プラン(現在の入力欄の設定値そのもの)の列を強調する(2026-09-22のフィードバック)。
+   .info-noteと同じ配色(--primary-tint地に--primary-dark文字)を流用する */
+th.compare-col-source, td.compare-col-source {
+    background: var(--primary-tint);
+    color: var(--primary-dark);
+    font-weight: bold;
+}
+
+/* マイナスの金額表示(lifeplanと同じ表記)。色だけに頼らず、formatYen側で先頭に「▲」を
+   付けるのと併用する(色覚特性によらず判別できるようにするため) */
+.negative {
+    color: var(--danger);
+}
+
+/* 比較表、開閉可能なグループ見出し(lifeplanのresult-table-group-headerをそのまま踏襲) */
+.result-table-group-header {
+    cursor: pointer;
+    user-select: none;
+    background: var(--bg-main);
+}
+
+/* ページ(2)拠出プラン比較表の区切り見出し行。
+   result-table-group-headerと違い開閉トグルを持たないため、cursor: pointerは付けない */
+.compare-table-section-header {
+    background: var(--bg-main);
+    font-weight: bold;
+}
+
+.table-responsive {
+    overflow-x: auto;
+}
+
+.alert-text {
+    color: var(--danger);
+    font-weight: bold;
+    font-size: 14px;
+    margin: 0 0 16px;
+}
+
+/* 検討トピック(lifeplanのtopic-cards/topic-cardを踏襲、docs/ideco/decisions/0007参照) */
+.topic-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 14px;
+}
+
+.topic-card {
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 14px;
+    background: var(--bg-main);
+}
+
+.topic-card h3 {
+    margin: 0 0 6px;
+    font-size: 14px;
+}
+
+.topic-card p {
+    margin: 0 0 10px;
+    font-size: 13px;
+    color: var(--text-secondary);
+}
+
+@media (max-width: 600px) {
+    .app-container {
+        padding: 16px 10px 48px;
+    }
+
+    .form-grid,
+    .form-grid-pair {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* 出口戦略の目的別最適化の再計算待ち(入力中、docs/shared/decisions/0007「2026-09-25改訂」)。
+   表示中の結果が入力と食い違っていることを示す */
+table.is-stale {
+    opacity: 0.5;
+    transition: opacity 0.15s;
+}
