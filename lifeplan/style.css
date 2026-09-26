@@ -744,6 +744,29 @@ th, td {
     background: var(--bg-main);
 }
 
+/* 資産タブで積立資金の出し手に「世帯主からの贈与」を選んだ場合の注意書き(MEMO.md 2026/9/26コメント2-(2)
+   「贈与税計算の対象になることを一言目立つように」、ADR 0007「2026-09-26改訂」)。.form-grid内に置くため
+   全列にまたがらせる */
+.gift-tax-warning {
+    grid-column: 1 / -1;
+    background: #fffbeb;
+    border: 1px solid #f59e0b;
+    border-left-width: 4px;
+    border-radius: 8px;
+    padding: 10px 12px;
+    color: #78350f;
+    font-size: 13px;
+    line-height: 1.6;
+}
+
+.gift-tax-warning strong {
+    font-size: 14px;
+}
+
+.gift-tax-warning p {
+    margin: 4px 0 8px;
+}
+
 .alert-text {
     color: var(--danger);
     font-weight: bold;

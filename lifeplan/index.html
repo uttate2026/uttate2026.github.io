@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>lifeplan ダッシュボード</title>
+    <title>ライフプランシミュレーター</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -33,7 +33,7 @@
     <div class="app-container" id="app_container" style="display: none;">
 
         <header>
-            <h1>lifeplan ダッシュボード</h1>
+            <h1>ライフプランシミュレーター</h1>
         </header>
 
         <div class="account-tabs-container">
@@ -87,7 +87,7 @@
                 <div class="sub-tabs-bar">
                     <button type="button" class="sub-tab-btn" data-expense-tab="living">生活費</button>
                     <button type="button" class="sub-tab-btn" data-expense-tab="durable">不定期支出</button>
-                    <button type="button" class="sub-tab-btn" data-expense-tab="gift">生前贈与</button>
+                    <button type="button" class="sub-tab-btn" data-expense-tab="gift">生前贈与(世帯外)</button>
                 </div>
                 <div id="expense_living_panel">
                     <div class="form-field">
@@ -117,18 +117,20 @@
                         <button type="button" id="btn_add_durable" class="btn btn-link">+ 耐久消費財を追加</button>
                     </div>
                 </div>
+                <!-- 世帯外(子等)への生前贈与のみを扱う。世帯員(配偶者等)への贈与は、受贈者名義の資産タブの
+                     「積立資金の出し手」で設定する(MEMO.md 2026/9/26コメント2-(2)、ADR 0007「2026-09-26改訂」) -->
                 <div id="expense_gift_panel" style="display:none;">
+                    <p class="field-note">世帯外(別世帯の子など)への生前贈与を入力します。贈与額は支出として現金・預金から差し引きます。配偶者など世帯員への贈与は、受贈者名義の資産タブ(NISA・特定口座)の「積立資金の出し手」で「世帯主からの贈与」を選んでください。</p>
                     <div class="table-responsive">
                         <table class="dynamic-list-table">
                             <thead>
-                                <tr><th>受贈者</th><th>年贈与額</th><th>開始年齢</th><th>期間(年)</th><th>積立先</th><th>精算課税</th><th></th></tr>
+                                <tr><th>受贈者</th><th>年贈与額</th><th>開始年齢</th><th>期間(年)</th><th>精算課税</th><th></th></tr>
                             </thead>
                             <tbody id="gift_rows"></tbody>
                         </table>
                     </div>
                     <div class="dynamic-list-add">
-                        <select id="select_gift_recipient"></select>
-                        <button type="button" id="btn_add_gift" class="btn btn-link">+ 生前贈与を追加</button>
+                        <button type="button" id="btn_add_gift" class="btn btn-link">+ 世帯外への生前贈与を追加</button>
                     </div>
                 </div>
             </div>
@@ -185,9 +187,10 @@
                         <div class="form-field">
                             <label for="select_inheritance_decedent">被相続人</label>
                             <select id="select_inheritance_decedent"></select>
+                            <p class="field-note">被相続人名義の資産(現金・預金は世帯主名義)を相続財産とします。生前贈与加算は、世帯主が被相続人の場合のみ行います(贈与者はいずれも世帯主のため)。</p>
                         </div>
                         <div class="form-field">
-                            <label for="input_inheritance_death_age">死亡年齢</label>
+                            <label for="input_inheritance_death_age">死亡年齢(被相続人の年齢)</label>
                             <div class="field-with-unit">
                                 <input type="text" id="input_inheritance_death_age" inputmode="numeric" autocomplete="off" spellcheck="false">
                                 <span class="unit">歳</span>
