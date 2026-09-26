@@ -38,6 +38,9 @@
              「ステップ2とステップ3の画面を一体化できないか」を受けて1ページに統合した
              (docs/nenkin/decisions/0001「2026-09-22改訂(続き2)」参照) -->
         <header class="wizard-header">
+            <!-- サイト名(MEMO.md 2026/9/26コメント1-(8)「サイト名が左上にない」)。rebalance・lifeplanの
+                 h1と同じ左上の位置に置き、ページの主見出し(h1)は現在のステップ名のまま据え置く -->
+            <div class="site-name">ねんきんプランナー</div>
             <div class="wizard-header-top">
                 <button type="button" id="btn_nav_back" class="nav-back-btn" style="display: none;">
                     <span aria-hidden="true">‹</span> 戻る
@@ -161,7 +164,7 @@
                 <div class="form-field">
                     <label for="input_death_age_estimate">死亡予測年齢</label>
                     <select id="input_death_age_estimate"></select>
-                    <p class="field-note">何歳まで生きるかによって損得が変わるため、目安の年齢を選んでください。死亡予測年齢は「決断」するものではなく見積もる推定値のため、他の項目と違いスライダーではなくドロップダウンにしています(2026-09-23の追加フィードバック)。</p>
+                    <p class="field-note">何歳まで生きるかによって損得が変わるため、目安の年齢を選んでください。死亡予測年齢は「決断」するものではなく見積もる推定値のため、他の項目と違いスライダーではなくドロップダウンにしています。</p>
                 </div>
 
                 <div class="form-field">
@@ -196,7 +199,7 @@
                  (2026-09-23の追加フィードバック「スライダーとグラフが離れて見づらい」) -->
             <div id="page2_pension_start_age_results" class="card" style="display: none;">
                 <div class="section-title">年金受給開始年齢の比較</div>
-                <p class="field-note">受給開始年齢60〜75歳を1年刻みで探索した結果です。評価基準は手取りの最大化です(税・社会保険料の最小化は、繰上げ受給ほど有利になりやすく実用的な示唆になりにくいため、2026-09-22の追加フィードバックで比較対象から外しました)。</p>
+                <p class="field-note">受給開始年齢60〜75歳を1年刻みで探索した結果です。評価基準は手取りの最大化です(税・社会保険料の最小化は、繰上げ受給ほど有利になりやすく実用的な示唆になりにくいため、比較対象から外しています)。</p>
                 <div id="page2_chart_wrap">
                     <canvas id="page2_chart_canvas"></canvas>
                     <p id="page2_chart_error" class="alert-text" style="display: none;">グラフを表示できませんでした。</p>
@@ -362,11 +365,11 @@
                          (../../docs/shared/decisions/0006-ideco-to-lifeplan-handoff-concept.md)の
                          設計を踏襲、ui.jsのclickハンドラ参照) -->
                     <div class="optional-section-link" id="lifeplan_handoff_link_wrap">
-                        <p class="field-note">もっと詳しく試算したい場合は、lifeplanで入力し直すこともできます(全項目を自分で入力する、より詳細な試算サイトです)。</p>
+                        <p class="field-note">もっと詳しく試算したい場合は、ライフプランシミュレーターで入力し直すこともできます(全項目を自分で入力する、より詳細な試算サイトです)。</p>
                         <!-- 引き継ぐ公的年金受給開始年齢(MEMO.md 2026/9/26コメント1-(3)。ui.jsの_renderHandoffNoteが
                              トピックに応じた文言と現在の年齢を表示する) -->
                         <p class="field-note" id="lifeplan_handoff_note"></p>
-                        <a href="/lifeplan/" target="_blank" rel="noopener" class="btn btn-primary" id="btn_lifeplan_handoff">lifeplanで詳しく試算する</a>
+                        <a href="/lifeplan/" target="_blank" rel="noopener" class="btn btn-primary" id="btn_lifeplan_handoff">ライフプランシミュレーターで<wbr>詳しく試算する</a>
                     </div>
                 </div>
             </div>

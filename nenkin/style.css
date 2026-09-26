@@ -52,6 +52,18 @@ body {
     margin-bottom: 20px;
 }
 
+/* サイト名(MEMO.md 2026/9/26コメント1-(8))。rebalance・lifeplanのヘッダーh1と同じ左上に置き、
+   下線でステップ見出しと区切る。主見出しはステップ名(h1)のため、それより控えめにする */
+.site-name {
+    font-size: 15px;
+    font-weight: bold;
+    color: var(--primary-dark);
+    letter-spacing: 0.02em;
+    padding-bottom: 8px;
+    margin-bottom: 4px;
+    border-bottom: 1px solid var(--border);
+}
+
 .wizard-header-top {
     display: flex;
     align-items: center;
@@ -259,6 +271,13 @@ body {
 
 .optional-section-split .optional-section-link .field-note {
     margin: 0 0 10px;
+}
+
+/* ボタン文言がサイト名「ライフプランシミュレーター」を含み長くなったため(docs/shared/decisions/0008)、
+   狭い画面ではサイト名の途中で折り返さず、index.htmlの<wbr>(「〜で」の直後)でのみ折り返す */
+.optional-section-split .optional-section-link .btn {
+    word-break: keep-all;
+    overflow-wrap: anywhere;
 }
 
 .form-field {
