@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ライフプランシミュレーター</title>
-    <link rel="stylesheet" href="style.11b3291eea.css">
+    <link rel="stylesheet" href="style.9b3e24ac76.css">
 </head>
 <body>
 
@@ -224,16 +224,38 @@
                                 <span class="unit">歳</span>
                             </div>
                         </div>
+                        <!-- 法定相続人は配偶者(世帯の人物から自動判定)と子のみを扱う(MEMO.md 2026/9/27コメント2-(2)、ADR 0030) -->
                         <div class="form-field">
-                            <label for="input_inheritance_legal_heirs">法定相続人数</label>
-                            <div class="field-with-unit">
-                                <input type="text" id="input_inheritance_legal_heirs" inputmode="numeric" autocomplete="off" spellcheck="false">
-                                <span class="unit">人</span>
-                            </div>
-                            <p class="field-note">法定相続分に応じた精緻な按分・配偶者の税額軽減特例は行わない簡易近似です。</p>
+                            <label>配偶者</label>
+                            <p class="inheritance-spouse-status" id="inheritance_spouse_status"></p>
+                        </div>
+                        <div class="form-field">
+                            <label for="select_inheritance_child_heirs">子の人数</label>
+                            <select id="select_inheritance_child_heirs"></select>
+                            <p class="field-note">別世帯の子も含めます。子がいない場合の父母・兄弟姉妹の相続は対象外です。</p>
+                        </div>
+                        <div class="form-field" id="inheritance_spouse_share_field">
+                            <label for="select_inheritance_spouse_share">配偶者の取得割合</label>
+                            <select id="select_inheritance_spouse_share"></select>
+                            <p class="field-note">配偶者が相続する財産の割合です。配偶者の取得額が1億6,000万円または法定相続分の大きい方までなら、配偶者の相続税はかかりません(配偶者の税額軽減)。</p>
                         </div>
                     </div>
-                    <p class="field-note">対象資産の範囲は現金・預金・有価証券・自宅・貴金属程度を想定し、不動産の詳細評価等は対象外です。</p>
+                    <div class="inheritance-real-estate">
+                        <div class="section-title-sub">不動産</div>
+                        <p class="field-note">任意入力です。評価額は相続税評価額の目安を入力してください(土地は路線価、建物は固定資産税評価額)。死亡時まで評価額は変わらないものとして計算します。「自宅の土地」にチェックすると、小規模宅地等の特例(配偶者・同居の子が相続する場合に評価額を80%減額)を適用します(面積330㎡までの特例のため、広い土地は減額が過大になります)。</p>
+                        <div class="table-responsive">
+                            <table class="dynamic-list-table">
+                                <thead>
+                                    <tr><th>名称</th><th>評価額</th><th>名義人</th><th>自宅の土地</th><th></th></tr>
+                                </thead>
+                                <tbody id="real_estate_rows"></tbody>
+                            </table>
+                        </div>
+                        <div class="dynamic-list-add">
+                            <button type="button" id="btn_add_real_estate" class="btn btn-link">+ 不動産を追加</button>
+                        </div>
+                    </div>
+                    <p class="field-note">相続財産は、死亡年齢時点の被相続人名義の資産(現金・預金・有価証券等)と、上の不動産です。相続税の総額は法定相続分で計算し、配偶者の取得割合で配偶者・子に按分します。</p>
                     <div class="inheritance-result-box" id="inheritance_result_box"></div>
                 </div>
             </div>
@@ -435,14 +457,14 @@
     </div>
 
     <script src="storage.2ec613f10e.js"></script>
-    <script src="constants.7e10edb774.js"></script>
+    <script src="constants.0dc76abc57.js"></script>
     <script src="shared/pattern-builders.72ec993c2f.js"></script>
-    <script src="shared/calculator.b2a72ab692.js"></script>
+    <script src="shared/calculator.cd9884845a.js"></script>
     <!-- 生涯合計の集計(全プラン比較・各ウィザード・ideco-bridge.js等が使う、docs/shared/decisions/0007参照) -->
     <script src="shared/lifetime-totals.5a9df7c345.js"></script>
     <!-- ideco→lifeplanへのデータ引き継ぎ(model.jsのcheckIdecoHandoff/importHandoffPatternが
          IdecoBridge.HANDOFF_STORAGE_KEYを参照する、docs/shared/decisions/0006参照) -->
-    <script src="shared/ideco-bridge.ec6efe7994.js"></script>
+    <script src="shared/ideco-bridge.bd264a3bff.js"></script>
     <!-- iDeCo出口戦略のグリッド探索(iDeCo資産追加ウィザードが使う、idecoと共通、
          docs/shared/decisions/0007参照) -->
     <script src="shared/ideco-exit-optimizer.0d253c4e9a.js"></script>
@@ -453,13 +475,13 @@
     <!-- 公的年金受給開始年齢のグリッド探索(nenkinトピックA・lifeplan「公的年金」タブのウィザードで共通、
          lifeplan ADR 0027参照)。nenkin-bridge.jsが参照するため、必ずその前に読み込む -->
     <script src="shared/pension-claim-optimizer.527d43ebc3.js"></script>
-    <script src="shared/nenkin-bridge.77f816ed1a.js"></script>
-    <script src="model.b174ec332f.js"></script>
+    <script src="shared/nenkin-bridge.e45a91471d.js"></script>
+    <script src="model.4dc8054bb4.js"></script>
     <script src="auth.f95b7f2cb8.js"></script>
     <script src="consent.6a30cb2135.js"></script>
     <script src="resize-notifier.bbc2b52d92.js"></script>
     <script src="vendor/chart.5e218aa7fa.js"></script>
-    <script src="ui.fc0101900c.js"></script>
+    <script src="ui.c78ce49a04.js"></script>
     <script>
         window.model = new LifeplanModel({ window: window, storage: AppStorage });
         AppAuth.init();
