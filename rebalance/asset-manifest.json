@@ -29,6 +29,21 @@
         "ui.2bb97f5b29.js",
         "vendor/chart.c56b586973.js"
       ]
+    },
+    {
+      "deployedAt": "2026-09-27T00:22:50.953Z",
+      "files": [
+        "auth.3451c4b58b.js",
+        "consent.12d767ca52.js",
+        "model.7155f63228.js",
+        "ocr.81209fb21e.js",
+        "resize-notifier.026b62acdf.js",
+        "solver.203eebad43.js",
+        "storage.e044a6e035.js",
+        "style.9005e827b6.css",
+        "ui.2bb97f5b29.js",
+        "vendor/chart.c56b586973.js"
+      ]
     }
   ]
 }
