@@ -150,7 +150,7 @@
                     <div class="table-responsive">
                         <table class="dynamic-list-table">
                             <thead>
-                                <tr><th>受贈者</th><th>年贈与額</th><th>開始年齢</th><th>期間(年)</th><th>子・孫(18歳以上)</th><th>精算課税</th><th>受贈者の贈与税(年額・概算)</th><th></th></tr>
+                                <tr><th>受贈者</th><th>年贈与額</th><th>開始年齢</th><th>期間(年)</th><th>子・孫(18歳以上)</th><th>精算課税</th><th>受贈者の贈与税(概算)</th><th></th></tr>
                             </thead>
                             <tbody id="gift_rows"></tbody>
                         </table>
@@ -160,6 +160,8 @@
                     <div class="dynamic-list-add">
                         <button type="button" id="btn_add_gift" class="btn btn-link">+ 世帯外への生前贈与を追加</button>
                     </div>
+                    <!-- 相続時精算課税の要点(ADR 0030第2段階)。文言はui.jsのACCUMULATION_TAX_SYSTEM_NOTEを表示する -->
+                    <p class="field-note" id="gift_accumulation_note"></p>
                 </div>
             </div>
 
@@ -452,9 +454,9 @@
     </div>
 
     <script src="storage.2ec613f10e.js"></script>
-    <script src="constants.0dc76abc57.js"></script>
+    <script src="constants.b5e94e4f1c.js"></script>
     <script src="shared/pattern-builders.00f8dd958b.js"></script>
-    <script src="shared/calculator.e50e64d456.js"></script>
+    <script src="shared/calculator.aae77692eb.js"></script>
     <!-- 生涯合計の集計(全プラン比較・各ウィザード・ideco-bridge.js等が使う、docs/shared/decisions/0007参照) -->
     <script src="shared/lifetime-totals.5a9df7c345.js"></script>
     <!-- ideco→lifeplanへのデータ引き継ぎ(model.jsのcheckIdecoHandoff/importHandoffPatternが
@@ -471,12 +473,12 @@
          lifeplan ADR 0027参照)。nenkin-bridge.jsが参照するため、必ずその前に読み込む -->
     <script src="shared/pension-claim-optimizer.527d43ebc3.js"></script>
     <script src="shared/nenkin-bridge.78beb26b1c.js"></script>
-    <script src="model.1d836f7ed1.js"></script>
+    <script src="model.39d2e58a5f.js"></script>
     <script src="auth.f95b7f2cb8.js"></script>
     <script src="consent.6a30cb2135.js"></script>
     <script src="resize-notifier.bbc2b52d92.js"></script>
     <script src="vendor/chart.5e218aa7fa.js"></script>
-    <script src="ui.5fa62eae51.js"></script>
+    <script src="ui.3b5af688fa.js"></script>
     <script>
         window.model = new LifeplanModel({ window: window, storage: AppStorage });
         AppAuth.init();
