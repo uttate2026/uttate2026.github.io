@@ -1,28 +1,6 @@
 {
   "deploys": [
     {
-      "deployedAt": "2026-09-26T20:38:00.957Z",
-      "files": [
-        "auth.ef7458c8e3.js",
-        "calculator.995a6fcb76.js",
-        "consent.b25699fa6f.js",
-        "constants.8c5f7623f7.js",
-        "model.d8867a09a9.js",
-        "resize-notifier.05f93b8246.js",
-        "shared/calculator.7cf0c4380c.js",
-        "shared/comparison-topics.e3227fe415.js",
-        "shared/ideco-bridge.799428d8ab.js",
-        "shared/ideco-exit-optimizer.a6fe780773.js",
-        "shared/lifeplan-constants.8fc8ea17f5.js",
-        "shared/lifetime-totals.fc5b7bc8bc.js",
-        "shared/pattern-builders.d263173b84.js",
-        "storage.2e525870e8.js",
-        "style.700a1bb133.css",
-        "ui.9adee8d783.js",
-        "vendor/chart.a51c63dc1c.js"
-      ]
-    },
-    {
       "deployedAt": "2026-09-26T21:50:56.112Z",
       "files": [
         "auth.fddd50353c.js",
@@ -104,6 +82,28 @@
         "shared/lifeplan-constants.62de942bfd.js",
         "shared/lifetime-totals.f15ab21917.js",
         "shared/pattern-builders.ada6ff488f.js",
+        "storage.d211cabfdf.js",
+        "style.700a1bb133.css",
+        "ui.2bf00d4e58.js",
+        "vendor/chart.5bfac0bf2e.js"
+      ]
+    },
+    {
+      "deployedAt": "2026-09-27T02:00:41.440Z",
+      "files": [
+        "auth.0b9a540a6a.js",
+        "calculator.d868cb3ad6.js",
+        "consent.79ec7cb821.js",
+        "constants.d42b8b6cda.js",
+        "model.bc49d77344.js",
+        "resize-notifier.8b3c8e9088.js",
+        "shared/calculator.12806bc423.js",
+        "shared/comparison-topics.9675e190a4.js",
+        "shared/ideco-bridge.c0902c4262.js",
+        "shared/ideco-exit-optimizer.6833c4b3e9.js",
+        "shared/lifeplan-constants.62de942bfd.js",
+        "shared/lifetime-totals.f15ab21917.js",
+        "shared/pattern-builders.05daf64502.js",
         "storage.d211cabfdf.js",
         "style.700a1bb133.css",
         "ui.2bf00d4e58.js",
