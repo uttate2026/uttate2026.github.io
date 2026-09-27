@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ライフプランシミュレーター</title>
-    <link rel="stylesheet" href="style.9b3e24ac76.css">
+    <link rel="stylesheet" href="style.12fea91da0.css">
 </head>
 <body>
 
@@ -237,7 +237,11 @@
                         <div class="form-field" id="inheritance_spouse_share_field">
                             <label for="select_inheritance_spouse_share">配偶者の取得割合</label>
                             <select id="select_inheritance_spouse_share"></select>
-                            <p class="field-note">配偶者が相続する財産の割合です。配偶者の取得額が1億6,000万円または法定相続分の大きい方までなら、配偶者の相続税はかかりません(配偶者の税額軽減)。</p>
+                            <p class="field-note">配偶者が相続する財産の割合です。配偶者の取得額が1億6,000万円または法定相続分の大きい方までなら、配偶者の相続税はかかりません(配偶者の税額軽減)。ただし配偶者が多く相続するほど、配偶者が亡くなったとき(二次相続)の相続税が増えます。</p>
+                            <!-- 二次相続まで含めた合計の相続税が最小になる取得割合を探す(MEMO.md 2026/9/27コメント2-(2)⑤、ADR 0030第3段階) -->
+                            <div class="pension-wizard-button-row">
+                                <button type="button" id="btn_open_estate_wizard" class="btn btn-secondary">🧙 ウィザードで最適化する</button>
+                            </div>
                         </div>
                     </div>
                     <div class="inheritance-real-estate">
@@ -416,6 +420,41 @@
         </div>
     </div>
 
+    <!-- 遺産分割(配偶者の取得割合)の最適化ウィザード(ADR 0030第3段階) -->
+    <div id="estate_wizard_modal" class="modal-overlay" style="display: none;">
+        <div class="card modal-card modal-card-wide">
+            <button type="button" id="btn_estate_wizard_modal_close" class="modal-close" aria-label="閉じる">×</button>
+            <div class="section-title">遺産分割ウィザードで最適化する</div>
+
+            <div id="estate_wizard_step_input">
+                <div class="form-field field-with-unit-narrow">
+                    <label for="estate_wizard_spouse_death_age" id="estate_wizard_spouse_death_age_label">配偶者の死亡年齢(二次相続の時期)</label>
+                    <select id="estate_wizard_spouse_death_age"></select>
+                    <p class="field-note">初期値は配偶者の人物タブの死亡予測年齢です。</p>
+                </div>
+                <p class="field-note">配偶者の取得割合を0〜100%(10%刻み)で変え、一次相続(被相続人の死亡)と二次相続(配偶者の死亡)の相続税の合計が最小になる割合を探します。</p>
+                <p class="field-note">※ 簡易化のため、一次相続で配偶者が相続した財産は二次相続まで増減しない(運用益・生活費での取り崩しを見ない)ものとして計算します(実際には使った分だけ二次相続の財産は減るため、二次相続の相続税は多めに出ます)。相次相続控除(10年以内に続けて相続があった場合の控除)は考慮しません。</p>
+                <div class="button-row modal-actions">
+                    <button type="button" id="btn_estate_wizard_cancel" class="btn btn-link">キャンセル</button>
+                    <button type="button" id="btn_estate_wizard_search" class="btn btn-primary">探索する</button>
+                </div>
+            </div>
+
+            <div id="estate_wizard_step_result" hidden>
+                <p class="field-note" id="estate_wizard_result_summary"></p>
+                <div class="table-responsive">
+                    <table class="pension-wizard-compare-table estate-wizard-table" id="estate_wizard_table">
+                        <thead><tr><th>配偶者の取得割合</th><th>一次相続</th><th>二次相続</th><th>合計</th><th></th></tr></thead>
+                        <tbody></tbody>
+                    </table>
+                </div>
+                <div class="button-row modal-actions">
+                    <button type="button" id="btn_estate_wizard_back" class="btn btn-link">条件を変える</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <div id="income_add_modal" class="modal-overlay" style="display: none;">
         <div class="card modal-card">
             <button type="button" id="btn_income_add_modal_close" class="modal-close" aria-label="閉じる">×</button>
@@ -456,7 +495,7 @@
     <script src="storage.2ec613f10e.js"></script>
     <script src="constants.b5e94e4f1c.js"></script>
     <script src="shared/pattern-builders.00f8dd958b.js"></script>
-    <script src="shared/calculator.aae77692eb.js"></script>
+    <script src="shared/calculator.80c0b680ee.js"></script>
     <!-- 生涯合計の集計(全プラン比較・各ウィザード・ideco-bridge.js等が使う、docs/shared/decisions/0007参照) -->
     <script src="shared/lifetime-totals.5a9df7c345.js"></script>
     <!-- ideco→lifeplanへのデータ引き継ぎ(model.jsのcheckIdecoHandoff/importHandoffPatternが
@@ -478,7 +517,7 @@
     <script src="consent.6a30cb2135.js"></script>
     <script src="resize-notifier.bbc2b52d92.js"></script>
     <script src="vendor/chart.5e218aa7fa.js"></script>
-    <script src="ui.3b5af688fa.js"></script>
+    <script src="ui.62caf9e9eb.js"></script>
     <script>
         window.model = new LifeplanModel({ window: window, storage: AppStorage });
         AppAuth.init();

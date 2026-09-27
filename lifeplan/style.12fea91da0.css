@@ -902,11 +902,6 @@ th, td {
     margin-top: 8px;
 }
 
-.dynamic-list-add-top {
-    /* 表の上に置く追加ボタン(生前贈与<世帯外>タブ、MEMO.md 2026/9/26のフィードバック) */
-    margin: 8px 0 12px;
-}
-
 .dynamic-list-add select {
     width: auto;
 }
@@ -947,6 +942,15 @@ th, td {
     flex-wrap: wrap;
     gap: 12px;
     margin-bottom: 16px;
+}
+
+.inheritance-spouse-status {
+    margin: 6px 0 0;
+    font-size: 14px;
+}
+
+.inheritance-real-estate {
+    margin-bottom: 12px;
 }
 
 .inheritance-result-box {
@@ -1080,6 +1084,16 @@ th, td {
 
 .pension-wizard-compare-table .row-reference {
     color: var(--text-secondary);
+}
+
+/* 遺産分割ウィザード(ADR 0030第3段階): 合計が最小の行と、今の設定の行を目立たせる */
+.estate-wizard-table tbody tr.best-row {
+    background: var(--primary-tint);
+    font-weight: bold;
+}
+
+.estate-wizard-table tbody th {
+    min-width: 8em;
 }
 
 .btn-link:disabled {

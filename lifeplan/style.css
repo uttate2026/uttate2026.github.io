@@ -1086,6 +1086,16 @@ th, td {
     color: var(--text-secondary);
 }
 
+/* 遺産分割ウィザード(ADR 0030第3段階): 合計が最小の行と、今の設定の行を目立たせる */
+.estate-wizard-table tbody tr.best-row {
+    background: var(--primary-tint);
+    font-weight: bold;
+}
+
+.estate-wizard-table tbody th {
+    min-width: 8em;
+}
+
 .btn-link:disabled {
     color: var(--text-secondary);
     cursor: not-allowed;
