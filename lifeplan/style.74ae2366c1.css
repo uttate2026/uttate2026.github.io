@@ -446,9 +446,15 @@ input[inputmode="numeric"], input[inputmode="decimal"] {
 
 /* 資産残高推移グラフ・全プラン比較グラフ(ADR 0004、Chart.js)。高さは2026-09-14の
    フィードバックで280pxから560px(約2倍)に拡大した */
-#asset_chart_wrap, #compare_chart_wrap {
+#asset_chart_canvas_wrap, #compare_chart_wrap {
     position: relative;
     height: 560px;
+    margin-top: 16px;
+}
+
+/* 資産推移グラフの枠はサブタブ+キャンバスの枠(#asset_chart_canvas_wrap)を包むだけで、高さは固定しない
+   (高さを固定するとキャンバスが枠からはみ出し、下の「明細を見る」に重なるため、ADR 0032) */
+#asset_chart_wrap {
     margin-top: 16px;
 }
 
@@ -737,11 +743,92 @@ th, td {
     background: linear-gradient(to left, rgba(15, 23, 42, 0.18), rgba(15, 23, 42, 0));
 }
 
-/* シミュレーション結果の明細表、開閉可能なグループ見出し(2026-09-11のフィードバックで追加) */
+/* 全プラン比較表の、開閉可能なグループ見出し(2026-09-11のフィードバックで明細表に追加し、明細表の廃止<ADR 0032>
+   後も全プラン比較表で使う) */
 .result-table-group-header {
     cursor: pointer;
     user-select: none;
     background: var(--bg-main);
+}
+
+/* シミュレーション結果の「明細を見る」(MEMO.md 2026/9/28コメント1-(2)、ADR 0032)。ねんきんプランナー②と同じ
+   ネイティブの<details>で、選んだ1年分を縦の一覧(行=項目、列=人物・合計)で表示する */
+.detail-toggle {
+    margin-top: 16px;
+}
+
+.detail-toggle > summary {
+    cursor: pointer;
+    font-weight: bold;
+    color: var(--primary);
+    padding: 6px 0;
+}
+
+.result-detail-age-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex-wrap: wrap;
+    margin: 8px 0 4px;
+}
+
+.result-detail-age-row input {
+    width: 72px;
+}
+
+/* スライダーの左右の端を、グラフの描画範囲(Chart.jsのchartArea)に合わせる。paddingはJS側
+   (ChartAgeCursor.alignSlider)で描画後に動的に設定する */
+.range-input-align {
+    box-sizing: border-box;
+    margin-bottom: 12px;
+}
+
+/* ブラウザ既定の左右マージン(Chromeは2px)があると、グラフの描画範囲とずれるため消す */
+.range-input-align .range-input {
+    display: block;
+    width: 100%;
+    margin-left: 0;
+    margin-right: 0;
+}
+
+.result-detail-table th,
+.result-detail-table td {
+    white-space: nowrap;
+}
+
+.result-detail-table td {
+    text-align: right;
+    font-variant-numeric: tabular-nums;
+}
+
+.result-detail-table tbody th {
+    font-weight: normal;
+    text-align: left;
+}
+
+/* 小計の行(クリックで内訳を開閉)と内訳の行 */
+.result-detail-table .group-row {
+    cursor: pointer;
+    user-select: none;
+    background: var(--bg-main);
+}
+
+.result-detail-table .group-row th {
+    font-weight: bold;
+}
+
+.result-detail-table .row-indent {
+    padding-left: 1.5em;
+}
+
+/* 内訳のさらに内訳(公的年金の「うち加給年金」) */
+.result-detail-table .row-indent-2 {
+    padding-left: 3em;
+    color: var(--text-secondary);
+}
+
+.result-detail-table .total-col {
+    font-weight: bold;
 }
 
 /* 資産タブで積立資金の出し手に「世帯主からの贈与」を選んだ場合の注意書き(MEMO.md 2026/9/26コメント2-(2)
@@ -944,6 +1031,15 @@ th, td {
     margin-bottom: 16px;
 }
 
+.inheritance-spouse-status {
+    margin: 6px 0 0;
+    font-size: 14px;
+}
+
+.inheritance-real-estate {
+    margin-bottom: 12px;
+}
+
 .inheritance-result-box {
     display: grid;
     grid-template-columns: 1fr auto;
@@ -1075,6 +1171,16 @@ th, td {
 
 .pension-wizard-compare-table .row-reference {
     color: var(--text-secondary);
+}
+
+/* 遺産分割ウィザード(ADR 0030第3段階): 合計が最小の行と、今の設定の行を目立たせる */
+.estate-wizard-table tbody tr.best-row {
+    background: var(--primary-tint);
+    font-weight: bold;
+}
+
+.estate-wizard-table tbody th {
+    min-width: 8em;
 }
 
 .btn-link:disabled {

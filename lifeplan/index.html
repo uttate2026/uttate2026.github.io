@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ライフプランシミュレーター</title>
-    <link rel="stylesheet" href="style.12fea91da0.css">
+    <link rel="stylesheet" href="style.74ae2366c1.css">
 </head>
 <body>
 
@@ -181,27 +181,41 @@
                         <span class="result-summary-value" id="summary_social_insurance">¥0</span>
                     </div>
                 </div>
-                <div class="sub-tabs-bar" id="result_view_tabs_row">
-                    <button type="button" class="sub-tab-btn active" data-action="select-result-view" data-result-view="graph">グラフ</button>
-                    <button type="button" class="sub-tab-btn" data-action="select-result-view" data-result-view="table">明細</button>
-                </div>
+                <!-- 以前の「グラフ/明細」タブ(全年齢の明細表)は廃止し、グラフの下の「明細を見る」で1年分を
+                     表示する(MEMO.md 2026/9/28コメント1-(2)、docs/lifeplan/decisions/0032) -->
                 <div id="asset_chart_wrap">
                     <div class="sub-tabs-bar" id="asset_chart_type_tabs_row">
                         <button type="button" class="sub-tab-btn active" data-action="select-asset-chart-type" data-asset-chart-type="stacked">積み上げ面グラフ</button>
                         <button type="button" class="sub-tab-btn" data-action="select-asset-chart-type" data-asset-chart-type="line">折れ線グラフ</button>
                     </div>
-                    <canvas id="asset_chart_canvas"></canvas>
+                    <!-- キャンバスは高さ固定の専用の枠に入れる(サブタブと同じ枠だとキャンバスが枠からはみ出し、下の
+                         「明細を見る」に重なってクリックできなかった、ADR 0032) -->
+                    <div id="asset_chart_canvas_wrap">
+                        <canvas id="asset_chart_canvas"></canvas>
+                    </div>
                     <p id="asset_chart_error" class="alert-text" style="display: none;">グラフを表示できませんでした。</p>
                 </div>
-                <div id="result_table_wrap" style="display: none;">
-                    <div class="sub-tabs-bar" id="result_table_tabs_row"></div>
+                <!-- ねんきんプランナー②の「明細を見る」と同じ形(既定は畳んだ状態)。スライダーの左右の端はグラフの
+                     描画範囲に合わせ(ChartAgeCursor.alignSlider)、開いている間はグラフ内に選んだ年齢の縦線を引く -->
+                <details class="detail-toggle" id="result_detail_toggle">
+                    <summary>明細を見る</summary>
+                    <div class="result-detail-age-row">
+                        <label for="input_result_detail_age_slider">明細を表示したい年齢(世帯主の年齢)</label>
+                        <div class="field-with-unit field-with-unit-narrow">
+                            <input type="text" id="input_result_detail_age" inputmode="numeric" autocomplete="off" spellcheck="false">
+                            <span class="unit">歳</span>
+                        </div>
+                    </div>
+                    <div class="range-input-align" id="result_detail_age_slider_align">
+                        <input type="range" id="input_result_detail_age_slider" class="range-input" min="0" max="100" step="1" value="40">
+                    </div>
                     <div class="table-responsive">
-                        <table>
-                            <thead id="result_table_head"></thead>
-                            <tbody id="result_table_body"></tbody>
+                        <table class="result-detail-table">
+                            <thead id="result_detail_head"></thead>
+                            <tbody id="result_detail_body"></tbody>
                         </table>
                     </div>
-                </div>
+                </details>
             </div>
 
             <div class="card">
@@ -222,7 +236,7 @@
                         <div class="form-field">
                             <label for="select_inheritance_death_age">死亡年齢(被相続人の死亡予測年齢)</label>
                             <select id="select_inheritance_death_age"></select>
-                            <p class="field-note">被相続人の人物タブの「死亡予測年齢」と同じ値です(どちらで変えても連動します)。</p>
+                            <p class="field-note">人物ごとの死亡予測年齢です。公的年金・iDeCo・遺産分割のウィザードの死亡予測年齢と共通の値で、どこで変えても連動します。</p>
                         </div>
                         <!-- 法定相続人は配偶者(世帯の人物から自動判定)と子のみを扱う(MEMO.md 2026/9/27コメント2-(2)、ADR 0030) -->
                         <div class="form-field">
@@ -430,7 +444,7 @@
                 <div class="form-field field-with-unit-narrow">
                     <label for="estate_wizard_spouse_death_age" id="estate_wizard_spouse_death_age_label">配偶者の死亡年齢(二次相続の時期)</label>
                     <select id="estate_wizard_spouse_death_age"></select>
-                    <p class="field-note">初期値は配偶者の人物タブの死亡予測年齢です。</p>
+                    <p class="field-note">配偶者の死亡予測年齢です(相続税・各ウィザードと共通の値で、ここで変えると他の場面にも反映されます)。</p>
                 </div>
                 <p class="field-note">配偶者の取得割合を0〜100%(10%刻み)で変え、一次相続(被相続人の死亡)と二次相続(配偶者の死亡)の相続税の合計が最小になる割合を探します。</p>
                 <p class="field-note">※ 簡易化のため、一次相続で配偶者が相続した財産は二次相続まで増減しない(運用益・生活費での取り崩しを見ない)ものとして計算します(実際には使った分だけ二次相続の財産は減るため、二次相続の相続税は多めに出ます)。相次相続控除(10年以内に続けて相続があった場合の控除)は考慮しません。</p>
@@ -492,32 +506,33 @@
         </div>
     </div>
 
-    <script src="storage.2ec613f10e.js"></script>
+    <script src="storage.76fa7519cf.js"></script>
     <script src="constants.b5e94e4f1c.js"></script>
-    <script src="shared/pattern-builders.00f8dd958b.js"></script>
+    <script src="shared/pattern-builders.d18073441b.js"></script>
     <script src="shared/calculator.80c0b680ee.js"></script>
     <!-- 生涯合計の集計(全プラン比較・各ウィザード・ideco-bridge.js等が使う、docs/shared/decisions/0007参照) -->
-    <script src="shared/lifetime-totals.5a9df7c345.js"></script>
+    <script src="shared/lifetime-totals.8e3dce3a61.js"></script>
     <!-- ideco→lifeplanへのデータ引き継ぎ(model.jsのcheckIdecoHandoff/importHandoffPatternが
          IdecoBridge.HANDOFF_STORAGE_KEYを参照する、docs/shared/decisions/0006参照) -->
-    <script src="shared/ideco-bridge.6b487b4d74.js"></script>
+    <script src="shared/ideco-bridge.c0902c4262.js"></script>
     <!-- iDeCo出口戦略のグリッド探索(iDeCo資産追加ウィザードが使う、idecoと共通、
          docs/shared/decisions/0007参照) -->
-    <script src="shared/ideco-exit-optimizer.0d253c4e9a.js"></script>
+    <script src="shared/ideco-exit-optimizer.6833c4b3e9.js"></script>
     <!-- nenkin→lifeplanへのデータ引き継ぎ(同上、model.jsのcheckNenkinHandoffが
          NenkinBridge.HANDOFF_STORAGE_KEYを参照する、docs/nenkin/decisions/0001
          「2026-09-23改訂(続き11)」参照。2026-09-20にideco版で発覚した「スクリプトタグ漏れで
          引き継ぎキーを読めない」不具合の再発防止のため、必ずmodel.jsより前に追加すること) -->
     <!-- 公的年金受給開始年齢のグリッド探索(nenkinトピックA・lifeplan「公的年金」タブのウィザードで共通、
          lifeplan ADR 0027参照)。nenkin-bridge.jsが参照するため、必ずその前に読み込む -->
-    <script src="shared/pension-claim-optimizer.527d43ebc3.js"></script>
-    <script src="shared/nenkin-bridge.78beb26b1c.js"></script>
+    <script src="shared/pension-claim-optimizer.38c1f0ef57.js"></script>
+    <script src="shared/nenkin-bridge.d73504c39a.js"></script>
+    <script src="shared/chart-age-cursor.1750b68344.js"></script>
     <script src="model.39d2e58a5f.js"></script>
     <script src="auth.f95b7f2cb8.js"></script>
     <script src="consent.6a30cb2135.js"></script>
     <script src="resize-notifier.bbc2b52d92.js"></script>
-    <script src="vendor/chart.5e218aa7fa.js"></script>
-    <script src="ui.62caf9e9eb.js"></script>
+    <script src="vendor/chart.db1fa2979c.js"></script>
+    <script src="ui.4ed5692231.js"></script>
     <script>
         window.model = new LifeplanModel({ window: window, storage: AppStorage });
         AppAuth.init();
