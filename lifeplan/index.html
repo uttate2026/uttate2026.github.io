@@ -218,11 +218,9 @@
                             <p class="field-note">被相続人名義の資産(現金・預金は世帯主名義)を相続財産とします。生前贈与加算は、世帯主が被相続人の場合のみ行います(贈与者はいずれも世帯主のため)。</p>
                         </div>
                         <div class="form-field">
-                            <label for="input_inheritance_death_age">死亡年齢(被相続人の年齢)</label>
-                            <div class="field-with-unit">
-                                <input type="text" id="input_inheritance_death_age" inputmode="numeric" autocomplete="off" spellcheck="false">
-                                <span class="unit">歳</span>
-                            </div>
+                            <label for="select_inheritance_death_age">死亡年齢(被相続人の死亡予測年齢)</label>
+                            <select id="select_inheritance_death_age"></select>
+                            <p class="field-note">被相続人の人物タブの「死亡予測年齢」と同じ値です(どちらで変えても連動します)。</p>
                         </div>
                         <!-- 法定相続人は配偶者(世帯の人物から自動判定)と子のみを扱う(MEMO.md 2026/9/27コメント2-(2)、ADR 0030) -->
                         <div class="form-field">
@@ -267,10 +265,7 @@
                 <div class="section-title">全プラン比較</div>
                 <div class="form-field field-with-unit-narrow">
                     <label for="compare_death_age">死亡予測年齢</label>
-                    <div class="field-with-unit">
-                        <input type="text" id="compare_death_age" inputmode="numeric">
-                        <span class="unit">歳</span>
-                    </div>
+                    <select id="compare_death_age"></select>
                 </div>
                 <div class="table-responsive">
                     <table>
@@ -458,13 +453,13 @@
 
     <script src="storage.2ec613f10e.js"></script>
     <script src="constants.0dc76abc57.js"></script>
-    <script src="shared/pattern-builders.72ec993c2f.js"></script>
-    <script src="shared/calculator.cd9884845a.js"></script>
+    <script src="shared/pattern-builders.00f8dd958b.js"></script>
+    <script src="shared/calculator.e50e64d456.js"></script>
     <!-- 生涯合計の集計(全プラン比較・各ウィザード・ideco-bridge.js等が使う、docs/shared/decisions/0007参照) -->
     <script src="shared/lifetime-totals.5a9df7c345.js"></script>
     <!-- ideco→lifeplanへのデータ引き継ぎ(model.jsのcheckIdecoHandoff/importHandoffPatternが
          IdecoBridge.HANDOFF_STORAGE_KEYを参照する、docs/shared/decisions/0006参照) -->
-    <script src="shared/ideco-bridge.bd264a3bff.js"></script>
+    <script src="shared/ideco-bridge.6b487b4d74.js"></script>
     <!-- iDeCo出口戦略のグリッド探索(iDeCo資産追加ウィザードが使う、idecoと共通、
          docs/shared/decisions/0007参照) -->
     <script src="shared/ideco-exit-optimizer.0d253c4e9a.js"></script>
@@ -475,13 +470,13 @@
     <!-- 公的年金受給開始年齢のグリッド探索(nenkinトピックA・lifeplan「公的年金」タブのウィザードで共通、
          lifeplan ADR 0027参照)。nenkin-bridge.jsが参照するため、必ずその前に読み込む -->
     <script src="shared/pension-claim-optimizer.527d43ebc3.js"></script>
-    <script src="shared/nenkin-bridge.e45a91471d.js"></script>
-    <script src="model.4dc8054bb4.js"></script>
+    <script src="shared/nenkin-bridge.78beb26b1c.js"></script>
+    <script src="model.1d836f7ed1.js"></script>
     <script src="auth.f95b7f2cb8.js"></script>
     <script src="consent.6a30cb2135.js"></script>
     <script src="resize-notifier.bbc2b52d92.js"></script>
     <script src="vendor/chart.5e218aa7fa.js"></script>
-    <script src="ui.c78ce49a04.js"></script>
+    <script src="ui.5fa62eae51.js"></script>
     <script>
         window.model = new LifeplanModel({ window: window, storage: AppStorage });
         AppAuth.init();
