@@ -58,7 +58,8 @@
         <div id="dashboard_workspace">
 
             <div class="card">
-                <div class="section-title">1. 収入</div>
+                <!-- 人物(世帯構成)とその収入を入れるカード(MEMO.md 2026/9/28コメント1-(3)で「1. 収入」から改名) -->
+                <div class="section-title">1. 世帯構成と収入</div>
                 <div class="sub-tabs-bar">
                     <div class="sub-tabs-scroll" id="person_tabs_row"></div>
                 </div>
@@ -185,8 +186,10 @@
                      表示する(MEMO.md 2026/9/28コメント1-(2)、docs/lifeplan/decisions/0032) -->
                 <div id="asset_chart_wrap">
                     <div class="sub-tabs-bar" id="asset_chart_type_tabs_row">
-                        <button type="button" class="sub-tab-btn active" data-action="select-asset-chart-type" data-asset-chart-type="stacked">積み上げ面グラフ</button>
-                        <button type="button" class="sub-tab-btn" data-action="select-asset-chart-type" data-asset-chart-type="line">折れ線グラフ</button>
+                        <!-- タブ名はグラフの形式ではなく「何を見るか」で表す(MEMO.md 2026/9/28コメント1-(4)。以前は
+                             「積み上げ面グラフ」「折れ線グラフ」)。中身はそれぞれ積み上げ面グラフ・折れ線グラフのまま -->
+                        <button type="button" class="sub-tab-btn active" data-action="select-asset-chart-type" data-asset-chart-type="stacked">総資産で見る</button>
+                        <button type="button" class="sub-tab-btn" data-action="select-asset-chart-type" data-asset-chart-type="line">資産ごとに見る</button>
                     </div>
                     <!-- キャンバスは高さ固定の専用の枠に入れる(サブタブと同じ枠だとキャンバスが枠からはみ出し、下の
                          「明細を見る」に重なってクリックできなかった、ADR 0032) -->
@@ -532,7 +535,7 @@
     <script src="consent.6a30cb2135.js"></script>
     <script src="resize-notifier.bbc2b52d92.js"></script>
     <script src="vendor/chart.db1fa2979c.js"></script>
-    <script src="ui.4ed5692231.js"></script>
+    <script src="ui.e8dcacd3fe.js"></script>
     <script>
         window.model = new LifeplanModel({ window: window, storage: AppStorage });
         AppAuth.init();
