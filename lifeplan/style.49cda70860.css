@@ -446,9 +446,15 @@ input[inputmode="numeric"], input[inputmode="decimal"] {
 
 /* 資産残高推移グラフ・全プラン比較グラフ(ADR 0004、Chart.js)。高さは2026-09-14の
    フィードバックで280pxから560px(約2倍)に拡大した */
-#asset_chart_wrap, #compare_chart_wrap {
+#asset_chart_canvas_wrap, #compare_chart_wrap {
     position: relative;
     height: 560px;
+    margin-top: 16px;
+}
+
+/* 資産推移グラフの枠はサブタブ+キャンバスの枠(#asset_chart_canvas_wrap)を包むだけで、高さは固定しない
+   (高さを固定するとキャンバスが枠からはみ出し、下の「明細を見る」に重なるため、ADR 0032) */
+#asset_chart_wrap {
     margin-top: 16px;
 }
 
@@ -737,11 +743,122 @@ th, td {
     background: linear-gradient(to left, rgba(15, 23, 42, 0.18), rgba(15, 23, 42, 0));
 }
 
-/* シミュレーション結果の明細表、開閉可能なグループ見出し(2026-09-11のフィードバックで追加) */
+/* 全プラン比較表の、開閉可能なグループ見出し(2026-09-11のフィードバックで明細表に追加し、明細表の廃止<ADR 0032>
+   後も全プラン比較表で使う) */
 .result-table-group-header {
     cursor: pointer;
     user-select: none;
     background: var(--bg-main);
+}
+
+/* シミュレーション結果の「明細を見る」(MEMO.md 2026/9/28コメント1-(2)、ADR 0032)。ねんきんプランナー②と同じ
+   ネイティブの<details>で、選んだ1年分を縦の一覧(行=項目、列=人物・合計)で表示する */
+.detail-toggle {
+    margin-top: 16px;
+}
+
+.detail-toggle > summary {
+    cursor: pointer;
+    font-weight: bold;
+    color: var(--primary);
+    padding: 6px 0;
+}
+
+/* 年齢のスライダーの上に置く、ラベルと年齢の表示・▲▼ボタンの行(MEMO.md 2026/9/29コメント1-(2)、
+   src/shared/age-stepper.js。ねんきんプランナー・iDeCoと同じ見た目) */
+.age-slider-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    flex-wrap: wrap;
+    margin: 8px 0 4px;
+}
+
+.age-stepper {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.age-stepper-value {
+    min-width: 3.5em;
+    text-align: right;
+    font-weight: bold;
+    font-variant-numeric: tabular-nums;
+}
+
+.age-stepper-btn {
+    width: 36px;
+    height: 32px;
+    border: 1px solid var(--primary);
+    border-radius: 6px;
+    background: var(--bg-card, #fff);
+    color: var(--primary);
+    font-size: 14px;
+    line-height: 1;
+    cursor: pointer;
+}
+
+.age-stepper-btn:disabled {
+    border-color: var(--border, #cbd5e1);
+    color: var(--text-secondary);
+    cursor: not-allowed;
+}
+
+/* スライダーの左右の端を、グラフの描画範囲(Chart.jsのchartArea)に合わせる。paddingはJS側
+   (ChartAgeCursor.alignSlider)で描画後に動的に設定する */
+.range-input-align {
+    box-sizing: border-box;
+    margin-bottom: 12px;
+}
+
+/* ブラウザ既定の左右マージン(Chromeは2px)があると、グラフの描画範囲とずれるため消す */
+.range-input-align .range-input {
+    display: block;
+    width: 100%;
+    margin-left: 0;
+    margin-right: 0;
+}
+
+.result-detail-table th,
+.result-detail-table td {
+    white-space: nowrap;
+}
+
+.result-detail-table td {
+    text-align: right;
+    font-variant-numeric: tabular-nums;
+}
+
+.result-detail-table tbody th {
+    font-weight: normal;
+    text-align: left;
+}
+
+/* 小計の行(クリックで内訳を開閉)と内訳の行 */
+.result-detail-table .group-row {
+    cursor: pointer;
+    user-select: none;
+    background: var(--bg-main);
+}
+
+.result-detail-table .group-row th {
+    font-weight: bold;
+}
+
+.result-detail-table .row-indent {
+    padding-left: 1.5em;
+}
+
+/* 内訳のさらに内訳(公的年金の「うち加給年金」) */
+.result-detail-table .row-indent-2 {
+    padding-left: 3em;
+    color: var(--text-secondary);
+}
+
+.result-detail-table .total-col {
+    font-weight: bold;
 }
 
 /* 資産タブで積立資金の出し手に「世帯主からの贈与」を選んだ場合の注意書き(MEMO.md 2026/9/26コメント2-(2)
@@ -968,6 +1085,18 @@ th, td {
     color: var(--text-secondary);
 }
 
+/* 開閉できる行(相続税ステップ1の「課税価格の合計」、MEMO.md 2026/9/29コメント1-(3))と、その内訳の行 */
+.inheritance-result-box .toggle-label {
+    cursor: pointer;
+    user-select: none;
+    color: var(--text-main);
+    font-weight: bold;
+}
+
+.inheritance-result-box .row-indent {
+    padding-left: 1.5em;
+}
+
 .inheritance-result-box .value {
     font-weight: bold;
     text-align: right;
@@ -1051,6 +1180,11 @@ th, td {
     max-width: 560px;
 }
 
+/* 列の多い比較表を持つモーダル(生前贈与ウィザード、ADR 0033)。狭い画面では従来どおり表を横スクロールする */
+.modal-card-xwide {
+    max-width: 760px;
+}
+
 .pension-wizard-compare-table {
     font-size: 13px;
 }
@@ -1086,6 +1220,16 @@ th, td {
     color: var(--text-secondary);
 }
 
+/* 遺産分割ウィザード(ADR 0030第3段階): 合計が最小の行と、今の設定の行を目立たせる */
+.estate-wizard-table tbody tr.best-row {
+    background: var(--primary-tint);
+    font-weight: bold;
+}
+
+.estate-wizard-table tbody th {
+    min-width: 8em;
+}
+
 .btn-link:disabled {
     color: var(--text-secondary);
     cursor: not-allowed;
@@ -1106,4 +1250,16 @@ th, td {
 
 .btn-secondary:hover {
     background: var(--primary-tint);
+}
+
+/* スマホ(iOS)で入力欄に触れたときの自動拡大を防ぐ(MEMO.md 2026/9/29コメント1-(5)、docs/shared/decisions/0011)。
+   iOSは文字が16px未満の入力欄にフォーカスすると画面を拡大し、入力後もその倍率のまま残すため、画面が
+   左右にはみ出したように見える。表の中の欄・プラン名等の個別の指定(13〜14px、IDやクラスの指定を含む)
+   より必ず優先させるため!importantを付ける。PCの見た目は変えない */
+@media (max-width: 768px) {
+    input:not([type="checkbox"]):not([type="radio"]):not([type="range"]),
+    select,
+    textarea {
+        font-size: 16px !important;
+    }
 }

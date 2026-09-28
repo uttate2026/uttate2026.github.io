@@ -764,16 +764,46 @@ th, td {
     padding: 6px 0;
 }
 
-.result-detail-age-row {
+/* 年齢のスライダーの上に置く、ラベルと年齢の表示・▲▼ボタンの行(MEMO.md 2026/9/29コメント1-(2)、
+   src/shared/age-stepper.js。ねんきんプランナー・iDeCoと同じ見た目) */
+.age-slider-head {
     display: flex;
     align-items: center;
+    justify-content: space-between;
     gap: 12px;
     flex-wrap: wrap;
     margin: 8px 0 4px;
 }
 
-.result-detail-age-row input {
-    width: 72px;
+.age-stepper {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.age-stepper-value {
+    min-width: 3.5em;
+    text-align: right;
+    font-weight: bold;
+    font-variant-numeric: tabular-nums;
+}
+
+.age-stepper-btn {
+    width: 36px;
+    height: 32px;
+    border: 1px solid var(--primary);
+    border-radius: 6px;
+    background: var(--bg-card, #fff);
+    color: var(--primary);
+    font-size: 14px;
+    line-height: 1;
+    cursor: pointer;
+}
+
+.age-stepper-btn:disabled {
+    border-color: var(--border, #cbd5e1);
+    color: var(--text-secondary);
+    cursor: not-allowed;
 }
 
 /* スライダーの左右の端を、グラフの描画範囲(Chart.jsのchartArea)に合わせる。paddingはJS側
@@ -1055,6 +1085,18 @@ th, td {
     color: var(--text-secondary);
 }
 
+/* 開閉できる行(相続税ステップ1の「課税価格の合計」、MEMO.md 2026/9/29コメント1-(3))と、その内訳の行 */
+.inheritance-result-box .toggle-label {
+    cursor: pointer;
+    user-select: none;
+    color: var(--text-main);
+    font-weight: bold;
+}
+
+.inheritance-result-box .row-indent {
+    padding-left: 1.5em;
+}
+
 .inheritance-result-box .value {
     font-weight: bold;
     text-align: right;
@@ -1208,4 +1250,16 @@ th, td {
 
 .btn-secondary:hover {
     background: var(--primary-tint);
+}
+
+/* スマホ(iOS)で入力欄に触れたときの自動拡大を防ぐ(MEMO.md 2026/9/29コメント1-(5)、docs/shared/decisions/0011)。
+   iOSは文字が16px未満の入力欄にフォーカスすると画面を拡大し、入力後もその倍率のまま残すため、画面が
+   左右にはみ出したように見える。表の中の欄・プラン名等の個別の指定(13〜14px、IDやクラスの指定を含む)
+   より必ず優先させるため!importantを付ける。PCの見た目は変えない */
+@media (max-width: 768px) {
+    input:not([type="checkbox"]):not([type="radio"]):not([type="range"]),
+    select,
+    textarea {
+        font-size: 16px !important;
+    }
 }

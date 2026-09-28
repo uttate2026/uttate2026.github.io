@@ -1,27 +1,6 @@
 {
   "deploys": [
     {
-      "deployedAt": "2026-09-27T02:29:53.176Z",
-      "files": [
-        "auth.f95b7f2cb8.js",
-        "consent.6a30cb2135.js",
-        "constants.b5e94e4f1c.js",
-        "model.39d2e58a5f.js",
-        "resize-notifier.bbc2b52d92.js",
-        "shared/calculator.aae77692eb.js",
-        "shared/ideco-bridge.6b487b4d74.js",
-        "shared/ideco-exit-optimizer.0d253c4e9a.js",
-        "shared/lifetime-totals.5a9df7c345.js",
-        "shared/nenkin-bridge.78beb26b1c.js",
-        "shared/pattern-builders.00f8dd958b.js",
-        "shared/pension-claim-optimizer.527d43ebc3.js",
-        "storage.2ec613f10e.js",
-        "style.9b3e24ac76.css",
-        "ui.3b5af688fa.js",
-        "vendor/chart.5e218aa7fa.js"
-      ]
-    },
-    {
       "deployedAt": "2026-09-27T02:58:02.069Z",
       "files": [
         "auth.f95b7f2cb8.js",
@@ -106,6 +85,29 @@
         "style.ffb3afbfbe.css",
         "ui.923580d300.js",
         "vendor/chart.db1fa2979c.js"
+      ]
+    },
+    {
+      "deployedAt": "2026-09-28T22:16:14.398Z",
+      "files": [
+        "auth.f95b7f2cb8.js",
+        "consent.6a30cb2135.js",
+        "constants.b5e94e4f1c.js",
+        "model.0b17107962.js",
+        "resize-notifier.bbc2b52d92.js",
+        "shared/age-stepper.1b938669bf.js",
+        "shared/calculator.a8a92d70b2.js",
+        "shared/chart-age-cursor.617bc56e97.js",
+        "shared/ideco-bridge.911f1c97de.js",
+        "shared/ideco-exit-optimizer.e87f7de081.js",
+        "shared/lifetime-totals.f15ab21917.js",
+        "shared/nenkin-bridge.30c3bd4938.js",
+        "shared/pattern-builders.05daf64502.js",
+        "shared/pension-claim-optimizer.0b4635b26b.js",
+        "storage.ea03725c48.js",
+        "style.49cda70860.css",
+        "ui.ba917442d2.js",
+        "vendor/chart.5bfac0bf2e.js"
       ]
     }
   ]
