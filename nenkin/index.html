@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ねんきんプランナー</title>
-    <link rel="stylesheet" href="style.79bdbf7f61.css">
+    <link rel="stylesheet" href="style.33ed67940a.css">
 </head>
 <body>
 
@@ -168,27 +168,31 @@
                 </div>
 
                 <div class="form-field">
-                    <label for="input_retirement_age_slider">引退年齢</label>
-                    <div class="slider-with-input">
-                        <input type="range" id="input_retirement_age_slider" class="range-input" min="50" max="80" step="1" value="65">
-                        <div class="field-with-unit slider-number">
-                            <input type="text" id="input_retirement_age" inputmode="numeric" autocomplete="off" spellcheck="false">
-                            <span class="unit">歳</span>
+                    <!-- 年齢の表示と▲▼ボタンはスライダーの上に置く(MEMO.md 2026/9/29コメント1-(2)、共通のAgeStepper。以前はスライダーの右に数値入力欄) -->
+                    <div class="age-slider-head">
+                        <label for="input_retirement_age_slider">引退年齢</label>
+                        <div class="age-stepper" id="retirement_age_stepper">
+                            <span class="age-stepper-value" aria-live="polite"></span>
+                            <button type="button" class="age-stepper-btn" data-step="-1" aria-label="1歳下げる">▼</button>
+                            <button type="button" class="age-stepper-btn" data-step="1" aria-label="1歳上げる">▲</button>
                         </div>
                     </div>
+                    <input type="range" id="input_retirement_age_slider" class="range-input" min="50" max="80" step="1" value="65">
                     <p class="field-note">再雇用等で働き続けるケースもあるため、完全に働くのをやめる年齢を指します。死亡予測年齢を超えて設定することはできません。</p>
                 </div>
 
                 <!-- ②(トピックB)専用。①の場合は非表示(_populatePage2参照) -->
                 <div id="public_pension_claim_age_field" class="form-field" style="display: none;">
-                    <label for="input_public_pension_claim_age_slider">公的年金受給年齢</label>
-                    <div class="slider-with-input">
-                        <input type="range" id="input_public_pension_claim_age_slider" class="range-input" min="60" max="75" step="1" value="65">
-                        <div class="field-with-unit slider-number">
-                            <input type="text" id="input_public_pension_claim_age" inputmode="numeric" autocomplete="off" spellcheck="false">
-                            <span class="unit">歳</span>
+                    <!-- 年齢の表示と▲▼ボタンはスライダーの上に置く(MEMO.md 2026/9/29コメント1-(2)、共通のAgeStepper。以前はスライダーの右に数値入力欄) -->
+                    <div class="age-slider-head">
+                        <label for="input_public_pension_claim_age_slider">公的年金受給年齢</label>
+                        <div class="age-stepper" id="public_pension_claim_age_stepper">
+                            <span class="age-stepper-value" aria-live="polite"></span>
+                            <button type="button" class="age-stepper-btn" data-step="-1" aria-label="1歳下げる">▼</button>
+                            <button type="button" class="age-stepper-btn" data-step="1" aria-label="1歳上げる">▲</button>
                         </div>
                     </div>
+                    <input type="range" id="input_public_pension_claim_age_slider" class="range-input" min="60" max="75" step="1" value="65">
                     <p class="field-note">引退年齢とは別に、公的年金をいつから受け取るかを指定します(グラフに直接反映されます)。</p>
                 </div>
             </div>
@@ -206,18 +210,20 @@
                 </div>
 
                 <div class="form-field">
-                    <label for="input_selected_pension_start_age_slider">詳しく確認したい受給開始年齢</label>
+                    <!-- 年齢の表示と▲▼ボタンはスライダーの上に置く(MEMO.md 2026/9/29コメント1-(2)、共通のAgeStepper。以前はスライダーの右に数値入力欄) -->
+                    <div class="age-slider-head">
+                        <label for="input_selected_pension_start_age_slider">詳しく確認したい受給開始年齢</label>
+                        <div class="age-stepper" id="selected_pension_start_age_stepper">
+                            <span class="age-stepper-value" aria-live="polite"></span>
+                            <button type="button" class="age-stepper-btn" data-step="-1" aria-label="1歳下げる">▼</button>
+                            <button type="button" class="age-stepper-btn" data-step="1" aria-label="1歳上げる">▲</button>
+                        </div>
+                    </div>
                     <!-- range-input-alignは、グラフ(#page2_chart_canvas)の横軸にスライダーの可動範囲を
                          合わせるための位置合わせ用(トピックBの明細スライダーと同じ仕組み、MEMO.md
                          2026/9/26コメント1-(5)、ui.jsの_alignSliderToChart参照) -->
-                    <div class="slider-with-input">
-                        <div class="range-input-align" id="selected_pension_start_age_slider_align">
-                            <input type="range" id="input_selected_pension_start_age_slider" class="range-input" min="60" max="75" step="1" value="65">
-                        </div>
-                        <div class="field-with-unit slider-number">
-                            <input type="text" id="input_selected_pension_start_age" inputmode="numeric" autocomplete="off" spellcheck="false">
-                            <span class="unit">歳</span>
-                        </div>
+                    <div class="range-input-align" id="selected_pension_start_age_slider_align">
+                        <input type="range" id="input_selected_pension_start_age_slider" class="range-input" min="60" max="75" step="1" value="65">
                     </div>
                 </div>
 
@@ -259,22 +265,22 @@
                 <details class="detail-toggle" id="work_until_detail_toggle">
                     <summary>明細を見る</summary>
                     <div class="form-field">
-                        <label for="input_work_until_detail_age_slider">明細を表示したい年齢</label>
+                        <!-- 年齢の表示と▲▼ボタンはスライダーの上に置く(MEMO.md 2026/9/29コメント1-(2)、共通のAgeStepper。以前はスライダーの右に数値入力欄) -->
+                        <div class="age-slider-head">
+                            <label for="input_work_until_detail_age_slider">明細を表示したい年齢</label>
+                            <div class="age-stepper" id="work_until_detail_age_stepper">
+                            <span class="age-stepper-value" aria-live="polite"></span>
+                            <button type="button" class="age-stepper-btn" data-step="-1" aria-label="1歳下げる">▼</button>
+                            <button type="button" class="age-stepper-btn" data-step="1" aria-label="1歳上げる">▲</button>
+                        </div>
+                        </div>
                         <!-- range-input-alignは、グラフ(#page2_work_until_chart_canvas)の実際の
-                             描画範囲(Chart.jsのchartArea)にスライダーの可動範囲の左端を合わせるため、
-                             JS側で描画後にpadding-leftを動的に設定する(Y軸ラベルの幅は表示金額の
-                             桁数で変動するため)。右端は#page2_work_until_chart_wrapの固定paddingで
-                             静的に揃える(2026-09-23の追加フィードバック「グラフの左右のx座標を
-                             スライダの調整範囲のx座標に合わせてほしい」、
-                             _alignWorkUntilDetailSlider参照) -->
-                        <div class="slider-with-input">
-                            <div class="range-input-align" id="work_until_detail_age_slider_align">
-                                <input type="range" id="input_work_until_detail_age_slider" class="range-input" min="40" max="105" step="1" value="40">
-                            </div>
-                            <div class="field-with-unit slider-number">
-                                <input type="text" id="input_work_until_detail_age" inputmode="numeric" autocomplete="off" spellcheck="false">
-                                <span class="unit">歳</span>
-                            </div>
+                             描画範囲(Chart.jsのchartArea)にスライダーの可動範囲の左右の端を合わせるため、
+                             JS側で描画後にpaddingを動的に設定する(Y軸ラベルの幅は表示金額の桁数で
+                             変動するため。2026-09-23の追加フィードバック「グラフの左右のx座標を
+                             スライダの調整範囲のx座標に合わせてほしい」、_alignWorkUntilDetailSlider参照) -->
+                        <div class="range-input-align" id="work_until_detail_age_slider_align">
+                            <input type="range" id="input_work_until_detail_age_slider" class="range-input" min="40" max="105" step="1" value="40">
                         </div>
                     </div>
                     <div class="table-responsive">
@@ -378,27 +384,28 @@
 
     </div>
 
-    <script src="storage.9c33e6c97c.js"></script>
+    <script src="storage.d211cabfdf.js"></script>
     <script src="model.6178ba2aad.js"></script>
     <script src="auth.0b9a540a6a.js"></script>
     <script src="consent.68317a95af.js"></script>
     <script src="resize-notifier.eda0f90457.js"></script>
-    <script src="vendor/chart.db1fa2979c.js"></script>
+    <script src="vendor/chart.5bfac0bf2e.js"></script>
     <!-- トピックA(年金受給開始年齢の比較)がlifeplanエンジンを再利用するための共有モジュール
          (docs/shared/decisions/0004参照)。scripts/sync-shared.jsがsrc/shared/からコピーする
          (このディレクトリ自体はGit管理対象外)。shared/lifeplan-constants.jsはshared/calculator.jsが
          参照するブラウザグローバルLifeplanConstantsを用意するためのもの -->
-    <script src="shared/lifeplan-constants.425bbd8827.js"></script>
-    <script src="shared/pattern-builders.d18073441b.js"></script>
-    <script src="shared/calculator.7a125a5d13.js"></script>
+    <script src="shared/lifeplan-constants.a2701f5279.js"></script>
+    <script src="shared/pattern-builders.05daf64502.js"></script>
+    <script src="shared/calculator.cf4a1dff18.js"></script>
     <!-- 生涯合計の集計(docs/shared/decisions/0007参照)。以降の共通モジュールが参照するため、その前に読み込む -->
-    <script src="shared/lifetime-totals.8e3dce3a61.js"></script>
+    <script src="shared/lifetime-totals.f15ab21917.js"></script>
     <!-- 公的年金受給開始年齢のグリッド探索(nenkinトピックA・lifeplan「公的年金」タブのウィザードで共通、
          lifeplan ADR 0027参照)。nenkin-bridge.jsが参照するため、必ずその前に読み込む -->
-    <script src="shared/pension-claim-optimizer.38c1f0ef57.js"></script>
-    <script src="shared/nenkin-bridge.d73504c39a.js"></script>
-    <script src="shared/chart-age-cursor.019be91deb.js"></script>
-    <script src="ui.fcd968008a.js"></script>
+    <script src="shared/pension-claim-optimizer.0b4635b26b.js"></script>
+    <script src="shared/nenkin-bridge.30c3bd4938.js"></script>
+    <script src="shared/chart-age-cursor.1750b68344.js"></script>
+    <script src="shared/age-stepper.bc4ccf1bc4.js"></script>
+    <script src="ui.7843dc0182.js"></script>
     <script>
         window.model = new NenkinModel({ window: window, storage: AppStorage });
         AppAuth.init();
