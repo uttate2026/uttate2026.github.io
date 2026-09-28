@@ -47,6 +47,21 @@ header h1 {
     margin: 0 0 20px;
 }
 
+/* 見出しの右端に「ⓘ 計算の前提」を置く(MEMO.md 2026/9/29コメント2) */
+.app-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 12px;
+}
+
+/* スマホ幅では、ボタンと並んでもサイト名が折り返さないよう少し小さくする */
+@media (max-width: 480px) {
+    header h1 {
+        font-size: 19px;
+    }
+}
+
 .card {
     background: var(--bg-card);
     border: 1px solid var(--border);
@@ -1250,6 +1265,110 @@ th, td {
 
 .btn-secondary:hover {
     background: var(--primary-tint);
+}
+
+/* 「ⓘ 計算の前提」ボタンと一覧(MEMO.md 2026/9/29コメント2、docs/shared/decisions/0012)。lifeplan・ねんきんプランナーで
+   同じ見た目にする(中身はsrc/shared/parameter-catalog.jsが組み立てる) */
+.param-info-btn {
+    flex-shrink: 0;
+    background: var(--bg-card, #fff);
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    padding: 4px 12px;
+    font-size: 13px;
+    color: var(--primary);
+    cursor: pointer;
+    white-space: nowrap;
+}
+
+.param-info-btn:hover {
+    border-color: var(--primary);
+}
+
+.param-intro {
+    font-size: 13px;
+    color: var(--text-secondary);
+    margin: 0 0 12px;
+}
+
+.param-category {
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    margin-bottom: 8px;
+    padding: 0 12px;
+}
+
+.param-category summary {
+    cursor: pointer;
+    font-weight: bold;
+    padding: 10px 0;
+}
+
+.param-item {
+    border-top: 1px solid var(--border);
+    padding: 10px 0;
+}
+
+.param-label {
+    font-weight: bold;
+    font-size: 14px;
+}
+
+.param-kind {
+    display: inline-block;
+    margin-left: 8px;
+    padding: 1px 8px;
+    border-radius: 999px;
+    font-size: 11px;
+    font-weight: normal;
+    vertical-align: middle;
+    background: var(--primary-tint);
+    color: var(--primary-dark);
+}
+
+.param-kind-simplified {
+    background: #fef3c7;
+    color: #92400e;
+}
+
+.param-kind-assumption {
+    background: #ede9fe;
+    color: #5b21b6;
+}
+
+.param-value {
+    margin-top: 4px;
+    font-size: 14px;
+}
+
+.param-note,
+.param-sources,
+.param-keys {
+    margin: 4px 0 0;
+    font-size: 12px;
+    color: var(--text-secondary);
+}
+
+.param-sources a {
+    color: var(--primary);
+    word-break: break-all;
+}
+
+.param-table {
+    border-collapse: collapse;
+    font-size: 13px;
+    margin-top: 4px;
+}
+
+.param-table th,
+.param-table td {
+    border: 1px solid var(--border);
+    padding: 2px 8px;
+}
+
+.param-table td.text-right {
+    text-align: right;
+    white-space: nowrap;
 }
 
 /* スマホ(iOS)で入力欄に触れたときの自動拡大を防ぐ(MEMO.md 2026/9/29コメント1-(5)、docs/shared/decisions/0011)。
