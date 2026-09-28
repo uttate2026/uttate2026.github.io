@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ライフプランシミュレーター</title>
-    <link rel="stylesheet" href="style.74ae2366c1.css">
+    <link rel="stylesheet" href="style.ffb3afbfbe.css">
 </head>
 <body>
 
@@ -229,7 +229,10 @@
                         有効にする
                     </label>
                 </div>
+                <!-- ステップ1(相続税の総額)とステップ2(誰がいくら払うか、任意)に分ける(MEMO.md 2026/9/28コメント2-(1)、
+                     ADR 0033)。ステップ1だけでもおおよその負担が分かるよう、法定相続分どおりに分けた場合の納付額(目安)を出す -->
                 <div id="inheritance_fields" style="display:none;">
+                    <div class="section-title-sub">ステップ1: 相続税の総額</div>
                     <div class="form-grid">
                         <div class="form-field">
                             <label for="select_inheritance_decedent">被相続人</label>
@@ -251,15 +254,6 @@
                             <select id="select_inheritance_child_heirs"></select>
                             <p class="field-note">別世帯の子も含めます。子がいない場合の父母・兄弟姉妹の相続は対象外です。</p>
                         </div>
-                        <div class="form-field" id="inheritance_spouse_share_field">
-                            <label for="select_inheritance_spouse_share">配偶者の取得割合</label>
-                            <select id="select_inheritance_spouse_share"></select>
-                            <p class="field-note">配偶者が相続する財産の割合です。配偶者の取得額が1億6,000万円または法定相続分の大きい方までなら、配偶者の相続税はかかりません(配偶者の税額軽減)。ただし配偶者が多く相続するほど、配偶者が亡くなったとき(二次相続)の相続税が増えます。</p>
-                            <!-- 二次相続まで含めた合計の相続税が最小になる取得割合を探す(MEMO.md 2026/9/27コメント2-(2)⑤、ADR 0030第3段階) -->
-                            <div class="pension-wizard-button-row">
-                                <button type="button" id="btn_open_estate_wizard" class="btn btn-secondary">🧙 ウィザードで最適化する</button>
-                            </div>
-                        </div>
                     </div>
                     <div class="inheritance-real-estate">
                         <div class="section-title-sub">不動産</div>
@@ -276,8 +270,29 @@
                             <button type="button" id="btn_add_real_estate" class="btn btn-link">+ 不動産を追加</button>
                         </div>
                     </div>
-                    <p class="field-note">相続財産は、死亡年齢時点の被相続人名義の資産(現金・預金・有価証券等)と、上の不動産です。相続税の総額は法定相続分で計算し、配偶者の取得割合で配偶者・子に按分します。</p>
-                    <div class="inheritance-result-box" id="inheritance_result_box"></div>
+                    <p class="field-note">相続財産は、死亡年齢時点の被相続人名義の資産(現金・預金・有価証券等)と、上の不動産です。相続税の総額は、相続人が法定相続分どおりに相続したものとして計算します(実際にどう分けても総額は変わりません)。</p>
+                    <div class="inheritance-result-box" id="inheritance_step1_result"></div>
+                    <!-- 子への生前贈与で「贈与税+相続税」の合計が最小になる年間額を探す(MEMO.md 2026/9/28コメント2-(2)、ADR 0033)。
+                         贈与者は世帯主のため、世帯主が被相続人の場合のみ使える -->
+                    <div class="pension-wizard-button-row" id="gift_wizard_button_row">
+                        <button type="button" id="btn_open_gift_wizard" class="btn btn-secondary">🧙 生前贈与で最適化する</button>
+                        <p class="field-note" id="gift_wizard_unavailable_note" hidden>生前贈与の最適化は、被相続人が世帯主の場合に使えます(贈与者は世帯主のため)。</p>
+                    </div>
+
+                    <details class="detail-toggle" id="inheritance_step2_toggle">
+                        <summary>ステップ2: 誰がいくら払うか(任意)</summary>
+                        <p class="field-note">相続税の総額を、実際に相続する割合で配偶者・子に振り分け、配偶者の税額軽減と贈与税額控除を差し引いて、納付額を求めます。</p>
+                        <div class="form-field" id="inheritance_spouse_share_field">
+                            <label for="select_inheritance_spouse_share">配偶者の取得割合</label>
+                            <select id="select_inheritance_spouse_share"></select>
+                            <p class="field-note">配偶者が相続する財産の割合です。配偶者の取得額が1億6,000万円または法定相続分の大きい方までなら、配偶者の相続税はかかりません(配偶者の税額軽減)。ただし配偶者が多く相続するほど、配偶者が亡くなったとき(二次相続)の相続税が増えます。</p>
+                            <!-- 二次相続まで含めた合計の相続税が最小になる取得割合を探す(MEMO.md 2026/9/27コメント2-(2)⑤、ADR 0030第3段階) -->
+                            <div class="pension-wizard-button-row">
+                                <button type="button" id="btn_open_estate_wizard" class="btn btn-secondary">🧙 ウィザードで最適化する</button>
+                            </div>
+                        </div>
+                        <div class="inheritance-result-box" id="inheritance_step2_result"></div>
+                    </details>
                 </div>
             </div>
 
@@ -437,6 +452,53 @@
         </div>
     </div>
 
+    <!-- 生前贈与の最適化ウィザード(ADR 0033) -->
+    <div id="gift_wizard_modal" class="modal-overlay" style="display: none;">
+        <div class="card modal-card modal-card-wide modal-card-xwide">
+            <button type="button" id="btn_gift_wizard_modal_close" class="modal-close" aria-label="閉じる">×</button>
+            <div class="section-title">生前贈与で最適化する</div>
+
+            <div id="gift_wizard_step_input">
+                <div class="form-grid">
+                    <div class="form-field">
+                        <label for="gift_wizard_child_count">贈与する子の人数</label>
+                        <select id="gift_wizard_child_count"></select>
+                    </div>
+                    <div class="form-field">
+                        <label for="gift_wizard_start_age">贈与を始める年齢(世帯主)</label>
+                        <select id="gift_wizard_start_age"></select>
+                    </div>
+                    <div class="form-field">
+                        <label for="gift_wizard_years">贈与を続ける年数</label>
+                        <select id="gift_wizard_years"></select>
+                    </div>
+                </div>
+                <p class="field-note">子1人あたりの年間贈与額を0円〜1,000万円で変え、暦年課税・相続時精算課税のそれぞれについて、贈与税の合計と相続税(被相続人: 世帯主、死亡年齢はステップ1と同じ)の合計が最小になる額を探します。</p>
+                <p class="field-note">※ 贈与は現金・預金から出ます。死亡年齢までに現金・預金が足りなくなる案は候補から外します。教育資金・住宅取得資金などの非課税の特例は考慮しません。</p>
+                <p class="field-note">※ 配偶者への贈与は、このウィザードの対象外です。配偶者は相続時に税額軽減(1億6,000万円または法定相続分まで非課税)を受けられるため、生前に贈与しても相続税はあまり減らず、配偶者が亡くなったとき(二次相続)の相続税がかえって増えることもあります。配偶者名義のNISAで世帯の非課税枠を広げたい場合は、「2. 資産」の配偶者のNISAタブで「積立資金の出し手」を「世帯主からの贈与」にしてください(年110万円を超えると贈与税がかかります)。</p>
+                <div class="button-row modal-actions">
+                    <button type="button" id="btn_gift_wizard_cancel" class="btn btn-link">キャンセル</button>
+                    <button type="button" id="btn_gift_wizard_search" class="btn btn-primary">探索する</button>
+                </div>
+            </div>
+
+            <div id="gift_wizard_step_result" hidden>
+                <p class="field-note" id="gift_wizard_result_summary"></p>
+                <div class="table-responsive">
+                    <table class="pension-wizard-compare-table estate-wizard-table" id="gift_wizard_table">
+                        <thead><tr><th>課税方式・子1人あたり年額</th><th>贈与の総額</th><th>贈与税</th><th>相続税(還付は▲)</th><th>合計</th><th></th></tr></thead>
+                        <tbody></tbody>
+                    </table>
+                </div>
+                <p class="field-note">相続税は、相続時精算課税で払った贈与税を差し引いた実質の負担です。差し引ききれない分は還付されるため▲で示します。</p>
+                <p class="field-note">「この案にする」を押すと、「3. 支出」の「生前贈与(世帯外)」に子の人数分の行を追加します(同居の子への贈与も、ここでは世帯外の行として扱います)。</p>
+                <div class="button-row modal-actions">
+                    <button type="button" id="btn_gift_wizard_back" class="btn btn-link">条件を変える</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- 遺産分割(配偶者の取得割合)の最適化ウィザード(ADR 0030第3段階) -->
     <div id="estate_wizard_modal" class="modal-overlay" style="display: none;">
         <div class="card modal-card modal-card-wide">
@@ -512,7 +574,7 @@
     <script src="storage.76fa7519cf.js"></script>
     <script src="constants.b5e94e4f1c.js"></script>
     <script src="shared/pattern-builders.d18073441b.js"></script>
-    <script src="shared/calculator.80c0b680ee.js"></script>
+    <script src="shared/calculator.cf4a1dff18.js"></script>
     <!-- 生涯合計の集計(全プラン比較・各ウィザード・ideco-bridge.js等が使う、docs/shared/decisions/0007参照) -->
     <script src="shared/lifetime-totals.8e3dce3a61.js"></script>
     <!-- ideco→lifeplanへのデータ引き継ぎ(model.jsのcheckIdecoHandoff/importHandoffPatternが
@@ -530,12 +592,12 @@
     <script src="shared/pension-claim-optimizer.38c1f0ef57.js"></script>
     <script src="shared/nenkin-bridge.d73504c39a.js"></script>
     <script src="shared/chart-age-cursor.1750b68344.js"></script>
-    <script src="model.39d2e58a5f.js"></script>
+    <script src="model.0b17107962.js"></script>
     <script src="auth.f95b7f2cb8.js"></script>
     <script src="consent.6a30cb2135.js"></script>
     <script src="resize-notifier.bbc2b52d92.js"></script>
     <script src="vendor/chart.db1fa2979c.js"></script>
-    <script src="ui.e8dcacd3fe.js"></script>
+    <script src="ui.923580d300.js"></script>
     <script>
         window.model = new LifeplanModel({ window: window, storage: AppStorage });
         AppAuth.init();
