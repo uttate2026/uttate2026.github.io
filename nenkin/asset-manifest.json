@@ -1,26 +1,6 @@
 {
   "deploys": [
     {
-      "deployedAt": "2026-09-27T20:49:30.556Z",
-      "files": [
-        "auth.0b9a540a6a.js",
-        "consent.68317a95af.js",
-        "model.6178ba2aad.js",
-        "resize-notifier.eda0f90457.js",
-        "shared/calculator.d04499f0f6.js",
-        "shared/chart-age-cursor.019be91deb.js",
-        "shared/lifeplan-constants.425bbd8827.js",
-        "shared/lifetime-totals.8e3dce3a61.js",
-        "shared/nenkin-bridge.d73504c39a.js",
-        "shared/pattern-builders.d18073441b.js",
-        "shared/pension-claim-optimizer.38c1f0ef57.js",
-        "storage.9c33e6c97c.js",
-        "style.79bdbf7f61.css",
-        "ui.fcd968008a.js",
-        "vendor/chart.db1fa2979c.js"
-      ]
-    },
-    {
       "deployedAt": "2026-09-28T19:25:06.767Z",
       "files": [
         "auth.0b9a540a6a.js",
@@ -97,6 +77,28 @@
         "shared/lifetime-totals.f15ab21917.js",
         "shared/nenkin-bridge.30c3bd4938.js",
         "shared/parameter-catalog.7865abd5d3.js",
+        "shared/pattern-builders.023d27e5bf.js",
+        "shared/pension-claim-optimizer.46ad624cab.js",
+        "storage.7387a56c13.js",
+        "style.b30753c41a.css",
+        "ui.2aec6e0c60.js",
+        "vendor/chart.01d7ce7998.js"
+      ]
+    },
+    {
+      "deployedAt": "2026-09-29T00:31:36.773Z",
+      "files": [
+        "auth.0b9a540a6a.js",
+        "consent.68317a95af.js",
+        "model.6178ba2aad.js",
+        "resize-notifier.eda0f90457.js",
+        "shared/age-stepper.bc4ccf1bc4.js",
+        "shared/calculator.77b0aced54.js",
+        "shared/chart-age-cursor.1750b68344.js",
+        "shared/lifeplan-constants.1c35447597.js",
+        "shared/lifetime-totals.f15ab21917.js",
+        "shared/nenkin-bridge.30c3bd4938.js",
+        "shared/parameter-catalog.77c540518c.js",
         "shared/pattern-builders.023d27e5bf.js",
         "shared/pension-claim-optimizer.46ad624cab.js",
         "storage.7387a56c13.js",
