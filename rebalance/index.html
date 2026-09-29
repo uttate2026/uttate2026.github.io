@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>資産リバランスシミュレーター</title>
-    <link rel="stylesheet" href="style.332bfb94ab.css">
+    <link rel="stylesheet" href="style.2533d8dead.css">
 </head>
 <body>
 
@@ -158,6 +158,8 @@
                     <button type="button" id="btn_toggle_account_properties" class="btn btn-link">🏷️ 口座プロパティ</button>
                 </div>
             </div>
+            <!-- 履歴を保存した直後に出す、ライフプランシミュレーターへの導線(lifeplan ADR 0039) -->
+            <p id="lifeplan_link_after_save" class="lifeplan-link" hidden></p>
 
             <div id="delete_snapshot_confirm" class="delete-confirm-banner" style="display: none;">
                 <span id="delete_snapshot_confirm_text"></span>
@@ -466,6 +468,8 @@
                 </div>
                 <p id="analysis_empty_dashboard_hint" style="display: none;">口座タブに戻り、各口座の「💾 現在の状態を履歴に保存」から保存してください。</p>
             </div>
+            <!-- ライフプランシミュレーターへの導線(lifeplan ADR 0039) -->
+            <p id="analysis_lifeplan_link" class="lifeplan-link"></p>
         </div>
     </div>
 
@@ -516,7 +520,7 @@
     <script src="consent.12d767ca52.js"></script>
     <script src="resize-notifier.026b62acdf.js"></script>
     <script src="vendor/chart.c56b586973.js"></script>
-    <script src="ui.2bb97f5b29.js"></script>
+    <script src="ui.9a3752eedb.js"></script>
     <script>
         window.model = new AssetModel({ window: window, storage: AppStorage });
         AssetAuth.init();
