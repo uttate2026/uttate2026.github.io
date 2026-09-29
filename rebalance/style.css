@@ -186,13 +186,6 @@ header h1 {
     margin-bottom: 20px;
 }
 
-.tab-label {
-    font-size: 12px;
-    font-weight: bold;
-    color: var(--text-secondary);
-    margin-bottom: 8px;
-}
-
 .tabs-row {
     display: flex;
     gap: 8px;

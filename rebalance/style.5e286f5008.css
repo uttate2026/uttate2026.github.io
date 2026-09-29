@@ -186,13 +186,6 @@ header h1 {
     margin-bottom: 20px;
 }
 
-.tab-label {
-    font-size: 12px;
-    font-weight: bold;
-    color: var(--text-secondary);
-    margin-bottom: 8px;
-}
-
 .tabs-row {
     display: flex;
     gap: 8px;
@@ -733,12 +726,21 @@ input[type="text"]:disabled, input[type="number"]:disabled, select:disabled {
     text-align: left;
 }
 
+/* 閉じるボタン(×)は、中身をスクロールしても右上に常に見えるようにする(MEMO.md 2026/9/29の追加の要望)。
+   カードの先頭に置いた×を右に浮かせ(float)、スクロール領域の上端に貼り付ける(sticky)。
+   見出しは×の左に回り込む。スクロールした中身が透けないよう背景を付ける */
 .modal-close {
-    position: absolute;
-    top: 12px;
-    right: 12px;
-    background: transparent;
+    position: sticky;
+    top: 0;
+    float: right;
+    z-index: 1;
+    width: 32px;
+    height: 32px;
+    margin: -8px -8px 0 8px;
+    background: var(--bg-card, #fff);
     border: none;
+    border-radius: 50%;
+    box-shadow: 0 1px 4px rgba(15, 23, 42, 0.15);
     font-size: 20px;
     line-height: 1;
     cursor: pointer;
@@ -939,6 +941,17 @@ input[type="text"]:disabled, input[type="number"]:disabled, select:disabled {
 }
 
 /* 計算結果直後の保存導線(機能仕様10.7節、要件3.8) */
+/* ライフプランシミュレーターへの導線(lifeplan ADR 0039)。履歴の保存直後と分析のダイアログに控えめに出す */
+.lifeplan-link {
+    font-size: 13px;
+    color: var(--text-secondary);
+    margin: 8px 0 0;
+}
+
+.lifeplan-link a {
+    color: var(--primary);
+}
+
 .save-nudge {
     margin-top: 12px;
     padding-top: 12px;
