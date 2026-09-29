@@ -47,6 +47,21 @@ header h1 {
     margin: 0 0 20px;
 }
 
+/* 見出しの右端に「ⓘ 計算の前提」を置く(MEMO.md 2026/9/29コメント2) */
+.app-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 12px;
+}
+
+/* スマホ幅では、ボタンと並んでもサイト名が折り返さないよう少し小さくする */
+@media (max-width: 480px) {
+    header h1 {
+        font-size: 19px;
+    }
+}
+
 .card {
     background: var(--bg-card);
     border: 1px solid var(--border);
@@ -1158,12 +1173,21 @@ th, td {
     text-align: left;
 }
 
+/* 閉じるボタン(×)は、中身をスクロールしても右上に常に見えるようにする(MEMO.md 2026/9/29の追加の要望)。
+   カードの先頭に置いた×を右に浮かせ(float)、スクロール領域の上端に貼り付ける(sticky)。
+   見出しは×の左に回り込む。スクロールした中身が透けないよう背景を付ける */
 .modal-close {
-    position: absolute;
-    top: 12px;
-    right: 12px;
-    background: transparent;
+    position: sticky;
+    top: 0;
+    float: right;
+    z-index: 1;
+    width: 32px;
+    height: 32px;
+    margin: -8px -8px 0 8px;
+    background: var(--bg-card, #fff);
     border: none;
+    border-radius: 50%;
+    box-shadow: 0 1px 4px rgba(15, 23, 42, 0.15);
     font-size: 20px;
     line-height: 1;
     cursor: pointer;
@@ -1250,6 +1274,238 @@ th, td {
 
 .btn-secondary:hover {
     background: var(--primary-tint);
+}
+
+/* 生年月日(年・月・日のドロップダウン、MEMO.md 2026/9/29コメント3-(1)) */
+.birth-date-fields {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 4px 6px;
+}
+
+.birth-date-fields select {
+    width: auto;
+}
+
+/* 月・日は折り返しても離れないよう1まとまりにする(スマホ幅で「日」だけが次の行に落ちないように) */
+.birth-date-month-day {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    white-space: nowrap;
+}
+
+/* 実績の記録(MEMO.md 2026/9/29コメント3、ADR 0035)。「📋 実績を記録」のメニューと、実績・基準を開いているときの帯 */
+/* メニューはツールバーの左端を起点に開く(スマホ幅で「プラン名を変更」の右から開くと画面の外にはみ出すため) */
+.account-toolbar {
+    position: relative;
+}
+
+.record-menu {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    z-index: 50;
+    width: min(420px, calc(100vw - 32px));
+    background: var(--bg-card);
+    border: 1px solid var(--border-strong);
+    border-radius: 8px;
+    box-shadow: 0 4px 16px rgba(15, 23, 42, 0.15);
+    padding: 12px;
+}
+
+.record-menu-note {
+    font-size: 12px;
+    color: var(--text-secondary);
+    margin: 0 0 8px;
+}
+
+.record-menu-item {
+    display: block;
+    width: 100%;
+    text-align: left;
+    padding: 8px;
+    margin-bottom: 4px;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    background: var(--bg-card);
+    cursor: pointer;
+}
+
+.record-menu-row {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 4px 8px;
+    padding: 6px 4px;
+    border-top: 1px solid var(--border);
+}
+
+.record-menu-row.active {
+    background: var(--primary-tint);
+}
+
+.record-menu-label {
+    flex: 1 1 140px;
+    font-size: 14px;
+}
+
+.record-menu-delete {
+    background: transparent;
+    border: none;
+    color: var(--text-secondary);
+    cursor: pointer;
+}
+
+.record-menu-delete:hover {
+    color: var(--danger);
+}
+
+.record-banner {
+    border: 2px solid var(--primary);
+    background: var(--primary-tint);
+    border-radius: 12px;
+    padding: 12px 16px;
+    margin-bottom: 20px;
+    font-size: 14px;
+}
+
+.record-banner p {
+    margin: 6px 0 0;
+}
+
+.record-banner-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+.record-banner-date {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 8px;
+}
+
+.record-banner-date input {
+    width: auto;
+}
+
+/* 基準は固定のため、タブの追加・削除も隠す(入力欄は押せなくする、ui.jsの_applyRecordLocks) */
+#dashboard_workspace.is-record-baseline .input-card .tab-delete,
+#dashboard_workspace.is-record-baseline .input-card .sub-tab-add {
+    display: none;
+}
+
+/* 「ⓘ 計算の前提」ボタンと一覧(MEMO.md 2026/9/29コメント2、docs/shared/decisions/0012)。lifeplan・ねんきんプランナーで
+   同じ見た目にする(中身はsrc/shared/parameter-catalog.jsが組み立てる) */
+.param-info-btn {
+    flex-shrink: 0;
+    background: var(--bg-card, #fff);
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    padding: 4px 12px;
+    font-size: 13px;
+    color: var(--primary);
+    cursor: pointer;
+    white-space: nowrap;
+}
+
+.param-info-btn:hover {
+    border-color: var(--primary);
+}
+
+.param-intro {
+    font-size: 13px;
+    color: var(--text-secondary);
+    margin: 0 0 12px;
+}
+
+.param-category {
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    margin-bottom: 8px;
+    padding: 0 12px;
+}
+
+.param-category summary {
+    cursor: pointer;
+    font-weight: bold;
+    padding: 10px 0;
+}
+
+.param-item {
+    border-top: 1px solid var(--border);
+    padding: 10px 0;
+}
+
+.param-label {
+    font-weight: bold;
+    font-size: 14px;
+}
+
+.param-kind {
+    display: inline-block;
+    margin-left: 8px;
+    padding: 1px 8px;
+    border-radius: 999px;
+    font-size: 11px;
+    font-weight: normal;
+    vertical-align: middle;
+    background: var(--primary-tint);
+    color: var(--primary-dark);
+}
+
+.param-kind-simplified {
+    background: #fef3c7;
+    color: #92400e;
+}
+
+.param-kind-assumption {
+    background: #ede9fe;
+    color: #5b21b6;
+}
+
+.param-value {
+    margin-top: 4px;
+    font-size: 14px;
+}
+
+.param-note,
+.param-sources,
+.param-keys {
+    margin: 4px 0 0;
+    font-size: 12px;
+    color: var(--text-secondary);
+}
+
+.param-sources a {
+    color: var(--primary);
+    word-break: break-all;
+}
+
+.param-table {
+    border-collapse: collapse;
+    font-size: 13px;
+    margin-top: 4px;
+}
+
+.param-table th,
+.param-table td {
+    border: 1px solid var(--border);
+    padding: 2px 8px;
+}
+
+.param-table th {
+    white-space: nowrap;
+}
+
+.param-table td.text-right {
+    text-align: right;
+    white-space: nowrap;
 }
 
 /* スマホ(iOS)で入力欄に触れたときの自動拡大を防ぐ(MEMO.md 2026/9/29コメント1-(5)、docs/shared/decisions/0011)。

@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ライフプランシミュレーター</title>
-    <link rel="stylesheet" href="style.0ac1316c79.css">
+    <link rel="stylesheet" href="style.ab42f85090.css">
 </head>
 <body>
 
@@ -49,6 +49,12 @@
             </div>
             <div class="account-toolbar">
                 <button type="button" id="btn_toggle_pattern_properties" class="btn btn-link">🏷️ プラン名を変更</button>
+                <!-- 実績の記録(MEMO.md 2026/9/29コメント3、ADR 0035)。押すと基準・過去の実績の一覧(履歴メニュー)が開き、
+                     選んだものを複製して記録日つきの実績を作る -->
+                <div class="record-menu-wrap">
+                    <button type="button" id="btn_record_menu" class="btn btn-link" aria-haspopup="true" aria-expanded="false">📋 実績を記録 ▼</button>
+                    <div id="record_menu" class="record-menu" hidden></div>
+                </div>
             </div>
             <div id="pattern_properties_panel" class="account-properties-panel" style="display: none;">
                 <div class="account-name-group">
@@ -60,7 +66,10 @@
 
         <div id="dashboard_workspace">
 
-            <div class="card">
+            <!-- 実績・基準を開いているときの帯(ADR 0035) -->
+            <div id="record_banner" class="record-banner" hidden></div>
+
+            <div class="card input-card">
                 <!-- 人物(世帯構成)とその収入を入れるカード(MEMO.md 2026/9/28コメント1-(3)で「1. 収入」から改名) -->
                 <div class="section-title">1. 世帯構成と収入</div>
                 <div class="sub-tabs-bar">
@@ -78,7 +87,7 @@
                 <div id="person_form_container"></div>
             </div>
 
-            <div class="card">
+            <div class="card input-card">
                 <div class="section-title">2. 資産</div>
                 <div class="sub-tabs-bar">
                     <div class="sub-tabs-scroll" id="asset_tabs_row"></div>
@@ -86,7 +95,7 @@
                 <div id="asset_form_container"></div>
             </div>
 
-            <div class="card">
+            <div class="card input-card">
                 <div class="section-title">3. 支出</div>
                 <div class="sub-tabs-bar">
                     <button type="button" class="sub-tab-btn" data-expense-tab="living">生活費</button>
@@ -226,7 +235,7 @@
                 </details>
             </div>
 
-            <div class="card">
+            <div class="card input-card">
                 <div class="section-title">5. 相続税(任意)</div>
                 <div class="inheritance-toggle-row">
                     <label class="checkbox-label">
@@ -591,7 +600,7 @@
     <script src="storage.2de46cb08c.js"></script>
     <script src="constants.4055e2158f.js"></script>
     <script src="shared/pattern-builders.023d27e5bf.js"></script>
-    <script src="shared/calculator.d468960116.js"></script>
+    <script src="shared/calculator.af096ab2a7.js"></script>
     <!-- 生涯合計の集計(全プラン比較・各ウィザード・ideco-bridge.js等が使う、docs/shared/decisions/0007参照) -->
     <script src="shared/lifetime-totals.f15ab21917.js"></script>
     <!-- ideco→lifeplanへのデータ引き継ぎ(model.jsのcheckIdecoHandoff/importHandoffPatternが
@@ -611,12 +620,12 @@
     <script src="shared/chart-age-cursor.617bc56e97.js"></script>
     <script src="shared/age-stepper.1b938669bf.js"></script>
     <script src="shared/parameter-catalog.77c540518c.js"></script>
-    <script src="model.189f8eb186.js"></script>
+    <script src="model.dd0026d08f.js"></script>
     <script src="auth.f95b7f2cb8.js"></script>
     <script src="consent.6a30cb2135.js"></script>
     <script src="resize-notifier.bbc2b52d92.js"></script>
     <script src="vendor/chart.01d7ce7998.js"></script>
-    <script src="ui.41b809d37b.js"></script>
+    <script src="ui.e2fa022436.js"></script>
     <script>
         window.model = new LifeplanModel({ window: window, storage: AppStorage });
         AppAuth.init();
