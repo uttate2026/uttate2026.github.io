@@ -47,6 +47,21 @@ header h1 {
     margin: 0 0 20px;
 }
 
+/* 見出しの右端に「ⓘ 計算の前提」を置く(MEMO.md 2026/9/29コメント2) */
+.app-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 12px;
+}
+
+/* スマホ幅では、ボタンと並んでもサイト名が折り返さないよう少し小さくする */
+@media (max-width: 480px) {
+    header h1 {
+        font-size: 19px;
+    }
+}
+
 .card {
     background: var(--bg-card);
     border: 1px solid var(--border);
@@ -764,16 +779,46 @@ th, td {
     padding: 6px 0;
 }
 
-.result-detail-age-row {
+/* 年齢のスライダーの上に置く、ラベルと年齢の表示・▲▼ボタンの行(MEMO.md 2026/9/29コメント1-(2)、
+   src/shared/age-stepper.js。ねんきんプランナー・iDeCoと同じ見た目) */
+.age-slider-head {
     display: flex;
     align-items: center;
+    justify-content: space-between;
     gap: 12px;
     flex-wrap: wrap;
     margin: 8px 0 4px;
 }
 
-.result-detail-age-row input {
-    width: 72px;
+.age-stepper {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.age-stepper-value {
+    min-width: 3.5em;
+    text-align: right;
+    font-weight: bold;
+    font-variant-numeric: tabular-nums;
+}
+
+.age-stepper-btn {
+    width: 36px;
+    height: 32px;
+    border: 1px solid var(--primary);
+    border-radius: 6px;
+    background: var(--bg-card, #fff);
+    color: var(--primary);
+    font-size: 14px;
+    line-height: 1;
+    cursor: pointer;
+}
+
+.age-stepper-btn:disabled {
+    border-color: var(--border, #cbd5e1);
+    color: var(--text-secondary);
+    cursor: not-allowed;
 }
 
 /* スライダーの左右の端を、グラフの描画範囲(Chart.jsのchartArea)に合わせる。paddingはJS側
@@ -1055,6 +1100,18 @@ th, td {
     color: var(--text-secondary);
 }
 
+/* 開閉できる行(相続税ステップ1の「課税価格の合計」、MEMO.md 2026/9/29コメント1-(3))と、その内訳の行 */
+.inheritance-result-box .toggle-label {
+    cursor: pointer;
+    user-select: none;
+    color: var(--text-main);
+    font-weight: bold;
+}
+
+.inheritance-result-box .row-indent {
+    padding-left: 1.5em;
+}
+
 .inheritance-result-box .value {
     font-weight: bold;
     text-align: right;
@@ -1116,12 +1173,21 @@ th, td {
     text-align: left;
 }
 
+/* 閉じるボタン(×)は、中身をスクロールしても右上に常に見えるようにする(MEMO.md 2026/9/29の追加の要望)。
+   カードの先頭に置いた×を右に浮かせ(float)、スクロール領域の上端に貼り付ける(sticky)。
+   見出しは×の左に回り込む。スクロールした中身が透けないよう背景を付ける */
 .modal-close {
-    position: absolute;
-    top: 12px;
-    right: 12px;
-    background: transparent;
+    position: sticky;
+    top: 0;
+    float: right;
+    z-index: 1;
+    width: 32px;
+    height: 32px;
+    margin: -8px -8px 0 8px;
+    background: var(--bg-card, #fff);
     border: none;
+    border-radius: 50%;
+    box-shadow: 0 1px 4px rgba(15, 23, 42, 0.15);
     font-size: 20px;
     line-height: 1;
     cursor: pointer;
@@ -1208,4 +1274,144 @@ th, td {
 
 .btn-secondary:hover {
     background: var(--primary-tint);
+}
+
+/* 生年月日(年・月・日のドロップダウン、MEMO.md 2026/9/29コメント3-(1)) */
+.birth-date-fields {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 4px 6px;
+}
+
+.birth-date-fields select {
+    width: auto;
+}
+
+/* 月・日は折り返しても離れないよう1まとまりにする(スマホ幅で「日」だけが次の行に落ちないように) */
+.birth-date-month-day {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    white-space: nowrap;
+}
+
+/* 「ⓘ 計算の前提」ボタンと一覧(MEMO.md 2026/9/29コメント2、docs/shared/decisions/0012)。lifeplan・ねんきんプランナーで
+   同じ見た目にする(中身はsrc/shared/parameter-catalog.jsが組み立てる) */
+.param-info-btn {
+    flex-shrink: 0;
+    background: var(--bg-card, #fff);
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    padding: 4px 12px;
+    font-size: 13px;
+    color: var(--primary);
+    cursor: pointer;
+    white-space: nowrap;
+}
+
+.param-info-btn:hover {
+    border-color: var(--primary);
+}
+
+.param-intro {
+    font-size: 13px;
+    color: var(--text-secondary);
+    margin: 0 0 12px;
+}
+
+.param-category {
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    margin-bottom: 8px;
+    padding: 0 12px;
+}
+
+.param-category summary {
+    cursor: pointer;
+    font-weight: bold;
+    padding: 10px 0;
+}
+
+.param-item {
+    border-top: 1px solid var(--border);
+    padding: 10px 0;
+}
+
+.param-label {
+    font-weight: bold;
+    font-size: 14px;
+}
+
+.param-kind {
+    display: inline-block;
+    margin-left: 8px;
+    padding: 1px 8px;
+    border-radius: 999px;
+    font-size: 11px;
+    font-weight: normal;
+    vertical-align: middle;
+    background: var(--primary-tint);
+    color: var(--primary-dark);
+}
+
+.param-kind-simplified {
+    background: #fef3c7;
+    color: #92400e;
+}
+
+.param-kind-assumption {
+    background: #ede9fe;
+    color: #5b21b6;
+}
+
+.param-value {
+    margin-top: 4px;
+    font-size: 14px;
+}
+
+.param-note,
+.param-sources,
+.param-keys {
+    margin: 4px 0 0;
+    font-size: 12px;
+    color: var(--text-secondary);
+}
+
+.param-sources a {
+    color: var(--primary);
+    word-break: break-all;
+}
+
+.param-table {
+    border-collapse: collapse;
+    font-size: 13px;
+    margin-top: 4px;
+}
+
+.param-table th,
+.param-table td {
+    border: 1px solid var(--border);
+    padding: 2px 8px;
+}
+
+.param-table th {
+    white-space: nowrap;
+}
+
+.param-table td.text-right {
+    text-align: right;
+    white-space: nowrap;
+}
+
+/* スマホ(iOS)で入力欄に触れたときの自動拡大を防ぐ(MEMO.md 2026/9/29コメント1-(5)、docs/shared/decisions/0011)。
+   iOSは文字が16px未満の入力欄にフォーカスすると画面を拡大し、入力後もその倍率のまま残すため、画面が
+   左右にはみ出したように見える。表の中の欄・プラン名等の個別の指定(13〜14px、IDやクラスの指定を含む)
+   より必ず優先させるため!importantを付ける。PCの見た目は変えない */
+@media (max-width: 768px) {
+    input:not([type="checkbox"]):not([type="radio"]):not([type="range"]),
+    select,
+    textarea {
+        font-size: 16px !important;
+    }
 }

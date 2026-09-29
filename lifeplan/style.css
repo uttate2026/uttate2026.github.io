@@ -1276,6 +1276,26 @@ th, td {
     background: var(--primary-tint);
 }
 
+/* 生年月日(年・月・日のドロップダウン、MEMO.md 2026/9/29コメント3-(1)) */
+.birth-date-fields {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 4px 6px;
+}
+
+.birth-date-fields select {
+    width: auto;
+}
+
+/* 月・日は折り返しても離れないよう1まとまりにする(スマホ幅で「日」だけが次の行に落ちないように) */
+.birth-date-month-day {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    white-space: nowrap;
+}
+
 /* 「ⓘ 計算の前提」ボタンと一覧(MEMO.md 2026/9/29コメント2、docs/shared/decisions/0012)。lifeplan・ねんきんプランナーで
    同じ見た目にする(中身はsrc/shared/parameter-catalog.jsが組み立てる) */
 .param-info-btn {
