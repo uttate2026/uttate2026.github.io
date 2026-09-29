@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ライフプランシミュレーター</title>
-    <link rel="stylesheet" href="style.326765cf0a.css">
+    <link rel="stylesheet" href="style.3ce74183d1.css">
 </head>
 <body>
 
@@ -72,6 +72,9 @@
 
         <div id="dashboard_workspace">
 
+            <!-- rebalanceから来たときの案内(取り込んだ直後の次の入力への誘導・データが見つからない場合、ADR 0039) -->
+            <div id="rebalance_hint" class="rebalance-hint" hidden></div>
+
             <!-- 実績・基準を開いているときの帯(ADR 0035) -->
             <div id="record_banner" class="record-banner" hidden></div>
 
@@ -97,6 +100,10 @@
                 <div class="section-title">2. 資産</div>
                 <div class="sub-tabs-bar">
                     <div class="sub-tabs-scroll" id="asset_tabs_row"></div>
+                </div>
+                <div class="section-toolbar">
+                    <!-- rebalanceの口座との対応づけ(ADR 0039) -->
+                    <button type="button" id="btn_rebalance_link" class="btn btn-link">🔗 rebalanceと連携</button>
                 </div>
                 <div id="asset_form_container"></div>
             </div>
@@ -338,6 +345,14 @@
                 </div>
                 <div class="table-responsive">
                     <table id="record_compare_table"></table>
+                </div>
+                <!-- rebalanceの記録(連携した資産だけの計画の線と、rebalanceの履歴の残高、ADR 0039) -->
+                <div id="record_compare_rebalance" hidden>
+                    <div class="section-title-sub">rebalanceの記録</div>
+                    <p class="field-note" id="record_compare_rebalance_note"></p>
+                    <div id="record_compare_rebalance_chart_wrap">
+                        <canvas id="record_compare_rebalance_canvas"></canvas>
+                    </div>
                 </div>
             </div>
         </div>
@@ -615,6 +630,19 @@
         </div>
     </div>
 
+    <!-- rebalanceの口座の取り込み・対応づけ(ADR 0039) -->
+    <div id="rebalance_import_modal" class="modal-overlay" style="display: none;" role="dialog" aria-modal="true" aria-labelledby="rebalance_import_modal_title">
+        <div class="card modal-card modal-card-wide">
+            <button type="button" id="btn_rebalance_import_close" class="modal-close" aria-label="閉じる">×</button>
+            <div class="section-title" id="rebalance_import_modal_title">rebalanceの口座を取り込む</div>
+            <div id="rebalance_import_body"></div>
+            <div class="modal-actions">
+                <button type="button" id="btn_rebalance_import_cancel" class="btn btn-link">あとで</button>
+                <button type="button" id="btn_rebalance_import_confirm" class="btn btn-primary">取り込む</button>
+            </div>
+        </div>
+    </div>
+
     <!-- バックアップの読み込みの確認(ADR 0038) -->
     <div id="backup_import_modal" class="modal-overlay" style="display: none;" role="dialog" aria-modal="true" aria-labelledby="backup_import_modal_title">
         <div class="card modal-card">
@@ -638,7 +666,7 @@
         </div>
     </div>
 
-    <script src="storage.2de46cb08c.js"></script>
+    <script src="storage.239216f866.js"></script>
     <script src="constants.4055e2158f.js"></script>
     <script src="shared/pattern-builders.023d27e5bf.js"></script>
     <script src="shared/calculator.af096ab2a7.js"></script>
@@ -658,15 +686,16 @@
          lifeplan ADR 0027参照)。nenkin-bridge.jsが参照するため、必ずその前に読み込む -->
     <script src="shared/pension-claim-optimizer.46ad624cab.js"></script>
     <script src="shared/nenkin-bridge.30c3bd4938.js"></script>
-    <script src="shared/chart-age-cursor.617bc56e97.js"></script>
+    <script src="shared/chart-age-cursor.b4884465a9.js"></script>
     <script src="shared/age-stepper.1b938669bf.js"></script>
     <script src="shared/parameter-catalog.77c540518c.js"></script>
-    <script src="model.750610396c.js"></script>
+    <script src="shared/rebalance-reader.a7cadaf61d.js"></script>
+    <script src="model.99b7eafc03.js"></script>
     <script src="auth.f95b7f2cb8.js"></script>
     <script src="consent.6a30cb2135.js"></script>
     <script src="resize-notifier.bbc2b52d92.js"></script>
-    <script src="vendor/chart.01d7ce7998.js"></script>
-    <script src="ui.35d0cfe811.js"></script>
+    <script src="vendor/chart.50e8b7c23a.js"></script>
+    <script src="ui.6cd57f326b.js"></script>
     <script>
         window.model = new LifeplanModel({ window: window, storage: AppStorage });
         AppAuth.init();

@@ -1472,6 +1472,40 @@ th, td {
     background: var(--bg-main);
 }
 
+/* rebalanceとの連携(ADR 0039) */
+.rebalance-hint {
+    border: 1px solid var(--border-strong);
+    background: var(--bg-card);
+    border-radius: 12px;
+    padding: 12px 16px;
+    margin-bottom: 20px;
+    font-size: 14px;
+}
+
+.rebalance-import-mode {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    margin: 8px 0;
+}
+
+.rebalance-import-table select {
+    width: auto;
+}
+
+/* 資産の種類と名義人は同じセルに並べ、狭い画面では上下に折り返す(表が横にはみ出さないように) */
+.rebalance-import-selects {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px;
+}
+
+#record_compare_rebalance_chart_wrap {
+    position: relative;
+    height: 320px;
+    margin: 16px 0;
+}
+
 /* 「ⓘ 計算の前提」ボタンと一覧(MEMO.md 2026/9/29コメント2、docs/shared/decisions/0012)。lifeplan・ねんきんプランナーで
    同じ見た目にする(中身はsrc/shared/parameter-catalog.jsが組み立てる) */
 .param-info-btn {
