@@ -1400,6 +1400,33 @@ th, td {
     display: none;
 }
 
+/* 計画との比較(ADR 0036) */
+.record-compare-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 8px;
+}
+
+#record_compare_chart_wrap {
+    position: relative;
+    height: 400px;
+    margin: 16px 0;
+}
+
+.record-compare-row {
+    cursor: pointer;
+}
+
+#record_compare_table th,
+#record_compare_table td {
+    white-space: nowrap;
+}
+
+.record-compare-row:hover td {
+    background: var(--bg-main);
+}
+
 /* 「ⓘ 計算の前提」ボタンと一覧(MEMO.md 2026/9/29コメント2、docs/shared/decisions/0012)。lifeplan・ねんきんプランナーで
    同じ見た目にする(中身はsrc/shared/parameter-catalog.jsが組み立てる) */
 .param-info-btn {

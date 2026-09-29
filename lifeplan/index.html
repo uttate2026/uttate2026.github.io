@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ライフプランシミュレーター</title>
-    <link rel="stylesheet" href="style.ab42f85090.css">
+    <link rel="stylesheet" href="style.2397ef83f9.css">
 </head>
 <body>
 
@@ -312,6 +312,28 @@
                 </div>
             </div>
 
+        </div>
+
+        <!-- 計画との比較(実績機能の段階③、MEMO.md 2026/9/29コメント3、ADR 0036) -->
+        <div id="record_compare_workspace" style="display: none;">
+            <div class="card">
+                <div class="record-compare-head">
+                    <div class="section-title">計画との比較</div>
+                    <button type="button" id="btn_record_compare_back" class="btn btn-link">戻る</button>
+                </div>
+                <p class="field-note" id="record_compare_note"></p>
+                <div class="sub-tabs-bar" id="record_compare_range">
+                    <button type="button" class="sub-tab-btn" data-record-range="recent">直近</button>
+                    <button type="button" class="sub-tab-btn" data-record-range="all">全期間</button>
+                </div>
+                <div id="record_compare_chart_wrap">
+                    <canvas id="record_compare_chart_canvas"></canvas>
+                    <p id="record_compare_chart_error" class="alert-text" style="display: none;">グラフを表示できませんでした。</p>
+                </div>
+                <div class="table-responsive">
+                    <table id="record_compare_table"></table>
+                </div>
+            </div>
         </div>
 
         <div id="compare_workspace" style="display: none;">
@@ -625,7 +647,7 @@
     <script src="consent.6a30cb2135.js"></script>
     <script src="resize-notifier.bbc2b52d92.js"></script>
     <script src="vendor/chart.01d7ce7998.js"></script>
-    <script src="ui.e2fa022436.js"></script>
+    <script src="ui.833852d359.js"></script>
     <script>
         window.model = new LifeplanModel({ window: window, storage: AppStorage });
         AppAuth.init();
