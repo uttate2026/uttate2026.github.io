@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>iDeCoシミュレーター</title>
-    <link rel="stylesheet" href="style.b38520572e.css">
+    <link rel="stylesheet" href="style.19b70b91db.css">
 </head>
 <body>
 
@@ -35,7 +35,11 @@
         <header class="wizard-header">
             <!-- サイト名(MEMO.md 2026/9/26コメント1-(8)「サイト名が左上にない」)。rebalance・lifeplanの
                  h1と同じ左上の位置に置き、ページの主見出し(h1)は現在のステップ名のまま据え置く -->
-            <div class="site-name">iDeCoシミュレーター</div>
+            <div class="site-name-row">
+                <div class="site-name">iDeCoシミュレーター</div>
+                <!-- 計算に使っている制度の値・仮定の一覧を開く(MEMO.md 2026/9/29コメント2) -->
+                <button type="button" id="btn_parameter_info" class="param-info-btn">ⓘ 計算の前提</button>
+            </div>
             <div class="wizard-header-top">
                 <button type="button" id="btn_nav_back" class="nav-back-btn" style="display: none;">
                     <span aria-hidden="true">‹</span> 戻る
@@ -416,6 +420,16 @@
 
     </div>
 
+    <!-- 「ⓘ 計算の前提」(MEMO.md 2026/9/29コメント2、docs/shared/decisions/0012)。中身は開くたびに
+         shared/parameter-catalog.jsが定数から組み立てる -->
+    <div id="parameter_modal" class="modal-overlay" style="display: none;" role="dialog" aria-modal="true" aria-labelledby="parameter_modal_title">
+        <div class="card modal-card modal-card-wide">
+            <button type="button" id="btn_parameter_modal_close" class="modal-close" aria-label="閉じる">×</button>
+            <div class="section-title" id="parameter_modal_title">計算の前提(制度の値と仮定)</div>
+            <div id="parameter_modal_body"></div>
+        </div>
+    </div>
+
     <script src="storage.230df2bd32.js"></script>
     <script src="constants.d42b8b6cda.js"></script>
     <script src="model.bc49d77344.js"></script>
@@ -440,7 +454,8 @@
     <script src="shared/ideco-exit-optimizer.c3946af122.js"></script>
     <script src="shared/ideco-bridge.b48a60e746.js"></script>
     <script src="shared/age-stepper.93e7875a66.js"></script>
-    <script src="ui.f9be24c1f1.js"></script>
+    <script src="shared/parameter-catalog.6ecd12c307.js"></script>
+    <script src="ui.a8d3bf6665.js"></script>
     <script>
         window.model = new IdecoModel({ window: window, storage: AppStorage });
         AppAuth.init();
