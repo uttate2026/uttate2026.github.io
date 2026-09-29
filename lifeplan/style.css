@@ -1354,6 +1354,26 @@ th, td {
     font-size: 14px;
 }
 
+/* バックアップ(ADR 0038) */
+.backup-warning {
+    font-size: 13px;
+    color: #92400e;
+    background: #fef3c7;
+    border-radius: 6px;
+    padding: 6px 8px;
+    margin: 6px 0;
+}
+
+#btn_backup_menu.has-warning {
+    color: #b45309;
+    font-weight: bold;
+}
+
+.backup-summary {
+    margin: 0 0 8px;
+    padding-left: 20px;
+}
+
 .record-menu-heading {
     font-size: 12px;
     font-weight: bold;

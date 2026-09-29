@@ -1276,6 +1276,202 @@ th, td {
     background: var(--primary-tint);
 }
 
+/* 生年月日(年・月・日のドロップダウン、MEMO.md 2026/9/29コメント3-(1)) */
+.birth-date-fields {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 4px 6px;
+}
+
+.birth-date-fields select {
+    width: auto;
+}
+
+/* 月・日は折り返しても離れないよう1まとまりにする(スマホ幅で「日」だけが次の行に落ちないように) */
+.birth-date-month-day {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    white-space: nowrap;
+}
+
+/* 実績の記録(MEMO.md 2026/9/29コメント3、ADR 0035)。「📋 実績を記録」のメニューと、実績・基準を開いているときの帯 */
+/* メニューはツールバーの左端を起点に開く(スマホ幅で「プラン名を変更」の右から開くと画面の外にはみ出すため) */
+.account-toolbar {
+    position: relative;
+}
+
+.record-menu {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    z-index: 50;
+    width: min(420px, calc(100vw - 32px));
+    background: var(--bg-card);
+    border: 1px solid var(--border-strong);
+    border-radius: 8px;
+    box-shadow: 0 4px 16px rgba(15, 23, 42, 0.15);
+    padding: 12px;
+    /* 記録が増えても画面に収まるよう、長くなったらメニューの中でスクロールする */
+    max-height: 70vh;
+    overflow-y: auto;
+}
+
+.record-menu-note {
+    font-size: 12px;
+    color: var(--text-secondary);
+    margin: 0 0 8px;
+}
+
+.record-menu-item {
+    display: block;
+    width: 100%;
+    text-align: left;
+    padding: 8px;
+    margin-bottom: 4px;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    background: var(--bg-card);
+    cursor: pointer;
+}
+
+.record-menu-row {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 4px 8px;
+    padding: 6px 4px;
+    border-top: 1px solid var(--border);
+}
+
+.record-menu-row.active {
+    background: var(--primary-tint);
+}
+
+.record-menu-label {
+    flex: 1 1 140px;
+    font-size: 14px;
+}
+
+/* バックアップ(ADR 0038) */
+.backup-warning {
+    font-size: 13px;
+    color: #92400e;
+    background: #fef3c7;
+    border-radius: 6px;
+    padding: 6px 8px;
+    margin: 6px 0;
+}
+
+#btn_backup_menu.has-warning {
+    color: #b45309;
+    font-weight: bold;
+}
+
+.backup-summary {
+    margin: 0 0 8px;
+    padding-left: 20px;
+}
+
+.record-menu-heading {
+    font-size: 12px;
+    font-weight: bold;
+    color: var(--text-secondary);
+    margin-top: 8px;
+}
+
+.record-menu-past {
+    margin-top: 8px;
+}
+
+.record-menu-past summary {
+    cursor: pointer;
+    font-size: 13px;
+    color: var(--text-secondary);
+    padding: 4px 0;
+}
+
+.record-menu-chain + .record-menu-chain {
+    border-top: 2px solid var(--border-strong);
+}
+
+.record-menu-delete {
+    background: transparent;
+    border: none;
+    color: var(--text-secondary);
+    cursor: pointer;
+}
+
+.record-menu-delete:hover {
+    color: var(--danger);
+}
+
+.record-banner {
+    border: 2px solid var(--primary);
+    background: var(--primary-tint);
+    border-radius: 12px;
+    padding: 12px 16px;
+    margin-bottom: 20px;
+    font-size: 14px;
+}
+
+.record-banner p {
+    margin: 6px 0 0;
+}
+
+.record-banner-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+.record-banner-date {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 8px;
+}
+
+.record-banner-date input {
+    width: auto;
+}
+
+/* 基準は固定のため、タブの追加・削除も隠す(入力欄は押せなくする、ui.jsの_applyRecordLocks) */
+#dashboard_workspace.is-record-baseline .input-card .tab-delete,
+#dashboard_workspace.is-record-baseline .input-card .sub-tab-add {
+    display: none;
+}
+
+/* 計画との比較(ADR 0036) */
+.record-compare-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 8px;
+}
+
+#record_compare_chart_wrap {
+    position: relative;
+    height: 400px;
+    margin: 16px 0;
+}
+
+.record-compare-row {
+    cursor: pointer;
+}
+
+#record_compare_table th,
+#record_compare_table td {
+    white-space: nowrap;
+}
+
+.record-compare-row:hover td {
+    background: var(--bg-main);
+}
+
 /* 「ⓘ 計算の前提」ボタンと一覧(MEMO.md 2026/9/29コメント2、docs/shared/decisions/0012)。lifeplan・ねんきんプランナーで
    同じ見た目にする(中身はsrc/shared/parameter-catalog.jsが組み立てる) */
 .param-info-btn {

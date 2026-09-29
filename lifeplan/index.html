@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ライフプランシミュレーター</title>
-    <link rel="stylesheet" href="style.ae34e5e604.css">
+    <link rel="stylesheet" href="style.326765cf0a.css">
 </head>
 <body>
 
@@ -54,6 +54,12 @@
                 <div class="record-menu-wrap">
                     <button type="button" id="btn_record_menu" class="btn btn-link" aria-haspopup="true" aria-expanded="false">📋 実績を記録 ▼</button>
                     <div id="record_menu" class="record-menu" hidden></div>
+                </div>
+                <!-- バックアップ(ファイルへの書き出し・読み込み、ADR 0038) -->
+                <div class="record-menu-wrap">
+                    <button type="button" id="btn_backup_menu" class="btn btn-link" aria-haspopup="true" aria-expanded="false">💾 バックアップ ▼</button>
+                    <div id="backup_menu" class="record-menu" hidden></div>
+                    <input type="file" id="backup_file_input" accept=".json,application/json" hidden>
                 </div>
             </div>
             <div id="pattern_properties_panel" class="account-properties-panel" style="display: none;">
@@ -609,6 +615,19 @@
         </div>
     </div>
 
+    <!-- バックアップの読み込みの確認(ADR 0038) -->
+    <div id="backup_import_modal" class="modal-overlay" style="display: none;" role="dialog" aria-modal="true" aria-labelledby="backup_import_modal_title">
+        <div class="card modal-card">
+            <button type="button" id="btn_backup_import_close" class="modal-close" aria-label="閉じる">×</button>
+            <div class="section-title" id="backup_import_modal_title">バックアップを読み込む</div>
+            <div id="backup_import_body"></div>
+            <div class="modal-actions" id="backup_import_actions">
+                <button type="button" id="btn_backup_import_cancel" class="btn btn-link">キャンセル</button>
+                <button type="button" id="btn_backup_import_confirm" class="btn btn-primary">置き換える</button>
+            </div>
+        </div>
+    </div>
+
     <!-- 「ⓘ 計算の前提」(MEMO.md 2026/9/29コメント2、docs/shared/decisions/0012)。中身は開くたびに
          shared/parameter-catalog.jsが定数から組み立てる -->
     <div id="parameter_modal" class="modal-overlay" style="display: none;" role="dialog" aria-modal="true" aria-labelledby="parameter_modal_title">
@@ -642,12 +661,12 @@
     <script src="shared/chart-age-cursor.617bc56e97.js"></script>
     <script src="shared/age-stepper.1b938669bf.js"></script>
     <script src="shared/parameter-catalog.77c540518c.js"></script>
-    <script src="model.c07c8614e6.js"></script>
+    <script src="model.750610396c.js"></script>
     <script src="auth.f95b7f2cb8.js"></script>
     <script src="consent.6a30cb2135.js"></script>
     <script src="resize-notifier.bbc2b52d92.js"></script>
     <script src="vendor/chart.01d7ce7998.js"></script>
-    <script src="ui.4091b9041d.js"></script>
+    <script src="ui.35d0cfe811.js"></script>
     <script>
         window.model = new LifeplanModel({ window: window, storage: AppStorage });
         AppAuth.init();
