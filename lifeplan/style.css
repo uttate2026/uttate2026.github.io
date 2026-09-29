@@ -77,6 +77,60 @@ header h1 {
     margin-bottom: 12px;
 }
 
+/* 大見出しの開閉(MEMO.md 2026/9/30コメント1-(3))。見出し全体がボタンで、畳んでいるときは右に要約を出す */
+.section-toggle {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 4px 8px;
+    width: 100%;
+    padding: 0;
+    margin: 0;
+    background: none;
+    border: none;
+    color: inherit;
+    font: inherit;
+    text-align: left;
+    cursor: pointer;
+}
+
+.section-toggle .section-title {
+    margin-bottom: 0;
+}
+
+.section-toggle-icon::before {
+    content: '▾';
+    display: inline-block;
+    width: 1em;
+    font-size: 18px;
+    line-height: 1;
+    text-align: center;
+    color: var(--text-secondary);
+    transition: transform 0.15s;
+}
+
+.is-collapsed .section-toggle-icon::before {
+    transform: rotate(-90deg);
+}
+
+.section-summary {
+    font-size: 13px;
+    color: var(--text-secondary);
+}
+
+[data-section]:not(.is-collapsed) .section-summary {
+    display: none;
+}
+
+.section-body {
+    margin-top: 12px;
+}
+
+.living-cost-total {
+    font-size: 14px;
+    margin: 12px 0 0;
+}
+
 .section-title-sub {
     font-weight: bold;
     font-size: 13px;
@@ -184,13 +238,6 @@ header h1 {
 /* プランタブ(rebalanceの口座タブと同じ挙動: 折り返さず横スクロール) */
 .account-tabs-container {
     margin-bottom: 20px;
-}
-
-.tab-label {
-    font-size: 12px;
-    font-weight: bold;
-    color: var(--text-secondary);
-    margin-bottom: 8px;
 }
 
 .tabs-row {

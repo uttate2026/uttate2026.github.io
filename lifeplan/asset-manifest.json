@@ -1,30 +1,6 @@
 {
   "deploys": [
     {
-      "deployedAt": "2026-09-29T19:52:04.461Z",
-      "files": [
-        "auth.f95b7f2cb8.js",
-        "consent.6a30cb2135.js",
-        "constants.4055e2158f.js",
-        "model.c07c8614e6.js",
-        "resize-notifier.bbc2b52d92.js",
-        "shared/age-stepper.1b938669bf.js",
-        "shared/calculator.af096ab2a7.js",
-        "shared/chart-age-cursor.617bc56e97.js",
-        "shared/ideco-bridge.911f1c97de.js",
-        "shared/ideco-exit-optimizer.e87f7de081.js",
-        "shared/lifetime-totals.f15ab21917.js",
-        "shared/nenkin-bridge.30c3bd4938.js",
-        "shared/parameter-catalog.77c540518c.js",
-        "shared/pattern-builders.023d27e5bf.js",
-        "shared/pension-claim-optimizer.46ad624cab.js",
-        "storage.2de46cb08c.js",
-        "style.ae34e5e604.css",
-        "ui.4091b9041d.js",
-        "vendor/chart.01d7ce7998.js"
-      ]
-    },
-    {
       "deployedAt": "2026-09-29T20:06:17.739Z",
       "files": [
         "auth.f95b7f2cb8.js",
@@ -121,6 +97,32 @@
         "storage.f4653d1369.js",
         "style.3ce74183d1.css",
         "ui.ca8ffd3b21.js",
+        "vendor/chart.5a2b2eca76.js"
+      ]
+    },
+    {
+      "deployedAt": "2026-09-29T23:32:13.171Z",
+      "files": [
+        "auth.f95b7f2cb8.js",
+        "consent.6a30cb2135.js",
+        "constants.4055e2158f.js",
+        "model.4353c902df.js",
+        "resize-notifier.bbc2b52d92.js",
+        "shared/age-stepper.1b938669bf.js",
+        "shared/calculator.50662e4c3e.js",
+        "shared/chart-age-cursor.b4884465a9.js",
+        "shared/embed-overlay.69340cf559.js",
+        "shared/ideco-bridge.b48a60e746.js",
+        "shared/ideco-exit-optimizer.c3946af122.js",
+        "shared/lifetime-totals.b01bd83867.js",
+        "shared/nenkin-bridge.a6bb4a9ba1.js",
+        "shared/parameter-catalog.a7d4d665a0.js",
+        "shared/pattern-builders.31090ff577.js",
+        "shared/pension-claim-optimizer.960a3c93a9.js",
+        "shared/rebalance-reader.a328b8b8c3.js",
+        "storage.f4653d1369.js",
+        "style.1e1f72371c.css",
+        "ui.99f71fa058.js",
         "vendor/chart.5a2b2eca76.js"
       ]
     }

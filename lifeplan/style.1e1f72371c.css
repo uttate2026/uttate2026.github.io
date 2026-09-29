@@ -77,6 +77,60 @@ header h1 {
     margin-bottom: 12px;
 }
 
+/* 大見出しの開閉(MEMO.md 2026/9/30コメント1-(3))。見出し全体がボタンで、畳んでいるときは右に要約を出す */
+.section-toggle {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 4px 8px;
+    width: 100%;
+    padding: 0;
+    margin: 0;
+    background: none;
+    border: none;
+    color: inherit;
+    font: inherit;
+    text-align: left;
+    cursor: pointer;
+}
+
+.section-toggle .section-title {
+    margin-bottom: 0;
+}
+
+.section-toggle-icon::before {
+    content: '▾';
+    display: inline-block;
+    width: 1em;
+    font-size: 18px;
+    line-height: 1;
+    text-align: center;
+    color: var(--text-secondary);
+    transition: transform 0.15s;
+}
+
+.is-collapsed .section-toggle-icon::before {
+    transform: rotate(-90deg);
+}
+
+.section-summary {
+    font-size: 13px;
+    color: var(--text-secondary);
+}
+
+[data-section]:not(.is-collapsed) .section-summary {
+    display: none;
+}
+
+.section-body {
+    margin-top: 12px;
+}
+
+.living-cost-total {
+    font-size: 14px;
+    margin: 12px 0 0;
+}
+
 .section-title-sub {
     font-weight: bold;
     font-size: 13px;
@@ -184,13 +238,6 @@ header h1 {
 /* プランタブ(rebalanceの口座タブと同じ挙動: 折り返さず横スクロール) */
 .account-tabs-container {
     margin-bottom: 20px;
-}
-
-.tab-label {
-    font-size: 12px;
-    font-weight: bold;
-    color: var(--text-secondary);
-    margin-bottom: 8px;
 }
 
 .tabs-row {
@@ -1354,6 +1401,26 @@ th, td {
     font-size: 14px;
 }
 
+/* バックアップ(ADR 0038) */
+.backup-warning {
+    font-size: 13px;
+    color: #92400e;
+    background: #fef3c7;
+    border-radius: 6px;
+    padding: 6px 8px;
+    margin: 6px 0;
+}
+
+#btn_backup_menu.has-warning {
+    color: #b45309;
+    font-weight: bold;
+}
+
+.backup-summary {
+    margin: 0 0 8px;
+    padding-left: 20px;
+}
+
 .record-menu-heading {
     font-size: 12px;
     font-weight: bold;
@@ -1450,6 +1517,40 @@ th, td {
 
 .record-compare-row:hover td {
     background: var(--bg-main);
+}
+
+/* rebalanceとの連携(ADR 0039) */
+.rebalance-hint {
+    border: 1px solid var(--border-strong);
+    background: var(--bg-card);
+    border-radius: 12px;
+    padding: 12px 16px;
+    margin-bottom: 20px;
+    font-size: 14px;
+}
+
+.rebalance-import-mode {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    margin: 8px 0;
+}
+
+.rebalance-import-table select {
+    width: auto;
+}
+
+/* 資産の種類と名義人は同じセルに並べ、狭い画面では上下に折り返す(表が横にはみ出さないように) */
+.rebalance-import-selects {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px;
+}
+
+#record_compare_rebalance_chart_wrap {
+    position: relative;
+    height: 320px;
+    margin: 16px 0;
 }
 
 /* 「ⓘ 計算の前提」ボタンと一覧(MEMO.md 2026/9/29コメント2、docs/shared/decisions/0012)。lifeplan・ねんきんプランナーで

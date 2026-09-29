@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ライフプランシミュレーター</title>
-    <link rel="stylesheet" href="style.3ce74183d1.css">
+    <link rel="stylesheet" href="style.1e1f72371c.css">
 </head>
 <body>
 
@@ -40,10 +40,9 @@
         </header>
 
         <div class="account-tabs-container">
-            <div class="tab-label">編集・計算するプランを選択:</div>
             <div class="account-tabs-bar">
                 <div class="account-tabs-scroll">
-                    <div class="tabs-row" id="pattern_tabs_row"></div>
+                    <div class="tabs-row" id="pattern_tabs_row" aria-label="プラン"></div>
                 </div>
                 <div id="compare_tab_slot"></div>
             </div>
@@ -78,7 +77,7 @@
             <!-- 実績・基準を開いているときの帯(ADR 0035) -->
             <div id="record_banner" class="record-banner" hidden></div>
 
-            <div class="card input-card">
+            <div class="card input-card" data-section="household">
                 <!-- 人物(世帯構成)とその収入を入れるカード(MEMO.md 2026/9/28コメント1-(3)で「1. 収入」から改名) -->
                 <div class="section-title">1. 世帯構成と収入</div>
                 <div class="sub-tabs-bar">
@@ -96,7 +95,7 @@
                 <div id="person_form_container"></div>
             </div>
 
-            <div class="card input-card">
+            <div class="card input-card" data-section="assets">
                 <div class="section-title">2. 資産</div>
                 <div class="sub-tabs-bar">
                     <div class="sub-tabs-scroll" id="asset_tabs_row"></div>
@@ -108,7 +107,7 @@
                 <div id="asset_form_container"></div>
             </div>
 
-            <div class="card input-card">
+            <div class="card input-card" data-section="expense">
                 <div class="section-title">3. 支出</div>
                 <div class="sub-tabs-bar">
                     <button type="button" class="sub-tab-btn" data-expense-tab="living">生活費</button>
@@ -118,12 +117,22 @@
                 </div>
                 <div id="expense_living_panel">
                     <div class="form-field">
-                        <label for="input_living_cost">生活費(月額)</label>
+                        <label for="input_living_cost">毎月の生活費(月額)</label>
                         <div class="field-with-unit">
                             <input type="text" id="input_living_cost" inputmode="numeric" autocomplete="off" spellcheck="false">
                             <span class="unit">円</span>
                         </div>
                     </div>
+                    <!-- 毎月ではない支出を月額に換算せずに入れる欄(MEMO.md 2026/9/30コメント1-(4))。数年おきの支出は「不定期支出」 -->
+                    <div class="form-field">
+                        <label for="input_annual_other_living_cost">年1回などの支出(年額)</label>
+                        <div class="field-with-unit">
+                            <input type="text" id="input_annual_other_living_cost" inputmode="numeric" autocomplete="off" spellcheck="false">
+                            <span class="unit">円</span>
+                        </div>
+                        <p class="field-note">固定資産税・自動車税・保険料の年払い・帰省や旅行など。数年おきの支出(給湯器・車の買い替え等)は「不定期支出」に入れます。</p>
+                    </div>
+                    <p class="living-cost-total">年間の生活費(月額×12+年額): <strong id="living_cost_annual_total">¥0</strong></p>
                 </div>
                 <div id="expense_durable_panel" style="display:none;">
                     <p class="field-note">任意入力です(0件でも構いません)。「項目」欄は候補(給湯器・外壁塗装・自家用車)から選ぶと耐用年数が自動で入ります。候補にない名前を入力すると自由な項目として扱われます。</p>
@@ -191,7 +200,7 @@
                 </div>
             </div>
 
-            <div class="card">
+            <div class="card" data-section="result">
                 <div class="section-title">4. シミュレーション結果</div>
                 <div class="result-summary">
                     <div class="result-summary-item">
@@ -248,7 +257,7 @@
                 </details>
             </div>
 
-            <div class="card input-card">
+            <div class="card input-card" data-section="inheritance">
                 <div class="section-title">5. 相続税(任意)</div>
                 <div class="inheritance-toggle-row">
                     <label class="checkbox-label">
@@ -669,7 +678,7 @@
     <script src="storage.f4653d1369.js"></script>
     <script src="constants.4055e2158f.js"></script>
     <script src="shared/pattern-builders.31090ff577.js"></script>
-    <script src="shared/calculator.af096ab2a7.js"></script>
+    <script src="shared/calculator.50662e4c3e.js"></script>
     <!-- 生涯合計の集計(全プラン比較・各ウィザード・ideco-bridge.js等が使う、docs/shared/decisions/0007参照) -->
     <script src="shared/lifetime-totals.b01bd83867.js"></script>
     <!-- ideco→lifeplanへのデータ引き継ぎ(model.jsのcheckIdecoHandoff/importHandoffPatternが
@@ -691,12 +700,12 @@
     <script src="shared/parameter-catalog.a7d4d665a0.js"></script>
     <script src="shared/rebalance-reader.a328b8b8c3.js"></script>
     <script src="shared/embed-overlay.69340cf559.js"></script>
-    <script src="model.99b7eafc03.js"></script>
+    <script src="model.4353c902df.js"></script>
     <script src="auth.f95b7f2cb8.js"></script>
     <script src="consent.6a30cb2135.js"></script>
     <script src="resize-notifier.bbc2b52d92.js"></script>
     <script src="vendor/chart.5a2b2eca76.js"></script>
-    <script src="ui.ca8ffd3b21.js"></script>
+    <script src="ui.99f71fa058.js"></script>
     <script>
         window.model = new LifeplanModel({ window: window, storage: AppStorage });
         AppAuth.init();
