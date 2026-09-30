@@ -4,7 +4,16 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ライフプランシミュレーター</title>
-    <link rel="stylesheet" href="style.1e1f72371c.css">
+    <link rel="stylesheet" href="style.a41bb4399f.css">
+    <!-- uttate.comに埋め込まれているとき(iframeの外にページの見出しがある)は、中のタイトルを出さない(MEMO.md 2026/9/30コメント1-(12))。
+         表示の後でタイトルが消えないよう、描画の前に<html>へ印を付ける -->
+    <script>
+        try {
+            if (window.self !== window.top) document.documentElement.classList.add('is-embedded');
+        } catch (e) {
+            document.documentElement.classList.add('is-embedded');
+        }
+    </script>
 </head>
 <body>
 
@@ -99,10 +108,9 @@
                 <div class="section-title">2. 資産</div>
                 <div class="sub-tabs-bar">
                     <div class="sub-tabs-scroll" id="asset_tabs_row"></div>
-                </div>
-                <div class="section-toolbar">
-                    <!-- rebalanceの口座との対応づけ(ADR 0039) -->
-                    <button type="button" id="btn_rebalance_link" class="btn btn-link">🔗 rebalanceと連携</button>
+                    <!-- rebalanceの口座との対応づけ(ADR 0039)。選んでいる資産タブではなく資産全体に対する操作のため、タブの段の右端
+                         (横スクロールの外)に置く(MEMO.md 2026/9/30コメント1-(10)。プランタブの段の「全プラン比較」と同じ考え方) -->
+                    <button type="button" id="btn_rebalance_link" class="btn btn-link tabs-bar-action">🔗 rebalanceと連携</button>
                 </div>
                 <div id="asset_form_container"></div>
             </div>
@@ -319,7 +327,7 @@
                         <p class="field-note" id="gift_wizard_unavailable_note" hidden>生前贈与の最適化は、被相続人が世帯主の場合に使えます(贈与者は世帯主のため)。</p>
                     </div>
 
-                    <details class="detail-toggle" id="inheritance_step2_toggle">
+                    <details class="detail-toggle as-section-title-sub" id="inheritance_step2_toggle">
                         <summary>ステップ2: 誰がいくら払うか(任意)</summary>
                         <p class="field-note">相続税の総額を、実際に相続する割合で配偶者・子に振り分け、配偶者の税額軽減と贈与税額控除を差し引いて、納付額を求めます。</p>
                         <div class="form-field" id="inheritance_spouse_share_field">
