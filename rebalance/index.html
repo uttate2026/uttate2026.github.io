@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>資産リバランスシミュレーター</title>
-    <link rel="stylesheet" href="style.77614eb979.css">
+    <link rel="stylesheet" href="style.4a13786447.css">
 </head>
 <body>
 
@@ -134,37 +134,22 @@
                 <div id="dashboard_tab_slot"></div>
             </div>
 
+            <!-- ツールバー: 左は表示中の口座(全口座合算ダッシュボードでは全口座)に対する操作、右は保存データ全体に対する操作
+                 (MEMO.md 2026/9/30コメント2-(3)。履歴の保存は資産項目のカードの下に移した、コメント2-(2)) -->
             <div class="account-toolbar">
                 <div class="toolbar-group">
-                    <div id="toolbar_action_live">
-                        <button type="button" id="btn_save_snapshot" class="btn btn-secondary">💾 現在の状態を履歴に保存</button>
-                    </div>
-                    <div id="toolbar_action_history" class="button-row" style="display: none;">
-                        <button type="button" id="btn_toggle_history_edit" class="btn btn-secondary" title="この履歴を編集">✏️ 編集</button>
-                        <button type="button" id="btn_delete_snapshot" class="btn-delete" title="この履歴を削除">🗑️ 削除</button>
-                    </div>
                     <div class="history-select-group">
                         <label for="account_history_select">📁 この口座の過去履歴:</label>
                         <select id="account_history_select">
                             <option value="latest">最新の入力状態(自動保持)</option>
                         </select>
                     </div>
+                    <button type="button" id="btn_open_analysis" class="btn btn-secondary">📈 分析</button>
+                    <button type="button" id="btn_toggle_account_properties" class="btn btn-link">🏷️ 口座プロパティ</button>
                 </div>
                 <div class="toolbar-divider"></div>
                 <div class="toolbar-group">
-                    <button type="button" id="btn_open_analysis" class="btn btn-secondary">📈 分析</button>
                     <button type="button" id="btn_open_backup" class="btn btn-secondary">📦 バックアップ</button>
-                    <button type="button" id="btn_toggle_account_properties" class="btn btn-link">🏷️ 口座プロパティ</button>
-                </div>
-            </div>
-            <!-- 履歴を保存した直後に出す、ライフプランシミュレーターへの導線(lifeplan ADR 0039) -->
-            <p id="lifeplan_link_after_save" class="lifeplan-link" hidden></p>
-
-            <div id="delete_snapshot_confirm" class="delete-confirm-banner" style="display: none;">
-                <span id="delete_snapshot_confirm_text"></span>
-                <div class="button-row">
-                    <button type="button" id="btn_delete_snapshot_confirm" class="btn-delete">🗑️ 削除する</button>
-                    <button type="button" id="btn_delete_snapshot_cancel" class="btn btn-link">キャンセル</button>
                 </div>
             </div>
 
@@ -179,39 +164,8 @@
         <div id="account_workspace">
 
             <div class="card">
-                <div class="section-title">1. リバランス方針設定</div>
-                <div class="policy-row">
-                    <div class="radio-group">
-                        <label class="radio-label"><input type="radio" name="rebalance_policy" value="normal" checked> 通常(売買あり)</label>
-                        <label class="radio-label"><input type="radio" name="rebalance_policy" value="no_sell"> ノーセル(追加投資のみ)</label>
-                        <label class="radio-label"><input type="radio" name="rebalance_policy" value="withdrawal"> 取り崩し</label>
-                    </div>
-
-                    <div class="toolbar-divider"></div>
-
-                    <div id="deposit_withdrawal_amount_container" class="policy-amount-container" style="display: none;">
-                        <label for="deposit_withdrawal_amount">入出金額(+入金/-出金):</label>
-                        <input type="text" id="deposit_withdrawal_amount" class="policy-amount-input" value="0" inputmode="numeric" autocomplete="off" spellcheck="false">
-                        <span class="unit">円</span>
-                    </div>
-
-                    <div id="additional_investment_amount_container" class="policy-amount-container" style="display: none;">
-                        <label for="additional_investment_amount">追加投資額(任意):</label>
-                        <input type="text" id="additional_investment_amount" class="policy-amount-input" value="0" inputmode="numeric" autocomplete="off" spellcheck="false">
-                        <span class="unit">円</span>
-                    </div>
-
-                    <div id="withdrawal_amount_container" class="policy-amount-container" style="display: none;">
-                        <label for="withdrawal_total_amount">取り崩し希望総額:</label>
-                        <input type="text" id="withdrawal_total_amount" class="policy-amount-input" value="0" inputmode="numeric" autocomplete="off" spellcheck="false">
-                        <span class="unit">円</span>
-                    </div>
-                </div>
-            </div>
-
-            <div class="card">
                 <div class="section-title-row tabs-merge">
-                    <div class="section-title">2. 資産項目と目標バランスの入力</div>
+                    <div class="section-title">1. 資産項目と目標バランスの入力</div>
                     <div class="tabs-row small-tabs merge-tabs">
                         <button type="button" id="btn_asset_tab_list" class="subtab-btn">一覧</button>
                         <button type="button" id="btn_asset_tab_byclass" class="subtab-btn">アセットクラス別</button>
@@ -302,13 +256,64 @@
                     </div>
                     <p id="asset_allocation_chart_error" class="alert-text" style="display: none;">円グラフを表示できませんでした。</p>
                 </div>
+
+                <!-- 履歴の保存(入力した直後の位置、MEMO.md 2026/9/30コメント2-(2))と、ライフプランシミュレーターとの連携
+                     (同じ段の右端、コメント2-(4))。過去の履歴を表示しているときは、保存の代わりにその履歴の編集・削除を出す -->
+                <div class="snapshot-save-row">
+                    <div id="toolbar_action_live">
+                        <button type="button" id="btn_save_snapshot" class="btn btn-secondary">💾 現在の状態を履歴に保存</button>
+                    </div>
+                    <div id="toolbar_action_history" class="button-row" style="display: none;">
+                        <button type="button" id="btn_toggle_history_edit" class="btn btn-secondary" title="この履歴を編集">✏️ 編集</button>
+                        <button type="button" id="btn_delete_snapshot" class="btn-delete" title="この履歴を削除">🗑️ 削除</button>
+                    </div>
+                    <a id="btn_open_lifeplan" class="btn btn-secondary lifeplan-open-btn" target="_blank" rel="noopener" hidden></a>
+                </div>
+                <div id="delete_snapshot_confirm" class="delete-confirm-banner" style="display: none;">
+                    <span id="delete_snapshot_confirm_text"></span>
+                    <div class="button-row">
+                        <button type="button" id="btn_delete_snapshot_confirm" class="btn-delete">🗑️ 削除する</button>
+                        <button type="button" id="btn_delete_snapshot_cancel" class="btn btn-link">キャンセル</button>
+                    </div>
+                </div>
             </div>
 
-            <p id="ratio_alert" class="alert-text" style="display: none;">⚠️ 目標比率の合計を100%にしてください。</p>
-            <p id="calc_error" class="alert-text" style="display: none;"></p>
+            <div class="card">
+                <div class="section-title">2. リバランス方針</div>
+                <div class="policy-row">
+                    <div class="radio-group">
+                        <label class="radio-label"><input type="radio" name="rebalance_policy" value="normal" checked> 通常(売買あり)</label>
+                        <label class="radio-label"><input type="radio" name="rebalance_policy" value="no_sell"> ノーセル(追加投資のみ)</label>
+                        <label class="radio-label"><input type="radio" name="rebalance_policy" value="withdrawal"> 取り崩し</label>
+                    </div>
 
-            <div class="execute-row">
-                <button type="button" id="btn_execute_rebalance" class="btn btn-primary btn-large">リバランス計算を実行</button>
+                    <div class="toolbar-divider"></div>
+
+                    <div id="deposit_withdrawal_amount_container" class="policy-amount-container" style="display: none;">
+                        <label for="deposit_withdrawal_amount">入出金額(+入金/-出金):</label>
+                        <input type="text" id="deposit_withdrawal_amount" class="policy-amount-input" value="0" inputmode="numeric" autocomplete="off" spellcheck="false">
+                        <span class="unit">円</span>
+                    </div>
+
+                    <div id="additional_investment_amount_container" class="policy-amount-container" style="display: none;">
+                        <label for="additional_investment_amount">追加投資額(任意):</label>
+                        <input type="text" id="additional_investment_amount" class="policy-amount-input" value="0" inputmode="numeric" autocomplete="off" spellcheck="false">
+                        <span class="unit">円</span>
+                    </div>
+
+                    <div id="withdrawal_amount_container" class="policy-amount-container" style="display: none;">
+                        <label for="withdrawal_total_amount">取り崩し希望総額:</label>
+                        <input type="text" id="withdrawal_total_amount" class="policy-amount-input" value="0" inputmode="numeric" autocomplete="off" spellcheck="false">
+                        <span class="unit">円</span>
+                    </div>
+                </div>
+                <!-- 方針を決めてそのまま計算する(MEMO.md 2026/9/30コメント2-(1)。以前はカードの外、資産項目の下にあった) -->
+                <p id="ratio_alert" class="alert-text" style="display: none;">⚠️ 目標比率の合計を100%にしてください。</p>
+                <p id="calc_error" class="alert-text" style="display: none;"></p>
+
+                <div class="execute-row">
+                    <button type="button" id="btn_execute_rebalance" class="btn btn-primary btn-large">リバランス計算を実行</button>
+                </div>
             </div>
 
             <div class="card">
@@ -472,6 +477,20 @@
         </div>
     </div>
 
+    <!-- ライフプランシミュレーターを開く前に、未保存の口座の履歴をまとめて保存するか確かめる(MEMO.md 2026/9/30コメント2-(4)。
+         lifeplanのグラフの実績の点は、口座ごとに保存した履歴から出すため) -->
+    <div id="lifeplan_save_confirm_modal" class="modal-overlay" style="display: none;" role="dialog" aria-modal="true" aria-labelledby="lifeplan_save_confirm_title">
+        <div class="card modal-card">
+            <div class="section-title" id="lifeplan_save_confirm_title">未保存の口座があります</div>
+            <p id="lifeplan_save_confirm_text" class="auth-desc"></p>
+            <div class="button-row modal-actions">
+                <button type="button" id="btn_lifeplan_save_and_open" class="btn btn-primary">保存して開く</button>
+                <button type="button" id="btn_lifeplan_open_without_save" class="btn btn-secondary">保存せずに開く</button>
+                <button type="button" id="btn_lifeplan_save_confirm_cancel" class="btn btn-link">キャンセル</button>
+            </div>
+        </div>
+    </div>
+
     <div id="backup_modal" class="modal-overlay" style="display: none;">
         <div class="card modal-card">
             <button type="button" id="btn_backup_close" class="modal-close" aria-label="閉じる">×</button>
@@ -512,7 +531,7 @@
     </div>
 
     <script src="storage.ab8f6f53bc.js"></script>
-    <script src="model.7155f63228.js"></script>
+    <script src="model.b2ae2c1cc7.js"></script>
     <script src="solver.2a85db8973.js"></script>
     <script src="ocr.81209fb21e.js"></script>
     <script src="auth.3451c4b58b.js"></script>
@@ -520,7 +539,7 @@
     <script src="resize-notifier.026b62acdf.js"></script>
     <script src="shared/embed-overlay.201abf63a2.js"></script>
     <script src="vendor/chart.12c5b4d542.js"></script>
-    <script src="ui.63dde56e0f.js"></script>
+    <script src="ui.17dfe1f5a9.js"></script>
     <script>
         window.model = new AssetModel({ window: window, storage: AppStorage });
         AssetAuth.init();
