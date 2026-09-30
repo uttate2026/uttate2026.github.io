@@ -186,13 +186,6 @@ header h1 {
     margin-bottom: 20px;
 }
 
-.tab-label {
-    font-size: 12px;
-    font-weight: bold;
-    color: var(--text-secondary);
-    margin-bottom: 8px;
-}
-
 .tabs-row {
     display: flex;
     gap: 8px;
@@ -357,6 +350,10 @@ header h1 {
     align-items: center;
     flex-wrap: wrap;
     gap: 16px;
+}
+
+.toolbar-group-end {
+    margin-left: auto;
 }
 
 .toolbar-divider {
@@ -949,6 +946,34 @@ input[type="text"]:disabled, input[type="number"]:disabled, select:disabled {
 
 /* 計算結果直後の保存導線(機能仕様10.7節、要件3.8) */
 /* ライフプランシミュレーターへの導線(lifeplan ADR 0039)。履歴の保存直後と分析のダイアログに控えめに出す */
+/* 資産項目のカードの下の、履歴の保存とライフプランシミュレーターとの連携の段(MEMO.md 2026/9/30コメント2-(2)(4))。
+   保存は左、連携は右端。狭い画面では折り返す */
+.snapshot-save-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-top: 16px;
+    padding-top: 12px;
+    border-top: 1px dashed var(--border);
+}
+
+.lifeplan-open-btn {
+    text-decoration: none;
+    margin-left: auto;
+}
+
+/* 計算の実行はリバランス方針のカードの中に置く(コメント2-(1)) */
+.card .execute-row {
+    margin: 16px 0 0;
+}
+
+.card #ratio_alert,
+.card #calc_error {
+    margin: 16px 0 0;
+}
+
 .lifeplan-link {
     font-size: 13px;
     color: var(--text-secondary);
@@ -1007,6 +1032,25 @@ input[type="text"]:disabled, input[type="number"]:disabled, select:disabled {
 
 /* アセットクラスの表示順一覧(画面設計7章、機能仕様9.4節)。
    ドラッグ&ドロップ・[▲][▼]の両方で並び替えられる。 */
+/* アセットクラスの管理の資産項目名(MEMO.md 2026/9/30コメント1-(8))。長い名前は中央を「…」にしたボタンで、押すと全文を折り返して出す */
+.asset-name-toggle {
+    padding: 0;
+    background: none;
+    border: none;
+    color: inherit;
+    font: inherit;
+    text-align: left;
+    cursor: pointer;
+    text-decoration: underline dotted var(--text-secondary);
+    text-underline-offset: 3px;
+}
+
+.asset-class-name-cell.expanded {
+    white-space: normal;
+    word-break: break-all;
+    min-width: 11em;
+}
+
 .asset-class-order-list {
     list-style: none;
     margin: 0 0 16px;
@@ -1127,4 +1171,47 @@ input[type="text"]:disabled, input[type="number"]:disabled, select:disabled {
     textarea {
         font-size: 16px !important;
     }
+}
+
+/* uttate.comに埋め込まれているときは、iframeの外にページの見出しがあるため、中のタイトルを出さない(MEMO.md 2026/9/30コメント1-(12))。
+   直接開いたときはタイトルを出す */
+.is-embedded .app-container > header {
+    display: none;
+}
+
+/* 「前半…後半」に省略した資産名(表示だけの欄、MEMO.md 2026/10/1コメント1-(2))。押すと全文を折り返して出す */
+.asset-name-short {
+    cursor: pointer;
+    text-decoration: underline dotted var(--text-secondary);
+    text-underline-offset: 3px;
+}
+
+td:has(> .asset-name-short.expanded),
+td:has(> strong > .asset-name-short.expanded),
+th:has(> .asset-name-short.expanded) {
+    white-space: normal;
+    word-break: break-all;
+}
+
+/* スクショから入力の確認の表。資産額は狭い固定幅にし、残りを資産名に回す(MEMO.md 2026/10/1コメント1-(1)) */
+.ocr-result-table {
+    table-layout: fixed;
+}
+
+.ocr-result-table .ocr-result-amount,
+.ocr-result-table .ocr-result-name {
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.ocr-result-table .ocr-result-amount-col {
+    width: 10em;
+}
+
+.ocr-result-table .ocr-result-exclude-col {
+    width: 3.5em;
+}
+
+.ocr-result-table .ocr-result-name {
+    width: 100%;
 }

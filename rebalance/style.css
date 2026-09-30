@@ -352,6 +352,10 @@ header h1 {
     gap: 16px;
 }
 
+.toolbar-group-end {
+    margin-left: auto;
+}
+
 .toolbar-divider {
     width: 1px;
     align-self: stretch;
@@ -1173,4 +1177,41 @@ input[type="text"]:disabled, input[type="number"]:disabled, select:disabled {
    直接開いたときはタイトルを出す */
 .is-embedded .app-container > header {
     display: none;
+}
+
+/* 「前半…後半」に省略した資産名(表示だけの欄、MEMO.md 2026/10/1コメント1-(2))。押すと全文を折り返して出す */
+.asset-name-short {
+    cursor: pointer;
+    text-decoration: underline dotted var(--text-secondary);
+    text-underline-offset: 3px;
+}
+
+td:has(> .asset-name-short.expanded),
+td:has(> strong > .asset-name-short.expanded),
+th:has(> .asset-name-short.expanded) {
+    white-space: normal;
+    word-break: break-all;
+}
+
+/* スクショから入力の確認の表。資産額は狭い固定幅にし、残りを資産名に回す(MEMO.md 2026/10/1コメント1-(1)) */
+.ocr-result-table {
+    table-layout: fixed;
+}
+
+.ocr-result-table .ocr-result-amount,
+.ocr-result-table .ocr-result-name {
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.ocr-result-table .ocr-result-amount-col {
+    width: 10em;
+}
+
+.ocr-result-table .ocr-result-exclude-col {
+    width: 3.5em;
+}
+
+.ocr-result-table .ocr-result-name {
+    width: 100%;
 }

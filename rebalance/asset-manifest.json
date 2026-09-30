@@ -1,22 +1,6 @@
 {
   "deploys": [
     {
-      "deployedAt": "2026-09-29T22:53:07.249Z",
-      "files": [
-        "auth.3451c4b58b.js",
-        "consent.12d767ca52.js",
-        "model.7155f63228.js",
-        "ocr.81209fb21e.js",
-        "resize-notifier.026b62acdf.js",
-        "shared/embed-overlay.54c4734082.js",
-        "solver.2a85db8973.js",
-        "storage.ab8f6f53bc.js",
-        "style.2533d8dead.css",
-        "ui.7f89f0d02d.js",
-        "vendor/chart.12c5b4d542.js"
-      ]
-    },
-    {
       "deployedAt": "2026-09-29T23:32:27.342Z",
       "files": [
         "auth.3451c4b58b.js",
@@ -77,6 +61,22 @@
         "storage.ab8f6f53bc.js",
         "style.0f1b33a2ea.css",
         "ui.17dfe1f5a9.js",
+        "vendor/chart.12c5b4d542.js"
+      ]
+    },
+    {
+      "deployedAt": "2026-09-30T20:08:34.653Z",
+      "files": [
+        "auth.3451c4b58b.js",
+        "consent.12d767ca52.js",
+        "model.b2ae2c1cc7.js",
+        "ocr.38004d961d.js",
+        "resize-notifier.026b62acdf.js",
+        "shared/embed-overlay.201abf63a2.js",
+        "solver.2a85db8973.js",
+        "storage.ab8f6f53bc.js",
+        "style.98b02734e7.css",
+        "ui.b82dd74efd.js",
         "vendor/chart.12c5b4d542.js"
       ]
     }
