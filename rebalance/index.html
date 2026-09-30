@@ -4,7 +4,16 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>資産リバランスシミュレーター</title>
-    <link rel="stylesheet" href="style.4a13786447.css">
+    <link rel="stylesheet" href="style.0f1b33a2ea.css">
+    <!-- uttate.comに埋め込まれているとき(iframeの外にページの見出しがある)は、中のタイトルを出さない(MEMO.md 2026/9/30コメント1-(12))。
+         表示の後でタイトルが消えないよう、描画の前に<html>へ印を付ける -->
+    <script>
+        try {
+            if (window.self !== window.top) document.documentElement.classList.add('is-embedded');
+        } catch (e) {
+            document.documentElement.classList.add('is-embedded');
+        }
+    </script>
 </head>
 <body>
 
