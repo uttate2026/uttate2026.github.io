@@ -186,13 +186,6 @@ header h1 {
     margin-bottom: 20px;
 }
 
-.tab-label {
-    font-size: 12px;
-    font-weight: bold;
-    color: var(--text-secondary);
-    margin-bottom: 8px;
-}
-
 .tabs-row {
     display: flex;
     gap: 8px;
@@ -948,6 +941,17 @@ input[type="text"]:disabled, input[type="number"]:disabled, select:disabled {
 }
 
 /* 計算結果直後の保存導線(機能仕様10.7節、要件3.8) */
+/* ライフプランシミュレーターへの導線(lifeplan ADR 0039)。履歴の保存直後と分析のダイアログに控えめに出す */
+.lifeplan-link {
+    font-size: 13px;
+    color: var(--text-secondary);
+    margin: 8px 0 0;
+}
+
+.lifeplan-link a {
+    color: var(--primary);
+}
+
 .save-nudge {
     margin-top: 12px;
     padding-top: 12px;
@@ -996,6 +1000,25 @@ input[type="text"]:disabled, input[type="number"]:disabled, select:disabled {
 
 /* アセットクラスの表示順一覧(画面設計7章、機能仕様9.4節)。
    ドラッグ&ドロップ・[▲][▼]の両方で並び替えられる。 */
+/* アセットクラスの管理の資産項目名(MEMO.md 2026/9/30コメント1-(8))。長い名前は中央を「…」にしたボタンで、押すと全文を折り返して出す */
+.asset-name-toggle {
+    padding: 0;
+    background: none;
+    border: none;
+    color: inherit;
+    font: inherit;
+    text-align: left;
+    cursor: pointer;
+    text-decoration: underline dotted var(--text-secondary);
+    text-underline-offset: 3px;
+}
+
+.asset-class-name-cell.expanded {
+    white-space: normal;
+    word-break: break-all;
+    min-width: 11em;
+}
+
 .asset-class-order-list {
     list-style: none;
     margin: 0 0 16px;

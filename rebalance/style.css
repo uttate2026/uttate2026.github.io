@@ -1000,6 +1000,25 @@ input[type="text"]:disabled, input[type="number"]:disabled, select:disabled {
 
 /* アセットクラスの表示順一覧(画面設計7章、機能仕様9.4節)。
    ドラッグ&ドロップ・[▲][▼]の両方で並び替えられる。 */
+/* アセットクラスの管理の資産項目名(MEMO.md 2026/9/30コメント1-(8))。長い名前は中央を「…」にしたボタンで、押すと全文を折り返して出す */
+.asset-name-toggle {
+    padding: 0;
+    background: none;
+    border: none;
+    color: inherit;
+    font: inherit;
+    text-align: left;
+    cursor: pointer;
+    text-decoration: underline dotted var(--text-secondary);
+    text-underline-offset: 3px;
+}
+
+.asset-class-name-cell.expanded {
+    white-space: normal;
+    word-break: break-all;
+    min-width: 11em;
+}
+
 .asset-class-order-list {
     list-style: none;
     margin: 0 0 16px;

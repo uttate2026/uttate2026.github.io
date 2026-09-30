@@ -1,21 +1,6 @@
 {
   "deploys": [
     {
-      "deployedAt": "2026-09-29T00:01:30.123Z",
-      "files": [
-        "auth.3451c4b58b.js",
-        "consent.12d767ca52.js",
-        "model.7155f63228.js",
-        "ocr.81209fb21e.js",
-        "resize-notifier.026b62acdf.js",
-        "solver.203eebad43.js",
-        "storage.e044a6e035.js",
-        "style.332bfb94ab.css",
-        "ui.2bb97f5b29.js",
-        "vendor/chart.c56b586973.js"
-      ]
-    },
-    {
       "deployedAt": "2026-09-29T21:02:48.795Z",
       "files": [
         "auth.3451c4b58b.js",
@@ -74,6 +59,22 @@
         "storage.ab8f6f53bc.js",
         "style.5e286f5008.css",
         "ui.7f89f0d02d.js",
+        "vendor/chart.12c5b4d542.js"
+      ]
+    },
+    {
+      "deployedAt": "2026-09-30T02:58:09.434Z",
+      "files": [
+        "auth.3451c4b58b.js",
+        "consent.12d767ca52.js",
+        "model.7155f63228.js",
+        "ocr.81209fb21e.js",
+        "resize-notifier.026b62acdf.js",
+        "shared/embed-overlay.201abf63a2.js",
+        "solver.2a85db8973.js",
+        "storage.ab8f6f53bc.js",
+        "style.77614eb979.css",
+        "ui.63dde56e0f.js",
         "vendor/chart.12c5b4d542.js"
       ]
     }
