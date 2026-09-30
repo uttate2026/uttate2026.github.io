@@ -1,31 +1,6 @@
 {
   "deploys": [
     {
-      "deployedAt": "2026-09-29T21:25:52.955Z",
-      "files": [
-        "auth.f95b7f2cb8.js",
-        "consent.6a30cb2135.js",
-        "constants.4055e2158f.js",
-        "model.99b7eafc03.js",
-        "resize-notifier.bbc2b52d92.js",
-        "shared/age-stepper.1b938669bf.js",
-        "shared/calculator.af096ab2a7.js",
-        "shared/chart-age-cursor.b4884465a9.js",
-        "shared/ideco-bridge.911f1c97de.js",
-        "shared/ideco-exit-optimizer.e87f7de081.js",
-        "shared/lifetime-totals.380e4e039e.js",
-        "shared/nenkin-bridge.f521ff737b.js",
-        "shared/parameter-catalog.2bdd1a53b6.js",
-        "shared/pattern-builders.b3c92a4e4f.js",
-        "shared/pension-claim-optimizer.8b81fa3e42.js",
-        "shared/rebalance-reader.207c6fe77e.js",
-        "storage.d5485ea76d.js",
-        "style.3ce74183d1.css",
-        "ui.681913371a.js",
-        "vendor/chart.fb40e0ea58.js"
-      ]
-    },
-    {
       "deployedAt": "2026-09-29T22:52:26.619Z",
       "files": [
         "auth.f95b7f2cb8.js",
@@ -126,6 +101,32 @@
         "storage.f4653d1369.js",
         "style.1e1f72371c.css",
         "ui.a62c9ac786.js",
+        "vendor/chart.5a2b2eca76.js"
+      ]
+    },
+    {
+      "deployedAt": "2026-09-30T05:28:16.419Z",
+      "files": [
+        "auth.f95b7f2cb8.js",
+        "consent.6a30cb2135.js",
+        "constants.4055e2158f.js",
+        "model.35ce0a24b4.js",
+        "resize-notifier.bbc2b52d92.js",
+        "shared/age-stepper.1b938669bf.js",
+        "shared/calculator.1fbe7693e2.js",
+        "shared/chart-age-cursor.b4884465a9.js",
+        "shared/embed-overlay.56c75d839f.js",
+        "shared/ideco-bridge.b48a60e746.js",
+        "shared/ideco-exit-optimizer.c3946af122.js",
+        "shared/lifetime-totals.b01bd83867.js",
+        "shared/nenkin-bridge.a6bb4a9ba1.js",
+        "shared/parameter-catalog.a7d4d665a0.js",
+        "shared/pattern-builders.6251db8816.js",
+        "shared/pension-claim-optimizer.960a3c93a9.js",
+        "shared/rebalance-reader.a328b8b8c3.js",
+        "storage.f4653d1369.js",
+        "style.1e1f72371c.css",
+        "ui.dc3829c319.js",
         "vendor/chart.5a2b2eca76.js"
       ]
     }
