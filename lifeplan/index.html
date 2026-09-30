@@ -698,9 +698,9 @@
         </div>
     </div>
 
-    <script src="storage.f4653d1369.js"></script>
+    <script src="storage.3511e9ad1c.js"></script>
     <script src="constants.4055e2158f.js"></script>
-    <script src="shared/pattern-builders.6251db8816.js"></script>
+    <script src="shared/pattern-builders.7092e9a9ab.js"></script>
     <script src="shared/calculator.1fbe7693e2.js"></script>
     <!-- 生涯合計の集計(全プラン比較・各ウィザード・ideco-bridge.js等が使う、docs/shared/decisions/0007参照) -->
     <script src="shared/lifetime-totals.b01bd83867.js"></script>
@@ -716,25 +716,27 @@
          引き継ぎキーを読めない」不具合の再発防止のため、必ずmodel.jsより前に追加すること) -->
     <!-- 公的年金受給開始年齢のグリッド探索(nenkinトピックA・lifeplan「公的年金」タブのウィザードで共通、
          lifeplan ADR 0027参照)。nenkin-bridge.jsが参照するため、必ずその前に読み込む -->
-    <script src="shared/pension-claim-optimizer.960a3c93a9.js"></script>
+    <script src="shared/pension-claim-optimizer.4e0d81bca7.js"></script>
     <script src="shared/nenkin-bridge.a6bb4a9ba1.js"></script>
     <script src="shared/chart-age-cursor.b4884465a9.js"></script>
     <script src="shared/age-stepper.1b938669bf.js"></script>
-    <script src="shared/parameter-catalog.a7d4d665a0.js"></script>
-    <script src="shared/rebalance-reader.a328b8b8c3.js"></script>
+    <script src="shared/parameter-catalog.2146e62254.js"></script>
+    <script src="shared/rebalance-reader.ece5b20405.js"></script>
     <script src="shared/embed-overlay.56c75d839f.js"></script>
+    <script src="shared/numeric-input-select.0706fd12fb.js"></script>
     <script src="model.5617d1d55d.js"></script>
     <script src="auth.f95b7f2cb8.js"></script>
     <script src="consent.6a30cb2135.js"></script>
     <script src="resize-notifier.bbc2b52d92.js"></script>
-    <script src="vendor/chart.5a2b2eca76.js"></script>
-    <script src="ui.485f5bc9fd.js"></script>
+    <script src="vendor/chart.845cebbbb6.js"></script>
+    <script src="ui.dc1d5ccfe0.js"></script>
     <script>
         window.model = new LifeplanModel({ window: window, storage: AppStorage });
         AppAuth.init();
         AppConsent.init();
         ResizeNotifier.init();
         EmbedOverlay.init();
+        NumericInputSelect.init();
     </script>
 </body>
 </html>
