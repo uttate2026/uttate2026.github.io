@@ -1,31 +1,6 @@
 {
   "deploys": [
     {
-      "deployedAt": "2026-09-29T21:26:01.287Z",
-      "files": [
-        "auth.0b9a540a6a.js",
-        "calculator.d868cb3ad6.js",
-        "consent.79ec7cb821.js",
-        "constants.d42b8b6cda.js",
-        "model.bc49d77344.js",
-        "resize-notifier.8b3c8e9088.js",
-        "shared/age-stepper.93e7875a66.js",
-        "shared/calculator.a70d390942.js",
-        "shared/comparison-topics.010b809e99.js",
-        "shared/ideco-bridge.b48a60e746.js",
-        "shared/ideco-exit-optimizer.c3946af122.js",
-        "shared/lifeplan-constants.4db357645f.js",
-        "shared/lifeplan-link.f49202dcce.js",
-        "shared/lifetime-totals.3fc57279d2.js",
-        "shared/parameter-catalog.2146e62254.js",
-        "shared/pattern-builders.5721d3fde2.js",
-        "storage.2eca51fc24.js",
-        "style.19b70b91db.css",
-        "ui.14804c9ca5.js",
-        "vendor/chart.845cebbbb6.js"
-      ]
-    },
-    {
       "deployedAt": "2026-09-29T22:53:14.422Z",
       "files": [
         "auth.0b9a540a6a.js",
@@ -125,6 +100,32 @@
         "shared/pattern-builders.d03cb99de8.js",
         "storage.a905de7f24.js",
         "style.19b70b91db.css",
+        "ui.1e482561bd.js",
+        "vendor/chart.2532476de2.js"
+      ]
+    },
+    {
+      "deployedAt": "2026-09-30T07:36:06.498Z",
+      "files": [
+        "auth.0b9a540a6a.js",
+        "calculator.d868cb3ad6.js",
+        "consent.79ec7cb821.js",
+        "constants.d42b8b6cda.js",
+        "model.bc49d77344.js",
+        "resize-notifier.8b3c8e9088.js",
+        "shared/age-stepper.93e7875a66.js",
+        "shared/calculator.bfab2fd039.js",
+        "shared/comparison-topics.010b809e99.js",
+        "shared/embed-overlay.800909cf4d.js",
+        "shared/ideco-bridge.b6c9617fbd.js",
+        "shared/ideco-exit-optimizer.2ced6c9b19.js",
+        "shared/lifeplan-constants.04e1f93280.js",
+        "shared/lifeplan-link.464e9adfb7.js",
+        "shared/lifetime-totals.76b7e3e169.js",
+        "shared/parameter-catalog.aedb58e796.js",
+        "shared/pattern-builders.d03cb99de8.js",
+        "storage.a905de7f24.js",
+        "style.d177c63fa4.css",
         "ui.1e482561bd.js",
         "vendor/chart.2532476de2.js"
       ]
