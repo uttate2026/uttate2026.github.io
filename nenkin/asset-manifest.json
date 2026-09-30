@@ -1,29 +1,6 @@
 {
   "deploys": [
     {
-      "deployedAt": "2026-09-29T21:25:28.624Z",
-      "files": [
-        "auth.0b9a540a6a.js",
-        "consent.68317a95af.js",
-        "model.6178ba2aad.js",
-        "resize-notifier.eda0f90457.js",
-        "shared/age-stepper.bc4ccf1bc4.js",
-        "shared/calculator.b6945e9fd6.js",
-        "shared/chart-age-cursor.30ba8f7482.js",
-        "shared/lifeplan-constants.1c35447597.js",
-        "shared/lifeplan-link.5d7189f94e.js",
-        "shared/lifetime-totals.380e4e039e.js",
-        "shared/nenkin-bridge.f521ff737b.js",
-        "shared/parameter-catalog.2bdd1a53b6.js",
-        "shared/pattern-builders.b3c92a4e4f.js",
-        "shared/pension-claim-optimizer.8b81fa3e42.js",
-        "storage.230df2bd32.js",
-        "style.b30753c41a.css",
-        "ui.666f9c4981.js",
-        "vendor/chart.fb40e0ea58.js"
-      ]
-    },
-    {
       "deployedAt": "2026-09-29T22:52:27.176Z",
       "files": [
         "auth.0b9a540a6a.js",
@@ -115,6 +92,30 @@
         "shared/pension-claim-optimizer.960a3c93a9.js",
         "storage.1c834e0b1d.js",
         "style.b30753c41a.css",
+        "ui.00e448fa88.js",
+        "vendor/chart.5a2b2eca76.js"
+      ]
+    },
+    {
+      "deployedAt": "2026-09-30T07:35:58.253Z",
+      "files": [
+        "auth.0b9a540a6a.js",
+        "consent.68317a95af.js",
+        "model.6178ba2aad.js",
+        "resize-notifier.eda0f90457.js",
+        "shared/age-stepper.bc4ccf1bc4.js",
+        "shared/calculator.a4ecaf24e2.js",
+        "shared/chart-age-cursor.30ba8f7482.js",
+        "shared/embed-overlay.c8925dca51.js",
+        "shared/lifeplan-constants.e6b4e67715.js",
+        "shared/lifeplan-link.e8bdcafdbf.js",
+        "shared/lifetime-totals.b01bd83867.js",
+        "shared/nenkin-bridge.a6bb4a9ba1.js",
+        "shared/parameter-catalog.a7d4d665a0.js",
+        "shared/pattern-builders.6251db8816.js",
+        "shared/pension-claim-optimizer.960a3c93a9.js",
+        "storage.1c834e0b1d.js",
+        "style.031e174d3f.css",
         "ui.00e448fa88.js",
         "vendor/chart.5a2b2eca76.js"
       ]
