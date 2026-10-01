@@ -1,32 +1,6 @@
 {
   "deploys": [
     {
-      "deployedAt": "2026-09-30T05:28:16.419Z",
-      "files": [
-        "auth.f95b7f2cb8.js",
-        "consent.6a30cb2135.js",
-        "constants.4055e2158f.js",
-        "model.35ce0a24b4.js",
-        "resize-notifier.bbc2b52d92.js",
-        "shared/age-stepper.1b938669bf.js",
-        "shared/calculator.1fbe7693e2.js",
-        "shared/chart-age-cursor.b4884465a9.js",
-        "shared/embed-overlay.56c75d839f.js",
-        "shared/ideco-bridge.b48a60e746.js",
-        "shared/ideco-exit-optimizer.c3946af122.js",
-        "shared/lifetime-totals.b01bd83867.js",
-        "shared/nenkin-bridge.a6bb4a9ba1.js",
-        "shared/parameter-catalog.a7d4d665a0.js",
-        "shared/pattern-builders.6251db8816.js",
-        "shared/pension-claim-optimizer.960a3c93a9.js",
-        "shared/rebalance-reader.a328b8b8c3.js",
-        "storage.f4653d1369.js",
-        "style.1e1f72371c.css",
-        "ui.dc3829c319.js",
-        "vendor/chart.5a2b2eca76.js"
-      ]
-    },
-    {
       "deployedAt": "2026-09-30T07:10:48.489Z",
       "files": [
         "auth.f95b7f2cb8.js",
@@ -128,6 +102,33 @@
         "storage.3511e9ad1c.js",
         "style.a41bb4399f.css",
         "ui.dc1d5ccfe0.js",
+        "vendor/chart.845cebbbb6.js"
+      ]
+    },
+    {
+      "deployedAt": "2026-10-01T08:05:32.023Z",
+      "files": [
+        "auth.f95b7f2cb8.js",
+        "consent.6a30cb2135.js",
+        "constants.42f941ba7b.js",
+        "model.c8fc160acb.js",
+        "resize-notifier.bbc2b52d92.js",
+        "shared/age-stepper.1b938669bf.js",
+        "shared/calculator.bc57939657.js",
+        "shared/chart-age-cursor.b4884465a9.js",
+        "shared/embed-overlay.56c75d839f.js",
+        "shared/ideco-bridge.d39e89bbe3.js",
+        "shared/ideco-exit-optimizer.c3946af122.js",
+        "shared/lifetime-totals.76e3619eb0.js",
+        "shared/nenkin-bridge.44ffff5572.js",
+        "shared/numeric-input-select.8f7204db06.js",
+        "shared/parameter-catalog.63fcba0e54.js",
+        "shared/pattern-builders.7092e9a9ab.js",
+        "shared/pension-claim-optimizer.54220c7710.js",
+        "shared/rebalance-reader.ece5b20405.js",
+        "storage.3511e9ad1c.js",
+        "style.18b02fac6a.css",
+        "ui.a568c71697.js",
         "vendor/chart.845cebbbb6.js"
       ]
     }

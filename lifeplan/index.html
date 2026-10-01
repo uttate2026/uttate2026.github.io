@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ライフプランシミュレーター</title>
-    <link rel="stylesheet" href="style.a41bb4399f.css">
+    <link rel="stylesheet" href="style.18b02fac6a.css">
     <!-- uttate.comに埋め込まれているとき(iframeの外にページの見出しがある)は、中のタイトルを出さない(MEMO.md 2026/9/30コメント1-(12))。
          表示の後でタイトルが消えないよう、描画の前に<html>へ印を付ける -->
     <script>
@@ -102,6 +102,16 @@
                     </div>
                 </div>
                 <div id="person_form_container"></div>
+                <!-- 世帯の設定: お住まいの級地(住民税の非課税の判定、ADR 0042、MEMO.md 2026/10/1コメント3-(2)) -->
+                <div class="form-field household-setting">
+                    <label for="select_resident_tax_area_grade">お住まいの級地</label>
+                    <select id="select_resident_tax_area_grade">
+                        <option value="1">1級地(東京23区や多くの政令指定都市など)</option>
+                        <option value="2">2級地(一部の県庁所在市や大都市周辺の市など)</option>
+                        <option value="3">3級地(その他の一般市区町村、全国の約8割が該当)</option>
+                    </select>
+                    <p class="field-note">収入の少ない年に住民税が非課税になるかの判定に使います(基準が級地で異なるため)。分からなければ、お住まいの市区町村のWebサイトでご確認ください。</p>
+                </div>
             </div>
 
             <div class="card input-card" data-section="assets">
@@ -699,14 +709,14 @@
     </div>
 
     <script src="storage.3511e9ad1c.js"></script>
-    <script src="constants.4055e2158f.js"></script>
+    <script src="constants.42f941ba7b.js"></script>
     <script src="shared/pattern-builders.7092e9a9ab.js"></script>
-    <script src="shared/calculator.1fbe7693e2.js"></script>
+    <script src="shared/calculator.bc57939657.js"></script>
     <!-- 生涯合計の集計(全プラン比較・各ウィザード・ideco-bridge.js等が使う、docs/shared/decisions/0007参照) -->
-    <script src="shared/lifetime-totals.b01bd83867.js"></script>
+    <script src="shared/lifetime-totals.76e3619eb0.js"></script>
     <!-- ideco→lifeplanへのデータ引き継ぎ(model.jsのcheckIdecoHandoff/importHandoffPatternが
          IdecoBridge.HANDOFF_STORAGE_KEYを参照する、docs/shared/decisions/0006参照) -->
-    <script src="shared/ideco-bridge.b48a60e746.js"></script>
+    <script src="shared/ideco-bridge.d39e89bbe3.js"></script>
     <!-- iDeCo出口戦略のグリッド探索(iDeCo資産追加ウィザードが使う、idecoと共通、
          docs/shared/decisions/0007参照) -->
     <script src="shared/ideco-exit-optimizer.c3946af122.js"></script>
@@ -716,20 +726,20 @@
          引き継ぎキーを読めない」不具合の再発防止のため、必ずmodel.jsより前に追加すること) -->
     <!-- 公的年金受給開始年齢のグリッド探索(nenkinトピックA・lifeplan「公的年金」タブのウィザードで共通、
          lifeplan ADR 0027参照)。nenkin-bridge.jsが参照するため、必ずその前に読み込む -->
-    <script src="shared/pension-claim-optimizer.4e0d81bca7.js"></script>
-    <script src="shared/nenkin-bridge.a6bb4a9ba1.js"></script>
+    <script src="shared/pension-claim-optimizer.54220c7710.js"></script>
+    <script src="shared/nenkin-bridge.44ffff5572.js"></script>
     <script src="shared/chart-age-cursor.b4884465a9.js"></script>
     <script src="shared/age-stepper.1b938669bf.js"></script>
-    <script src="shared/parameter-catalog.2146e62254.js"></script>
+    <script src="shared/parameter-catalog.63fcba0e54.js"></script>
     <script src="shared/rebalance-reader.ece5b20405.js"></script>
     <script src="shared/embed-overlay.56c75d839f.js"></script>
-    <script src="shared/numeric-input-select.0706fd12fb.js"></script>
-    <script src="model.5617d1d55d.js"></script>
+    <script src="shared/numeric-input-select.8f7204db06.js"></script>
+    <script src="model.c8fc160acb.js"></script>
     <script src="auth.f95b7f2cb8.js"></script>
     <script src="consent.6a30cb2135.js"></script>
     <script src="resize-notifier.bbc2b52d92.js"></script>
     <script src="vendor/chart.845cebbbb6.js"></script>
-    <script src="ui.dc1d5ccfe0.js"></script>
+    <script src="ui.a568c71697.js"></script>
     <script>
         window.model = new LifeplanModel({ window: window, storage: AppStorage });
         AppAuth.init();
