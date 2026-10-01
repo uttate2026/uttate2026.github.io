@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ライフプランシミュレーター</title>
-    <link rel="stylesheet" href="style.18b02fac6a.css">
+    <link rel="stylesheet" href="style.64caca9302.css">
     <!-- uttate.comに埋め込まれているとき(iframeの外にページの見出しがある)は、中のタイトルを出さない(MEMO.md 2026/9/30コメント1-(12))。
          表示の後でタイトルが消えないよう、描画の前に<html>へ印を付ける -->
     <script>
@@ -57,12 +57,6 @@
             </div>
             <div class="account-toolbar">
                 <button type="button" id="btn_toggle_pattern_properties" class="btn btn-link">🏷️ プラン名を変更</button>
-                <!-- 実績の記録(MEMO.md 2026/9/29コメント3、ADR 0035)。押すと基準・過去の実績の一覧(履歴メニュー)が開き、
-                     選んだものを複製して記録日つきの実績を作る -->
-                <div class="record-menu-wrap">
-                    <button type="button" id="btn_record_menu" class="btn btn-link" aria-haspopup="true" aria-expanded="false">📋 実績を記録 ▼</button>
-                    <div id="record_menu" class="record-menu" hidden></div>
-                </div>
                 <!-- バックアップ(ファイルへの書き出し・読み込み、ADR 0038) -->
                 <div class="record-menu-wrap">
                     <button type="button" id="btn_backup_menu" class="btn btn-link" aria-haspopup="true" aria-expanded="false">💾 バックアップ ▼</button>
@@ -356,31 +350,35 @@
 
         </div>
 
-        <!-- 計画との比較(実績機能の段階③、MEMO.md 2026/9/29コメント3、ADR 0036) -->
+        <!-- 計画と実績(ADR 0044)。実績の記録・計画との比較・計画の立て直しをまとめたタブ。以前はツールバーの
+             「📋 実績を記録 ▼」のメニューと、その奥の「計画と比べる」に分かれていた(ADR 0035・0036) -->
         <div id="record_compare_workspace" style="display: none;">
             <div class="card">
-                <div class="record-compare-head">
-                    <div class="section-title">計画との比較</div>
-                    <button type="button" id="btn_record_compare_back" class="btn btn-link">戻る</button>
-                </div>
-                <p class="field-note" id="record_compare_note"></p>
-                <div class="sub-tabs-bar" id="record_compare_range">
-                    <button type="button" class="sub-tab-btn" data-record-range="recent">直近</button>
-                    <button type="button" class="sub-tab-btn" data-record-range="all">全期間</button>
-                </div>
-                <div id="record_compare_chart_wrap">
-                    <canvas id="record_compare_chart_canvas"></canvas>
-                    <p id="record_compare_chart_error" class="alert-text" style="display: none;">グラフを表示できませんでした。</p>
-                </div>
-                <div class="table-responsive">
-                    <table id="record_compare_table"></table>
-                </div>
-                <!-- rebalanceの記録(連携した資産だけの計画の線と、rebalanceの履歴の残高、ADR 0039) -->
-                <div id="record_compare_rebalance" hidden>
-                    <div class="section-title-sub">rebalanceの記録</div>
-                    <p class="field-note" id="record_compare_rebalance_note"></p>
-                    <div id="record_compare_rebalance_chart_wrap">
-                        <canvas id="record_compare_rebalance_canvas"></canvas>
+                <div class="section-title">計画と実績</div>
+                <!-- 計画が無ければ始め方、あれば計画・最新の記録の要約と操作 -->
+                <div id="record_summary"></div>
+                <div id="record_compare_body">
+                    <p class="field-note" id="record_compare_note"></p>
+                    <div class="sub-tabs-bar" id="record_compare_range">
+                        <button type="button" class="sub-tab-btn" data-record-range="recent">直近</button>
+                        <button type="button" class="sub-tab-btn" data-record-range="all">全期間</button>
+                    </div>
+                    <div id="record_compare_chart_wrap">
+                        <canvas id="record_compare_chart_canvas"></canvas>
+                        <p id="record_compare_chart_error" class="alert-text" style="display: none;">グラフを表示できませんでした。</p>
+                    </div>
+                    <div class="section-title-sub">記録の一覧</div>
+                    <div class="table-responsive">
+                        <table id="record_compare_table"></table>
+                    </div>
+                    <div id="record_past_chains"></div>
+                    <!-- rebalanceの記録(連携した資産だけの計画の線と、rebalanceの履歴の残高、ADR 0039) -->
+                    <div id="record_compare_rebalance" hidden>
+                        <div class="section-title-sub">rebalanceの履歴(連携した資産だけ)</div>
+                        <p class="field-note" id="record_compare_rebalance_note"></p>
+                        <div id="record_compare_rebalance_chart_wrap">
+                            <canvas id="record_compare_rebalance_canvas"></canvas>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -685,6 +683,19 @@
         </div>
     </div>
 
+    <!-- 残高の記録(ADR 0044)。今の計画の資産ごとに、記録日の残高を入れる -->
+    <div id="balance_record_modal" class="modal-overlay" style="display: none;" role="dialog" aria-modal="true" aria-labelledby="balance_record_modal_title">
+        <div class="card modal-card">
+            <button type="button" id="btn_balance_record_close" class="modal-close" aria-label="閉じる">×</button>
+            <div class="section-title" id="balance_record_modal_title">残高を記録</div>
+            <div id="balance_record_body"></div>
+            <div class="modal-actions">
+                <button type="button" id="btn_balance_record_cancel" class="btn btn-link">キャンセル</button>
+                <button type="button" id="btn_balance_record_save" class="btn btn-primary">記録する</button>
+            </div>
+        </div>
+    </div>
+
     <!-- バックアップの読み込みの確認(ADR 0038) -->
     <div id="backup_import_modal" class="modal-overlay" style="display: none;" role="dialog" aria-modal="true" aria-labelledby="backup_import_modal_title">
         <div class="card modal-card">
@@ -734,12 +745,12 @@
     <script src="shared/rebalance-reader.ece5b20405.js"></script>
     <script src="shared/embed-overlay.56c75d839f.js"></script>
     <script src="shared/numeric-input-select.8f7204db06.js"></script>
-    <script src="model.c8fc160acb.js"></script>
+    <script src="model.b3c18a4267.js"></script>
     <script src="auth.f95b7f2cb8.js"></script>
     <script src="consent.6a30cb2135.js"></script>
     <script src="resize-notifier.bbc2b52d92.js"></script>
     <script src="vendor/chart.845cebbbb6.js"></script>
-    <script src="ui.f8b43bebbe.js"></script>
+    <script src="ui.d40c0930e5.js"></script>
     <script>
         window.model = new LifeplanModel({ window: window, storage: AppStorage });
         AppAuth.init();
