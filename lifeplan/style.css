@@ -1783,3 +1783,26 @@ th, td {
     padding-top: 12px;
     border-top: 1px solid var(--border);
 }
+
+/* 資金不足の案内(MEMO.md 2026/10/2コメント2-(6)) */
+.shortage-note {
+    border: 1px solid #f59e0b;
+    background: #fffbeb;
+    border-radius: 8px;
+    padding: 10px 14px;
+    margin-bottom: 12px;
+    font-size: 14px;
+}
+
+.shortage-note p {
+    margin: 0 0 6px;
+}
+
+.shortage-causes {
+    margin: 0;
+    padding-left: 20px;
+}
+
+.shortage-causes li {
+    margin-bottom: 4px;
+}

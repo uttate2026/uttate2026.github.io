@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ライフプランシミュレーター</title>
-    <link rel="stylesheet" href="style.ec80c6ee76.css">
+    <link rel="stylesheet" href="style.3a8076f027.css">
     <!-- uttate.comに埋め込まれているとき(iframeの外にページの見出しがある)は、中のタイトルを出さない(MEMO.md 2026/9/30コメント1-(12))。
          表示の後でタイトルが消えないよう、描画の前に<html>へ印を付ける -->
     <script>
@@ -215,6 +215,8 @@
 
             <div class="card" data-section="result">
                 <div class="section-title">4. シミュレーション結果</div>
+                <!-- 現金・預金がマイナス(資金不足)になる年があるときの案内と、考えられる原因の入力欄へのボタン(MEMO.md 2026/10/2コメント2-(6)) -->
+                <div id="result_shortage_note" class="shortage-note" role="status" hidden></div>
                 <div class="result-summary">
                     <div class="result-summary-item">
                         <span class="result-summary-label">総手取り額(生涯)</span>
@@ -723,7 +725,7 @@
     </div>
 
     <script src="storage.3511e9ad1c.js"></script>
-    <script src="constants.020b7b1f31.js"></script>
+    <script src="constants.dede96d2e6.js"></script>
     <script src="shared/pattern-builders.7092e9a9ab.js"></script>
     <script src="shared/calculator.c0be1b1b6b.js"></script>
     <!-- 生涯合計の集計(全プラン比較・各ウィザード・ideco-bridge.js等が使う、docs/shared/decisions/0007参照) -->
@@ -744,16 +746,16 @@
     <script src="shared/nenkin-bridge.44ffff5572.js"></script>
     <script src="shared/chart-age-cursor.b4884465a9.js"></script>
     <script src="shared/age-stepper.1b938669bf.js"></script>
-    <script src="shared/parameter-catalog.e0b3fcdfc5.js"></script>
+    <script src="shared/parameter-catalog.55bfe4da56.js"></script>
     <script src="shared/rebalance-reader.7ee687aed1.js"></script>
     <script src="shared/embed-overlay.56c75d839f.js"></script>
     <script src="shared/numeric-input-select.8f7204db06.js"></script>
-    <script src="model.39bc491bf5.js"></script>
+    <script src="model.053b873ca3.js"></script>
     <script src="auth.f95b7f2cb8.js"></script>
     <script src="consent.6a30cb2135.js"></script>
     <script src="resize-notifier.bbc2b52d92.js"></script>
     <script src="vendor/chart.845cebbbb6.js"></script>
-    <script src="ui.0fe24f1da0.js"></script>
+    <script src="ui.6d39ab0744.js"></script>
     <script>
         window.model = new LifeplanModel({ window: window, storage: AppStorage });
         AppAuth.init();
