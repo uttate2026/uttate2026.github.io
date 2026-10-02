@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>資産リバランスシミュレーター</title>
-    <link rel="stylesheet" href="style.416b8b12a6.css">
+    <link rel="stylesheet" href="style.c080c725c9.css">
     <!-- uttate.comに埋め込まれているとき(iframeの外にページの見出しがある)は、中のタイトルを出さない(MEMO.md 2026/9/30コメント1-(12))。
          表示の後でタイトルが消えないよう、描画の前に<html>へ印を付ける -->
     <script>
@@ -162,7 +162,8 @@
                         <button type="button" id="btn_delete_snapshot" class="btn-delete" title="この履歴を削除">🗑️ 削除</button>
                     </div>
                     <button type="button" id="btn_open_analysis" class="btn btn-secondary">📈 分析</button>
-                    <button type="button" id="btn_toggle_account_properties" class="btn btn-link">🏷️ 口座プロパティ</button>
+                    <!-- 開くパネルの中身は口座名だけのため、lifeplanの「🏷️ プラン名を変更」と同じく何をするかで呼ぶ(MEMO.md 2026/10/2コメント1-(11)) -->
+                    <button type="button" id="btn_toggle_account_properties" class="btn btn-link">🏷️ 口座名を変更</button>
                 </div>
                 <!-- 保存データ全体に対する操作は右端に寄せる(MEMO.md 2026/10/1コメント1-(6)) -->
                 <div class="toolbar-group toolbar-group-end">
