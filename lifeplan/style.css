@@ -1382,8 +1382,9 @@ th, td {
     white-space: nowrap;
 }
 
-/* ツールバーのメニュー(「💾 バックアップ」)と、実績・基準を開いているときの帯(ADR 0035・0038)。 */
-/* メニューはツールバーの左端を起点に開く(スマホ幅で右から開くと画面の外にはみ出すため) */
+/* ツールバーのメニュー(「📦 バックアップ」)と、実績・基準を開いているときの帯(ADR 0035・0038)。 */
+/* 「📦 バックアップ」はツールバーの右端に置き(MEMO.md 2026/10/2コメント2-(3))、メニューはツールバーの右端を起点に開く
+   (メニューの幅はツールバーの幅以下のため、スマホ幅でも画面の外にはみ出さない) */
 .account-toolbar {
     position: relative;
 }
@@ -1391,7 +1392,7 @@ th, td {
 .record-menu {
     position: absolute;
     top: 100%;
-    left: 0;
+    right: 0;
     z-index: 50;
     width: min(420px, calc(100vw - 32px));
     background: var(--bg-card);
@@ -1434,7 +1435,12 @@ th, td {
 
 #btn_backup_menu.has-warning {
     color: #b45309;
+    border-color: #d97706;
     font-weight: bold;
+}
+
+.account-toolbar .toolbar-end {
+    margin-left: auto;
 }
 
 .backup-summary {

@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ライフプランシミュレーター</title>
-    <link rel="stylesheet" href="style.ebf8e52c5b.css">
+    <link rel="stylesheet" href="style.ec80c6ee76.css">
     <!-- uttate.comに埋め込まれているとき(iframeの外にページの見出しがある)は、中のタイトルを出さない(MEMO.md 2026/9/30コメント1-(12))。
          表示の後でタイトルが消えないよう、描画の前に<html>へ印を付ける -->
     <script>
@@ -57,9 +57,10 @@
             </div>
             <div class="account-toolbar">
                 <button type="button" id="btn_toggle_pattern_properties" class="btn btn-link">🏷️ プラン名を変更</button>
-                <!-- バックアップ(ファイルへの書き出し・読み込み、ADR 0038) -->
-                <div class="record-menu-wrap">
-                    <button type="button" id="btn_backup_menu" class="btn btn-link" aria-haspopup="true" aria-expanded="false">💾 バックアップ ▼</button>
+                <!-- バックアップ(ファイルへの書き出し・読み込み、ADR 0038)。保存データ全体に対する操作のため、資産リバランスシミュレーターの
+                     「📦 バックアップ」と同じくツールバーの右端に、同じアイコン・見た目で置く(MEMO.md 2026/10/2コメント2-(3)) -->
+                <div class="record-menu-wrap toolbar-end">
+                    <button type="button" id="btn_backup_menu" class="btn btn-secondary" aria-haspopup="true" aria-expanded="false">📦 バックアップ ▼</button>
                     <div id="backup_menu" class="record-menu" hidden></div>
                     <input type="file" id="backup_file_input" accept=".json,application/json" hidden>
                 </div>
@@ -745,12 +746,12 @@
     <script src="shared/rebalance-reader.ece5b20405.js"></script>
     <script src="shared/embed-overlay.56c75d839f.js"></script>
     <script src="shared/numeric-input-select.8f7204db06.js"></script>
-    <script src="model.d068c81321.js"></script>
+    <script src="model.39bc491bf5.js"></script>
     <script src="auth.f95b7f2cb8.js"></script>
     <script src="consent.6a30cb2135.js"></script>
     <script src="resize-notifier.bbc2b52d92.js"></script>
     <script src="vendor/chart.845cebbbb6.js"></script>
-    <script src="ui.7763aa64a4.js"></script>
+    <script src="ui.48ebff3865.js"></script>
     <script>
         window.model = new LifeplanModel({ window: window, storage: AppStorage });
         AppAuth.init();
