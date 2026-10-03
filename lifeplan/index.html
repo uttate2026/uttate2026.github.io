@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ライフプランシミュレーター</title>
-    <link rel="stylesheet" href="style.3a8076f027.css">
+    <link rel="stylesheet" href="style.fac7e6c6db.css">
     <!-- uttate.comに埋め込まれているとき(iframeの外にページの見出しがある)は、中のタイトルを出さない(MEMO.md 2026/9/30コメント1-(12))。
          表示の後でタイトルが消えないよう、描画の前に<html>へ印を付ける -->
     <script>
@@ -128,24 +128,29 @@
                     <button type="button" class="sub-tab-btn" data-expense-tab="lifeEvent">ライフイベント</button>
                     <button type="button" class="sub-tab-btn" data-expense-tab="gift">生前贈与(世帯外)</button>
                 </div>
+                <!-- 生活費は、年齢(世帯主)ごとの行で入れる表にする(MEMO.md 2026/10/2コメント2-(11))。1行目が今からの生活費で、
+                     「+ 生活費の変化を追加」で「○歳から」の行を何行でも足せる。年1回などの支出は、毎月ではない支出を月額に換算せずに
+                     入れる欄(MEMO.md 2026/9/30コメント1-(4))。数年おきの支出は「不定期支出」 -->
                 <div id="expense_living_panel">
-                    <div class="form-field">
-                        <label for="input_living_cost">毎月の生活費(月額)</label>
-                        <div class="field-with-unit">
-                            <input type="text" id="input_living_cost" inputmode="numeric" autocomplete="off" spellcheck="false">
-                            <span class="unit">円</span>
-                        </div>
+                    <div class="table-responsive">
+                        <table class="dynamic-list-table living-cost-table">
+                            <thead>
+                                <tr><th>年齢(世帯主)</th><th>毎月の生活費</th><th>年1回などの支出</th><th class="text-right">年間</th><th></th></tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td id="living_cost_base_age">今から</td>
+                                    <td><div class="field-with-unit"><input type="text" id="input_living_cost" inputmode="numeric" autocomplete="off" spellcheck="false" aria-label="毎月の生活費(月額)"><span class="unit">円</span></div></td>
+                                    <td><div class="field-with-unit"><input type="text" id="input_annual_other_living_cost" inputmode="numeric" autocomplete="off" spellcheck="false" aria-label="年1回などの支出(年額)"><span class="unit">円</span></div></td>
+                                    <td class="text-right"><strong id="living_cost_annual_total">¥0</strong></td>
+                                    <td></td>
+                                </tr>
+                            </tbody>
+                            <tbody id="living_cost_change_rows"></tbody>
+                        </table>
                     </div>
-                    <!-- 毎月ではない支出を月額に換算せずに入れる欄(MEMO.md 2026/9/30コメント1-(4))。数年おきの支出は「不定期支出」 -->
-                    <div class="form-field">
-                        <label for="input_annual_other_living_cost">年1回などの支出(年額)</label>
-                        <div class="field-with-unit">
-                            <input type="text" id="input_annual_other_living_cost" inputmode="numeric" autocomplete="off" spellcheck="false">
-                            <span class="unit">円</span>
-                        </div>
-                        <p class="field-note">固定資産税・自動車税・保険料の年払い・帰省や旅行など。数年おきの支出(給湯器・車の買い替え等)は「不定期支出」に入れます。</p>
-                    </div>
-                    <p class="living-cost-total">年間の生活費(月額×12+年額): <strong id="living_cost_annual_total">¥0</strong></p>
+                    <button type="button" class="btn btn-link" id="btn_add_living_cost_change">+ 生活費の変化を追加</button>
+                    <p class="field-note">子が独立した後・退職後・75歳以降など、生活費が変わる年齢ごとに行を足します(その年齢から次の行の年齢の前までの生活費)。年間の生活費は月額×12+年額です。年1回などの支出は、固定資産税・自動車税・保険料の年払い・帰省や旅行など。数年おきの支出(給湯器・車の買い替え等)は「不定期支出」に入れます。</p>
                 </div>
                 <div id="expense_durable_panel" style="display:none;">
                     <p class="field-note">任意入力です(0件でも構いません)。「項目」欄は候補(給湯器・外壁塗装・自家用車)から選ぶと耐用年数が自動で入ります。候補にない名前を入力すると自由な項目として扱われます。</p>
@@ -725,9 +730,9 @@
     </div>
 
     <script src="storage.3511e9ad1c.js"></script>
-    <script src="constants.dede96d2e6.js"></script>
+    <script src="constants.bfe010dce8.js"></script>
     <script src="shared/pattern-builders.7092e9a9ab.js"></script>
-    <script src="shared/calculator.c0be1b1b6b.js"></script>
+    <script src="shared/calculator.3eeaefb36e.js"></script>
     <!-- 生涯合計の集計(全プラン比較・各ウィザード・ideco-bridge.js等が使う、docs/shared/decisions/0007参照) -->
     <script src="shared/lifetime-totals.76e3619eb0.js"></script>
     <!-- ideco→lifeplanへのデータ引き継ぎ(model.jsのcheckIdecoHandoff/importHandoffPatternが
@@ -746,16 +751,16 @@
     <script src="shared/nenkin-bridge.44ffff5572.js"></script>
     <script src="shared/chart-age-cursor.b4884465a9.js"></script>
     <script src="shared/age-stepper.1b938669bf.js"></script>
-    <script src="shared/parameter-catalog.55bfe4da56.js"></script>
+    <script src="shared/parameter-catalog.a7d81b1203.js"></script>
     <script src="shared/rebalance-reader.7ee687aed1.js"></script>
     <script src="shared/embed-overlay.56c75d839f.js"></script>
     <script src="shared/numeric-input-select.8f7204db06.js"></script>
-    <script src="model.053b873ca3.js"></script>
+    <script src="model.ea552531c4.js"></script>
     <script src="auth.f95b7f2cb8.js"></script>
     <script src="consent.6a30cb2135.js"></script>
     <script src="resize-notifier.bbc2b52d92.js"></script>
     <script src="vendor/chart.845cebbbb6.js"></script>
-    <script src="ui.6d39ab0744.js"></script>
+    <script src="ui.e7b704d9be.js"></script>
     <script>
         window.model = new LifeplanModel({ window: window, storage: AppStorage });
         AppAuth.init();
