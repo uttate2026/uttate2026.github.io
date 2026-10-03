@@ -1,33 +1,6 @@
 {
   "deploys": [
     {
-      "deployedAt": "2026-10-01T07:45:07.763Z",
-      "files": [
-        "auth.0b9a540a6a.js",
-        "calculator.d868cb3ad6.js",
-        "consent.79ec7cb821.js",
-        "constants.4a2cd5dabf.js",
-        "model.bc49d77344.js",
-        "resize-notifier.8b3c8e9088.js",
-        "shared/age-stepper.93e7875a66.js",
-        "shared/calculator.435f730f0f.js",
-        "shared/comparison-topics.010b809e99.js",
-        "shared/embed-overlay.800909cf4d.js",
-        "shared/ideco-bridge.fa40e01c45.js",
-        "shared/ideco-exit-optimizer.2ced6c9b19.js",
-        "shared/lifeplan-constants.dd6be387c2.js",
-        "shared/lifeplan-link.464e9adfb7.js",
-        "shared/lifetime-totals.08d3fb71ec.js",
-        "shared/numeric-input-select.77505d7757.js",
-        "shared/parameter-catalog.8dd143654d.js",
-        "shared/pattern-builders.b2be00251f.js",
-        "storage.6ee4933f25.js",
-        "style.d177c63fa4.css",
-        "ui.206b7d7ce1.js",
-        "vendor/chart.ae6675f5be.js"
-      ]
-    },
-    {
       "deployedAt": "2026-10-01T08:05:44.851Z",
       "files": [
         "auth.0b9a540a6a.js",
@@ -128,6 +101,33 @@
         "shared/lifetime-totals.08d3fb71ec.js",
         "shared/numeric-input-select.ca4b3dc369.js",
         "shared/parameter-catalog.e295456fe8.js",
+        "shared/pattern-builders.b2be00251f.js",
+        "storage.6ee4933f25.js",
+        "style.d177c63fa4.css",
+        "ui.206b7d7ce1.js",
+        "vendor/chart.ae6675f5be.js"
+      ]
+    },
+    {
+      "deployedAt": "2026-10-03T02:07:35.686Z",
+      "files": [
+        "auth.0b9a540a6a.js",
+        "calculator.d868cb3ad6.js",
+        "consent.79ec7cb821.js",
+        "constants.4a2cd5dabf.js",
+        "model.bc49d77344.js",
+        "resize-notifier.8b3c8e9088.js",
+        "shared/age-stepper.93e7875a66.js",
+        "shared/calculator.ec0a33cce2.js",
+        "shared/comparison-topics.010b809e99.js",
+        "shared/embed-overlay.800909cf4d.js",
+        "shared/ideco-bridge.fa40e01c45.js",
+        "shared/ideco-exit-optimizer.2ced6c9b19.js",
+        "shared/lifeplan-constants.62dafcc516.js",
+        "shared/lifeplan-link.464e9adfb7.js",
+        "shared/lifetime-totals.08d3fb71ec.js",
+        "shared/numeric-input-select.ca4b3dc369.js",
+        "shared/parameter-catalog.549889d381.js",
         "shared/pattern-builders.b2be00251f.js",
         "storage.6ee4933f25.js",
         "style.d177c63fa4.css",
