@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ライフプランシミュレーター</title>
-    <link rel="stylesheet" href="style.6e5aa933e2.css">
+    <link rel="stylesheet" href="style.892929cc4c.css">
     <!-- uttate.comに埋め込まれているとき(iframeの外にページの見出しがある)は、中のタイトルを出さない(MEMO.md 2026/9/30コメント1-(12))。
          表示の後でタイトルが消えないよう、描画の前に<html>へ印を付ける -->
     <script>
@@ -220,6 +220,9 @@
 
             <div class="card" data-section="result">
                 <div class="section-title">4. シミュレーション結果</div>
+                <!-- 入力の状況: 収入・年金/資産/支出のうちまだ入っていないものと、その入力欄へのボタン(MEMO.md 2026/10/4コメント1-(8)、
+                     docs/lifeplan/decisions/0047)。他のサイトから引き継いだ直後に、残りの入力を促す -->
+                <div id="result_input_status" class="input-status-note" role="status" hidden></div>
                 <!-- 現金・預金がマイナス(資金不足)になる年があるときの案内と、考えられる原因の入力欄へのボタン(MEMO.md 2026/10/2コメント2-(6)) -->
                 <div id="result_shortage_note" class="shortage-note" role="status" hidden></div>
                 <div class="result-summary">
@@ -253,6 +256,8 @@
                     <p id="asset_chart_error" class="alert-text" style="display: none;">グラフを表示できませんでした。</p>
                     <!-- rebalanceと連携した口座のうち、履歴を保存していない口座の案内(その口座は実績の点が出ない) -->
                     <p id="asset_chart_rebalance_note" class="field-note" hidden></p>
+                    <!-- 生活費が0円のままのときの注記(ADR 0047)。入力の状況を閉じても、支出0円の結果だと分かるようにする -->
+                    <p id="asset_chart_living_cost_note" class="field-note" hidden>生活費が未入力(0円)のため、支出0円で計算しています。「3. 支出」で生活費を入れると、見通しが現実に近づきます。</p>
                 </div>
                 <!-- ねんきんプランナー②の「明細を見る」と同じ形(既定は畳んだ状態)。スライダーの左右の端はグラフの
                      描画範囲に合わせ(ChartAgeCursor.alignSlider)、開いている間はグラフ内に選んだ年齢の縦線を引く -->
@@ -732,12 +737,12 @@
     <script src="storage.3511e9ad1c.js"></script>
     <script src="constants.bfe010dce8.js"></script>
     <script src="shared/pattern-builders.7092e9a9ab.js"></script>
-    <script src="shared/calculator.3eeaefb36e.js"></script>
+    <script src="shared/calculator.ea65652bdd.js"></script>
     <!-- 生涯合計の集計(全プラン比較・各ウィザード・ideco-bridge.js等が使う、docs/shared/decisions/0007参照) -->
-    <script src="shared/lifetime-totals.76e3619eb0.js"></script>
+    <script src="shared/lifetime-totals.b7e2488c1d.js"></script>
     <!-- ideco→lifeplanへのデータ引き継ぎ(model.jsのcheckIdecoHandoff/importHandoffPatternが
          IdecoBridge.HANDOFF_STORAGE_KEYを参照する、docs/shared/decisions/0006参照) -->
-    <script src="shared/ideco-bridge.d39e89bbe3.js"></script>
+    <script src="shared/ideco-bridge.7cddf215ba.js"></script>
     <!-- iDeCo出口戦略のグリッド探索(iDeCo資産追加ウィザードが使う、idecoと共通、
          docs/shared/decisions/0007参照) -->
     <script src="shared/ideco-exit-optimizer.c3946af122.js"></script>
@@ -760,7 +765,7 @@
     <script src="consent.6a30cb2135.js"></script>
     <script src="resize-notifier.bbc2b52d92.js"></script>
     <script src="vendor/chart.845cebbbb6.js"></script>
-    <script src="ui.c9f519be4a.js"></script>
+    <script src="ui.0e383a37ac.js"></script>
     <script>
         window.model = new LifeplanModel({ window: window, storage: AppStorage });
         AppAuth.init();

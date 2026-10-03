@@ -1801,6 +1801,46 @@ th, td {
     border-top: 1px solid var(--border);
 }
 
+/* 入力の状況(MEMO.md 2026/10/4コメント1-(8)、ADR 0047)。資金不足の案内と同じ形で、注意ではなく案内のため青系にする */
+.input-status-note {
+    border: 1px solid #93c5fd;
+    background: #eff6ff;
+    border-radius: 8px;
+    padding: 10px 14px;
+    margin-bottom: 12px;
+    font-size: 14px;
+}
+
+.input-status-note p {
+    margin: 0 0 6px;
+}
+
+.input-status-note .hint-close {
+    float: right;
+    margin: -4px -6px 4px 8px;
+    padding: 0 6px;
+    border: none;
+    background: transparent;
+    color: var(--text-secondary);
+    font-size: 20px;
+    line-height: 1;
+    cursor: pointer;
+}
+
+.input-status-list {
+    margin: 0;
+    padding-left: 4px;
+    list-style: none;
+}
+
+.input-status-list li {
+    margin-bottom: 4px;
+}
+
+.input-status-done {
+    color: var(--text-secondary);
+}
+
 /* 資金不足の案内(MEMO.md 2026/10/2コメント2-(6)) */
 .shortage-note {
     border: 1px solid #f59e0b;
