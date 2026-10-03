@@ -128,12 +128,28 @@
                         </div>
                     </div>
                     <div class="form-field">
-                        <label for="input_social_insurance">社会保険料(年額)</label>
+                        <label for="input_social_insurance">社会保険料等の金額</label>
                         <div class="field-with-unit">
                             <input type="text" id="input_social_insurance" inputmode="numeric" autocomplete="off" spellcheck="false">
                             <span class="unit">円</span>
                         </div>
                     </div>
+                    <!-- 「社会保険料等の金額」の内訳(lifeplan ADR 0048、MEMO.md 2026/10/4コメント1-(9)) -->
+                    <div class="form-field">
+                        <label for="input_small_business_mutual_aid">うち小規模企業共済等掛金(任意)</label>
+                        <div class="field-with-unit">
+                            <input type="text" id="input_small_business_mutual_aid" inputmode="numeric" autocomplete="off" spellcheck="false">
+                            <span class="unit">円</span>
+                        </div>
+                    </div>
+                    <div class="form-field">
+                        <label for="input_declared_national_pension">国民年金保険料等の金額(任意)</label>
+                        <div class="field-with-unit">
+                            <input type="text" id="input_declared_national_pension" inputmode="numeric" autocomplete="off" spellcheck="false">
+                            <span class="unit">円</span>
+                        </div>
+                    </div>
+                    <p class="field-note" style="grid-column: 1 / -1;">源泉徴収票の金額をそのまま転記してください。「社会保険料等の金額」には、iDeCo等の掛金(左上に「内」と書かれた小規模企業共済等掛金)と、年末調整で申告したご家族の国民年金保険料(下の段の「国民年金保険料等の金額」)も含まれます。この2つを入れると、本人の給与にかかる社会保険料と分けて計算します。</p>
                 </div>
 
                 <div class="form-field">
@@ -441,7 +457,7 @@
 
     <script src="storage.6ee4933f25.js"></script>
     <script src="constants.4a2cd5dabf.js"></script>
-    <script src="model.bc49d77344.js"></script>
+    <script src="model.c1b76b4528.js"></script>
     <script src="calculator.d868cb3ad6.js"></script>
     <script src="auth.0b9a540a6a.js"></script>
     <script src="consent.79ec7cb821.js"></script>
@@ -453,21 +469,21 @@
          参照するブラウザグローバルLifeplanConstantsを用意するためのもので、このページ自体の
          constants.js(IdecoConstants)とは別名のため衝突しない -->
     <script src="shared/lifeplan-constants.62dafcc516.js"></script>
-    <script src="shared/pattern-builders.b2be00251f.js"></script>
-    <script src="shared/calculator.ce69511d93.js"></script>
+    <script src="shared/pattern-builders.ee250f13d7.js"></script>
+    <script src="shared/calculator.d740023a9f.js"></script>
     <!-- 生涯合計の集計(docs/shared/decisions/0007参照)。以降の共通モジュールが参照するため、その前に読み込む -->
     <script src="shared/lifetime-totals.217e7180f7.js"></script>
     <script src="shared/comparison-topics.010b809e99.js"></script>
     <!-- iDeCo出口戦略のグリッド探索(lifeplanのiDeCoウィザードと共通、docs/shared/decisions/0007参照)。
          ideco-bridge.jsが参照するため、必ずその前に読み込む -->
     <script src="shared/ideco-exit-optimizer.2ced6c9b19.js"></script>
-    <script src="shared/ideco-bridge.01b3c5e250.js"></script>
+    <script src="shared/ideco-bridge.b767b9551a.js"></script>
     <script src="shared/age-stepper.93e7875a66.js"></script>
     <script src="shared/lifeplan-link.464e9adfb7.js"></script>
     <script src="shared/embed-overlay.800909cf4d.js"></script>
     <script src="shared/numeric-input-select.ca4b3dc369.js"></script>
     <script src="shared/parameter-catalog.549889d381.js"></script>
-    <script src="ui.206b7d7ce1.js"></script>
+    <script src="ui.a3318ce928.js"></script>
     <script>
         window.model = new IdecoModel({ window: window, storage: AppStorage });
         AppAuth.init();
