@@ -1215,3 +1215,92 @@ th:has(> .asset-name-short.expanded) {
 .ocr-result-table .ocr-result-name {
     width: 100%;
 }
+
+/* スクショからの入力の抽出中の表示(MEMO.md 2026/10/2コメント1-(6)) */
+.ocr-extracting {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin: 8px 0 0;
+    color: var(--text-secondary, #64748b);
+}
+
+.ocr-extracting[hidden] {
+    display: none;
+}
+
+.spinner {
+    width: 18px;
+    height: 18px;
+    border: 3px solid #cbd5e1;
+    border-top-color: #2563eb;
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+    flex-shrink: 0;
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+.is-extracting .ocr-paste-area,
+.is-extracting .btn-remove-image {
+    opacity: 0.5;
+    pointer-events: none;
+}
+
+/* 未保存の変更があるときの「💾 現在の状態を履歴に保存」とライフプランシミュレーターへのボタン(MEMO.md 2026/10/2コメント1-(4))。
+   保存ボタンだけをゆっくり点滅させ(2つが同時に動いて競合しないよう)、ライフプランへのボタンは色を強める */
+#btn_save_snapshot.is-unsaved {
+    border-color: #d97706;
+    color: #b45309;
+    font-weight: bold;
+    animation: unsaved-pulse 1.6s ease-in-out infinite;
+}
+
+.lifeplan-open-btn.is-unsaved {
+    border-color: #d97706;
+}
+
+@keyframes unsaved-pulse {
+    0%, 100% { background-color: #ffffff; }
+    50% { background-color: #fbbf24; }
+}
+
+/* 「アニメーションを減らす」設定(Windowsの「アニメーション効果」オフ等)でも、保存ボタンの点滅はやめない(MEMO.md 2026/10/2
+   コメント1-(4)の続き。利用者の環境がこの設定で、黄色で止まって点滅に見えなかった)。位置や大きさが動くのではなく、1.6秒周期で
+   色が変わるだけのため。くるくる回る印だけ遅くする */
+@media (prefers-reduced-motion: reduce) {
+    .spinner {
+        animation-duration: 2.4s;
+    }
+}
+
+/* 計算できない途中の状態で残している、変更前の入力での計算結果(MEMO.md 2026/10/2コメント1-(7)) */
+.result-stale .result-table,
+.result-stale .result-summary {
+    opacity: 0.45;
+}
+
+.result-stale .save-nudge {
+    display: none;
+}
+
+.result-stale-note {
+    font-size: 13px;
+    color: #b45309;
+    margin: 0 0 6px;
+}
+
+.ocr-match-note {
+    font-size: 12px;
+    color: var(--text-secondary);
+    margin-top: 2px;
+}
+
+/* ノーセル・取り崩しで、追加投資額・取り崩し額だけでは目標比率まで戻りきらないときの注記(機能仕様4.2節) */
+.result-partial-note {
+    font-size: 13px;
+    color: var(--text-secondary);
+    margin: 8px 0 0;
+}
