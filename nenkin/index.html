@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ねんきんプランナー</title>
-    <link rel="stylesheet" href="style.031e174d3f.css">
+    <link rel="stylesheet" href="style.501cea9379.css">
     <!-- uttate.comに埋め込まれているとき(iframeの外にページの見出しがある)は、中のタイトルを出さない(MEMO.md 2026/9/30コメント1-(12))。
          表示の後でタイトルが消えないよう、描画の前に<html>へ印を付ける -->
     <script>
@@ -341,7 +341,7 @@
                                 </div>
                             </div>
                             <div class="form-field">
-                                <label for="input_social_insurance">社会保険料等の金額</label>
+                                <label for="input_social_insurance">社会保険料等の金額<span class="label-hint">(2段ある場合は下段)</span></label>
                                 <div class="field-with-unit">
                                     <input type="text" id="input_social_insurance" inputmode="numeric" autocomplete="off" spellcheck="false">
                                     <span class="unit">円</span>
@@ -349,7 +349,7 @@
                             </div>
                             <!-- 「社会保険料等の金額」の内訳(lifeplan ADR 0048、MEMO.md 2026/10/4コメント1-(9)) -->
                             <div class="form-field">
-                                <label for="input_small_business_mutual_aid">うち小規模企業共済等掛金(任意)</label>
+                                <label for="input_small_business_mutual_aid">うち小規模企業共済等掛金(任意)<span class="label-hint">(2段ある場合は上段)</span></label>
                                 <div class="field-with-unit">
                                     <input type="text" id="input_small_business_mutual_aid" inputmode="numeric" autocomplete="off" spellcheck="false">
                                     <span class="unit">円</span>
@@ -362,7 +362,7 @@
                                     <span class="unit">円</span>
                                 </div>
                             </div>
-                            <p class="field-note" style="grid-column: 1 / -1;">源泉徴収票の金額をそのまま転記してください。「社会保険料等の金額」には、iDeCo等の掛金(左上に「内」と書かれた小規模企業共済等掛金)と、年末調整で申告したご家族の国民年金保険料(下の段の「国民年金保険料等の金額」)も含まれます。この2つを入れると、本人の給与にかかる社会保険料と分けて計算します。</p>
+                            <p class="field-note" style="grid-column: 1 / -1;">源泉徴収票の金額をそのまま転記してください。「社会保険料等の金額」には、iDeCo等の掛金(左上に「内」と書かれた小規模企業共済等掛金)と、年末調整で申告した国民年金保険料・国民年金基金の掛金(ご家族の分や、就職前のご自身の分など。下の段の「国民年金保険料等の金額」)も含まれます。この2つを入れると、本人の給与にかかる社会保険料と分けて計算します。</p>
                         </div>
 
                         <div class="form-field">
