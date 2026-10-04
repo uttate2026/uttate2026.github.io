@@ -427,6 +427,26 @@ header h1 {
     margin-bottom: 14px;
 }
 
+/* 源泉徴収票・住民税決定通知書から転記する欄(MEMO.md 2026/10/4コメント1-(10))。源泉徴収票の5項目がなるべく1行に収まるよう
+   幅を狭くし、ラベルが折り返しても入力欄の高さがそろうよう下端にそろえる */
+.form-grid-slip {
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+    align-items: end;
+}
+
+/* 住民税決定通知書から写す住民税は、源泉徴収票の項目と行を分ける */
+.form-field-row-start {
+    grid-column-start: 1;
+}
+
+/* ラベルに添える、源泉徴収票の欄の位置などの補足 */
+.label-hint {
+    display: block;
+    font-size: 12px;
+    font-weight: normal;
+    color: var(--text-secondary);
+}
+
 .form-field label {
     display: block;
     font-size: 13px;
@@ -1623,6 +1643,23 @@ th, td {
     font-size: 14px;
 }
 
+/* 案内を閉じる「×」(ダイアログの閉じるボタンと同じく右上に置く) */
+.rebalance-hint .hint-close {
+    float: right;
+    margin: -4px -6px 4px 8px;
+    padding: 0 6px;
+    border: none;
+    background: transparent;
+    color: var(--text-secondary);
+    font-size: 20px;
+    line-height: 1;
+    cursor: pointer;
+}
+
+.rebalance-hint .hint-close:hover {
+    color: var(--text-primary, #0f172a);
+}
+
 .rebalance-import-mode {
     display: flex;
     flex-direction: column;
@@ -1784,6 +1821,46 @@ th, td {
     border-top: 1px solid var(--border);
 }
 
+/* 入力の状況(MEMO.md 2026/10/4コメント1-(8)、ADR 0047)。資金不足の案内と同じ形で、注意ではなく案内のため青系にする */
+.input-status-note {
+    border: 1px solid #93c5fd;
+    background: #eff6ff;
+    border-radius: 8px;
+    padding: 10px 14px;
+    margin-bottom: 12px;
+    font-size: 14px;
+}
+
+.input-status-note p {
+    margin: 0 0 6px;
+}
+
+.input-status-note .hint-close {
+    float: right;
+    margin: -4px -6px 4px 8px;
+    padding: 0 6px;
+    border: none;
+    background: transparent;
+    color: var(--text-secondary);
+    font-size: 20px;
+    line-height: 1;
+    cursor: pointer;
+}
+
+.input-status-list {
+    margin: 0;
+    padding-left: 4px;
+    list-style: none;
+}
+
+.input-status-list li {
+    margin-bottom: 4px;
+}
+
+.input-status-done {
+    color: var(--text-secondary);
+}
+
 /* 資金不足の案内(MEMO.md 2026/10/2コメント2-(6)) */
 .shortage-note {
     border: 1px solid #f59e0b;
@@ -1823,4 +1900,29 @@ th, td {
 .living-cost-table select {
     width: auto;
     min-width: 76px;
+}
+
+/* 引き継ぎ・取り込みで足した・変えたタブの印(MEMO.md 2026/10/4コメント1-(1))。数回だけ点滅させて目を引き、印はタブを押すまで残す */
+.sub-tab-btn.handoff-mark {
+    animation: handoff-pulse 1s ease-in-out 4;
+}
+
+.handoff-badge {
+    display: inline-block;
+    margin-left: 6px;
+    padding: 0 6px;
+    border-radius: 999px;
+    background: #f59e0b;
+    color: #fff;
+    font-size: 11px;
+    font-weight: bold;
+    line-height: 18px;
+    vertical-align: middle;
+    /* 印を押してもタブを押したことになるよう、印自体はクリックを受けない */
+    pointer-events: none;
+}
+
+@keyframes handoff-pulse {
+    0%, 100% { box-shadow: 0 0 0 0 rgba(245, 158, 11, 0); }
+    50% { box-shadow: 0 0 0 4px rgba(245, 158, 11, 0.45); }
 }

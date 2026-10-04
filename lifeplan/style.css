@@ -427,6 +427,26 @@ header h1 {
     margin-bottom: 14px;
 }
 
+/* 源泉徴収票・住民税決定通知書から転記する欄(MEMO.md 2026/10/4コメント1-(10))。源泉徴収票の5項目がなるべく1行に収まるよう
+   幅を狭くし、ラベルが折り返しても入力欄の高さがそろうよう下端にそろえる */
+.form-grid-slip {
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+    align-items: end;
+}
+
+/* 住民税決定通知書から写す住民税は、源泉徴収票の項目と行を分ける */
+.form-field-row-start {
+    grid-column-start: 1;
+}
+
+/* ラベルに添える、源泉徴収票の欄の位置などの補足 */
+.label-hint {
+    display: block;
+    font-size: 12px;
+    font-weight: normal;
+    color: var(--text-secondary);
+}
+
 .form-field label {
     display: block;
     font-size: 13px;
