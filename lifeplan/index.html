@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ライフプランシミュレーター</title>
-    <link rel="stylesheet" href="style.f1d3ec5ded.css">
+    <link rel="stylesheet" href="style.aa67800876.css">
     <!-- uttate.comに埋め込まれているとき(iframeの外にページの見出しがある)は、中のタイトルを出さない(MEMO.md 2026/9/30コメント1-(12))。
          表示の後でタイトルが消えないよう、描画の前に<html>へ印を付ける -->
     <script>
@@ -385,14 +385,6 @@
                         <table id="record_compare_table"></table>
                     </div>
                     <div id="record_past_chains"></div>
-                    <!-- rebalanceの記録(連携した資産だけの計画の線と、rebalanceの履歴の残高、ADR 0039) -->
-                    <div id="record_compare_rebalance" hidden>
-                        <div class="section-title-sub">資産リバランスシミュレーターの履歴(連携した資産だけ)</div>
-                        <p class="field-note" id="record_compare_rebalance_note"></p>
-                        <div id="record_compare_rebalance_chart_wrap">
-                            <canvas id="record_compare_rebalance_canvas"></canvas>
-                        </div>
-                    </div>
                 </div>
             </div>
         </div>
@@ -760,12 +752,12 @@
     <script src="shared/rebalance-reader.7ee687aed1.js"></script>
     <script src="shared/embed-overlay.56c75d839f.js"></script>
     <script src="shared/numeric-input-select.8f7204db06.js"></script>
-    <script src="model.54d4b50996.js"></script>
+    <script src="model.2f281f780f.js"></script>
     <script src="auth.f95b7f2cb8.js"></script>
     <script src="consent.6a30cb2135.js"></script>
     <script src="resize-notifier.bbc2b52d92.js"></script>
     <script src="vendor/chart.845cebbbb6.js"></script>
-    <script src="ui.e310b80e6a.js"></script>
+    <script src="ui.9158f30599.js"></script>
     <script>
         window.model = new LifeplanModel({ window: window, storage: AppStorage });
         AppAuth.init();

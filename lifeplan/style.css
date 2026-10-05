@@ -1678,12 +1678,6 @@ th, td {
     gap: 4px;
 }
 
-#record_compare_rebalance_chart_wrap {
-    position: relative;
-    height: 320px;
-    margin: 16px 0;
-}
-
 /* 「ⓘ 計算の前提」ボタンと一覧(MEMO.md 2026/9/29コメント2、docs/shared/decisions/0012)。lifeplan・ねんきんプランナーで
    同じ見た目にする(中身はsrc/shared/parameter-catalog.jsが組み立てる) */
 .param-info-btn {

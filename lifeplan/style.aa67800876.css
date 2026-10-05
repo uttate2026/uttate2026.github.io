@@ -427,6 +427,26 @@ header h1 {
     margin-bottom: 14px;
 }
 
+/* 源泉徴収票・住民税決定通知書から転記する欄(MEMO.md 2026/10/4コメント1-(10))。源泉徴収票の5項目がなるべく1行に収まるよう
+   幅を狭くし、ラベルが折り返しても入力欄の高さがそろうよう下端にそろえる */
+.form-grid-slip {
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+    align-items: end;
+}
+
+/* 住民税決定通知書から写す住民税は、源泉徴収票の項目と行を分ける */
+.form-field-row-start {
+    grid-column-start: 1;
+}
+
+/* ラベルに添える、源泉徴収票の欄の位置などの補足 */
+.label-hint {
+    display: block;
+    font-size: 12px;
+    font-weight: normal;
+    color: var(--text-secondary);
+}
+
 .form-field label {
     display: block;
     font-size: 13px;
@@ -1623,6 +1643,23 @@ th, td {
     font-size: 14px;
 }
 
+/* 案内を閉じる「×」(ダイアログの閉じるボタンと同じく右上に置く) */
+.rebalance-hint .hint-close {
+    float: right;
+    margin: -4px -6px 4px 8px;
+    padding: 0 6px;
+    border: none;
+    background: transparent;
+    color: var(--text-secondary);
+    font-size: 20px;
+    line-height: 1;
+    cursor: pointer;
+}
+
+.rebalance-hint .hint-close:hover {
+    color: var(--text-primary, #0f172a);
+}
+
 .rebalance-import-mode {
     display: flex;
     flex-direction: column;
@@ -1639,12 +1676,6 @@ th, td {
     display: flex;
     flex-wrap: wrap;
     gap: 4px;
-}
-
-#record_compare_rebalance_chart_wrap {
-    position: relative;
-    height: 320px;
-    margin: 16px 0;
 }
 
 /* 「ⓘ 計算の前提」ボタンと一覧(MEMO.md 2026/9/29コメント2、docs/shared/decisions/0012)。lifeplan・ねんきんプランナーで
@@ -1782,6 +1813,46 @@ th, td {
     margin-top: 16px;
     padding-top: 12px;
     border-top: 1px solid var(--border);
+}
+
+/* 入力の状況(MEMO.md 2026/10/4コメント1-(8)、ADR 0047)。資金不足の案内と同じ形で、注意ではなく案内のため青系にする */
+.input-status-note {
+    border: 1px solid #93c5fd;
+    background: #eff6ff;
+    border-radius: 8px;
+    padding: 10px 14px;
+    margin-bottom: 12px;
+    font-size: 14px;
+}
+
+.input-status-note p {
+    margin: 0 0 6px;
+}
+
+.input-status-note .hint-close {
+    float: right;
+    margin: -4px -6px 4px 8px;
+    padding: 0 6px;
+    border: none;
+    background: transparent;
+    color: var(--text-secondary);
+    font-size: 20px;
+    line-height: 1;
+    cursor: pointer;
+}
+
+.input-status-list {
+    margin: 0;
+    padding-left: 4px;
+    list-style: none;
+}
+
+.input-status-list li {
+    margin-bottom: 4px;
+}
+
+.input-status-done {
+    color: var(--text-secondary);
 }
 
 /* 資金不足の案内(MEMO.md 2026/10/2コメント2-(6)) */
