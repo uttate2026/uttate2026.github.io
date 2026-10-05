@@ -1607,11 +1607,48 @@ th, td {
     text-align: left;
     font-weight: normal;
     padding: 4px 8px 4px 0;
+    white-space: nowrap;
 }
 
 .balance-record-table input {
     width: 140px;
     text-align: right;
+}
+
+/* 入力欄の横の参考の値(前回の記録・資産リバランスシミュレーターの今の金額、MEMO.md 2026/10/6コメント1-(2)) */
+.balance-record-ref {
+    padding: 4px 0 4px 8px;
+    font-size: 0.85em;
+    color: var(--text-secondary);
+}
+
+.balance-record-ref .btn-link {
+    padding: 0 4px;
+    font-size: inherit;
+}
+
+/* 狭い画面では、資産名・入力欄・参考の値を縦に並べる(横に並べるとはみ出すため) */
+@media (max-width: 600px) {
+    .balance-record-table tr,
+    .balance-record-table th,
+    .balance-record-table td {
+        display: block;
+    }
+
+    .balance-record-table tr {
+        padding: 4px 0;
+        border-bottom: 1px solid var(--border);
+    }
+
+    .balance-record-table th,
+    .balance-record-table td {
+        border: none;
+        padding: 2px 0;
+    }
+
+    .balance-record-ref {
+        padding-left: 0;
+    }
 }
 
 #record_compare_chart_wrap {
