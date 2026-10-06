@@ -177,6 +177,36 @@ header h1 {
     color: var(--danger);
 }
 
+/* 資産項目の行の削除はゴミ箱のアイコンにする(lifeplanの表の行の削除と同じ見た目、MEMO.md 2026/10/7コメント1-(4)) */
+.btn-delete.row-delete-btn {
+    border: none;
+    padding: 2px 4px;
+    font-size: 16px;
+    line-height: 1;
+    cursor: pointer;
+}
+
+.btn-delete.row-delete-btn:disabled {
+    cursor: default;
+    opacity: 0.4;
+}
+
+/* 現在の比率(資産額÷合計、表示だけ、MEMO.md 2026/10/7コメント1-(4)) */
+.asset-current-ratio {
+    color: var(--text-secondary, #64748b);
+    white-space: nowrap;
+}
+
+/* 見出しを画面には出さず、読み上げにだけ伝える */
+.visually-hidden {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    white-space: nowrap;
+}
+
 .execute-row {
     margin-bottom: 20px;
 }

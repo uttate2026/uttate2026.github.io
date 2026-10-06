@@ -177,6 +177,36 @@ header h1 {
     color: var(--danger);
 }
 
+/* 資産項目の行の削除はゴミ箱のアイコンにする(lifeplanの表の行の削除と同じ見た目、MEMO.md 2026/10/7コメント1-(4)) */
+.btn-delete.row-delete-btn {
+    border: none;
+    padding: 2px 4px;
+    font-size: 16px;
+    line-height: 1;
+    cursor: pointer;
+}
+
+.btn-delete.row-delete-btn:disabled {
+    cursor: default;
+    opacity: 0.4;
+}
+
+/* 現在の比率(資産額÷合計、表示だけ、MEMO.md 2026/10/7コメント1-(4)) */
+.asset-current-ratio {
+    color: var(--text-secondary, #64748b);
+    white-space: nowrap;
+}
+
+/* 見出しを画面には出さず、読み上げにだけ伝える */
+.visually-hidden {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    white-space: nowrap;
+}
+
 .execute-row {
     margin-bottom: 20px;
 }
@@ -1199,6 +1229,7 @@ th:has(> .asset-name-short.expanded) {
 }
 
 .ocr-result-table .ocr-result-amount,
+.ocr-result-table .ocr-result-volume,
 .ocr-result-table .ocr-result-name {
     width: 100%;
     box-sizing: border-box;
@@ -1208,12 +1239,105 @@ th:has(> .asset-name-short.expanded) {
     width: 10em;
 }
 
+/* 口数(画面に保有口数があるときだけ列を出す、MEMO.md 2026/10/7コメント1-(2)) */
+.ocr-result-table .ocr-result-volume-col {
+    width: 7em;
+}
+
+.ocr-result-table:not(.has-volume) .ocr-result-volume-col,
+.ocr-result-table:not(.has-volume) .ocr-result-volume-cell {
+    display: none;
+}
+
+/* 狭い画面では、1段目に資産名、2段目に資産額・口数・除外を小さな見出しつきで並べる(列に並べると資産名が潰れるため) */
+@media (max-width: 600px) {
+    .ocr-result-table thead {
+        display: none;
+    }
+
+    .ocr-result-table tr {
+        display: grid;
+        grid-template-columns: 1fr 3em;
+        gap: 2px 8px;
+        padding: 6px 0;
+        border-bottom: 1px solid var(--border, #e2e8f0);
+    }
+
+    .ocr-result-table.has-volume tr {
+        grid-template-columns: 1fr 1fr 3em;
+    }
+
+    .ocr-result-table td {
+        display: block;
+        border: none;
+        padding: 0;
+    }
+
+    .ocr-result-table td:first-child {
+        grid-column: 1 / -1;
+    }
+
+    .ocr-result-table td:not(:first-child)::before {
+        content: attr(data-label);
+        display: block;
+        font-size: 11px;
+        color: var(--text-secondary, #64748b);
+    }
+}
+
 .ocr-result-table .ocr-result-exclude-col {
     width: 3.5em;
 }
 
 .ocr-result-table .ocr-result-name {
     width: 100%;
+}
+
+/* 一致しない行の反映先・今回のスクショに無かった資産(MEMO.md 2026/10/7コメント1-(1)) */
+.ocr-target-label {
+    display: block;
+    margin-top: 4px;
+    font-size: 12px;
+    color: var(--text-secondary, #64748b);
+}
+
+.ocr-target-label select {
+    display: block;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.ocr-missing-note {
+    margin: 2px 0;
+    font-size: 12px;
+    color: var(--text-secondary, #64748b);
+}
+
+#ocr_missing_assets {
+    margin: 12px 0;
+}
+
+.ocr-missing-title {
+    font-weight: bold;
+}
+
+.ocr-missing-list {
+    list-style: none;
+    padding: 0;
+    margin: 4px 0 0;
+}
+
+.ocr-missing-list li {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 4px 12px;
+    padding: 4px 0;
+    border-bottom: 1px solid var(--border, #e2e8f0);
+}
+
+.ocr-missing-list .checkbox-label {
+    flex-shrink: 0;
 }
 
 /* スクショからの入力の抽出中の表示(MEMO.md 2026/10/2コメント1-(6)) */
@@ -1296,4 +1420,11 @@ th:has(> .asset-name-short.expanded) {
     font-size: 12px;
     color: var(--text-secondary);
     margin-top: 2px;
+}
+
+/* ノーセル・取り崩しで、追加投資額・取り崩し額だけでは目標比率まで戻りきらないときの注記(機能仕様4.2節) */
+.result-partial-note {
+    font-size: 13px;
+    color: var(--text-secondary);
+    margin: 8px 0 0;
 }
