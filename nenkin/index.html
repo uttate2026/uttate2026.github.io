@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ねんきんプランナー</title>
-    <link rel="stylesheet" href="style.e921cf57c5.css">
+    <link rel="stylesheet" href="style.118165f6b9.css">
     <!-- uttate.comに埋め込まれているとき(iframeの外にページの見出しがある)は、中のタイトルを出さない(MEMO.md 2026/9/30コメント1-(12))。
          表示の後でタイトルが消えないよう、描画の前に<html>へ印を付ける -->
     <script>
@@ -52,6 +52,8 @@
             <div class="site-name-row">
                 <div class="site-name">ねんきんプランナー</div>
                 <!-- 計算に使っている制度の値・仮定の一覧を開く(MEMO.md 2026/9/29コメント2) -->
+                <!-- 制度改正への対応(MEMO.md 2026/10/9コメント2-(2)、docs/shared/decisions/0012「2026-10-09改訂」)。押すと「ⓘ 計算の前提」を開く -->
+                <button type="button" id="btn_law_change_badge" class="law-change-badge"></button>
                 <button type="button" id="btn_parameter_info" class="param-info-btn">ⓘ 計算の前提</button>
             </div>
             <div class="wizard-header-top">
@@ -452,13 +454,13 @@
          lifeplan ADR 0027参照)。nenkin-bridge.jsが参照するため、必ずその前に読み込む -->
     <script src="shared/pension-claim-optimizer.54220c7710.js"></script>
     <script src="shared/nenkin-bridge.9389fa8466.js"></script>
-    <script src="shared/parameter-catalog.a7d81b1203.js"></script>
+    <script src="shared/parameter-catalog.30dce39028.js"></script>
     <script src="shared/chart-age-cursor.30ba8f7482.js"></script>
     <script src="shared/age-stepper.bc4ccf1bc4.js"></script>
     <script src="shared/lifeplan-link.e8bdcafdbf.js"></script>
     <script src="shared/embed-overlay.c8925dca51.js"></script>
     <script src="shared/numeric-input-select.8f7204db06.js"></script>
-    <script src="ui.19ea333e09.js"></script>
+    <script src="ui.824811fefa.js"></script>
     <script>
         window.model = new NenkinModel({ window: window, storage: AppStorage });
         AppAuth.init();
