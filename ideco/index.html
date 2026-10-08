@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>iDeCoシミュレーター</title>
-    <link rel="stylesheet" href="style.af57c588e0.css">
+    <link rel="stylesheet" href="style.36a5930a87.css">
     <!-- uttate.comに埋め込まれているとき(iframeの外にページの見出しがある)は、中のタイトルを出さない(MEMO.md 2026/9/30コメント1-(12))。
          表示の後でタイトルが消えないよう、描画の前に<html>へ印を付ける -->
     <script>
@@ -441,6 +441,21 @@
                     <p id="page3_compare_chart_error" class="alert-text" style="display: none;">グラフを表示できませんでした。</p>
                 </div>
             </div>
+
+            <!-- ライフプランシミュレーターへの導線(MEMO.md 2026/10/9コメント2-(1)、docs/shared/marketing/priorities.md 2・
+                 docs/shared/decisions/0015)。結果のすぐ下に、その人の結果の数字で「引き継ぐと分かること」を示す(ui.jsの
+                 _renderLifeplanCta)。ボタンは比較表の「この設定で詳しく調整する」と同じく、手取り最適化の案を採用して引き継ぐ -->
+            <div class="card lifeplan-cta" id="lifeplan_cta">
+                <div class="section-title">ライフプランシミュレーターに引き継ぐと分かること</div>
+                <ul class="lifeplan-cta-facts" id="lifeplan_cta_facts"></ul>
+                <dl class="lifeplan-cta-carry">
+                    <dt>引き継ぐもの</dt>
+                    <dd>年齢・収入・年金見込額・引退年齢・iDeCo(とNISA)の積立と選んだ受け取り方・退職金(入れ直す必要はありません)</dd>
+                    <dt>ライフプランシミュレーターで入れるもの</dt>
+                    <dd>生活費・預貯金などの資産・配偶者</dd>
+                </dl>
+                <button type="button" class="btn btn-primary" id="btn_lifeplan_cta">ライフプランシミュレーターで、<wbr>資産が何歳まで持つか確かめる</button>
+            </div>
         </div><!-- /#page3_strategist -->
 
     </div>
@@ -483,7 +498,7 @@
     <script src="shared/embed-overlay.800909cf4d.js"></script>
     <script src="shared/numeric-input-select.ca4b3dc369.js"></script>
     <script src="shared/parameter-catalog.549889d381.js"></script>
-    <script src="ui.a3318ce928.js"></script>
+    <script src="ui.89c65428f8.js"></script>
     <script>
         window.model = new IdecoModel({ window: window, storage: AppStorage });
         AppAuth.init();
