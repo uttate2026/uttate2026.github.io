@@ -1334,6 +1334,12 @@ th, td {
     max-width: 760px;
 }
 
+/* 残高を記録(資産名・入力欄・前回の値・資産リバランスの今の金額の4列)。資産リバランスシミュレーターの「スクショから入力」と
+   同じ幅にそろえる(MEMO.md 2026/10/9の追加の指摘) */
+.modal-card-balance {
+    max-width: 600px;
+}
+
 .pension-wizard-compare-table {
     font-size: 13px;
 }
@@ -1399,6 +1405,17 @@ th, td {
 
 .btn-secondary:hover {
     background: var(--primary-tint);
+}
+
+/* 押せないボタンは見た目でも分かるようにする(ideco・nenkinの.btn:disabledと同じ。押せないボタンにマウスを載せると
+   :hoverの色が付き、押せるように見えていた、MEMO.md 2026/10/8の報告) */
+.btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.btn:disabled:hover {
+    background: var(--bg-card);
 }
 
 /* 生年月日(年・月・日のドロップダウン、MEMO.md 2026/9/29コメント3-(1)) */
@@ -1620,13 +1637,33 @@ th, td {
 .balance-record-table {
     width: 100%;
     margin: 8px 0;
+    border-collapse: collapse;
 }
 
-.balance-record-table th {
+.balance-record-table thead th {
+    font-size: 12px;
+    font-weight: bold;
+    color: var(--text-secondary);
+    border-bottom: 1px solid var(--border);
+    padding: 4px 8px;
+    white-space: nowrap;
+}
+
+.balance-record-table tbody th {
     text-align: left;
     font-weight: normal;
-    padding: 4px 8px 4px 0;
+    padding: 6px 8px 6px 0;
     white-space: nowrap;
+}
+
+.balance-record-table tbody td {
+    padding: 6px 8px;
+    vertical-align: middle;
+}
+
+.balance-record-table tbody tr + tr th,
+.balance-record-table tbody tr + tr td {
+    border-top: 1px solid var(--border);
 }
 
 .balance-record-table input {
@@ -1634,39 +1671,75 @@ th, td {
     text-align: right;
 }
 
-/* 入力欄の横の参考の値(前回の記録・資産リバランスシミュレーターの今の金額、MEMO.md 2026/10/6コメント1-(2)) */
+/* 前回の値・資産リバランスシミュレーターの今の金額の列。金額は押すと入力欄に入るボタン(MEMO.md 2026/10/9の追加の指摘) */
 .balance-record-ref {
-    padding: 4px 0 4px 8px;
-    font-size: 0.85em;
+    white-space: nowrap;
+}
+
+.balance-ref-amount {
+    padding: 2px 6px;
+    border: 1px solid transparent;
+    border-radius: 6px;
+    background: transparent;
+    color: var(--primary);
+    font: inherit;
+    cursor: pointer;
+    text-decoration: underline dotted;
+}
+
+.balance-ref-amount:hover {
+    border-color: var(--primary);
+    background: var(--primary-tint);
+}
+
+.balance-ref-date {
+    font-size: 11px;
     color: var(--text-secondary);
 }
 
-.balance-record-ref .btn-link {
-    padding: 0 4px;
-    font-size: inherit;
+.balance-ref-none {
+    color: var(--text-secondary);
 }
 
-/* 狭い画面では、資産名・入力欄・参考の値を縦に並べる(横に並べるとはみ出すため) */
+.balance-record-fill {
+    gap: 4px 16px;
+    margin-bottom: 12px;
+}
+
+/* 狭い画面では、資産ごとに資産名・入力欄・参考の値を縦に並べる(列の見出しは各欄の上に小さく出す) */
 @media (max-width: 600px) {
+    .balance-record-table thead {
+        display: none;
+    }
+
     .balance-record-table tr,
     .balance-record-table th,
     .balance-record-table td {
         display: block;
     }
 
-    .balance-record-table tr {
-        padding: 4px 0;
+    .balance-record-table tbody tr {
+        padding: 6px 0;
         border-bottom: 1px solid var(--border);
     }
 
-    .balance-record-table th,
-    .balance-record-table td {
+    .balance-record-table tbody th,
+    .balance-record-table tbody td {
         border: none;
         padding: 2px 0;
+        text-align: left;
     }
 
-    .balance-record-ref {
-        padding-left: 0;
+    .balance-record-table tbody tr + tr th,
+    .balance-record-table tbody tr + tr td {
+        border-top: none;
+    }
+
+    .balance-record-ref::before {
+        content: attr(data-mobile-label);
+        margin-right: 6px;
+        font-size: 11px;
+        color: var(--text-secondary);
     }
 }
 
@@ -1750,6 +1823,71 @@ th, td {
 
 .param-info-btn:hover {
     border-color: var(--primary);
+}
+
+/* 制度改正への対応の表示(MEMO.md 2026/10/9コメント2-(2)、docs/shared/decisions/0012「2026-10-09改訂」)。「ⓘ 計算の前提」の
+   左に置き、押すとその一覧を開く(中身・文言はshared/parameter-catalog.js) */
+.law-change-badge {
+    flex-shrink: 1;
+    margin-left: auto;
+    align-self: center;
+    background: none;
+    border: none;
+    padding: 4px;
+    font-size: 12px;
+    color: var(--text-secondary);
+    cursor: pointer;
+    text-align: right;
+    text-decoration: underline dotted;
+}
+
+.law-change-badge:hover {
+    color: var(--primary);
+}
+
+.app-header .law-change-badge + .param-info-btn,
+.is-embedded .app-header .law-change-badge + .param-info-btn {
+    margin-left: 4px;
+}
+
+/* スマホ幅では、サイト名と並ぶよう2行に折り返す */
+@media (max-width: 480px) {
+    .law-change-badge {
+        max-width: 8em;
+        font-size: 11px;
+        line-height: 1.3;
+    }
+}
+
+/* 「ⓘ 計算の前提」の先頭の「反映している主な制度改正」(MEMO.md 2026/10/9コメント2-(2)) */
+.param-law-change-list {
+    list-style: none;
+    margin: 4px 0 8px;
+    padding: 0;
+}
+
+.param-law-change-list li {
+    display: grid;
+    grid-template-columns: 7em 1fr;
+    gap: 2px 8px;
+    padding: 6px 0;
+    border-bottom: 1px solid var(--border);
+    font-size: 13px;
+}
+
+.param-law-change-date {
+    grid-row: span 2;
+    font-weight: bold;
+    color: var(--primary);
+}
+
+.param-law-change-label {
+    font-weight: bold;
+}
+
+.param-law-change-detail {
+    font-size: 12px;
+    color: var(--text-secondary);
 }
 
 .param-intro {

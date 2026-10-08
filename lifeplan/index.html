@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ライフプランシミュレーター</title>
-    <link rel="stylesheet" href="style.07afa20323.css">
+    <link rel="stylesheet" href="style.773b310927.css">
     <!-- uttate.comに埋め込まれているとき(iframeの外にページの見出しがある)は、中のタイトルを出さない(MEMO.md 2026/9/30コメント1-(12))。
          表示の後でタイトルが消えないよう、描画の前に<html>へ印を付ける -->
     <script>
@@ -45,6 +45,8 @@
             <h1>ライフプランシミュレーター</h1>
             <!-- 計算に使っている制度の値・仮定の一覧を開く(MEMO.md 2026/9/29コメント2)。iframeに中身の高さで
                  埋め込まれるため、画面の隅に固定するボタンにはせず見出しの右端に置く -->
+            <!-- 制度改正への対応(MEMO.md 2026/10/9コメント2-(2)、docs/shared/decisions/0012「2026-10-09改訂」)。押すと「ⓘ 計算の前提」を開く -->
+            <button type="button" id="btn_law_change_badge" class="law-change-badge"></button>
             <button type="button" id="btn_parameter_info" class="param-info-btn">ⓘ 計算の前提</button>
         </header>
 
@@ -237,6 +239,12 @@
                     <div class="result-summary-item">
                         <span class="result-summary-label">総社会保険料(生涯)</span>
                         <span class="result-summary-value" id="summary_social_insurance">¥0</span>
+                    </div>
+                    <!-- 住民税非課税世帯になる年数(MEMO.md 2026/10/9コメント2-(2)、docs/shared/marketing/priorities.md 3。以前は「明細を見る」の
+                         1年分の表にしか出ておらず、計算の深さが伝わりにくかった) -->
+                    <div class="result-summary-item">
+                        <span class="result-summary-label">住民税非課税世帯(生涯)</span>
+                        <span class="result-summary-value" id="summary_resident_tax_exempt">なし</span>
                     </div>
                 </div>
                 <!-- 以前の「グラフ/明細」タブ(全年齢の明細表)は廃止し、グラフの下の「明細を見る」で1年分を
@@ -750,7 +758,7 @@
     <script src="shared/nenkin-bridge.9389fa8466.js"></script>
     <script src="shared/chart-age-cursor.b4884465a9.js"></script>
     <script src="shared/age-stepper.1b938669bf.js"></script>
-    <script src="shared/parameter-catalog.a7d81b1203.js"></script>
+    <script src="shared/parameter-catalog.30dce39028.js"></script>
     <script src="shared/rebalance-reader.7ee687aed1.js"></script>
     <script src="shared/embed-overlay.56c75d839f.js"></script>
     <script src="shared/numeric-input-select.8f7204db06.js"></script>
@@ -759,7 +767,7 @@
     <script src="consent.6a30cb2135.js"></script>
     <script src="resize-notifier.bbc2b52d92.js"></script>
     <script src="vendor/chart.845cebbbb6.js"></script>
-    <script src="ui.c5f7909ccd.js"></script>
+    <script src="ui.2b34e0a4c3.js"></script>
     <script>
         window.model = new LifeplanModel({ window: window, storage: AppStorage });
         AppAuth.init();
