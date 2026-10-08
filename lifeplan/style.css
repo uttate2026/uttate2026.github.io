@@ -1334,6 +1334,12 @@ th, td {
     max-width: 760px;
 }
 
+/* 残高を記録(資産名・入力欄・前回の値・資産リバランスの今の金額の4列)。資産リバランスシミュレーターの「スクショから入力」と
+   同じ幅にそろえる(MEMO.md 2026/10/9の追加の指摘) */
+.modal-card-balance {
+    max-width: 600px;
+}
+
 .pension-wizard-compare-table {
     font-size: 13px;
 }
@@ -1631,13 +1637,33 @@ th, td {
 .balance-record-table {
     width: 100%;
     margin: 8px 0;
+    border-collapse: collapse;
 }
 
-.balance-record-table th {
+.balance-record-table thead th {
+    font-size: 12px;
+    font-weight: bold;
+    color: var(--text-secondary);
+    border-bottom: 1px solid var(--border);
+    padding: 4px 8px;
+    white-space: nowrap;
+}
+
+.balance-record-table tbody th {
     text-align: left;
     font-weight: normal;
-    padding: 4px 8px 4px 0;
+    padding: 6px 8px 6px 0;
     white-space: nowrap;
+}
+
+.balance-record-table tbody td {
+    padding: 6px 8px;
+    vertical-align: middle;
+}
+
+.balance-record-table tbody tr + tr th,
+.balance-record-table tbody tr + tr td {
+    border-top: 1px solid var(--border);
 }
 
 .balance-record-table input {
@@ -1645,39 +1671,75 @@ th, td {
     text-align: right;
 }
 
-/* 入力欄の横の参考の値(前回の記録・資産リバランスシミュレーターの今の金額、MEMO.md 2026/10/6コメント1-(2)) */
+/* 前回の値・資産リバランスシミュレーターの今の金額の列。金額は押すと入力欄に入るボタン(MEMO.md 2026/10/9の追加の指摘) */
 .balance-record-ref {
-    padding: 4px 0 4px 8px;
-    font-size: 0.85em;
+    white-space: nowrap;
+}
+
+.balance-ref-amount {
+    padding: 2px 6px;
+    border: 1px solid transparent;
+    border-radius: 6px;
+    background: transparent;
+    color: var(--primary);
+    font: inherit;
+    cursor: pointer;
+    text-decoration: underline dotted;
+}
+
+.balance-ref-amount:hover {
+    border-color: var(--primary);
+    background: var(--primary-tint);
+}
+
+.balance-ref-date {
+    font-size: 11px;
     color: var(--text-secondary);
 }
 
-.balance-record-ref .btn-link {
-    padding: 0 4px;
-    font-size: inherit;
+.balance-ref-none {
+    color: var(--text-secondary);
 }
 
-/* 狭い画面では、資産名・入力欄・参考の値を縦に並べる(横に並べるとはみ出すため) */
+.balance-record-fill {
+    gap: 4px 16px;
+    margin-bottom: 12px;
+}
+
+/* 狭い画面では、資産ごとに資産名・入力欄・参考の値を縦に並べる(列の見出しは各欄の上に小さく出す) */
 @media (max-width: 600px) {
+    .balance-record-table thead {
+        display: none;
+    }
+
     .balance-record-table tr,
     .balance-record-table th,
     .balance-record-table td {
         display: block;
     }
 
-    .balance-record-table tr {
-        padding: 4px 0;
+    .balance-record-table tbody tr {
+        padding: 6px 0;
         border-bottom: 1px solid var(--border);
     }
 
-    .balance-record-table th,
-    .balance-record-table td {
+    .balance-record-table tbody th,
+    .balance-record-table tbody td {
         border: none;
         padding: 2px 0;
+        text-align: left;
     }
 
-    .balance-record-ref {
-        padding-left: 0;
+    .balance-record-table tbody tr + tr th,
+    .balance-record-table tbody tr + tr td {
+        border-top: none;
+    }
+
+    .balance-record-ref::before {
+        content: attr(data-mobile-label);
+        margin-right: 6px;
+        font-size: 11px;
+        color: var(--text-secondary);
     }
 }
 

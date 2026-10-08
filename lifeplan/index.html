@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ライフプランシミュレーター</title>
-    <link rel="stylesheet" href="style.8240daec41.css">
+    <link rel="stylesheet" href="style.07afa20323.css">
     <!-- uttate.comに埋め込まれているとき(iframeの外にページの見出しがある)は、中のタイトルを出さない(MEMO.md 2026/9/30コメント1-(12))。
          表示の後でタイトルが消えないよう、描画の前に<html>へ印を付ける -->
     <script>
@@ -692,8 +692,9 @@
 
     <!-- 残高の記録(ADR 0044)。今の計画の資産ごとに、記録日の残高を入れる -->
     <div id="balance_record_modal" class="modal-overlay" style="display: none;" role="dialog" aria-modal="true" aria-labelledby="balance_record_modal_title">
-        <!-- 資産名・入力欄・前回の値の3列のため、表を持つほかのダイアログと同じ一段広い幅にする(MEMO.md 2026/10/9コメント1-(1)) -->
-        <div class="card modal-card modal-card-wide">
+        <!-- 資産名・入力欄・前回の値・資産リバランスの今の金額の表のため、資産リバランスシミュレーターの「スクショから入力」と同じ
+             幅にする(MEMO.md 2026/10/9コメント1-(1)とその追加の指摘) -->
+        <div class="card modal-card modal-card-balance">
             <button type="button" id="btn_balance_record_close" class="modal-close" aria-label="閉じる">×</button>
             <div class="section-title" id="balance_record_modal_title">残高を記録</div>
             <div id="balance_record_body"></div>
@@ -758,7 +759,7 @@
     <script src="consent.6a30cb2135.js"></script>
     <script src="resize-notifier.bbc2b52d92.js"></script>
     <script src="vendor/chart.845cebbbb6.js"></script>
-    <script src="ui.08f2b40f48.js"></script>
+    <script src="ui.c5f7909ccd.js"></script>
     <script>
         window.model = new LifeplanModel({ window: window, storage: AppStorage });
         AppAuth.init();
