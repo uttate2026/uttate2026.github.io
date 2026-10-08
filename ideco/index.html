@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>iDeCoシミュレーター</title>
-    <link rel="stylesheet" href="style.36a5930a87.css">
+    <link rel="stylesheet" href="style.9559029693.css">
     <!-- uttate.comに埋め込まれているとき(iframeの外にページの見出しがある)は、中のタイトルを出さない(MEMO.md 2026/9/30コメント1-(12))。
          表示の後でタイトルが消えないよう、描画の前に<html>へ印を付ける -->
     <script>
@@ -47,6 +47,8 @@
             <div class="site-name-row">
                 <div class="site-name">iDeCoシミュレーター</div>
                 <!-- 計算に使っている制度の値・仮定の一覧を開く(MEMO.md 2026/9/29コメント2) -->
+                <!-- 制度改正への対応(MEMO.md 2026/10/9コメント2-(2)、docs/shared/decisions/0012「2026-10-09改訂」)。押すと「ⓘ 計算の前提」を開く -->
+                <button type="button" id="btn_law_change_badge" class="law-change-badge"></button>
                 <button type="button" id="btn_parameter_info" class="param-info-btn">ⓘ 計算の前提</button>
             </div>
             <div class="wizard-header-top">
@@ -497,8 +499,8 @@
     <script src="shared/lifeplan-link.464e9adfb7.js"></script>
     <script src="shared/embed-overlay.800909cf4d.js"></script>
     <script src="shared/numeric-input-select.ca4b3dc369.js"></script>
-    <script src="shared/parameter-catalog.549889d381.js"></script>
-    <script src="ui.89c65428f8.js"></script>
+    <script src="shared/parameter-catalog.897d795f4d.js"></script>
+    <script src="ui.2147633010.js"></script>
     <script>
         window.model = new IdecoModel({ window: window, storage: AppStorage });
         AppAuth.init();
