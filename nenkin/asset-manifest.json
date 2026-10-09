@@ -1,31 +1,6 @@
 {
   "deploys": [
     {
-      "deployedAt": "2026-10-08T20:52:42.233Z",
-      "files": [
-        "auth.0b9a540a6a.js",
-        "consent.68317a95af.js",
-        "model.e492046dd6.js",
-        "resize-notifier.eda0f90457.js",
-        "shared/age-stepper.bc4ccf1bc4.js",
-        "shared/calculator.cc4a6ced07.js",
-        "shared/chart-age-cursor.30ba8f7482.js",
-        "shared/embed-overlay.c8925dca51.js",
-        "shared/lifeplan-constants.770c10c406.js",
-        "shared/lifeplan-link.e8bdcafdbf.js",
-        "shared/lifetime-totals.b7e2488c1d.js",
-        "shared/nenkin-bridge.9389fa8466.js",
-        "shared/numeric-input-select.8f7204db06.js",
-        "shared/parameter-catalog.a7d81b1203.js",
-        "shared/pattern-builders.61690ebb05.js",
-        "shared/pension-claim-optimizer.54220c7710.js",
-        "storage.2eca51fc24.js",
-        "style.e921cf57c5.css",
-        "ui.19ea333e09.js",
-        "vendor/chart.845cebbbb6.js"
-      ]
-    },
-    {
       "deployedAt": "2026-10-08T21:44:30.762Z",
       "files": [
         "auth.0b9a540a6a.js",
@@ -109,6 +84,31 @@
         "resize-notifier.eda0f90457.js",
         "shared/age-stepper.bc4ccf1bc4.js",
         "shared/calculator.d81d624cff.js",
+        "shared/chart-age-cursor.30ba8f7482.js",
+        "shared/embed-overlay.c8925dca51.js",
+        "shared/lifeplan-constants.333447fb7c.js",
+        "shared/lifeplan-link.e8bdcafdbf.js",
+        "shared/lifetime-totals.7a367b308b.js",
+        "shared/nenkin-bridge.9389fa8466.js",
+        "shared/numeric-input-select.8f7204db06.js",
+        "shared/parameter-catalog.2287a66d8e.js",
+        "shared/pattern-builders.397fec410a.js",
+        "shared/pension-claim-optimizer.54220c7710.js",
+        "storage.2eca51fc24.js",
+        "style.118165f6b9.css",
+        "ui.ac76e58353.js",
+        "vendor/chart.845cebbbb6.js"
+      ]
+    },
+    {
+      "deployedAt": "2026-10-09T22:19:11.379Z",
+      "files": [
+        "auth.0b9a540a6a.js",
+        "consent.68317a95af.js",
+        "model.e492046dd6.js",
+        "resize-notifier.eda0f90457.js",
+        "shared/age-stepper.bc4ccf1bc4.js",
+        "shared/calculator.e3bd2344e3.js",
         "shared/chart-age-cursor.30ba8f7482.js",
         "shared/embed-overlay.c8925dca51.js",
         "shared/lifeplan-constants.333447fb7c.js",
