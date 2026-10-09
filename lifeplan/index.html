@@ -315,7 +315,7 @@
                         <div class="form-field">
                             <label for="select_inheritance_death_age">死亡年齢(被相続人の死亡予測年齢)</label>
                             <select id="select_inheritance_death_age"></select>
-                            <p class="field-note">人物ごとの死亡予測年齢です。公的年金・iDeCo・遺産分割のウィザードの死亡予測年齢と共通の値で、どこで変えても連動します。</p>
+                            <p class="field-note">人物ごとの死亡予測年齢です。公的年金・iDeCo・遺産分割の最適化の死亡予測年齢と共通の値で、どこで変えても連動します。</p>
                         </div>
                         <!-- 法定相続人は配偶者(世帯の人物から自動判定)と子のみを扱う(MEMO.md 2026/9/27コメント2-(2)、ADR 0030) -->
                         <div class="form-field">
@@ -350,7 +350,7 @@
                     <!-- 子への生前贈与で「贈与税+相続税」の合計が最小になる年間額を探す(MEMO.md 2026/9/28コメント2-(2)、ADR 0033)。
                          贈与者は世帯主のため、世帯主が被相続人の場合のみ使える -->
                     <div class="pension-wizard-button-row" id="gift_wizard_button_row">
-                        <button type="button" id="btn_open_gift_wizard" class="btn btn-secondary">🧙 生前贈与で最適化する</button>
+                        <button type="button" id="btn_open_gift_wizard" class="btn btn-secondary">🔍 最適な生前贈与を探す</button>
                         <p class="field-note" id="gift_wizard_unavailable_note" hidden>生前贈与の最適化は、被相続人が世帯主の場合に使えます(贈与者は世帯主のため)。</p>
                     </div>
 
@@ -363,7 +363,7 @@
                             <p class="field-note">配偶者が相続する財産の割合です。配偶者の取得額が1億6,000万円または法定相続分の大きい方までなら、配偶者の相続税はかかりません(配偶者の税額軽減)。ただし配偶者が多く相続するほど、配偶者が亡くなったとき(二次相続)の相続税が増えます。</p>
                             <!-- 二次相続まで含めた合計の相続税が最小になる取得割合を探す(MEMO.md 2026/9/27コメント2-(2)⑤、ADR 0030第3段階) -->
                             <div class="pension-wizard-button-row">
-                                <button type="button" id="btn_open_estate_wizard" class="btn btn-secondary">🧙 ウィザードで最適化する</button>
+                                <button type="button" id="btn_open_estate_wizard" class="btn btn-secondary">🔍 最適な遺産分割を探す</button>
                             </div>
                         </div>
                         <div class="inheritance-result-box" id="inheritance_step2_result"></div>
@@ -444,7 +444,7 @@
             <div class="form-field" id="asset_add_ideco_wizard_field" hidden>
                 <label class="checkbox-label">
                     <input type="checkbox" id="input_asset_add_ideco_wizard">
-                    ウィザードを使う(おすすめの拠出額・受け取り方を提案します)
+                    おすすめの拠出額・受け取り方を提案してもらう
                 </label>
             </div>
             <div id="asset_add_ideco_wizard_body" hidden>
@@ -469,7 +469,7 @@
                     <label class="checkbox-label"><input type="radio" name="ideco_wizard_objective" value="netIncome" checked> 手取り最大化</label>
                     <label class="checkbox-label"><input type="radio" name="ideco_wizard_objective" value="taxAndSocial"> 税金・社会保険最小化</label>
                 </div>
-                <p class="field-note">※ 投資に回せる金額はそのままiDeCoの掛金として設定されます(NISAとの配分比較は今後の検討課題です)。拠出終了年齢は公的年金受給開始年齢までの範囲で選べます(実際には受給しながら拠出を続けられる場合もありますが、ウィザードでは選択肢をシンプルにするため絞っています。資産タブ本体では引き続き自由に変更できます)。退職金・公的年金が未入力/概算のままだと、最適化の精度が下がります。</p>
+                <p class="field-note">※ 投資に回せる金額はそのままiDeCoの掛金として設定されます(NISAとの配分比較は今後の検討課題です)。拠出終了年齢は公的年金受給開始年齢までの範囲で選べます(実際には受給しながら拠出を続けられる場合もありますが、ここでは選択肢をシンプルにするため絞っています。資産タブ本体では引き続き自由に変更できます)。退職金・公的年金が未入力/概算のままだと、最適化の精度が下がります。</p>
             </div>
             <div class="button-row modal-actions">
                 <button type="button" id="btn_asset_add_cancel" class="btn btn-link">キャンセル</button>
@@ -483,7 +483,7 @@
     <div id="ideco_wizard_review_modal" class="modal-overlay" style="display: none;">
         <div class="card modal-card">
             <button type="button" id="btn_ideco_wizard_review_modal_close" class="modal-close" aria-label="閉じる">×</button>
-            <div class="section-title">iDeCoウィザードで見直す</div>
+            <div class="section-title">iDeCoの掛金・受け取り方を見直す</div>
             <div class="form-field field-with-unit-narrow">
                 <label for="ideco_wizard_review_monthly_contribution">投資に回せる金額(月)</label>
                 <div class="field-with-unit">
@@ -505,7 +505,7 @@
                 <label class="checkbox-label"><input type="radio" name="ideco_wizard_review_objective" value="netIncome" checked> 手取り最大化</label>
                 <label class="checkbox-label"><input type="radio" name="ideco_wizard_review_objective" value="taxAndSocial"> 税金・社会保険最小化</label>
             </div>
-            <p class="field-note">※ 拠出額・出口戦略ともにここで計算した内容で上書きされます。拠出終了年齢は公的年金受給開始年齢までの範囲で選べます(実際には受給しながら拠出を続けられる場合もありますが、ウィザードでは選択肢をシンプルにするため絞っています。資産タブ本体では引き続き自由に変更できます)。退職金・公的年金が未入力/概算のままだと、最適化の精度が下がります。</p>
+            <p class="field-note">※ 拠出額・出口戦略ともにここで計算した内容で上書きされます。拠出終了年齢は公的年金受給開始年齢までの範囲で選べます(実際には受給しながら拠出を続けられる場合もありますが、ここでは選択肢をシンプルにするため絞っています。資産タブ本体では引き続き自由に変更できます)。退職金・公的年金が未入力/概算のままだと、最適化の精度が下がります。</p>
             <div class="button-row modal-actions">
                 <button type="button" id="btn_ideco_wizard_review_cancel" class="btn btn-link">キャンセル</button>
                 <button type="button" id="btn_ideco_wizard_review_confirm" class="btn btn-primary">この内容で更新する</button>
@@ -519,7 +519,7 @@
     <div id="pension_wizard_modal" class="modal-overlay" style="display: none;">
         <div class="card modal-card modal-card-wide">
             <button type="button" id="btn_pension_wizard_modal_close" class="modal-close" aria-label="閉じる">×</button>
-            <div class="section-title">公的年金ウィザードで最適化する</div>
+            <div class="section-title">公的年金の受給開始年齢を最適化する</div>
 
             <div id="pension_wizard_step_input">
                 <div class="form-field field-with-unit-narrow">
@@ -559,7 +559,7 @@
     <div id="gift_wizard_modal" class="modal-overlay" style="display: none;">
         <div class="card modal-card modal-card-wide modal-card-xwide">
             <button type="button" id="btn_gift_wizard_modal_close" class="modal-close" aria-label="閉じる">×</button>
-            <div class="section-title">生前贈与で最適化する</div>
+            <div class="section-title">生前贈与を最適化する</div>
 
             <div id="gift_wizard_step_input">
                 <div class="form-grid">
@@ -578,7 +578,7 @@
                 </div>
                 <p class="field-note">子1人あたりの年間贈与額を0円〜1,000万円で変え、暦年課税・相続時精算課税のそれぞれについて、贈与税の合計と相続税(被相続人: 世帯主、死亡年齢はステップ1と同じ)の合計が最小になる額を探します。</p>
                 <p class="field-note">※ 贈与は現金・預金から出ます。死亡年齢までに現金・預金が足りなくなる案は候補から外します。教育資金・住宅取得資金などの非課税の特例は考慮しません。</p>
-                <p class="field-note">※ 配偶者への贈与は、このウィザードの対象外です。配偶者は相続時に税額軽減(1億6,000万円または法定相続分まで非課税)を受けられるため、生前に贈与しても相続税はあまり減らず、配偶者が亡くなったとき(二次相続)の相続税がかえって増えることもあります。配偶者名義のNISAで世帯の非課税枠を広げたい場合は、「2. 資産」の配偶者のNISAタブで「積立資金の出し手」を「世帯主からの贈与」にしてください(年110万円を超えると贈与税がかかります)。</p>
+                <p class="field-note">※ 配偶者への贈与は、この最適化の対象外です。配偶者は相続時に税額軽減(1億6,000万円または法定相続分まで非課税)を受けられるため、生前に贈与しても相続税はあまり減らず、配偶者が亡くなったとき(二次相続)の相続税がかえって増えることもあります。配偶者名義のNISAで世帯の非課税枠を広げたい場合は、「2. 資産」の配偶者のNISAタブで「積立資金の出し手」を「世帯主からの贈与」にしてください(年110万円を超えると贈与税がかかります)。</p>
                 <div class="button-row modal-actions">
                     <button type="button" id="btn_gift_wizard_cancel" class="btn btn-link">キャンセル</button>
                     <button type="button" id="btn_gift_wizard_search" class="btn btn-primary">探索する</button>
@@ -606,13 +606,13 @@
     <div id="estate_wizard_modal" class="modal-overlay" style="display: none;">
         <div class="card modal-card modal-card-wide">
             <button type="button" id="btn_estate_wizard_modal_close" class="modal-close" aria-label="閉じる">×</button>
-            <div class="section-title">遺産分割ウィザードで最適化する</div>
+            <div class="section-title">遺産分割を最適化する</div>
 
             <div id="estate_wizard_step_input">
                 <div class="form-field field-with-unit-narrow">
                     <label for="estate_wizard_spouse_death_age" id="estate_wizard_spouse_death_age_label">配偶者の死亡年齢(二次相続の時期)</label>
                     <select id="estate_wizard_spouse_death_age"></select>
-                    <p class="field-note">配偶者の死亡予測年齢です(相続税・各ウィザードと共通の値で、ここで変えると他の場面にも反映されます)。</p>
+                    <p class="field-note">配偶者の死亡予測年齢です(相続税・各最適化と共通の値で、ここで変えると他の場面にも反映されます)。</p>
                 </div>
                 <p class="field-note">配偶者の取得割合を0〜100%(10%刻み)で変え、一次相続(被相続人の死亡)と二次相続(配偶者の死亡)の相続税の合計が最小になる割合を探します。</p>
                 <p class="field-note">※ 簡易化のため、一次相続で配偶者が相続した財産は二次相続まで増減しない(運用益・生活費での取り崩しを見ない)ものとして計算します(実際には使った分だけ二次相続の財産は減るため、二次相続の相続税は多めに出ます)。相次相続控除(10年以内に続けて相続があった場合の控除)は考慮しません。</p>
@@ -760,7 +760,7 @@
     <script src="shared/nenkin-bridge.9389fa8466.js"></script>
     <script src="shared/chart-age-cursor.b4884465a9.js"></script>
     <script src="shared/age-stepper.1b938669bf.js"></script>
-    <script src="shared/parameter-catalog.ab98724c97.js"></script>
+    <script src="shared/parameter-catalog.2287a66d8e.js"></script>
     <script src="shared/rebalance-reader.7ee687aed1.js"></script>
     <script src="shared/embed-overlay.56c75d839f.js"></script>
     <script src="shared/numeric-input-select.8f7204db06.js"></script>
@@ -769,7 +769,7 @@
     <script src="consent.6a30cb2135.js"></script>
     <script src="resize-notifier.bbc2b52d92.js"></script>
     <script src="vendor/chart.845cebbbb6.js"></script>
-    <script src="ui.004db63b46.js"></script>
+    <script src="ui.c3d7392699.js"></script>
     <script>
         window.model = new LifeplanModel({ window: window, storage: AppStorage });
         AppAuth.init();
