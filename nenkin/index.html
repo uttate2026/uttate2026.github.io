@@ -266,7 +266,7 @@
                         <tbody id="page2_results_body"></tbody>
                     </table>
                 </div>
-                <p class="field-note">「手取り最大」の列は参考値です(その受給開始年齢を選んだ場合の結果)。税金合計・社会保険料合計の内訳も参考情報として掲載しています。住民税・国保などの保険料・住民税非課税の判定は、実際の制度と同じく前年の所得で計算しています(引退した翌年は、前年の給与に対する住民税と保険料を払います)。</p>
+                <p class="field-note">「手取り最大」の列は参考値です(その受給開始年齢を選んだ場合の結果)。税金合計・社会保険料合計の内訳も参考情報として掲載しています。住民税・国保などの保険料・住民税非課税の判定は、実際の制度と同じく前年の所得で計算しています(引退した翌年は、前年の給与に対する住民税と保険料を払います)。ご本人が亡くなった後に配偶者が受け取る遺族厚生年金は、繰り下げる前の額がもとになり、繰下げで増えた分は配偶者には残りません(ライフプランシミュレーターでは、亡くなった後の遺族年金まで計算できます)。</p>
                 <!-- 老齢基礎年金・老齢厚生年金を別々の年齢で受け取る場合との比較(MEMO.md 2026/9/26
                      コメント1-(2)、docs/nenkin/decisions/0002参照)。老齢厚生年金の見込額がある場合のみ -->
                 <p id="page2_split_note" class="info-note" hidden></p>
@@ -446,16 +446,16 @@
          (docs/shared/decisions/0004参照)。scripts/sync-shared.jsがsrc/shared/からコピーする
          (このディレクトリ自体はGit管理対象外)。shared/lifeplan-constants.jsはshared/calculator.jsが
          参照するブラウザグローバルLifeplanConstantsを用意するためのもの -->
-    <script src="shared/lifeplan-constants.333447fb7c.js"></script>
+    <script src="shared/lifeplan-constants.9007070586.js"></script>
     <script src="shared/pattern-builders.397fec410a.js"></script>
-    <script src="shared/calculator.7d272d7d6c.js"></script>
+    <script src="shared/calculator.65734dbbb2.js"></script>
     <!-- 生涯合計の集計(docs/shared/decisions/0007参照)。以降の共通モジュールが参照するため、その前に読み込む -->
-    <script src="shared/lifetime-totals.c71f9e183c.js"></script>
+    <script src="shared/lifetime-totals.004b824b84.js"></script>
     <!-- 公的年金受給開始年齢のグリッド探索(nenkinトピックA・lifeplan「公的年金」タブのウィザードで共通、
          lifeplan ADR 0027参照)。nenkin-bridge.jsが参照するため、必ずその前に読み込む -->
     <script src="shared/pension-claim-optimizer.54220c7710.js"></script>
-    <script src="shared/nenkin-bridge.9389fa8466.js"></script>
-    <script src="shared/parameter-catalog.2287a66d8e.js"></script>
+    <script src="shared/nenkin-bridge.ca385307dc.js"></script>
+    <script src="shared/parameter-catalog.d27a8c06d0.js"></script>
     <script src="shared/chart-age-cursor.30ba8f7482.js"></script>
     <script src="shared/age-stepper.bc4ccf1bc4.js"></script>
     <script src="shared/lifeplan-link.e8bdcafdbf.js"></script>
