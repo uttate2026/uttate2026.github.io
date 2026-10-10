@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ライフプランシミュレーター</title>
-    <link rel="stylesheet" href="style.0d98d28906.css">
+    <link rel="stylesheet" href="style.3060483b81.css">
     <!-- uttate.comに埋め込まれているとき(iframeの外にページの見出しがある)は、中のタイトルを出さない(MEMO.md 2026/9/30コメント1-(12))。
          表示の後でタイトルが消えないよう、描画の前に<html>へ印を付ける -->
     <script>
@@ -153,6 +153,14 @@
                     </div>
                     <button type="button" class="btn btn-link" id="btn_add_living_cost_change">+ 生活費の変化を追加</button>
                     <p class="field-note">子が独立した後・退職後・75歳以降など、生活費が変わる年齢ごとに行を足します(その年齢から次の行の年齢の前までの生活費)。年間の生活費は月額×12+年額です。年1回などの支出は、固定資産税・自動車税・保険料の年払い・帰省や旅行など。数年おきの支出(給湯器・車の買い替え等)は「不定期支出」に入れます。</p>
+                    <!-- 世帯主・配偶者の一方が亡くなった後の生活費の割合(docs/lifeplan/decisions/0053)。配偶者がいる場合だけ出す -->
+                    <div id="living_cost_after_death_wrap" class="form-grid">
+                        <div class="form-field">
+                            <label for="input_living_cost_after_death_rate">一方が亡くなった後の生活費</label>
+                            <div class="field-with-unit field-with-unit-narrow"><input type="text" id="input_living_cost_after_death_rate" inputmode="numeric" autocomplete="off" spellcheck="false"><span class="unit">%</span></div>
+                        </div>
+                    </div>
+                    <p class="field-note" id="living_cost_after_death_note">世帯主・配偶者のどちらかが死亡予測年齢(「4. シミュレーション結果」で変えられます)を過ぎた翌年から、上の生活費にこの割合を掛けます。65歳以上の単身の世帯の支出は、夫婦の世帯の約6割です(家計調査)。</p>
                 </div>
                 <div id="expense_durable_panel" style="display:none;">
                     <p class="field-note">任意入力です(0件でも構いません)。「項目」欄は候補(給湯器・外壁塗装・自家用車)から選ぶと耐用年数が自動で入ります。候補にない名前を入力すると自由な項目として扱われます。</p>
@@ -247,6 +255,9 @@
                         <span class="result-summary-value" id="summary_resident_tax_exempt">なし</span>
                     </div>
                 </div>
+                <!-- 死亡予測年齢(docs/lifeplan/decisions/0053)。その年までは生きているとして計算し、翌年からは遺族年金・亡くなった後の
+                     生活費で計算するため、結果を大きく左右する。公的年金・iDeCoの最適化・相続税と共通の値(Person.deathAgeEstimate) -->
+                <div id="result_death_ages" class="result-death-ages"></div>
                 <!-- 以前の「グラフ/明細」タブ(全年齢の明細表)は廃止し、グラフの下の「明細を見る」で1年分を
                      表示する(MEMO.md 2026/9/28コメント1-(2)、docs/lifeplan/decisions/0032) -->
                 <div id="asset_chart_wrap">
@@ -739,14 +750,14 @@
     </div>
 
     <script src="storage.3511e9ad1c.js"></script>
-    <script src="constants.b10a812bf8.js"></script>
+    <script src="constants.15d87d12db.js"></script>
     <script src="shared/pattern-builders.397fec410a.js"></script>
-    <script src="shared/calculator.621b29afa7.js"></script>
+    <script src="shared/calculator.bbda76ed30.js"></script>
     <!-- 生涯合計の集計(全プラン比較・各ウィザード・ideco-bridge.js等が使う、docs/shared/decisions/0007参照) -->
-    <script src="shared/lifetime-totals.c71f9e183c.js"></script>
+    <script src="shared/lifetime-totals.004b824b84.js"></script>
     <!-- ideco→lifeplanへのデータ引き継ぎ(model.jsのcheckIdecoHandoff/importHandoffPatternが
          IdecoBridge.HANDOFF_STORAGE_KEYを参照する、docs/shared/decisions/0006参照) -->
-    <script src="shared/ideco-bridge.337e411c38.js"></script>
+    <script src="shared/ideco-bridge.86fda36e97.js"></script>
     <!-- iDeCo出口戦略のグリッド探索(iDeCo資産追加ウィザードが使う、idecoと共通、
          docs/shared/decisions/0007参照) -->
     <script src="shared/ideco-exit-optimizer.c3946af122.js"></script>
@@ -757,19 +768,19 @@
     <!-- 公的年金受給開始年齢のグリッド探索(nenkinトピックA・lifeplan「公的年金」タブのウィザードで共通、
          lifeplan ADR 0027参照)。nenkin-bridge.jsが参照するため、必ずその前に読み込む -->
     <script src="shared/pension-claim-optimizer.54220c7710.js"></script>
-    <script src="shared/nenkin-bridge.9389fa8466.js"></script>
+    <script src="shared/nenkin-bridge.ca385307dc.js"></script>
     <script src="shared/chart-age-cursor.b4884465a9.js"></script>
     <script src="shared/age-stepper.1b938669bf.js"></script>
-    <script src="shared/parameter-catalog.2287a66d8e.js"></script>
+    <script src="shared/parameter-catalog.d27a8c06d0.js"></script>
     <script src="shared/rebalance-reader.7ee687aed1.js"></script>
     <script src="shared/embed-overlay.56c75d839f.js"></script>
     <script src="shared/numeric-input-select.8f7204db06.js"></script>
-    <script src="model.3023ecab09.js"></script>
+    <script src="model.b4184c075b.js"></script>
     <script src="auth.f95b7f2cb8.js"></script>
     <script src="consent.6a30cb2135.js"></script>
     <script src="resize-notifier.bbc2b52d92.js"></script>
     <script src="vendor/chart.845cebbbb6.js"></script>
-    <script src="ui.8c03cbaeef.js"></script>
+    <script src="ui.88d5da1ad9.js"></script>
     <script>
         window.model = new LifeplanModel({ window: window, storage: AppStorage });
         AppAuth.init();

@@ -2131,3 +2131,9 @@ th, td {
     margin: 0;
     min-width: 0;
 }
+
+/* 一方が亡くなった後の生活費の欄・結果カードの死亡予測年齢(ADR 0053)。直前の注記・要約と詰まって見えないよう余白を空ける */
+#living_cost_after_death_wrap,
+.result-death-ages {
+    margin-top: 12px;
+}
