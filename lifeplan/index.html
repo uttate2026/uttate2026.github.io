@@ -318,15 +318,12 @@
                 <div id="inheritance_fields" style="display:none;">
                     <div class="section-title-sub">ステップ1: 相続税の総額</div>
                     <div class="form-grid">
+                        <!-- 被相続人は世帯主・配偶者のうち先に亡くなる人、死亡年齢は「4. シミュレーション結果」の死亡予測年齢(docs/lifeplan/decisions/0053
+                             第2段階)。以前はここで選んでいた -->
                         <div class="form-field">
-                            <label for="select_inheritance_decedent">被相続人</label>
-                            <select id="select_inheritance_decedent"></select>
-                            <p class="field-note">被相続人名義の資産(現金・預金は世帯主名義)を相続財産とします。生前贈与加算は、世帯主が被相続人の場合のみ行います(贈与者はいずれも世帯主のため)。</p>
-                        </div>
-                        <div class="form-field">
-                            <label for="select_inheritance_death_age">死亡年齢(被相続人の死亡予測年齢)</label>
-                            <select id="select_inheritance_death_age"></select>
-                            <p class="field-note">人物ごとの死亡予測年齢です。公的年金・iDeCo・遺産分割の最適化の死亡予測年齢と共通の値で、どこで変えても連動します。</p>
+                            <label>被相続人(先に亡くなる人)</label>
+                            <p class="inheritance-spouse-status" id="inheritance_decedent_status"></p>
+                            <p class="field-note">死亡予測年齢は「4. シミュレーション結果」で変えられます。被相続人名義の資産(現金・預金は世帯主名義)を相続財産とします。</p>
                         </div>
                         <!-- 法定相続人は配偶者(世帯の人物から自動判定)と子のみを扱う(MEMO.md 2026/9/27コメント2-(2)、ADR 0030) -->
                         <div class="form-field">
@@ -366,7 +363,7 @@
                     </div>
 
                     <details class="detail-toggle as-section-title-sub" id="inheritance_step2_toggle">
-                        <summary>ステップ2: 誰がいくら払うか(任意)</summary>
+                        <summary>ステップ2: 分け方と、二次相続まで含めた相続税</summary>
                         <p class="field-note">相続税の総額を、実際に相続する割合で配偶者・子に振り分け、配偶者の税額軽減と贈与税額控除を差し引いて、納付額を求めます。</p>
                         <div class="form-field" id="inheritance_spouse_share_field">
                             <label for="select_inheritance_spouse_share">配偶者の取得割合</label>
@@ -750,9 +747,9 @@
     </div>
 
     <script src="storage.3511e9ad1c.js"></script>
-    <script src="constants.e0e66c13aa.js"></script>
+    <script src="constants.4257e9f0b9.js"></script>
     <script src="shared/pattern-builders.ee4a867b22.js"></script>
-    <script src="shared/calculator.6783d16185.js"></script>
+    <script src="shared/calculator.f570cca0ae.js"></script>
     <!-- 生涯合計の集計(全プラン比較・各ウィザード・ideco-bridge.js等が使う、docs/shared/decisions/0007参照) -->
     <script src="shared/lifetime-totals.004b824b84.js"></script>
     <!-- ideco→lifeplanへのデータ引き継ぎ(model.jsのcheckIdecoHandoff/importHandoffPatternが
@@ -771,16 +768,16 @@
     <script src="shared/nenkin-bridge.ca385307dc.js"></script>
     <script src="shared/chart-age-cursor.b4884465a9.js"></script>
     <script src="shared/age-stepper.1b938669bf.js"></script>
-    <script src="shared/parameter-catalog.e833bf2447.js"></script>
+    <script src="shared/parameter-catalog.9467d4be6e.js"></script>
     <script src="shared/rebalance-reader.7ee687aed1.js"></script>
     <script src="shared/embed-overlay.56c75d839f.js"></script>
     <script src="shared/numeric-input-select.8f7204db06.js"></script>
-    <script src="model.dafab48892.js"></script>
+    <script src="model.40516845eb.js"></script>
     <script src="auth.f95b7f2cb8.js"></script>
     <script src="consent.6a30cb2135.js"></script>
     <script src="resize-notifier.bbc2b52d92.js"></script>
     <script src="vendor/chart.845cebbbb6.js"></script>
-    <script src="ui.1cab5b2623.js"></script>
+    <script src="ui.c1e40f28ee.js"></script>
     <script>
         window.model = new LifeplanModel({ window: window, storage: AppStorage });
         AppAuth.init();
