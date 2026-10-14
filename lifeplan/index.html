@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ライフプランシミュレーター</title>
-    <link rel="stylesheet" href="style.3060483b81.css">
+    <link rel="stylesheet" href="style.2ec6bc2a89.css">
     <!-- uttate.comに埋め込まれているとき(iframeの外にページの見出しがある)は、中のタイトルを出さない(MEMO.md 2026/9/30コメント1-(12))。
          表示の後でタイトルが消えないよう、描画の前に<html>へ印を付ける -->
     <script>
@@ -258,6 +258,9 @@
                 <!-- 死亡予測年齢(docs/lifeplan/decisions/0053)。その年までは生きているとして計算し、翌年からは遺族年金・亡くなった後の
                      生活費で計算するため、結果を大きく左右する。公的年金・iDeCoの最適化・相続税と共通の値(Person.deathAgeEstimate) -->
                 <div id="result_death_ages" class="result-death-ages"></div>
+                <!-- 運用がうまくいかなかったら(docs/lifeplan/decisions/0055)。世帯主が引退した年から過去の実際の下落を当てはめ、
+                     総資産の線をグラフに重ねて比べる。保存しない表示上の選択 -->
+                <div id="result_return_scenario" class="result-return-scenario"></div>
                 <!-- 以前の「グラフ/明細」タブ(全年齢の明細表)は廃止し、グラフの下の「明細を見る」で1年分を
                      表示する(MEMO.md 2026/9/28コメント1-(2)、docs/lifeplan/decisions/0032) -->
                 <div id="asset_chart_wrap">
@@ -747,9 +750,9 @@
     </div>
 
     <script src="storage.3511e9ad1c.js"></script>
-    <script src="constants.76ec417aac.js"></script>
+    <script src="constants.adcd361528.js"></script>
     <script src="shared/pattern-builders.9dc04e9b80.js"></script>
-    <script src="shared/calculator.b90c01ec24.js"></script>
+    <script src="shared/calculator.60e22818ca.js"></script>
     <!-- 生涯合計の集計(全プラン比較・各ウィザード・ideco-bridge.js等が使う、docs/shared/decisions/0007参照) -->
     <script src="shared/lifetime-totals.bcc936ebeb.js"></script>
     <!-- ideco→lifeplanへのデータ引き継ぎ(model.jsのcheckIdecoHandoff/importHandoffPatternが
@@ -768,7 +771,7 @@
     <script src="shared/nenkin-bridge.ca385307dc.js"></script>
     <script src="shared/chart-age-cursor.b4884465a9.js"></script>
     <script src="shared/age-stepper.1b938669bf.js"></script>
-    <script src="shared/parameter-catalog.2b346c4710.js"></script>
+    <script src="shared/parameter-catalog.3092c460cc.js"></script>
     <script src="shared/rebalance-reader.7ee687aed1.js"></script>
     <script src="shared/embed-overlay.56c75d839f.js"></script>
     <script src="shared/numeric-input-select.8f7204db06.js"></script>
@@ -777,7 +780,7 @@
     <script src="consent.6a30cb2135.js"></script>
     <script src="resize-notifier.bbc2b52d92.js"></script>
     <script src="vendor/chart.845cebbbb6.js"></script>
-    <script src="ui.7c93f28e6b.js"></script>
+    <script src="ui.375cd12c20.js"></script>
     <script>
         window.model = new LifeplanModel({ window: window, storage: AppStorage });
         AppAuth.init();
