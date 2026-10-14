@@ -206,7 +206,7 @@
                 <div id="public_pension_claim_age_field" class="form-field" style="display: none;">
                     <!-- 年齢の表示と▲▼ボタンはスライダーの上に置く(MEMO.md 2026/9/29コメント1-(2)、共通のAgeStepper。以前はスライダーの右に数値入力欄) -->
                     <div class="age-slider-head">
-                        <label for="input_public_pension_claim_age_slider">公的年金受給年齢<button type="button" class="help-btn help-btn-info" data-help="info" aria-label="解説" aria-expanded="false" tabindex="-1"></button><template class="help-content"><p>引退年齢とは別に、公的年金をいつから受け取るかを選びます(グラフにそのまま反映されます)。65歳が標準で、60〜64歳は繰上げ(1か月早めるごとに0.4%減額)、66〜75歳は繰下げ(1か月遅らせるごとに0.7%増額)です。</p></template></label>
+                        <label for="input_public_pension_claim_age_slider">公的年金受給年齢<button type="button" class="help-btn help-btn-info" data-help="info" aria-label="解説" aria-expanded="false" tabindex="-1"></button><template class="help-content"><p>引退年齢とは別に、公的年金をいつから受け取るかを選びます(グラフにそのまま反映されます)。65歳が標準で、<span data-help-value="PENSION_START_AGE_MIN"></span>〜64歳は繰上げ(1か月早めるごとに<span data-help-value="EARLY_CLAIM_REDUCTION_RATE_MONTHLY" data-format="percent"></span>減額)、66〜<span data-help-value="PENSION_START_AGE_MAX"></span>歳は繰下げ(1か月遅らせるごとに<span data-help-value="DELAYED_CLAIM_INCREASE_RATE_MONTHLY" data-format="percent"></span>増額)です。</p></template></label>
                         <div class="age-stepper" id="public_pension_claim_age_stepper">
                             <span class="age-stepper-value" aria-live="polite"></span>
                             <button type="button" class="age-stepper-btn" data-step="-1" aria-label="1歳下げる">▼</button>
@@ -222,7 +222,7 @@
                  直接隣接させるため、下の「より正確に試算する(任意)」より先に置く
                  (2026-09-23の追加フィードバック「スライダーとグラフが離れて見づらい」) -->
             <div id="page2_pension_start_age_results" class="card" style="display: none;">
-                <div class="section-title">年金受給開始年齢の比較<button type="button" class="help-btn help-btn-info" data-help="info" aria-label="解説" aria-expanded="false" tabindex="-1"></button><template class="help-content"><p>受給開始年齢60〜75歳を1年刻みで試算した結果です。手取りが最も多くなる年齢を探します(税金・社会保険料が最も少なくなる年齢は、繰上げ受給ほど有利になりやすく参考になりにくいため、比べていません)。</p></template></div>
+                <div class="section-title">年金受給開始年齢の比較<button type="button" class="help-btn help-btn-info" data-help="info" aria-label="解説" aria-expanded="false" tabindex="-1"></button><template class="help-content"><p>受給開始年齢<span data-help-value="PENSION_START_AGE_MIN"></span>〜<span data-help-value="PENSION_START_AGE_MAX"></span>歳を1年刻みで試算した結果です。手取りが最も多くなる年齢を探します(税金・社会保険料が最も少なくなる年齢は、繰上げ受給ほど有利になりやすく参考になりにくいため、比べていません)。</p></template></div>
                 <div id="page2_chart_wrap">
                     <canvas id="page2_chart_canvas"></canvas>
                     <p id="page2_chart_error" class="alert-text" style="display: none;">グラフを表示できませんでした。</p>
@@ -451,7 +451,7 @@
     <script src="shared/lifeplan-link.e09b413bed.js"></script>
     <script src="shared/embed-overlay.c8925dca51.js"></script>
     <script src="shared/numeric-input-select.4cbd9315f1.js"></script>
-    <script src="shared/help-popover.92af203269.js"></script>
+    <script src="shared/help-popover.32113933db.js"></script>
     <script src="ui.384b36375a.js"></script>
     <script>
         window.model = new NenkinModel({ window: window, storage: AppStorage });
@@ -460,7 +460,7 @@
         ResizeNotifier.init();
         EmbedOverlay.init();
         NumericInputSelect.init();
-        HelpPopover.init();
+        HelpPopover.init(document, LifeplanConstants);
     </script>
 </body>
 </html>
