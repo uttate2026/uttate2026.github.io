@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>iDeCoシミュレーター</title>
-    <link rel="stylesheet" href="style.9559029693.css">
+    <link rel="stylesheet" href="style.aecf3cbd41.css">
     <!-- uttate.comに埋め込まれているとき(iframeの外にページの見出しがある)は、中のタイトルを出さない(MEMO.md 2026/9/30コメント1-(12))。
          表示の後でタイトルが消えないよう、描画の前に<html>へ印を付ける -->
     <script>
@@ -80,15 +80,14 @@
                 <div class="section-title">まず、現在の収入についてお聞きします</div>
                 <div class="form-grid form-grid-pair">
                     <div class="form-field">
-                        <label for="input_current_age">現在の年齢</label>
+                        <label for="input_current_age">現在の年齢<button type="button" class="help-btn help-btn-info" data-help="info" aria-label="解説" aria-expanded="false" tabindex="-1"></button><template class="help-content"><p>シミュレーション全体の基準になる年齢です。</p></template></label>
                         <div class="field-with-unit">
                             <input type="text" id="input_current_age" inputmode="numeric" autocomplete="off" spellcheck="false">
                             <span class="unit">歳</span>
                         </div>
-                        <p class="field-note">シミュレーション全体の基準年齢</p>
                     </div>
                     <div class="form-field">
-                        <label for="input_dependents">扶養家族数</label>
+                        <label for="input_dependents">扶養家族数<button type="button" class="help-btn help-btn-hint" data-help="hint" aria-label="入力のヒント" aria-expanded="false" tabindex="-1"></button><template class="help-content"><p>所得税の扶養控除・配偶者控除の対象になる家族の人数です(1人あたり38万円の控除として概算します)。年末調整で出した「扶養控除等申告書」に書いた人数が目安です。</p><p>源泉徴収票の税額を入れると、実際の控除額が反映されるため、ここの人数による差は小さくなります。</p></template></label>
                         <div class="field-with-unit">
                             <input type="text" id="input_dependents" inputmode="numeric" autocomplete="off" spellcheck="false">
                             <span class="unit">人</span>
@@ -97,7 +96,7 @@
                 </div>
                 <div class="form-grid form-grid-pair">
                     <div class="form-field">
-                        <label for="input_salary_income">給与収入(年額)</label>
+                        <label for="input_salary_income">給与収入(年額)<button type="button" class="help-btn help-btn-hint" data-help="hint" aria-label="入力のヒント" aria-expanded="false" tabindex="-1"></button><template class="help-content"><p>源泉徴収票の左上の「支払金額」欄です。給与・賞与の1年分の合計(税金・社会保険料を引く前)です。</p><p>源泉徴収票は、勤め先から毎年12月〜1月に受け取ります。手元に無ければ、勤め先の給与明細のWebサービスや担当部署で確かめられます。</p></template></label>
                         <div class="field-with-unit">
                             <input type="text" id="input_salary_income" inputmode="numeric" autocomplete="off" spellcheck="false">
                             <span class="unit">円</span>
@@ -105,7 +104,7 @@
                         <p id="salary_income_required_note" class="alert-text" style="display: none;">⚠️ 給与収入を入力すると、下の質問に進めます(iDeCoの節税効果は課税対象の収入が無いと計算できないため)。</p>
                     </div>
                     <div class="form-field">
-                        <label for="input_retirement_age">退職年齢</label>
+                        <label for="input_retirement_age">退職年齢<button type="button" class="help-btn help-btn-hint" data-help="hint" aria-label="入力のヒント" aria-expanded="false" tabindex="-1"></button><template class="help-content"><p>給与収入が無くなる年齢です。再雇用等で働き続ける予定なら、完全に働くのをやめる年齢を入れます。</p></template></label>
                         <div class="field-with-unit">
                             <input type="text" id="input_retirement_age" inputmode="numeric" autocomplete="off" spellcheck="false">
                             <span class="unit">歳</span>
@@ -113,7 +112,7 @@
                     </div>
                 </div>
 
-                <p class="field-note">以下は、お手元の書類がある場合にチェックを入れて入力してください。最初はラフな概算値のまま先に進み、本格的にシミュレーションしたくなったら戻って正確に入力する、という使い方もできます(未入力の間は給与収入・扶養家族数からの概算で計算します)。</p>
+                <p class="field-note">お手元に書類があれば、チェックを入れて入力してください(無くても概算で進められます)。<button type="button" class="help-btn help-btn-info" data-help="info" aria-label="解説" aria-expanded="false" tabindex="-1"></button><template class="help-content"><p>未入力の間は、給与収入・扶養家族数からの概算で計算します。最初は概算のまま先に進み、本格的に試算したくなったら戻って正確に入れる、という使い方もできます。</p><p>源泉徴収税額・社会保険料・住民税を入れると、比較結果の手取り・税金の精度が上がります(扶養家族の年齢構成による控除額の違いも、実額を使えば個別に入れなくても反映されます)。</p></template></p>
 
                 <div class="form-field">
                     <label class="checkbox-label">
@@ -123,14 +122,14 @@
                 </div>
                 <div id="withholding_slip_fields" class="form-grid" style="display: none;">
                     <div class="form-field">
-                        <label for="input_withholding_tax">源泉徴収税額(年額)</label>
+                        <label for="input_withholding_tax">源泉徴収税額(年額)<button type="button" class="help-btn help-btn-hint" data-help="hint" aria-label="入力のヒント" aria-expanded="false" tabindex="-1"></button><template class="help-content"><p>源泉徴収票の上の段の右端「源泉徴収税額」欄です。年末調整で確定した1年分の所得税(復興特別所得税を含む)です。</p></template></label>
                         <div class="field-with-unit">
                             <input type="text" id="input_withholding_tax" inputmode="numeric" autocomplete="off" spellcheck="false">
                             <span class="unit">円</span>
                         </div>
                     </div>
                     <div class="form-field">
-                        <label for="input_social_insurance">社会保険料等の金額<span class="label-hint">(2段ある場合は下段)</span></label>
+                        <label for="input_social_insurance">社会保険料等の金額<button type="button" class="help-btn help-btn-hint" data-help="hint" aria-label="入力のヒント" aria-expanded="false" tabindex="-1"></button><template class="help-content"><p>源泉徴収票の「社会保険料等の金額」欄です。2段ある場合は下段(合計)の金額を入れます。</p><p>健康保険・厚生年金・雇用保険・介護保険の保険料のほか、iDeCo等の掛金や、年末調整で申告した国民年金保険料も含まれます(含まれたままの額で構いません)。</p></template><span class="label-hint">(2段ある場合は下段)</span></label>
                         <div class="field-with-unit">
                             <input type="text" id="input_social_insurance" inputmode="numeric" autocomplete="off" spellcheck="false">
                             <span class="unit">円</span>
@@ -138,20 +137,19 @@
                     </div>
                     <!-- 「社会保険料等の金額」の内訳(lifeplan ADR 0048、MEMO.md 2026/10/4コメント1-(9)) -->
                     <div class="form-field">
-                        <label for="input_small_business_mutual_aid">うち小規模企業共済等掛金(任意)<span class="label-hint">(2段ある場合は上段)</span></label>
+                        <label for="input_small_business_mutual_aid">うち小規模企業共済等掛金(任意)<button type="button" class="help-btn help-btn-hint" data-help="hint" aria-label="入力のヒント" aria-expanded="false" tabindex="-1"></button><template class="help-content"><p>「社会保険料等の金額」欄の上段(左上に「内」と書かれた小さな金額)です。iDeCoや企業型DCのマッチング拠出などの掛金です。</p><p>入れると、本人の給与にかかる社会保険料と分けて計算します(iDeCoの掛金を社会保険料として二重に数えないため)。</p></template><span class="label-hint">(2段ある場合は上段)</span></label>
                         <div class="field-with-unit">
                             <input type="text" id="input_small_business_mutual_aid" inputmode="numeric" autocomplete="off" spellcheck="false">
                             <span class="unit">円</span>
                         </div>
                     </div>
                     <div class="form-field">
-                        <label for="input_declared_national_pension">国民年金保険料等の金額(任意)</label>
+                        <label for="input_declared_national_pension">国民年金保険料等の金額(任意)<button type="button" class="help-btn help-btn-hint" data-help="hint" aria-label="入力のヒント" aria-expanded="false" tabindex="-1"></button><template class="help-content"><p>源泉徴収票の下のほうの「国民年金保険料等の金額」欄です。年末調整で申告した国民年金保険料・国民年金基金の掛金(ご家族の分や、就職前のご自身の分など)です。</p><p>入れると、本人の給与にかかる社会保険料と分けて計算します。</p></template></label>
                         <div class="field-with-unit">
                             <input type="text" id="input_declared_national_pension" inputmode="numeric" autocomplete="off" spellcheck="false">
                             <span class="unit">円</span>
                         </div>
                     </div>
-                    <p class="field-note" style="grid-column: 1 / -1;">源泉徴収票の金額をそのまま転記してください。「社会保険料等の金額」には、iDeCo等の掛金(左上に「内」と書かれた小規模企業共済等掛金)と、年末調整で申告した国民年金保険料・国民年金基金の掛金(ご家族の分や、就職前のご自身の分など。下の段の「国民年金保険料等の金額」)も含まれます。この2つを入れると、本人の給与にかかる社会保険料と分けて計算します。</p>
                 </div>
 
                 <div class="form-field">
@@ -162,19 +160,17 @@
                 </div>
                 <div id="resident_tax_notice_fields" class="form-grid" style="display: none;">
                     <div class="form-field">
-                        <label for="input_resident_tax">住民税(年額)</label>
+                        <label for="input_resident_tax">住民税(年額)<button type="button" class="help-btn help-btn-hint" data-help="hint" aria-label="入力のヒント" aria-expanded="false" tabindex="-1"></button><template class="help-content"><p>勤め先から毎年5〜6月に渡される「住民税決定通知書」(特別徴収税額の決定通知書)の、1年分の税額(市町村民税と道府県民税の合計)です。</p><p>給与から引かれる毎月の住民税の約12か月分にあたります。</p></template></label>
                         <div class="field-with-unit">
                             <input type="text" id="input_resident_tax" inputmode="numeric" autocomplete="off" spellcheck="false">
                             <span class="unit">円</span>
                         </div>
                     </div>
                 </div>
-                <p class="field-note">源泉徴収税額・社会保険料・住民税を入力すると、比較結果の手取り・税金の精度が上がります(扶養家族の年齢構成による控除額の違いも、実額を使えば個別に入力しなくても正しく反映されます)。</p>
             </div>
 
             <div class="card" id="topic_gate_card">
-                <div class="section-title">iDeCoに対する今の悩みは何ですか？</div>
-                <p class="field-note">選んだ質問に応じて、共通の「拠出プラン」画面へ進みます(チェックボックスの初期状態だけが変わります)。</p>
+                <div class="section-title">iDeCoに対する今の悩みは何ですか？<button type="button" class="help-btn help-btn-info" data-help="info" aria-label="解説" aria-expanded="false" tabindex="-1"></button><template class="help-content"><p>どれを選んでも、同じ「拠出プラン」の画面へ進みます(チェックボックスの初めの状態だけが変わります)。</p></template></div>
                 <div class="topic-cards">
                     <div class="topic-card">
                         <h3>① iDeCoでどれくらい得をする？</h3>
@@ -211,47 +207,44 @@
                 <h4>拠出プラン</h4>
                 <div class="form-grid">
                     <div class="form-field">
-                        <label for="input_planner_contribution_limit">あなたの拠出限度額(月額)</label>
+                        <label for="input_planner_contribution_limit">あなたの拠出限度額(月額)<button type="button" class="help-btn help-btn-hint" data-help="hint" aria-label="入力のヒント" aria-expanded="false" tabindex="-1"></button><template class="help-content"><p>iDeCoの掛金の上限は、働き方で異なります(2026年12月から):</p><ul><li>会社員(企業年金なし): 月6.2万円</li><li>会社員・公務員(企業年金あり): 月6.2万円から企業年金の掛金を引いた額</li><li>自営業者など: 月7.5万円(国民年金基金・付加保険料と合わせて)</li><li>専業主婦(夫): 月2.3万円</li></ul><p>企業年金の掛金は、勤め先の担当部署や、企業型DCの加入者サイトで確かめられます。既定値は企業年金なしの会社員の62,000円です。</p></template></label>
                         <div class="field-with-unit">
                             <input type="text" id="input_planner_contribution_limit" inputmode="numeric" autocomplete="off" spellcheck="false">
                             <span class="unit">円</span>
                         </div>
-                        <p class="field-note">iDeCoの拠出限度額は、自営業者・公務員・会社員(企業年金の有無)によって異なります。ご自身の限度額を調べて入力してください(既定値は企業年金なし会社員の62,000円(2026年12月の制度改正反映))。</p>
                     </div>
                     <div class="form-field">
-                        <label for="input_planner_expected_return_rate">想定利回り(年率)</label>
+                        <label for="input_planner_expected_return_rate">想定利回り(年率)<button type="button" class="help-btn help-btn-hint" data-help="hint" aria-label="入力のヒント" aria-expanded="false" tabindex="-1"></button><template class="help-content"><p>毎年の運用の利回りの見込み(手数料を引いた後)です。過去の実績は商品によって大きく違うため、控えめに見ておくと安心です。</p><p>目安: 株式中心の投資信託で3〜5%、債券・バランス型で1〜3%程度。</p></template></label>
                         <div class="field-with-unit">
                             <input type="text" id="input_planner_expected_return_rate" inputmode="decimal" autocomplete="off" spellcheck="false">
                             <span class="unit">%</span>
                         </div>
                     </div>
                     <div class="form-field">
-                        <label for="input_planner_contribution_end_age">拠出終了年齢</label>
+                        <label for="input_planner_contribution_end_age">拠出終了年齢<button type="button" class="help-btn help-btn-info" data-help="info" aria-label="解説" aria-expanded="false" tabindex="-1"></button><template class="help-content"><p>既定値は65歳です。iDeCoに拠出できる年齢の上限(70歳)まで延ばせます。公的年金の受給開始年齢は次の「出口戦略」の画面で決め、この年齢以降になります。</p></template></label>
                         <div class="field-with-unit">
                             <input type="text" id="input_planner_contribution_end_age" inputmode="numeric" autocomplete="off" spellcheck="false">
                             <span class="unit">歳</span>
                         </div>
-                        <p class="field-note">既定値は65歳です。iDeCoの拠出可能年齢の上限(70歳)まで延長できます。公的年金受給開始年齢はページ3で設定でき、この年齢以降になります。</p>
                     </div>
                 </div>
 
                 <div class="form-field">
                     <label class="checkbox-label">
                         <input type="checkbox" id="input_planner_currently_contributing">
-                        現在、iDeCoに拠出中である(既に加入済み)
+                        現在、iDeCoに拠出中である(既に加入済み)<button type="button" class="help-btn help-btn-info" data-help="info" aria-label="解説" aria-expanded="false" tabindex="-1"></button><template class="help-content"><p>ONにすると、比較表の基準の列が「現状維持(今の拠出額のまま)」になります。</p></template>
                     </label>
-                    <p class="field-note">ONにすると、比較表の基準列が「現状維持(今の拠出額のまま)」になります。</p>
                 </div>
                 <div id="planner_current_contribution_fields" class="form-grid" style="display: none;">
                     <div class="form-field">
-                        <label for="input_planner_current_balance">現在のiDeCo残高</label>
+                        <label for="input_planner_current_balance">現在のiDeCo残高<button type="button" class="help-btn help-btn-hint" data-help="hint" aria-label="入力のヒント" aria-expanded="false" tabindex="-1"></button><template class="help-content"><p>年1回届く「残高のお知らせ」や、加入している金融機関・記録関連運営管理機関(JIS&amp;T等)のWebサイトの資産評価額(時価)です。</p></template></label>
                         <div class="field-with-unit">
                             <input type="text" id="input_planner_current_balance" inputmode="numeric" autocomplete="off" spellcheck="false">
                             <span class="unit">円</span>
                         </div>
                     </div>
                     <div class="form-field">
-                        <label for="input_planner_enrolled_years">これまでの加入年数</label>
+                        <label for="input_planner_enrolled_years">これまでの加入年数<button type="button" class="help-btn help-btn-hint" data-help="hint" aria-label="入力のヒント" aria-expanded="false" tabindex="-1"></button><template class="help-content"><p>iDeCoに加入してから今までの年数です。一時金で受け取るときの退職所得控除の計算に使います。</p></template></label>
                         <div class="field-with-unit">
                             <input type="text" id="input_planner_enrolled_years" inputmode="numeric" autocomplete="off" spellcheck="false">
                             <span class="unit">年</span>
@@ -262,22 +255,19 @@
                 <div class="form-field">
                     <label class="checkbox-label">
                         <input type="checkbox" id="input_planner_nisa_balance_considered">
-                        NISAとのバランスを考慮したい
+                        NISAとのバランスを考慮したい<button type="button" class="help-btn help-btn-info" data-help="info" aria-label="解説" aria-expanded="false" tabindex="-1"></button><template class="help-content"><p>ONにすると、比較表に「NISA全振り」の列が加わります。</p></template>
                     </label>
-                    <p class="field-note">ONにすると、比較表に「NISA全振り」列が追加されます。</p>
                 </div>
                 <div id="planner_nisa_fields" class="form-field" style="display: none;">
-                    <label for="input_planner_monthly_budget">投資に回せる金額(月額)</label>
+                    <label for="input_planner_monthly_budget">投資に回せる金額(月額)<button type="button" class="help-btn help-btn-info" data-help="info" aria-label="解説" aria-expanded="false" tabindex="-1"></button><template class="help-content"><p>下のスライダーで、この金額をiDeCoとNISAにどう配分するか調整できます。NISAの想定利回りはiDeCoと同じ値を使います。</p></template></label>
                     <div class="field-with-unit">
                         <input type="text" id="input_planner_monthly_budget" inputmode="numeric" autocomplete="off" spellcheck="false">
                         <span class="unit">円</span>
                     </div>
-                    <p class="field-note">下のスライダーで、この金額をiDeCoとNISAにどう配分するか調整できます。NISAの想定利回りはiDeCoと同じ値を使います。</p>
                     <label class="checkbox-label">
                         <input type="checkbox" id="input_planner_nisa_reinvest_savings" checked>
-                        iDeCoによる節税分をNISAに投資
+                        iDeCoによる節税分をNISAに投資<button type="button" class="help-btn help-btn-info" data-help="info" aria-label="解説" aria-expanded="false" tabindex="-1"></button><template class="help-content"><p>iDeCoの掛金による所得控除の効果(節税額)を、毎年NISAへの追加投資に回すかどうかです。</p></template>
                     </label>
-                    <p class="field-note">iDeCoの拠出による所得控除効果(節税額)を、毎年NISAへの追加投資に回すかどうかです。</p>
                 </div>
 
                 <div class="form-field">
@@ -293,14 +283,13 @@
                     <p id="monthly_contribution_warning" class="alert-text" style="display: none;">⚠️ iDeCoの毎月の拠出額は5,000円以上である必要があります。</p>
                 </div>
 
-                <h4>拠出プラン比較</h4>
+                <h4>拠出プラン比較<button type="button" class="help-btn help-btn-info" data-help="info" aria-label="解説" aria-expanded="false" tabindex="-1"></button><template class="help-content"><p>拠出を終えるまでの積立の期間だけを見た数値です。受け取り方によって変わる税金・手取りは、次の「出口戦略」の画面で確かめられます。</p></template></h4>
                 <div class="table-responsive">
                     <table>
                         <thead id="page2_compare_table_head"></thead>
                         <tbody id="page2_compare_table_body"></tbody>
                     </table>
                 </div>
-                <p class="field-note">拠出終了時点までの積立フェーズだけを見た数値です(受け取り方によって変わる税金・手取りは、ページ3「出口戦略」で確認できます)。</p>
 
                 <div class="button-row button-row-end">
                     <button type="button" id="btn_page2_next" class="btn btn-primary">この拠出プランで出口戦略を最適化する</button>
@@ -313,8 +302,7 @@
         <div id="page3_strategist" class="wizard-page" style="display: none;">
 
             <div class="card">
-                <div class="section-title">手取りや節税を最大化する受け取り方を調べます</div>
-                <p class="field-note">「死亡予測年齢」を前提に、受取比率・一時金受取年齢・年金受取開始年齢の組み合わせを自動で探索し、目的別に最適な組み合わせを提案します。ご自身で受取比率・受取年齢を調整する必要はありません。</p>
+                <div class="section-title">手取りや節税を最大化する受け取り方を調べます<button type="button" class="help-btn help-btn-info" data-help="info" aria-label="解説" aria-expanded="false" tabindex="-1"></button><template class="help-content"><p>「死亡予測年齢」を前提に、受取比率・一時金受取年齢・年金受取開始年齢の組み合わせを自動で探し、目的別に最適な組み合わせを提案します。ご自身で受取比率・受取年齢を調整する必要はありません。</p></template></div>
 
                 <div class="form-field">
                     <label class="checkbox-label">
@@ -326,14 +314,14 @@
                     <div class="section-title-sub">ねんきん定期便の年金見込額(年額)から転記する項目</div>
                     <div class="form-grid">
                         <div class="form-field">
-                            <label for="input_basic_pension">老齢基礎年金(年額)</label>
+                            <label for="input_basic_pension">老齢基礎年金(年額)<button type="button" class="help-btn help-btn-hint" data-help="hint" aria-label="入力のヒント" aria-expanded="false" tabindex="-1"></button><template class="help-content"><p>誕生月に届く「ねんきん定期便」の「老齢年金の見込額(年額)」のうち、「老齢基礎年金」の額です。</p><p>50歳以上の定期便には、今の条件で60歳まで加入した場合の見込額が載っています。50歳未満の定期便は、これまでの加入実績に応じた額のため、実際より少なく出ます。「ねんきんネット」で将来の見込額を試算できます。</p></template></label>
                             <div class="field-with-unit">
                                 <input type="text" id="input_basic_pension" inputmode="numeric" autocomplete="off" spellcheck="false">
                                 <span class="unit">円</span>
                             </div>
                         </div>
                         <div class="form-field">
-                            <label for="input_employee_pension">老齢厚生年金(報酬比例部分、年額)</label>
+                            <label for="input_employee_pension">老齢厚生年金(報酬比例部分、年額)<button type="button" class="help-btn help-btn-hint" data-help="hint" aria-label="入力のヒント" aria-expanded="false" tabindex="-1"></button><template class="help-content"><p>「ねんきん定期便」の「老齢年金の見込額(年額)」のうち、「老齢厚生年金」の報酬比例部分の額です。厚生年金に入ったことが無ければ空欄のままにします。</p><p>50歳未満の定期便は、これまでの加入実績に応じた額のため、実際より少なく出ます。「ねんきんネット」で将来の見込額を試算できます。</p></template></label>
                             <div class="field-with-unit">
                                 <input type="text" id="input_employee_pension" inputmode="numeric" autocomplete="off" spellcheck="false">
                                 <span class="unit">円</span>
@@ -347,12 +335,11 @@
                         ℹ️ 50歳未満の方へ: ねんきん定期便の年金額は、これまでの加入実績に基づく金額であり、将来の受給時点の見込額ではありません。「ねんきんネット」(日本年金機構の公式サイト)で将来の見込額を試算してから入力してください。
                     </p>
                     <div class="form-field">
-                        <label for="input_pension_start_age">公的年金受給開始年齢</label>
+                        <label for="input_pension_start_age">公的年金受給開始年齢<button type="button" class="help-btn help-btn-info" data-help="info" aria-label="解説" aria-expanded="false" tabindex="-1"></button><template class="help-content"><p>拠出終了年齢(前の画面で設定)より前にはできません。65歳が標準です。</p></template></label>
                         <div class="field-with-unit">
                             <input type="text" id="input_pension_start_age" inputmode="numeric" autocomplete="off" spellcheck="false">
                             <span class="unit">歳</span>
                         </div>
-                        <p class="field-note">拠出終了年齢(ページ2で設定)より前には設定できません。</p>
                     </div>
                     <p id="working_pension_notice" class="info-note" style="display: none;">
                         ℹ️ 退職年齢が公的年金受給開始年齢より後のため、その重複期間は「働きながら年金を受け取る」期間として扱われます。この期間は在職老齢年金による老齢厚生年金の支給停止調整が結果に反映されます。
@@ -365,7 +352,7 @@
                 <div class="form-field">
                     <!-- 年齢の表示と▲▼ボタンはスライダーの上に置く(MEMO.md 2026/9/29コメント1-(2)、共通のAgeStepper。以前はスライダーの右に数値入力欄) -->
                     <div class="age-slider-head">
-                        <label for="input_death_age_slider">死亡予測年齢</label>
+                        <label for="input_death_age_slider">死亡予測年齢<button type="button" class="help-btn help-btn-info" data-help="info" aria-label="解説" aria-expanded="false" tabindex="-1"></button><template class="help-content"><p>何歳まで生きる想定で最適化するかの前提です。長く見積もるほど、年金として長い期間・少しずつ受け取る配分が有利になりやすくなります。</p><p>平均余命は半数を超える人がそれより長生きする年齢のため、長生きしても困らないかを見るなら、少し長めに見積もるのがおすすめです。</p></template></label>
                         <div class="age-stepper" id="death_age_stepper">
                             <span class="age-stepper-value" aria-live="polite"></span>
                             <button type="button" class="age-stepper-btn" data-step="-1" aria-label="1歳下げる">▼</button>
@@ -373,39 +360,35 @@
                         </div>
                     </div>
                     <input type="range" id="input_death_age_slider" class="range-input" min="40" max="110" step="1" value="90">
-                    <p class="field-note">何歳まで生きる想定で最適化するかの前提です。長く見積もるほど、年金として長期間・少額ずつ受け取る配分が有利になりやすくなります。</p>
                 </div>
 
                 <div class="form-field">
                     <label class="checkbox-label">
                         <input type="checkbox" id="input_employer_exists">
-                        勤務先からの退職金がある(受け取り済みの場合も含みます)
+                        勤務先からの退職金がある(受け取り済みの場合も含みます)<button type="button" class="help-btn help-btn-info" data-help="info" aria-label="解説" aria-expanded="false" tabindex="-1"></button><template class="help-content"><p>退職一時金だけでなく、確定給付企業年金(DB)・企業型確定拠出年金(企業型DC)を一時金で受け取る場合も対象です(いずれもiDeCoの一時金との9年/19年ルールの対象になるため)。年金(分割)で受け取る企業年金は対象外です。</p></template>
                     </label>
-                    <p class="field-note">退職一時金だけでなく、確定給付企業年金(DB)・企業型確定拠出年金(企業型DC)を一時金で受け取る場合も対象です(いずれもiDeCo一時金との9年/19年ルールの対象になるため)。年金<分割>形式で受け取る企業年金は対象外です。</p>
                 </div>
                 <div id="employer_severance_fields" class="form-grid" style="display: none;">
                     <div class="form-field">
-                        <label for="input_employer_receipt_age">受給年齢</label>
+                        <label for="input_employer_receipt_age">受給年齢<button type="button" class="help-btn help-btn-hint" data-help="hint" aria-label="入力のヒント" aria-expanded="false" tabindex="-1"></button><template class="help-content"><p>退職金を受け取る(受け取った)年齢です。既に受け取っている場合は、実際に受け取った年齢を入れてください。</p></template></label>
                         <div class="field-with-unit">
                             <input type="text" id="input_employer_receipt_age" inputmode="numeric" autocomplete="off" spellcheck="false">
                             <span class="unit">歳</span>
                         </div>
-                        <p class="field-note">既に受け取っている場合は、実際に受け取った年齢を入力してください。</p>
                     </div>
                     <div class="form-field">
-                        <label for="input_employer_amount">金額</label>
+                        <label for="input_employer_amount">金額<button type="button" class="help-btn help-btn-hint" data-help="hint" aria-label="入力のヒント" aria-expanded="false" tabindex="-1"></button><template class="help-content"><p>税金を引く前の額です。勤め先の退職金規程・退職金の試算(人事部門や社内のWebサービス)で確かめられます。</p></template></label>
                         <div class="field-with-unit">
                             <input type="text" id="input_employer_amount" inputmode="numeric" autocomplete="off" spellcheck="false">
                             <span class="unit">円</span>
                         </div>
                     </div>
                     <div class="form-field">
-                        <label for="input_employer_service_years">勤続年数</label>
+                        <label for="input_employer_service_years">勤続年数<button type="button" class="help-btn help-btn-info" data-help="info" aria-label="解説" aria-expanded="false" tabindex="-1"></button><template class="help-content"><p>9年/19年ルール(退職金とiDeCoの一時金の控除の重なりの調整)の計算に使います。空欄(0)なら調整しません。</p></template><button type="button" class="help-btn help-btn-hint" data-help="hint" aria-label="入力のヒント" aria-expanded="false" tabindex="-1"></button><template class="help-content"><p>退職金を受け取るときの勤続年数です。1年未満の端数は1年に切り上げます。</p></template></label>
                         <div class="field-with-unit">
                             <input type="text" id="input_employer_service_years" inputmode="numeric" autocomplete="off" spellcheck="false">
                             <span class="unit">年</span>
                         </div>
-                        <p class="field-note">9年/19年ルールの重複排除計算に用います。未入力(0)なら調整しません。</p>
                     </div>
                 </div>
 
@@ -414,16 +397,13 @@
                     比較結果に、住民税が非課税になる期間(目安)を表示する
                 </label>
                 <div id="resident_tax_check_fields" class="resident-tax-check-fields" style="display: none;">
-                    <label for="input_resident_tax_area_grade">お住まいの級地:</label>
+                    <label for="input_resident_tax_area_grade">お住まいの級地<button type="button" class="help-btn help-btn-info" data-help="info" aria-label="解説" aria-expanded="false" tabindex="-1"></button><template class="help-content"><p>住民税の均等割が非課税になる基準は、級地(生活保護の基準の地域区分)によって異なります。</p></template><button type="button" class="help-btn help-btn-hint" data-help="hint" aria-label="入力のヒント" aria-expanded="false" tabindex="-1"></button><template class="help-content"><p>「(市区町村名) 級地」で検索するか、お住まいの市区町村のWebサイトで確かめられます。</p><ul><li>1級地: 東京23区や多くの政令指定都市など</li><li>2級地: 一部の県庁所在市や大都市周辺の市など</li><li>3級地: その他の市区町村(全国の約8割)</li></ul><p>分からなければ3級地のままで構いません(非課税になるかの判定に少し差が出るだけです)。</p></template>:</label>
                     <select id="input_resident_tax_area_grade">
                         <option value="1">1級地(東京23区や多くの政令指定都市など)</option>
                         <option value="2">2級地(一部の県庁所在市や大都市周辺の市など)</option>
                         <option value="3">3級地(その他の一般市区町村、全国の約8割が該当)</option>
                     </select>
                 </div>
-                <p id="resident_tax_check_note" class="field-note" style="display: none;">
-                    均等割の非課税基準は級地(生活保護基準の地域区分)により異なります。分からない場合はお住まいの市区町村のWebサイトでご確認ください。
-                </p>
                 <p id="resident_tax_disclaimer" class="field-note" style="display: none;">
                     ⚠️ 目安です。合計所得金額をもとにした簡易判定であり、実際の非課税判定はお住まいの市区町村にご確認ください。
                 </p>
@@ -499,8 +479,9 @@
     <script src="shared/lifeplan-link.d8afcfa543.js"></script>
     <script src="shared/embed-overlay.800909cf4d.js"></script>
     <script src="shared/numeric-input-select.512e9aa2d5.js"></script>
+    <script src="shared/help-popover.b7dc58fb11.js"></script>
     <script src="shared/parameter-catalog.162d279626.js"></script>
-    <script src="ui.355a593dbf.js"></script>
+    <script src="ui.1466ff1e5d.js"></script>
     <script>
         window.model = new IdecoModel({ window: window, storage: AppStorage });
         AppAuth.init();
@@ -508,6 +489,7 @@
         ResizeNotifier.init();
         EmbedOverlay.init();
         NumericInputSelect.init();
+        HelpPopover.init();
     </script>
 </body>
 </html>
