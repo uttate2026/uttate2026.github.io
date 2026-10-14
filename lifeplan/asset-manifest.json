@@ -1,34 +1,6 @@
 {
   "deploys": [
     {
-      "deployedAt": "2026-10-14T21:03:58.890Z",
-      "files": [
-        "auth.f95b7f2cb8.js",
-        "consent.6a30cb2135.js",
-        "constants.fc32e355d8.js",
-        "model.3ba0d065de.js",
-        "resize-notifier.bbc2b52d92.js",
-        "shared/age-stepper.1b938669bf.js",
-        "shared/calculator.cf003aaa95.js",
-        "shared/chart-age-cursor.b4884465a9.js",
-        "shared/embed-overlay.56c75d839f.js",
-        "shared/help-popover.55f0409eb0.js",
-        "shared/ideco-bridge.dab0990914.js",
-        "shared/ideco-exit-optimizer.2ced6c9b19.js",
-        "shared/lifetime-totals.7878d88f1f.js",
-        "shared/nenkin-bridge.609ea38e39.js",
-        "shared/numeric-input-select.4cbd9315f1.js",
-        "shared/parameter-catalog.a17cae65b1.js",
-        "shared/pattern-builders.08641e230d.js",
-        "shared/pension-claim-optimizer.de9cfb1dab.js",
-        "shared/rebalance-reader.d1fd018f0e.js",
-        "storage.eba41503ac.js",
-        "style.530e8e88d4.css",
-        "ui.4851c557b9.js",
-        "vendor/chart.2532476de2.js"
-      ]
-    },
-    {
       "deployedAt": "2026-10-14T21:27:09.515Z",
       "files": [
         "auth.f95b7f2cb8.js",
@@ -137,6 +109,34 @@
         "storage.eba41503ac.js",
         "style.c83caca59c.css",
         "ui.41fa385d43.js",
+        "vendor/chart.2532476de2.js"
+      ]
+    },
+    {
+      "deployedAt": "2026-10-14T23:08:25.440Z",
+      "files": [
+        "auth.f95b7f2cb8.js",
+        "consent.6a30cb2135.js",
+        "constants.a8e89c32a9.js",
+        "model.681c918be5.js",
+        "resize-notifier.bbc2b52d92.js",
+        "shared/age-stepper.1b938669bf.js",
+        "shared/calculator.8c74210283.js",
+        "shared/chart-age-cursor.b4884465a9.js",
+        "shared/embed-overlay.56c75d839f.js",
+        "shared/help-popover.acb24c7888.js",
+        "shared/ideco-bridge.dab0990914.js",
+        "shared/ideco-exit-optimizer.2ced6c9b19.js",
+        "shared/lifetime-totals.b12a9732a0.js",
+        "shared/nenkin-bridge.609ea38e39.js",
+        "shared/numeric-input-select.4cbd9315f1.js",
+        "shared/parameter-catalog.b332b0015c.js",
+        "shared/pattern-builders.c28641ba56.js",
+        "shared/pension-claim-optimizer.de9cfb1dab.js",
+        "shared/rebalance-reader.28ed932028.js",
+        "storage.eba41503ac.js",
+        "style.c83caca59c.css",
+        "ui.f0731c9983.js",
         "vendor/chart.2532476de2.js"
       ]
     }
