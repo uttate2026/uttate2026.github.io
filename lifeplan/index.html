@@ -163,7 +163,7 @@
                     <div class="table-responsive">
                         <table class="dynamic-list-table">
                             <thead>
-                                <tr><th>項目<button type="button" class="help-btn help-btn-hint" data-help="hint" aria-label="入力のヒント" aria-expanded="false" tabindex="-1"></button><template class="help-content"><p>数年おきに買い替え・修繕するもの(任意、0件でも構いません)。候補(給湯器・外壁塗装・自家用車)から選ぶと、耐用年数が自動で入ります。候補にない名前も入れられます。</p></template></th><th>耐用年数<button type="button" class="help-btn help-btn-hint" data-help="hint" aria-label="入力のヒント" aria-expanded="false" tabindex="-1"></button><template class="help-content"><p>何年ごとに買い替え・修繕するか。候補を選ぶと、給湯器10年・外壁塗装12年・自家用車8年が入ります。実際の使い方に合わせて変えてください。</p></template></th><th>前回更新年<button type="button" class="help-btn help-btn-hint" data-help="hint" aria-label="入力のヒント" aria-expanded="false" tabindex="-1"></button><template class="help-content"><p>最後に買い替え・工事をした年。この年に耐用年数を足した年から、耐用年数ごとに支出します。分からなければ、おおよその年で構いません。</p></template></th><th>想定金額<button type="button" class="help-btn help-btn-hint" data-help="hint" aria-label="入力のヒント" aria-expanded="false" tabindex="-1"></button><template class="help-content"><p>次に買い替える・工事するときの見込みの金額(1回分)。見積もりや前回の金額を参考にしてください。</p></template></th><th></th></tr>
+                                <tr><th>項目<button type="button" class="help-btn help-btn-hint" data-help="hint" aria-label="入力のヒント" aria-expanded="false" tabindex="-1"></button><template class="help-content"><p>数年おきに買い替え・修繕するもの(任意、0件でも構いません)。候補(給湯器・外壁塗装・自家用車)から選ぶと、耐用年数が自動で入ります。候補にない名前も入れられます。</p></template></th><th>耐用年数<button type="button" class="help-btn help-btn-hint" data-help="hint" aria-label="入力のヒント" aria-expanded="false" tabindex="-1"></button><template class="help-content"><p>何年ごとに買い替え・修繕するか。候補を選ぶと、給湯器<span data-help-value="DURABLE_EXPENSE_PRESETS.給湯器.usefulLifeYears"></span>年・外壁塗装<span data-help-value="DURABLE_EXPENSE_PRESETS.外壁塗装.usefulLifeYears"></span>年・自家用車<span data-help-value="DURABLE_EXPENSE_PRESETS.自家用車.usefulLifeYears"></span>年が入ります。実際の使い方に合わせて変えてください。</p></template></th><th>前回更新年<button type="button" class="help-btn help-btn-hint" data-help="hint" aria-label="入力のヒント" aria-expanded="false" tabindex="-1"></button><template class="help-content"><p>最後に買い替え・工事をした年。この年に耐用年数を足した年から、耐用年数ごとに支出します。分からなければ、おおよその年で構いません。</p></template></th><th>想定金額<button type="button" class="help-btn help-btn-hint" data-help="hint" aria-label="入力のヒント" aria-expanded="false" tabindex="-1"></button><template class="help-content"><p>次に買い替える・工事するときの見込みの金額(1回分)。見積もりや前回の金額を参考にしてください。</p></template></th><th></th></tr>
                             </thead>
                             <tbody id="durable_expense_rows"></tbody>
                         </table>
@@ -207,7 +207,7 @@
                     <div class="table-responsive">
                         <table class="dynamic-list-table">
                             <thead>
-                                <tr><th>受贈者<button type="button" class="help-btn help-btn-hint" data-help="hint" aria-label="入力のヒント" aria-expanded="false" tabindex="-1"></button><template class="help-content"><p>世帯外(別世帯の子など)で贈与を受ける人の名前。</p><p>配偶者など世帯員への贈与は、ここではなく、受贈者名義の資産タブ(NISA・特定口座)の「積立資金の出し手」で「世帯主からの贈与」を選んでください。</p></template></th><th>年贈与額<button type="button" class="help-btn help-btn-info" data-help="info" aria-label="解説" aria-expanded="false" tabindex="-1"></button><template class="help-content"><p>毎年の贈与額。世帯の支出として、現金・預金から差し引きます。</p></template></th><th>開始年齢</th><th>期間(年)</th><th>子・孫(18歳以上)<button type="button" class="help-btn help-btn-info" data-help="info" aria-label="解説" aria-expanded="false" tabindex="-1"></button><template class="help-content"><p>子・孫(18歳以上)への贈与は、贈与税の特例税率で計算します。それ以外は一般税率です。</p></template></th><th>精算課税<span id="gift_accumulation_help"></span></th><th>受贈者の贈与税(概算)<button type="button" class="help-btn help-btn-info" data-help="info" aria-label="解説" aria-expanded="false" tabindex="-1"></button><template class="help-content"><p>受贈者が、受け取った贈与の中から払うものとして参考に出します。世帯の収支には含めません。</p></template></th><th></th></tr>
+                                <tr><th>受贈者<button type="button" class="help-btn help-btn-hint" data-help="hint" aria-label="入力のヒント" aria-expanded="false" tabindex="-1"></button><template class="help-content"><p>世帯外(別世帯の子など)で贈与を受ける人の名前。</p><p>配偶者など世帯員への贈与は、ここではなく、受贈者名義の資産タブ(NISA・特定口座)の「積立資金の出し手」で「世帯主からの贈与」を選んでください。</p></template></th><th>年贈与額<button type="button" class="help-btn help-btn-info" data-help="info" aria-label="解説" aria-expanded="false" tabindex="-1"></button><template class="help-content"><p>毎年の贈与額。世帯の支出として、現金・預金から差し引きます。</p></template></th><th>開始年齢</th><th>期間(年)</th><th>子・孫(18歳以上)<button type="button" class="help-btn help-btn-info" data-help="info" aria-label="解説" aria-expanded="false" tabindex="-1"></button><template class="help-content"><p>子・孫(<span data-help-value="GIFT_TAX_SPECIAL_RATE_MIN_AGE"></span>歳以上)への贈与は、贈与税の特例税率で計算します。それ以外は一般税率です。</p></template></th><th>精算課税<span id="gift_accumulation_help"></span></th><th>受贈者の贈与税(概算)<button type="button" class="help-btn help-btn-info" data-help="info" aria-label="解説" aria-expanded="false" tabindex="-1"></button><template class="help-content"><p>受贈者が、受け取った贈与の中から払うものとして参考に出します。世帯の収支には含めません。</p></template></th><th></th></tr>
                             </thead>
                             <tbody id="gift_rows"></tbody>
                         </table>
@@ -332,7 +332,7 @@
                         <div class="table-responsive">
                             <table class="dynamic-list-table">
                                 <thead>
-                                    <tr><th>名称</th><th>評価額<button type="button" class="help-btn help-btn-hint" data-help="hint" aria-label="入力のヒント" aria-expanded="false" tabindex="-1"></button><template class="help-content"><p>相続税の評価額の目安を入れます。</p><ul><li>土地: 路線価×面積。路線価は国税庁の「路線価図・評価倍率表」で調べられます(路線価の無い地域は、固定資産税評価額×評価倍率)</li><li>建物: 固定資産税評価額。毎年届く固定資産税の課税明細書に載っています</li></ul><p>死亡時まで評価額は変わらないものとして計算します。</p></template></th><th>名義人</th><th>自宅の土地<button type="button" class="help-btn help-btn-info" data-help="info" aria-label="解説" aria-expanded="false" tabindex="-1"></button><template class="help-content"><p>チェックすると、小規模宅地等の特例(配偶者・同居の子が相続する場合に、評価額を80%減らす)を当てはめます。</p><p>面積330㎡までの特例のため、広い土地は減らしすぎになります。</p></template></th><th></th></tr>
+                                    <tr><th>名称</th><th>評価額<button type="button" class="help-btn help-btn-hint" data-help="hint" aria-label="入力のヒント" aria-expanded="false" tabindex="-1"></button><template class="help-content"><p>相続税の評価額の目安を入れます。</p><ul><li>土地: 路線価×面積。路線価は国税庁の「路線価図・評価倍率表」で調べられます(路線価の無い地域は、固定資産税評価額×評価倍率)</li><li>建物: 固定資産税評価額。毎年届く固定資産税の課税明細書に載っています</li></ul><p>死亡時まで評価額は変わらないものとして計算します。</p></template></th><th>名義人</th><th>自宅の土地<button type="button" class="help-btn help-btn-info" data-help="info" aria-label="解説" aria-expanded="false" tabindex="-1"></button><template class="help-content"><p>チェックすると、小規模宅地等の特例(配偶者・同居の子が相続する場合に、評価額を<span data-help-value="SMALL_LAND_REDUCTION_RATE" data-format="percent"></span>減らす)を当てはめます。</p><p>面積330㎡までの特例のため、広い土地は減らしすぎになります。</p></template></th><th></th></tr>
                                 </thead>
                                 <tbody id="real_estate_rows"></tbody>
                             </table>
@@ -354,7 +354,7 @@
                     <details class="detail-toggle as-section-title-sub" id="inheritance_step2_toggle">
                         <summary>ステップ2: 分け方と、二次相続まで含めた相続税<button type="button" class="help-btn help-btn-info" data-help="info" aria-label="解説" aria-expanded="false" tabindex="-1"></button><template class="help-content"><p>相続税の総額を、実際に相続する割合で配偶者・子に振り分け、配偶者の税額軽減と贈与税額控除を差し引いて、納付額を求めます。</p></template></summary>
                         <div class="form-field" id="inheritance_spouse_share_field">
-                            <label for="select_inheritance_spouse_share">配偶者の取得割合<button type="button" class="help-btn help-btn-info" data-help="info" aria-label="解説" aria-expanded="false" tabindex="-1"></button><template class="help-content"><p>配偶者が相続する財産の割合です。配偶者の取得額が1億6,000万円または法定相続分の大きい方までなら、配偶者の相続税はかかりません(配偶者の税額軽減)。</p><p>ただし、配偶者が多く相続するほど、配偶者が亡くなったとき(二次相続)の相続税が増えます。「最適な遺産分割を探す」で、合計が最小になる割合を探せます。</p></template></label>
+                            <label for="select_inheritance_spouse_share">配偶者の取得割合<button type="button" class="help-btn help-btn-info" data-help="info" aria-label="解説" aria-expanded="false" tabindex="-1"></button><template class="help-content"><p>配偶者が相続する財産の割合です。配偶者の取得額が<span data-help-value="INHERITANCE_SPOUSE_TAX_REDUCTION_MIN" data-format="yen"></span>または法定相続分の大きい方までなら、配偶者の相続税はかかりません(配偶者の税額軽減)。</p><p>ただし、配偶者が多く相続するほど、配偶者が亡くなったとき(二次相続)の相続税が増えます。「最適な遺産分割を探す」で、合計が最小になる割合を探せます。</p></template></label>
                             <select id="select_inheritance_spouse_share"></select>
                             <!-- 二次相続まで含めた合計の相続税が最小になる取得割合を探す(MEMO.md 2026/9/27コメント2-(2)⑤、ADR 0030第3段階) -->
                             <div class="pension-wizard-button-row">
@@ -569,7 +569,7 @@
                         <select id="gift_wizard_years"></select>
                     </div>
                 </div>
-                <p class="field-note">子1人あたりの年間贈与額を変えて、贈与税と相続税の合計が最小になる額を探します。<button type="button" class="help-btn help-btn-info" data-help="info" aria-label="解説" aria-expanded="false" tabindex="-1"></button><template class="help-content"><p>子1人あたりの年間贈与額を0円〜1,000万円で変え、暦年課税・相続時精算課税のそれぞれについて、贈与税の合計と相続税(被相続人: 世帯主、死亡年齢はステップ1と同じ)の合計が最小になる額を探します。</p><p>贈与は現金・預金から出ます。死亡年齢までに現金・預金が足りなくなる案は候補から外します。教育資金・住宅取得資金などの非課税の特例は考えません。</p><p><strong>配偶者への贈与は対象外です。</strong>配偶者は相続時に税額軽減(1億6,000万円または法定相続分まで非課税)を受けられるため、生前に贈与しても相続税はあまり減らず、配偶者が亡くなったとき(二次相続)の相続税がかえって増えることもあります。配偶者名義のNISAで世帯の非課税枠を広げたい場合は、「2. 資産」の配偶者のNISAタブで「積立資金の出し手」を「世帯主からの贈与」にしてください(年110万円を超えると贈与税がかかります)。</p></template></p>
+                <p class="field-note">子1人あたりの年間贈与額を変えて、贈与税と相続税の合計が最小になる額を探します。<button type="button" class="help-btn help-btn-info" data-help="info" aria-label="解説" aria-expanded="false" tabindex="-1"></button><template class="help-content"><p>子1人あたりの年間贈与額を0円〜1,000万円で変え、暦年課税・相続時精算課税のそれぞれについて、贈与税の合計と相続税(被相続人: 世帯主、死亡年齢はステップ1と同じ)の合計が最小になる額を探します。</p><p>贈与は現金・預金から出ます。死亡年齢までに現金・預金が足りなくなる案は候補から外します。教育資金・住宅取得資金などの非課税の特例は考えません。</p><p><strong>配偶者への贈与は対象外です。</strong>配偶者は相続時に税額軽減(<span data-help-value="INHERITANCE_SPOUSE_TAX_REDUCTION_MIN" data-format="yen"></span>または法定相続分まで非課税)を受けられるため、生前に贈与しても相続税はあまり減らず、配偶者が亡くなったとき(二次相続)の相続税がかえって増えることもあります。配偶者名義のNISAで世帯の非課税枠を広げたい場合は、「2. 資産」の配偶者のNISAタブで「積立資金の出し手」を「世帯主からの贈与」にしてください(年<span data-help-value="GIFT_TAX_BASIC_EXEMPTION" data-format="yen"></span>を超えると贈与税がかかります)。</p></template></p>
                 <div class="button-row modal-actions">
                     <button type="button" id="btn_gift_wizard_cancel" class="btn btn-link">キャンセル</button>
                     <button type="button" id="btn_gift_wizard_search" class="btn btn-primary">探索する</button>
@@ -752,13 +752,13 @@
     <script src="shared/rebalance-reader.d1fd018f0e.js"></script>
     <script src="shared/embed-overlay.56c75d839f.js"></script>
     <script src="shared/numeric-input-select.4cbd9315f1.js"></script>
-    <script src="shared/help-popover.55f0409eb0.js"></script>
+    <script src="shared/help-popover.acb24c7888.js"></script>
     <script src="model.3ba0d065de.js"></script>
     <script src="auth.f95b7f2cb8.js"></script>
     <script src="consent.6a30cb2135.js"></script>
     <script src="resize-notifier.bbc2b52d92.js"></script>
     <script src="vendor/chart.2532476de2.js"></script>
-    <script src="ui.c80a9b3a3b.js"></script>
+    <script src="ui.c11889e600.js"></script>
     <script>
         window.model = new LifeplanModel({ window: window, storage: AppStorage });
         AppAuth.init();
@@ -766,7 +766,7 @@
         ResizeNotifier.init();
         EmbedOverlay.init();
         NumericInputSelect.init();
-        HelpPopover.init();
+        HelpPopover.init(document, LifeplanConstants);
     </script>
 </body>
 </html>
