@@ -2252,3 +2252,10 @@ th .help-btn {
     font-size: 12px;
     font-weight: bold;
 }
+
+/* 企業型DCの「掛金を出す期間」(入力欄ではなく、引退年齢等から決まる期間を表示する、lifeplan ADR 0057) */
+.corporate-dc-period {
+    margin: 6px 0 0;
+    font-size: 14px;
+    line-height: 1.5;
+}
