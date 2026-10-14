@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ねんきんプランナー</title>
-    <link rel="stylesheet" href="style.118165f6b9.css">
+    <link rel="stylesheet" href="style.10882d652b.css">
     <!-- uttate.comに埋め込まれているとき(iframeの外にページの見出しがある)は、中のタイトルを出さない(MEMO.md 2026/9/30コメント1-(12))。
          表示の後でタイトルが消えないよう、描画の前に<html>へ印を付ける -->
     <script>
@@ -87,7 +87,7 @@
                         </div>
                     </div>
                     <div class="form-field">
-                        <label for="input_salary_income">給与収入(年額)</label>
+                        <label for="input_salary_income">給与収入(年額)<button type="button" class="help-btn help-btn-hint" data-help="hint" aria-label="入力のヒント" aria-expanded="false" tabindex="-1"></button><template class="help-content"><p>源泉徴収票の左上の「支払金額」欄です。給与・賞与の1年分の合計(税金・社会保険料を引く前)です。</p><p>源泉徴収票は、勤め先から毎年12月〜1月に受け取ります。手元に無ければ、勤め先の給与明細のWebサービスや担当部署で確かめられます。</p></template></label>
                         <div class="field-with-unit">
                             <input type="text" id="input_salary_income" inputmode="numeric" autocomplete="off" spellcheck="false">
                             <span class="unit">円</span>
@@ -110,7 +110,7 @@
                         </div>
                     </div>
                     <div class="form-field">
-                        <label for="input_spouse_income">配偶者の年収(概算)</label>
+                        <label for="input_spouse_income">配偶者の年収(概算)<button type="button" class="help-btn help-btn-hint" data-help="hint" aria-label="入力のヒント" aria-expanded="false" tabindex="-1"></button><template class="help-content"><p>配偶者の給与収入の1年分(税金・社会保険料を引く前)のおおよその額です。配偶者の税金・社会保険料や、配偶者控除の計算に使います。働いていなければ0のままにします。</p></template></label>
                         <div class="field-with-unit">
                             <input type="text" id="input_spouse_income" inputmode="numeric" autocomplete="off" spellcheck="false">
                             <span class="unit">円</span>
@@ -122,18 +122,17 @@
             <!-- ねんきん定期便は必須項目のため、他の書類系フィールド(任意、ステップ2へ移動)とは
                  別カードにし、チェックボックスでの開閉もしない(MEMO.md 2026/9/22コメント3-(2)) -->
             <div class="card">
-                <div class="section-title">ねんきん定期便の年金見込額(年額)</div>
-                <p class="field-note">年金は何歳からもらうのが得かを試算するために必須の項目です。</p>
+                <div class="section-title">ねんきん定期便の年金見込額(年額)<button type="button" class="help-btn help-btn-info" data-help="info" aria-label="解説" aria-expanded="false" tabindex="-1"></button><template class="help-content"><p>年金は何歳からもらうのが得かを試算するために、必ず入れていただく項目です。</p></template></div>
                 <div class="form-grid form-grid-pair">
                     <div class="form-field">
-                        <label for="input_basic_pension_estimate">老齢基礎年金の見込額(年額)</label>
+                        <label for="input_basic_pension_estimate">老齢基礎年金の見込額(年額)<button type="button" class="help-btn help-btn-hint" data-help="hint" aria-label="入力のヒント" aria-expanded="false" tabindex="-1"></button><template class="help-content"><p>誕生月に届く「ねんきん定期便」の「老齢年金の見込額(年額)」のうち、「老齢基礎年金」の額です。</p><p>50歳以上の定期便には、今の条件で60歳まで加入した場合の見込額が載っています。50歳未満の定期便は、これまでの加入実績に応じた額のため、実際より少なく出ます。「ねんきんネット」で将来の見込額を試算できます。</p></template></label>
                         <div class="field-with-unit">
                             <input type="text" id="input_basic_pension_estimate" inputmode="numeric" autocomplete="off" spellcheck="false">
                             <span class="unit">円</span>
                         </div>
                     </div>
                     <div class="form-field">
-                        <label for="input_employee_pension_estimate">老齢厚生年金の見込額(年額)</label>
+                        <label for="input_employee_pension_estimate">老齢厚生年金の見込額(年額)<button type="button" class="help-btn help-btn-hint" data-help="hint" aria-label="入力のヒント" aria-expanded="false" tabindex="-1"></button><template class="help-content"><p>「ねんきん定期便」の「老齢年金の見込額(年額)」のうち、「老齢厚生年金」の額(報酬比例部分と経過的加算部分の合計)です。厚生年金に入ったことが無ければ空欄のままにします。</p></template></label>
                         <div class="field-with-unit">
                             <input type="text" id="input_employee_pension_estimate" inputmode="numeric" autocomplete="off" spellcheck="false">
                             <span class="unit">円</span>
@@ -147,8 +146,7 @@
                  「今後の見直し条件」参照)。①②いずれも共通のステップ2へ進む(ideco[ADR 0010]と同じ、
                  MEMO.md 2026/9/22コメント3-(3)「idecoの①②③が同じページ(2)に合流する形」) -->
             <div class="card">
-                <div class="section-title">年金・退職について何を調べたいですか？</div>
-                <p class="field-note">選んだ項目に応じて、共通のステップ2「詳細設定」へ進みます。</p>
+                <div class="section-title">年金・退職について何を調べたいですか？<button type="button" class="help-btn help-btn-info" data-help="info" aria-label="解説" aria-expanded="false" tabindex="-1"></button><template class="help-content"><p>どちらを選んでも、同じステップ2「詳細設定」へ進みます。</p></template></div>
                 <div class="topic-cards">
                     <div class="topic-card">
                         <h3>① 年金は何歳からもらうのが得？</h3>
@@ -177,26 +175,24 @@
                 <div class="section-title">簡易ライフプラン</div>
 
                 <div class="form-field">
-                    <label for="input_death_age_estimate">死亡予測年齢</label>
+                    <label for="input_death_age_estimate">死亡予測年齢<button type="button" class="help-btn help-btn-info" data-help="info" aria-label="解説" aria-expanded="false" tabindex="-1"></button><template class="help-content"><p>何歳まで生きるかによって損得が変わるため、目安の年齢を選んでください。決めるものではなく見積もる値のため、ほかの項目と違ってスライダーではなく選択肢にしています。</p><p>平均余命は半数を超える人がそれより長生きする年齢のため、長生きしても困らないかを見るなら、少し長めに見積もるのがおすすめです。</p></template></label>
                     <select id="input_death_age_estimate"></select>
-                    <p class="field-note">何歳まで生きるかによって損得が変わるため、目安の年齢を選んでください。死亡予測年齢は「決断」するものではなく見積もる推定値のため、他の項目と違いスライダーではなくドロップダウンにしています。</p>
                 </div>
 
                 <!-- 住民税の非課税の判定に使う(lifeplan ADR 0042、MEMO.md 2026/10/1コメント3-(2)) -->
                 <div class="form-field">
-                    <label for="input_resident_tax_area_grade">お住まいの級地</label>
+                    <label for="input_resident_tax_area_grade">お住まいの級地<button type="button" class="help-btn help-btn-info" data-help="info" aria-label="解説" aria-expanded="false" tabindex="-1"></button><template class="help-content"><p>年金の少ない年に、住民税が非課税になるかの判定に使います。非課税になる所得の基準が、級地によって異なるためです。</p></template><button type="button" class="help-btn help-btn-hint" data-help="hint" aria-label="入力のヒント" aria-expanded="false" tabindex="-1"></button><template class="help-content"><p>「(市区町村名) 級地」で検索するか、お住まいの市区町村のWebサイトで確かめられます。</p><ul><li>1級地: 東京23区や多くの政令指定都市など</li><li>2級地: 一部の県庁所在市や大都市周辺の市など</li><li>3級地: その他の市区町村(全国の約8割)</li></ul><p>分からなければ3級地のままで構いません(非課税になるかの判定に少し差が出るだけです)。</p></template></label>
                     <select id="input_resident_tax_area_grade">
                         <option value="1">1級地(東京23区や多くの政令指定都市など)</option>
                         <option value="2">2級地(一部の県庁所在市や大都市周辺の市など)</option>
                         <option value="3">3級地(その他の一般市区町村、全国の約8割が該当)</option>
                     </select>
-                    <p class="field-note">年金の少ない年に住民税が非課税になるかの判定に使います(基準が級地で異なるため)。分からなければ、お住まいの市区町村のWebサイトでご確認ください。</p>
                 </div>
 
                 <div class="form-field">
                     <!-- 年齢の表示と▲▼ボタンはスライダーの上に置く(MEMO.md 2026/9/29コメント1-(2)、共通のAgeStepper。以前はスライダーの右に数値入力欄) -->
                     <div class="age-slider-head">
-                        <label for="input_retirement_age_slider">引退年齢</label>
+                        <label for="input_retirement_age_slider">引退年齢<button type="button" class="help-btn help-btn-info" data-help="info" aria-label="解説" aria-expanded="false" tabindex="-1"></button><template class="help-content"><p>再雇用等で働き続けることもあるため、完全に働くのをやめる年齢です。死亡予測年齢より後にはできません。</p></template></label>
                         <div class="age-stepper" id="retirement_age_stepper">
                             <span class="age-stepper-value" aria-live="polite"></span>
                             <button type="button" class="age-stepper-btn" data-step="-1" aria-label="1歳下げる">▼</button>
@@ -204,14 +200,13 @@
                         </div>
                     </div>
                     <input type="range" id="input_retirement_age_slider" class="range-input" min="50" max="80" step="1" value="65">
-                    <p class="field-note">再雇用等で働き続けるケースもあるため、完全に働くのをやめる年齢を指します。死亡予測年齢を超えて設定することはできません。</p>
                 </div>
 
                 <!-- ②(トピックB)専用。①の場合は非表示(_populatePage2参照) -->
                 <div id="public_pension_claim_age_field" class="form-field" style="display: none;">
                     <!-- 年齢の表示と▲▼ボタンはスライダーの上に置く(MEMO.md 2026/9/29コメント1-(2)、共通のAgeStepper。以前はスライダーの右に数値入力欄) -->
                     <div class="age-slider-head">
-                        <label for="input_public_pension_claim_age_slider">公的年金受給年齢</label>
+                        <label for="input_public_pension_claim_age_slider">公的年金受給年齢<button type="button" class="help-btn help-btn-info" data-help="info" aria-label="解説" aria-expanded="false" tabindex="-1"></button><template class="help-content"><p>引退年齢とは別に、公的年金をいつから受け取るかを選びます(グラフにそのまま反映されます)。65歳が標準で、60〜64歳は繰上げ(1か月早めるごとに0.4%減額)、66〜75歳は繰下げ(1か月遅らせるごとに0.7%増額)です。</p></template></label>
                         <div class="age-stepper" id="public_pension_claim_age_stepper">
                             <span class="age-stepper-value" aria-live="polite"></span>
                             <button type="button" class="age-stepper-btn" data-step="-1" aria-label="1歳下げる">▼</button>
@@ -219,7 +214,6 @@
                         </div>
                     </div>
                     <input type="range" id="input_public_pension_claim_age_slider" class="range-input" min="60" max="75" step="1" value="65">
-                    <p class="field-note">引退年齢とは別に、公的年金をいつから受け取るかを指定します(グラフに直接反映されます)。</p>
                 </div>
             </div>
 
@@ -228,8 +222,7 @@
                  直接隣接させるため、下の「より正確に試算する(任意)」より先に置く
                  (2026-09-23の追加フィードバック「スライダーとグラフが離れて見づらい」) -->
             <div id="page2_pension_start_age_results" class="card" style="display: none;">
-                <div class="section-title">年金受給開始年齢の比較</div>
-                <p class="field-note">受給開始年齢60〜75歳を1年刻みで探索した結果です。評価基準は手取りの最大化です(税・社会保険料の最小化は、繰上げ受給ほど有利になりやすく実用的な示唆になりにくいため、比較対象から外しています)。</p>
+                <div class="section-title">年金受給開始年齢の比較<button type="button" class="help-btn help-btn-info" data-help="info" aria-label="解説" aria-expanded="false" tabindex="-1"></button><template class="help-content"><p>受給開始年齢60〜75歳を1年刻みで試算した結果です。手取りが最も多くなる年齢を探します(税金・社会保険料が最も少なくなる年齢は、繰上げ受給ほど有利になりやすく参考になりにくいため、比べていません)。</p></template></div>
                 <div id="page2_chart_wrap">
                     <canvas id="page2_chart_canvas"></canvas>
                     <p id="page2_chart_error" class="alert-text" style="display: none;">グラフを表示できませんでした。</p>
@@ -266,7 +259,7 @@
                         <tbody id="page2_results_body"></tbody>
                     </table>
                 </div>
-                <p class="field-note">「手取り最大」の列は参考値です(その受給開始年齢を選んだ場合の結果)。税金合計・社会保険料合計の内訳も参考情報として掲載しています。住民税・国保などの保険料・住民税非課税の判定は、実際の制度と同じく前年の所得で計算しています(引退した翌年は、前年の給与に対する住民税と保険料を払います)。ご本人が亡くなった後に配偶者が受け取る遺族厚生年金は、繰り下げる前の額がもとになり、繰下げで増えた分は配偶者には残りません(ライフプランシミュレーターでは、亡くなった後の遺族年金まで計算できます)。</p>
+                <p class="field-note">「手取り最大」の列は参考値です(その受給開始年齢を選んだ場合の結果)。<button type="button" class="help-btn help-btn-info" data-help="info" aria-label="解説" aria-expanded="false" tabindex="-1"></button><template class="help-content"><p>税金合計・社会保険料合計の内訳も参考に載せています。</p><p>住民税・国保などの保険料・住民税非課税の判定は、実際の制度と同じく前年の所得で計算しています。引退した翌年は、前年の給与に対する住民税と保険料を払います。</p><p>ご本人が亡くなった後に配偶者が受け取る遺族厚生年金は、繰り下げる前の額がもとになり、繰下げで増えた分は配偶者には残りません(ライフプランシミュレーターでは、亡くなった後の遺族年金まで計算できます)。</p></template></p>
                 <!-- 老齢基礎年金・老齢厚生年金を別々の年齢で受け取る場合との比較(MEMO.md 2026/9/26
                      コメント1-(2)、docs/nenkin/decisions/0002参照)。老齢厚生年金の見込額がある場合のみ -->
                 <p id="page2_split_note" class="info-note" hidden></p>
@@ -293,7 +286,7 @@
                     <div class="form-field">
                         <!-- 年齢の表示と▲▼ボタンはスライダーの上に置く(MEMO.md 2026/9/29コメント1-(2)、共通のAgeStepper。以前はスライダーの右に数値入力欄) -->
                         <div class="age-slider-head">
-                            <label for="input_work_until_detail_age_slider">明細を表示したい年齢</label>
+                            <label for="input_work_until_detail_age_slider">明細を表示したい年齢<button type="button" class="help-btn help-btn-info" data-help="info" aria-label="解説" aria-expanded="false" tabindex="-1"></button><template class="help-content"><p>住民税・国保などの保険料・住民税非課税の判定は、実際の制度と同じく前年の所得で計算しています。引退した翌年は、前年の給与に対する住民税と保険料を払います。</p></template></label>
                             <div class="age-stepper" id="work_until_detail_age_stepper">
                             <span class="age-stepper-value" aria-live="polite"></span>
                             <button type="button" class="age-stepper-btn" data-step="-1" aria-label="1歳下げる">▼</button>
@@ -313,7 +306,6 @@
                         <table>
                             <tbody id="work_until_detail_body"></tbody>
                         </table>
-                        <p class="field-note">住民税・国保などの保険料・住民税非課税の判定は、実際の制度と同じく前年の所得で計算しています(引退した翌年は、前年の給与に対する住民税と保険料を払います)。</p>
                     </div>
                 </details>
             </div>
@@ -343,7 +335,7 @@
                  結果のすぐ下の専用のカードに移した(MEMO.md 2026/10/9コメント2-(1)) -->
             <div class="card">
                 <div class="section-title">より正確に試算する(任意)</div>
-                <p class="field-note">以下は、お手元の書類がある場合にチェックを入れて入力してください。未入力のままでも概算で試算を続けられます。</p>
+                <p class="field-note">お手元に書類があれば、チェックを入れて入力してください(無くても概算で試算を続けられます)。</p>
 
                 <div class="form-field">
                     <label class="checkbox-label">
@@ -353,14 +345,14 @@
                 </div>
                 <div id="withholding_slip_fields" class="form-grid" style="display: none;">
                     <div class="form-field">
-                        <label for="input_income_tax_withheld">源泉徴収税額(年額)</label>
+                        <label for="input_income_tax_withheld">源泉徴収税額(年額)<button type="button" class="help-btn help-btn-hint" data-help="hint" aria-label="入力のヒント" aria-expanded="false" tabindex="-1"></button><template class="help-content"><p>源泉徴収票の上の段の右端「源泉徴収税額」欄です。年末調整で確定した1年分の所得税(復興特別所得税を含む)です。</p></template></label>
                         <div class="field-with-unit">
                             <input type="text" id="input_income_tax_withheld" inputmode="numeric" autocomplete="off" spellcheck="false">
                             <span class="unit">円</span>
                         </div>
                     </div>
                     <div class="form-field">
-                        <label for="input_social_insurance">社会保険料等の金額<span class="label-hint">(2段ある場合は下段)</span></label>
+                        <label for="input_social_insurance">社会保険料等の金額<button type="button" class="help-btn help-btn-hint" data-help="hint" aria-label="入力のヒント" aria-expanded="false" tabindex="-1"></button><template class="help-content"><p>源泉徴収票の「社会保険料等の金額」欄です。2段ある場合は下段(合計)の金額を入れます。</p><p>健康保険・厚生年金・雇用保険・介護保険の保険料のほか、iDeCo等の掛金や、年末調整で申告した国民年金保険料も含まれます(含まれたままの額で構いません)。</p></template><span class="label-hint">(2段ある場合は下段)</span></label>
                         <div class="field-with-unit">
                             <input type="text" id="input_social_insurance" inputmode="numeric" autocomplete="off" spellcheck="false">
                             <span class="unit">円</span>
@@ -368,20 +360,19 @@
                     </div>
                     <!-- 「社会保険料等の金額」の内訳(lifeplan ADR 0048、MEMO.md 2026/10/4コメント1-(9)) -->
                     <div class="form-field">
-                        <label for="input_small_business_mutual_aid">うち小規模企業共済等掛金(任意)<span class="label-hint">(2段ある場合は上段)</span></label>
+                        <label for="input_small_business_mutual_aid">うち小規模企業共済等掛金(任意)<button type="button" class="help-btn help-btn-hint" data-help="hint" aria-label="入力のヒント" aria-expanded="false" tabindex="-1"></button><template class="help-content"><p>「社会保険料等の金額」欄の上段(左上に「内」と書かれた小さな金額)です。iDeCoや企業型DCのマッチング拠出などの掛金です。</p><p>入れると、本人の給与にかかる社会保険料と分けて計算します(iDeCoの掛金を社会保険料として二重に数えないため)。</p></template><span class="label-hint">(2段ある場合は上段)</span></label>
                         <div class="field-with-unit">
                             <input type="text" id="input_small_business_mutual_aid" inputmode="numeric" autocomplete="off" spellcheck="false">
                             <span class="unit">円</span>
                         </div>
                     </div>
                     <div class="form-field">
-                        <label for="input_declared_national_pension">国民年金保険料等の金額(任意)</label>
+                        <label for="input_declared_national_pension">国民年金保険料等の金額(任意)<button type="button" class="help-btn help-btn-hint" data-help="hint" aria-label="入力のヒント" aria-expanded="false" tabindex="-1"></button><template class="help-content"><p>源泉徴収票の下のほうの「国民年金保険料等の金額」欄です。年末調整で申告した国民年金保険料・国民年金基金の掛金(ご家族の分や、就職前のご自身の分など)です。</p><p>入れると、本人の給与にかかる社会保険料と分けて計算します。</p></template></label>
                         <div class="field-with-unit">
                             <input type="text" id="input_declared_national_pension" inputmode="numeric" autocomplete="off" spellcheck="false">
                             <span class="unit">円</span>
                         </div>
                     </div>
-                    <p class="field-note" style="grid-column: 1 / -1;">源泉徴収票の金額をそのまま転記してください。「社会保険料等の金額」には、iDeCo等の掛金(左上に「内」と書かれた小規模企業共済等掛金)と、年末調整で申告した国民年金保険料・国民年金基金の掛金(ご家族の分や、就職前のご自身の分など。下の段の「国民年金保険料等の金額」)も含まれます。この2つを入れると、本人の給与にかかる社会保険料と分けて計算します。</p>
                 </div>
 
                 <div class="form-field">
@@ -392,7 +383,7 @@
                 </div>
                 <div id="resident_tax_notice_fields" class="form-grid" style="display: none;">
                     <div class="form-field">
-                        <label for="input_resident_tax">住民税(年額)</label>
+                        <label for="input_resident_tax">住民税(年額)<button type="button" class="help-btn help-btn-hint" data-help="hint" aria-label="入力のヒント" aria-expanded="false" tabindex="-1"></button><template class="help-content"><p>勤め先から毎年5〜6月に渡される「住民税決定通知書」(特別徴収税額の決定通知書)の、1年分の税額(市町村民税と道府県民税の合計)です。</p><p>給与から引かれる毎月の住民税の約12か月分にあたります。</p></template></label>
                         <div class="field-with-unit">
                             <input type="text" id="input_resident_tax" inputmode="numeric" autocomplete="off" spellcheck="false">
                             <span class="unit">円</span>
@@ -408,9 +399,8 @@
                 </div>
                 <div id="position_retirement_fields" class="form-grid form-grid-pair" style="display: none;">
                     <div class="form-field">
-                        <label for="input_position_retirement_age">年収が下がる年齢</label>
+                        <label for="input_position_retirement_age">年収が下がる年齢<button type="button" class="help-btn help-btn-hint" data-help="hint" aria-label="入力のヒント" aria-expanded="false" tabindex="-1"></button><template class="help-content"><p>役職定年・定年後の再雇用などで年収が下がる年齢です。引退年齢より後にはできません。</p><p>60歳以降の再雇用では、年収が6〜7割程度になる例が多くあります。勤め先の制度を確かめてください。</p></template></label>
                         <select id="input_position_retirement_age"></select>
-                        <p class="field-note">引退年齢を超えて設定することはできません。</p>
                     </div>
                     <div class="form-field">
                         <label for="input_income_after_position_retirement">下がった後の年収(年額)</label>
@@ -461,6 +451,7 @@
     <script src="shared/lifeplan-link.e09b413bed.js"></script>
     <script src="shared/embed-overlay.c8925dca51.js"></script>
     <script src="shared/numeric-input-select.4cbd9315f1.js"></script>
+    <script src="shared/help-popover.92af203269.js"></script>
     <script src="ui.384b36375a.js"></script>
     <script>
         window.model = new NenkinModel({ window: window, storage: AppStorage });
@@ -469,6 +460,7 @@
         ResizeNotifier.init();
         EmbedOverlay.init();
         NumericInputSelect.init();
+        HelpPopover.init();
     </script>
 </body>
 </html>
