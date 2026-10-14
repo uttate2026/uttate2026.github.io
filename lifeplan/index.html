@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ライフプランシミュレーター</title>
-    <link rel="stylesheet" href="style.2ec6bc2a89.css">
+    <link rel="stylesheet" href="style.530e8e88d4.css">
     <!-- uttate.comに埋め込まれているとき(iframeの外にページの見出しがある)は、中のタイトルを出さない(MEMO.md 2026/9/30コメント1-(12))。
          表示の後でタイトルが消えないよう、描画の前に<html>へ印を付ける -->
     <script>
@@ -101,13 +101,12 @@
                 <div id="person_form_container"></div>
                 <!-- 世帯の設定: お住まいの級地(住民税の非課税の判定、ADR 0042、MEMO.md 2026/10/1コメント3-(2)) -->
                 <div class="form-field household-setting">
-                    <label for="select_resident_tax_area_grade">お住まいの級地</label>
+                    <label for="select_resident_tax_area_grade">お住まいの級地<button type="button" class="help-btn help-btn-info" data-help="info" aria-label="解説" aria-expanded="false" tabindex="-1"></button><template class="help-content"><p>収入の少ない年に、住民税が非課税になるかの判定に使います。非課税になる所得の基準が、級地によって異なるためです。</p></template><button type="button" class="help-btn help-btn-hint" data-help="hint" aria-label="入力のヒント" aria-expanded="false" tabindex="-1"></button><template class="help-content"><p>「(市区町村名) 級地」で検索するか、お住まいの市区町村のWebサイトで確かめられます。</p><ul><li>1級地: 東京23区や多くの政令指定都市など</li><li>2級地: 一部の県庁所在市や大都市周辺の市など</li><li>3級地: その他の市区町村(全国の約8割)</li></ul><p>分からなければ3級地のままで構いません(非課税になるかの判定に少し差が出るだけです)。</p></template></label>
                     <select id="select_resident_tax_area_grade">
                         <option value="1">1級地(東京23区や多くの政令指定都市など)</option>
                         <option value="2">2級地(一部の県庁所在市や大都市周辺の市など)</option>
                         <option value="3">3級地(その他の一般市区町村、全国の約8割が該当)</option>
                     </select>
-                    <p class="field-note">収入の少ない年に住民税が非課税になるかの判定に使います(基準が級地で異なるため)。分からなければ、お住まいの市区町村のWebサイトでご確認ください。</p>
                 </div>
             </div>
 
@@ -137,7 +136,7 @@
                     <div class="table-responsive">
                         <table class="dynamic-list-table living-cost-table">
                             <thead>
-                                <tr><th>年齢(世帯主)</th><th>毎月の生活費</th><th>年1回などの支出</th><th class="text-right">年間</th><th></th></tr>
+                                <tr><th>年齢(世帯主)</th><th>毎月の生活費<button type="button" class="help-btn help-btn-hint" data-help="hint" aria-label="入力のヒント" aria-expanded="false" tabindex="-1"></button><template class="help-content"><p>家計簿や、口座の引き落とし・クレジットカードの明細から、1か月に使うおおよその額を入れます。家賃・住宅ローンも含めます。</p><p><strong>含めないもの</strong>: 税金・社会保険料(収入から別に計算します)、iDeCo・NISAの積立(「2. 資産」で入れます)。</p><p>分からなければ、総務省の家計調査(2024年)が目安になります: 65歳以上の夫婦のみの無職世帯で月約26万円、65歳以上の単身の無職世帯で月約15万円。</p></template></th><th>年1回などの支出<button type="button" class="help-btn help-btn-hint" data-help="hint" aria-label="入力のヒント" aria-expanded="false" tabindex="-1"></button><template class="help-content"><p>毎月ではない支出の1年分を入れます。例: 固定資産税・自動車税、保険料の年払い、帰省や旅行、冠婚葬祭。</p><p>数年おきの支出(給湯器・車の買い替え・外壁塗装など)は「不定期支出」タブに入れます。</p></template></th><th class="text-right">年間</th><th></th></tr>
                             </thead>
                             <tbody>
                                 <tr>
@@ -151,23 +150,20 @@
                             <tbody id="living_cost_change_rows"></tbody>
                         </table>
                     </div>
-                    <button type="button" class="btn btn-link" id="btn_add_living_cost_change">+ 生活費の変化を追加</button>
-                    <p class="field-note">子が独立した後・退職後・75歳以降など、生活費が変わる年齢ごとに行を足します(その年齢から次の行の年齢の前までの生活費)。年間の生活費は月額×12+年額です。年1回などの支出は、固定資産税・自動車税・保険料の年払い・帰省や旅行など。数年おきの支出(給湯器・車の買い替え等)は「不定期支出」に入れます。</p>
+                    <button type="button" class="btn btn-link" id="btn_add_living_cost_change">+ 生活費の変化を追加</button><button type="button" class="help-btn help-btn-info" data-help="info" aria-label="解説" aria-expanded="false" tabindex="-1"></button><template class="help-content"><p>子が独立した後・退職後・75歳以降など、生活費が変わる年齢ごとに行を足します。各行の生活費は、その年齢から次の行の年齢の前まで続きます。</p><p>年間の生活費は「毎月の生活費×12+年1回などの支出」です。</p></template>
                     <!-- 世帯主・配偶者の一方が亡くなった後の生活費の割合(docs/lifeplan/decisions/0053)。配偶者がいる場合だけ出す -->
                     <div id="living_cost_after_death_wrap" class="form-grid">
                         <div class="form-field">
-                            <label for="input_living_cost_after_death_rate">一方が亡くなった後の生活費</label>
+                            <label for="input_living_cost_after_death_rate">一方が亡くなった後の生活費<button type="button" class="help-btn help-btn-info" data-help="info" aria-label="解説" aria-expanded="false" tabindex="-1"></button><template class="help-content"><p>世帯主・配偶者のどちらかが死亡予測年齢(「4. シミュレーション結果」で変えられます)を過ぎた翌年から、上の生活費にこの割合を掛けます。</p><p>65歳以上の単身の世帯の支出は、夫婦の世帯の約6割です(総務省 家計調査)。</p></template></label>
                             <div class="field-with-unit field-with-unit-narrow"><input type="text" id="input_living_cost_after_death_rate" inputmode="numeric" autocomplete="off" spellcheck="false"><span class="unit">%</span></div>
                         </div>
                     </div>
-                    <p class="field-note" id="living_cost_after_death_note">世帯主・配偶者のどちらかが死亡予測年齢(「4. シミュレーション結果」で変えられます)を過ぎた翌年から、上の生活費にこの割合を掛けます。65歳以上の単身の世帯の支出は、夫婦の世帯の約6割です(家計調査)。</p>
                 </div>
                 <div id="expense_durable_panel" style="display:none;">
-                    <p class="field-note">任意入力です(0件でも構いません)。「項目」欄は候補(給湯器・外壁塗装・自家用車)から選ぶと耐用年数が自動で入ります。候補にない名前を入力すると自由な項目として扱われます。</p>
                     <div class="table-responsive">
                         <table class="dynamic-list-table">
                             <thead>
-                                <tr><th>項目</th><th>耐用年数</th><th>前回更新年</th><th>想定金額</th><th></th></tr>
+                                <tr><th>項目<button type="button" class="help-btn help-btn-hint" data-help="hint" aria-label="入力のヒント" aria-expanded="false" tabindex="-1"></button><template class="help-content"><p>数年おきに買い替え・修繕するもの(任意、0件でも構いません)。候補(給湯器・外壁塗装・自家用車)から選ぶと、耐用年数が自動で入ります。候補にない名前も入れられます。</p></template></th><th>耐用年数<button type="button" class="help-btn help-btn-hint" data-help="hint" aria-label="入力のヒント" aria-expanded="false" tabindex="-1"></button><template class="help-content"><p>何年ごとに買い替え・修繕するか。候補を選ぶと、給湯器10年・外壁塗装12年・自家用車8年が入ります。実際の使い方に合わせて変えてください。</p></template></th><th>前回更新年<button type="button" class="help-btn help-btn-hint" data-help="hint" aria-label="入力のヒント" aria-expanded="false" tabindex="-1"></button><template class="help-content"><p>最後に買い替え・工事をした年。この年に耐用年数を足した年から、耐用年数ごとに支出します。分からなければ、おおよその年で構いません。</p></template></th><th>想定金額<button type="button" class="help-btn help-btn-hint" data-help="hint" aria-label="入力のヒント" aria-expanded="false" tabindex="-1"></button><template class="help-content"><p>次に買い替える・工事するときの見込みの金額(1回分)。見積もりや前回の金額を参考にしてください。</p></template></th><th></th></tr>
                             </thead>
                             <tbody id="durable_expense_rows"></tbody>
                         </table>
@@ -183,11 +179,10 @@
                 </div>
                 <!-- 1回限りの支出(MEMO.md 2026/9/27コメント2-(1)、ADR 0029)。入力方式は不定期支出に揃える -->
                 <div id="expense_life_event_panel" style="display:none;">
-                    <p class="field-note">任意入力です(0件でも構いません)。結婚・住宅購入・子の進学など、1回限りの大きな支出を入力します(給湯器・外壁塗装など定期的な修繕・買い替えは「不定期支出」タブへ)。「項目」欄は候補から選ぶと、金額が未入力なら目安の金額が入ります(目安のため、ご自身の見込みに書き換えてください)。候補にない名前を入力すると自由な項目として扱われます。「年齢」は世帯主の年齢(現在の年齢〜シミュレーション終了年齢から選択)で、その年の支出として現金・預金から差し引きます。</p>
                     <div class="table-responsive">
                         <table class="dynamic-list-table">
                             <thead>
-                                <tr><th>項目</th><th>年齢(世帯主)</th><th>金額</th><th></th></tr>
+                                <tr><th>項目<button type="button" class="help-btn help-btn-hint" data-help="hint" aria-label="入力のヒント" aria-expanded="false" tabindex="-1"></button><template class="help-content"><p>結婚・住宅購入・子の進学など、1回限りの大きな支出(任意、0件でも構いません)。定期的な修繕・買い替えは「不定期支出」タブに入れます。</p><p>候補から選ぶと、金額が空欄なら目安の金額が入ります。目安なので、ご自身の見込みに書き換えてください。候補にない名前も入れられます。</p></template></th><th>年齢(世帯主)<button type="button" class="help-btn help-btn-info" data-help="info" aria-label="解説" aria-expanded="false" tabindex="-1"></button><template class="help-content"><p>支出する年の世帯主の年齢です。その年の支出として、現金・預金から差し引きます。</p></template></th><th>金額</th><th></th></tr>
                             </thead>
                             <tbody id="life_event_rows"></tbody>
                         </table>
@@ -209,11 +204,10 @@
                 <!-- 世帯外(子等)への生前贈与のみを扱う。世帯員(配偶者等)への贈与は、受贈者名義の資産タブの
                      「積立資金の出し手」で設定する(MEMO.md 2026/9/26コメント2-(2)、ADR 0007「2026-09-26改訂」) -->
                 <div id="expense_gift_panel" style="display:none;">
-                    <p class="field-note">世帯外(別世帯の子など)への生前贈与を入力します。贈与額は支出として現金・預金から差し引きます。受贈者の贈与税(暦年課税)は、受贈者が受け取った贈与の中から払うものとして参考表示し、世帯の収支には含めません(子・孫<18歳以上>への贈与は特例税率、それ以外は一般税率)。配偶者など世帯員への贈与は、受贈者名義の資産タブ(NISA・特定口座)の「積立資金の出し手」で「世帯主からの贈与」を選んでください。</p>
                     <div class="table-responsive">
                         <table class="dynamic-list-table">
                             <thead>
-                                <tr><th>受贈者</th><th>年贈与額</th><th>開始年齢</th><th>期間(年)</th><th>子・孫(18歳以上)</th><th>精算課税</th><th>受贈者の贈与税(概算)</th><th></th></tr>
+                                <tr><th>受贈者<button type="button" class="help-btn help-btn-hint" data-help="hint" aria-label="入力のヒント" aria-expanded="false" tabindex="-1"></button><template class="help-content"><p>世帯外(別世帯の子など)で贈与を受ける人の名前。</p><p>配偶者など世帯員への贈与は、ここではなく、受贈者名義の資産タブ(NISA・特定口座)の「積立資金の出し手」で「世帯主からの贈与」を選んでください。</p></template></th><th>年贈与額<button type="button" class="help-btn help-btn-info" data-help="info" aria-label="解説" aria-expanded="false" tabindex="-1"></button><template class="help-content"><p>毎年の贈与額。世帯の支出として、現金・預金から差し引きます。</p></template></th><th>開始年齢</th><th>期間(年)</th><th>子・孫(18歳以上)<button type="button" class="help-btn help-btn-info" data-help="info" aria-label="解説" aria-expanded="false" tabindex="-1"></button><template class="help-content"><p>子・孫(18歳以上)への贈与は、贈与税の特例税率で計算します。それ以外は一般税率です。</p></template></th><th>精算課税<span id="gift_accumulation_help"></span></th><th>受贈者の贈与税(概算)<button type="button" class="help-btn help-btn-info" data-help="info" aria-label="解説" aria-expanded="false" tabindex="-1"></button><template class="help-content"><p>受贈者が、受け取った贈与の中から払うものとして参考に出します。世帯の収支には含めません。</p></template></th><th></th></tr>
                             </thead>
                             <tbody id="gift_rows"></tbody>
                         </table>
@@ -223,8 +217,6 @@
                     <div class="dynamic-list-add">
                         <button type="button" id="btn_add_gift" class="btn btn-link">+ 世帯外への生前贈与を追加</button>
                     </div>
-                    <!-- 相続時精算課税の要点(ADR 0030第2段階)。文言はui.jsのACCUMULATION_TAX_SYSTEM_NOTEを表示する -->
-                    <p class="field-note" id="gift_accumulation_note"></p>
                 </div>
             </div>
 
@@ -287,7 +279,7 @@
                     <summary>明細を見る</summary>
                     <!-- 年齢の表示と▲▼ボタンはスライダーの上に置く(MEMO.md 2026/9/29コメント1-(2)、共通のAgeStepper) -->
                     <div class="age-slider-head">
-                        <label for="input_result_detail_age_slider">明細を表示したい年齢(世帯主の年齢)</label>
+                        <label for="input_result_detail_age_slider">明細を表示したい年齢(世帯主の年齢)<!-- 前年の所得で決まる税・保険料(MEMO.md 2026/10/9、docs/lifeplan/decisions/0050) --><button type="button" class="help-btn help-btn-info" data-help="info" aria-label="解説" aria-expanded="false" tabindex="-1"></button><template class="help-content"><p>住民税・国保などの保険料・住民税非課税の判定は、実際の制度と同じく前年の所得で計算しています。引退した翌年は、前年の給与に対する住民税と保険料を払います。</p></template></label>
                         <div class="age-stepper" id="result_detail_age_stepper">
                             <span class="age-stepper-value" aria-live="polite"></span>
                             <button type="button" class="age-stepper-btn" data-step="-1" aria-label="1歳下げる">▼</button>
@@ -303,8 +295,6 @@
                             <tbody id="result_detail_body"></tbody>
                         </table>
                     </div>
-                    <!-- 前年の所得で決まる税・保険料(MEMO.md 2026/10/9、docs/lifeplan/decisions/0050) -->
-                    <p class="field-note">住民税・国保などの保険料・住民税非課税の判定は、実際の制度と同じく前年の所得で計算しています(引退した翌年は、前年の給与に対する住民税と保険料を払います)。</p>
                 </details>
             </div>
 
@@ -319,14 +309,13 @@
                 <!-- ステップ1(相続税の総額)とステップ2(誰がいくら払うか、任意)に分ける(MEMO.md 2026/9/28コメント2-(1)、
                      ADR 0033)。ステップ1だけでもおおよその負担が分かるよう、法定相続分どおりに分けた場合の納付額(目安)を出す -->
                 <div id="inheritance_fields" style="display:none;">
-                    <div class="section-title-sub">ステップ1: 相続税の総額</div>
+                    <div class="section-title-sub">ステップ1: 相続税の総額<button type="button" class="help-btn help-btn-info" data-help="info" aria-label="解説" aria-expanded="false" tabindex="-1"></button><template class="help-content"><p>相続財産は、死亡年齢の時点の被相続人名義の資産(現金・預金・有価証券等)と、下の不動産です。</p><p>相続税の総額は、相続人が法定相続分どおりに相続したものとして計算します(実際にどう分けても総額は変わりません)。</p></template></div>
                     <div class="form-grid">
                         <!-- 被相続人は世帯主・配偶者のうち先に亡くなる人、死亡年齢は「4. シミュレーション結果」の死亡予測年齢(docs/lifeplan/decisions/0053
                              第2段階)。以前はここで選んでいた -->
                         <div class="form-field">
-                            <label>被相続人(先に亡くなる人)</label>
+                            <label>被相続人(先に亡くなる人)<button type="button" class="help-btn help-btn-info" data-help="info" aria-label="解説" aria-expanded="false" tabindex="-1"></button><template class="help-content"><p>世帯主・配偶者のうち、死亡予測年齢で先に亡くなる人です。死亡予測年齢は「4. シミュレーション結果」で変えられます。</p><p>被相続人名義の資産(現金・預金は世帯主名義)を相続財産とします。</p></template></label>
                             <p class="inheritance-spouse-status" id="inheritance_decedent_status"></p>
-                            <p class="field-note">死亡予測年齢は「4. シミュレーション結果」で変えられます。被相続人名義の資産(現金・預金は世帯主名義)を相続財産とします。</p>
                         </div>
                         <!-- 法定相続人は配偶者(世帯の人物から自動判定)と子のみを扱う(MEMO.md 2026/9/27コメント2-(2)、ADR 0030) -->
                         <div class="form-field">
@@ -334,18 +323,16 @@
                             <p class="inheritance-spouse-status" id="inheritance_spouse_status"></p>
                         </div>
                         <div class="form-field">
-                            <label for="select_inheritance_child_heirs">子の人数</label>
+                            <label for="select_inheritance_child_heirs">子の人数<button type="button" class="help-btn help-btn-hint" data-help="hint" aria-label="入力のヒント" aria-expanded="false" tabindex="-1"></button><template class="help-content"><p>別世帯の子も含めます。子がいない場合の父母・兄弟姉妹の相続は、計算の対象外です。</p></template></label>
                             <select id="select_inheritance_child_heirs"></select>
-                            <p class="field-note">別世帯の子も含めます。子がいない場合の父母・兄弟姉妹の相続は対象外です。</p>
                         </div>
                     </div>
                     <div class="inheritance-real-estate">
-                        <div class="section-title-sub">不動産</div>
-                        <p class="field-note">任意入力です。評価額は相続税評価額の目安を入力してください(土地は路線価、建物は固定資産税評価額)。死亡時まで評価額は変わらないものとして計算します。「自宅の土地」にチェックすると、小規模宅地等の特例(配偶者・同居の子が相続する場合に評価額を80%減額)を適用します(面積330㎡までの特例のため、広い土地は減額が過大になります)。</p>
+                        <div class="section-title-sub">不動産(任意)</div>
                         <div class="table-responsive">
                             <table class="dynamic-list-table">
                                 <thead>
-                                    <tr><th>名称</th><th>評価額</th><th>名義人</th><th>自宅の土地</th><th></th></tr>
+                                    <tr><th>名称</th><th>評価額<button type="button" class="help-btn help-btn-hint" data-help="hint" aria-label="入力のヒント" aria-expanded="false" tabindex="-1"></button><template class="help-content"><p>相続税の評価額の目安を入れます。</p><ul><li>土地: 路線価×面積。路線価は国税庁の「路線価図・評価倍率表」で調べられます(路線価の無い地域は、固定資産税評価額×評価倍率)</li><li>建物: 固定資産税評価額。毎年届く固定資産税の課税明細書に載っています</li></ul><p>死亡時まで評価額は変わらないものとして計算します。</p></template></th><th>名義人</th><th>自宅の土地<button type="button" class="help-btn help-btn-info" data-help="info" aria-label="解説" aria-expanded="false" tabindex="-1"></button><template class="help-content"><p>チェックすると、小規模宅地等の特例(配偶者・同居の子が相続する場合に、評価額を80%減らす)を当てはめます。</p><p>面積330㎡までの特例のため、広い土地は減らしすぎになります。</p></template></th><th></th></tr>
                                 </thead>
                                 <tbody id="real_estate_rows"></tbody>
                             </table>
@@ -354,7 +341,6 @@
                             <button type="button" id="btn_add_real_estate" class="btn btn-link">+ 不動産を追加</button>
                         </div>
                     </div>
-                    <p class="field-note">相続財産は、死亡年齢時点の被相続人名義の資産(現金・預金・有価証券等)と、上の不動産です。相続税の総額は、相続人が法定相続分どおりに相続したものとして計算します(実際にどう分けても総額は変わりません)。</p>
                     <!-- 結果の見出しと、課税価格の内訳の折り畳み(MEMO.md 2026/9/29コメント1-(3)) -->
                     <div class="section-title-sub">ステップ1の結果</div>
                     <div class="inheritance-result-box" id="inheritance_step1_result"></div>
@@ -366,12 +352,10 @@
                     </div>
 
                     <details class="detail-toggle as-section-title-sub" id="inheritance_step2_toggle">
-                        <summary>ステップ2: 分け方と、二次相続まで含めた相続税</summary>
-                        <p class="field-note">相続税の総額を、実際に相続する割合で配偶者・子に振り分け、配偶者の税額軽減と贈与税額控除を差し引いて、納付額を求めます。</p>
+                        <summary>ステップ2: 分け方と、二次相続まで含めた相続税<button type="button" class="help-btn help-btn-info" data-help="info" aria-label="解説" aria-expanded="false" tabindex="-1"></button><template class="help-content"><p>相続税の総額を、実際に相続する割合で配偶者・子に振り分け、配偶者の税額軽減と贈与税額控除を差し引いて、納付額を求めます。</p></template></summary>
                         <div class="form-field" id="inheritance_spouse_share_field">
-                            <label for="select_inheritance_spouse_share">配偶者の取得割合</label>
+                            <label for="select_inheritance_spouse_share">配偶者の取得割合<button type="button" class="help-btn help-btn-info" data-help="info" aria-label="解説" aria-expanded="false" tabindex="-1"></button><template class="help-content"><p>配偶者が相続する財産の割合です。配偶者の取得額が1億6,000万円または法定相続分の大きい方までなら、配偶者の相続税はかかりません(配偶者の税額軽減)。</p><p>ただし、配偶者が多く相続するほど、配偶者が亡くなったとき(二次相続)の相続税が増えます。「最適な遺産分割を探す」で、合計が最小になる割合を探せます。</p></template></label>
                             <select id="select_inheritance_spouse_share"></select>
-                            <p class="field-note">配偶者が相続する財産の割合です。配偶者の取得額が1億6,000万円または法定相続分の大きい方までなら、配偶者の相続税はかかりません(配偶者の税額軽減)。ただし配偶者が多く相続するほど、配偶者が亡くなったとき(二次相続)の相続税が増えます。</p>
                             <!-- 二次相続まで含めた合計の相続税が最小になる取得割合を探す(MEMO.md 2026/9/27コメント2-(2)⑤、ADR 0030第3段階) -->
                             <div class="pension-wizard-button-row">
                                 <button type="button" id="btn_open_estate_wizard" class="btn btn-secondary">🔍 最適な遺産分割を探す</button>
@@ -460,7 +444,7 @@
             </div>
             <div id="asset_add_ideco_wizard_body" hidden>
                 <div class="form-field field-with-unit-narrow">
-                    <label for="ideco_wizard_monthly_contribution">投資に回せる金額(月)</label>
+                    <label for="ideco_wizard_monthly_contribution">投資に回せる金額(月)<button type="button" class="help-btn help-btn-info" data-help="info" aria-label="解説" aria-expanded="false" tabindex="-1"></button><template class="help-content"><p>この金額を、そのままiDeCoの掛金にします(NISAとの配分は比べません)。</p></template></label>
                     <div class="field-with-unit">
                         <input type="text" id="ideco_wizard_monthly_contribution" inputmode="numeric" value="20000">
                         <span class="unit">円</span>
@@ -468,7 +452,7 @@
                     <p class="alert-text" data-ideco-min-contribution-for="ideco_wizard_monthly_contribution" hidden></p>
                 </div>
                 <div class="form-field field-with-unit-narrow">
-                    <label for="ideco_wizard_contribution_end_age">拠出終了年齢</label>
+                    <label for="ideco_wizard_contribution_end_age">拠出終了年齢<button type="button" class="help-btn help-btn-info" data-help="info" aria-label="解説" aria-expanded="false" tabindex="-1"></button><template class="help-content"><p>公的年金の受給開始年齢までの範囲で選べます。実際には受給しながら拠出を続けられる場合もありますが、ここでは選択肢を絞っています(資産タブでは自由に変えられます)。</p></template></label>
                     <select id="ideco_wizard_contribution_end_age"></select>
                 </div>
                 <div class="form-field field-with-unit-narrow">
@@ -480,7 +464,7 @@
                     <label class="checkbox-label"><input type="radio" name="ideco_wizard_objective" value="netIncome" checked> 手取り最大化</label>
                     <label class="checkbox-label"><input type="radio" name="ideco_wizard_objective" value="taxAndSocial"> 税金・社会保険最小化</label>
                 </div>
-                <p class="field-note">※ 投資に回せる金額はそのままiDeCoの掛金として設定されます(NISAとの配分比較は今後の検討課題です)。拠出終了年齢は公的年金受給開始年齢までの範囲で選べます(実際には受給しながら拠出を続けられる場合もありますが、ここでは選択肢をシンプルにするため絞っています。資産タブ本体では引き続き自由に変更できます)。退職金・公的年金が未入力/概算のままだと、最適化の精度が下がります。</p>
+                <p class="field-note">※ 退職金・公的年金が未入力や概算のままだと、提案の精度が下がります。</p>
             </div>
             <div class="button-row modal-actions">
                 <button type="button" id="btn_asset_add_cancel" class="btn btn-link">キャンセル</button>
@@ -504,7 +488,7 @@
                     <p class="alert-text" data-ideco-min-contribution-for="ideco_wizard_review_monthly_contribution" hidden></p>
             </div>
             <div class="form-field field-with-unit-narrow">
-                <label for="ideco_wizard_review_contribution_end_age">拠出終了年齢</label>
+                <label for="ideco_wizard_review_contribution_end_age">拠出終了年齢<button type="button" class="help-btn help-btn-info" data-help="info" aria-label="解説" aria-expanded="false" tabindex="-1"></button><template class="help-content"><p>公的年金の受給開始年齢までの範囲で選べます。実際には受給しながら拠出を続けられる場合もありますが、ここでは選択肢を絞っています(資産タブでは自由に変えられます)。</p></template></label>
                 <select id="ideco_wizard_review_contribution_end_age"></select>
             </div>
             <div class="form-field field-with-unit-narrow">
@@ -516,7 +500,7 @@
                 <label class="checkbox-label"><input type="radio" name="ideco_wizard_review_objective" value="netIncome" checked> 手取り最大化</label>
                 <label class="checkbox-label"><input type="radio" name="ideco_wizard_review_objective" value="taxAndSocial"> 税金・社会保険最小化</label>
             </div>
-            <p class="field-note">※ 拠出額・出口戦略ともにここで計算した内容で上書きされます。拠出終了年齢は公的年金受給開始年齢までの範囲で選べます(実際には受給しながら拠出を続けられる場合もありますが、ここでは選択肢をシンプルにするため絞っています。資産タブ本体では引き続き自由に変更できます)。退職金・公的年金が未入力/概算のままだと、最適化の精度が下がります。</p>
+            <p class="field-note">※ 掛金・受け取り方は、ここで計算した内容で上書きされます。退職金・公的年金が未入力や概算のままだと、精度が下がります。</p>
             <div class="button-row modal-actions">
                 <button type="button" id="btn_ideco_wizard_review_cancel" class="btn btn-link">キャンセル</button>
                 <button type="button" id="btn_ideco_wizard_review_confirm" class="btn btn-primary">この内容で更新する</button>
@@ -530,20 +514,18 @@
     <div id="pension_wizard_modal" class="modal-overlay" style="display: none;">
         <div class="card modal-card modal-card-wide">
             <button type="button" id="btn_pension_wizard_modal_close" class="modal-close" aria-label="閉じる">×</button>
-            <div class="section-title">公的年金の受給開始年齢を最適化する</div>
+            <div class="section-title">公的年金の受給開始年齢を最適化する<button type="button" class="help-btn help-btn-info" data-help="info" aria-label="解説" aria-expanded="false" tabindex="-1"></button><template class="help-content"><p>選んでいるプラン全体(配偶者・資産・支出を含む)で試算します。探した結果を比べてから、反映する案を選べます(この画面ではまだ上書きしません)。</p></template></div>
 
             <div id="pension_wizard_step_input">
                 <div class="form-field field-with-unit-narrow">
-                    <label for="pension_wizard_death_age">死亡予測年齢</label>
+                    <label for="pension_wizard_death_age">死亡予測年齢<button type="button" class="help-btn help-btn-info" data-help="info" aria-label="解説" aria-expanded="false" tabindex="-1"></button><template class="help-content"><p>この年齢までの世帯の生涯手取りの合計が最大になる受給開始年齢を探します。</p></template></label>
                     <select id="pension_wizard_death_age"></select>
-                    <p class="field-note">この年齢までの世帯の生涯手取り合計が最大になる受給開始年齢を探します。</p>
                 </div>
                 <div class="form-field" id="pension_wizard_split_field">
-                    <label class="checkbox-label"><input type="checkbox" id="pension_wizard_include_split"> 老齢厚生年金を別の年齢にすることも検討する</label>
-                    <p class="field-note">繰下げ(65〜75歳)の範囲で、老齢基礎年金と老齢厚生年金を別々の年齢にする組み合わせも試算します。</p>
+                    <label class="checkbox-label"><input type="checkbox" id="pension_wizard_include_split"> 老齢厚生年金を別の年齢にすることも検討する<button type="button" class="help-btn help-btn-info" data-help="info" aria-label="解説" aria-expanded="false" tabindex="-1"></button><template class="help-content"><p>繰下げ(65〜75歳)の範囲で、老齢基礎年金と老齢厚生年金を別々の年齢にする組み合わせも試算します。</p></template></label>
                 </div>
                 <p class="info-note" id="pension_wizard_fixed_note" hidden></p>
-                <p class="field-note">※ 選択中のプラン全体(配偶者・資産・支出を含む)で試算します。探索結果を比べてから反映する案を選べます(この画面ではまだ上書きしません)。老齢基礎年金・老齢厚生年金の金額が未入力/概算のままだと、最適化の精度が下がります。</p>
+                <p class="field-note">※ 老齢基礎年金・老齢厚生年金の金額が未入力や概算のままだと、精度が下がります。</p>
                 <div class="button-row modal-actions">
                     <button type="button" id="btn_pension_wizard_cancel" class="btn btn-link">キャンセル</button>
                     <button type="button" id="btn_pension_wizard_search" class="btn btn-primary">探索する</button>
@@ -587,9 +569,7 @@
                         <select id="gift_wizard_years"></select>
                     </div>
                 </div>
-                <p class="field-note">子1人あたりの年間贈与額を0円〜1,000万円で変え、暦年課税・相続時精算課税のそれぞれについて、贈与税の合計と相続税(被相続人: 世帯主、死亡年齢はステップ1と同じ)の合計が最小になる額を探します。</p>
-                <p class="field-note">※ 贈与は現金・預金から出ます。死亡年齢までに現金・預金が足りなくなる案は候補から外します。教育資金・住宅取得資金などの非課税の特例は考慮しません。</p>
-                <p class="field-note">※ 配偶者への贈与は、この最適化の対象外です。配偶者は相続時に税額軽減(1億6,000万円または法定相続分まで非課税)を受けられるため、生前に贈与しても相続税はあまり減らず、配偶者が亡くなったとき(二次相続)の相続税がかえって増えることもあります。配偶者名義のNISAで世帯の非課税枠を広げたい場合は、「2. 資産」の配偶者のNISAタブで「積立資金の出し手」を「世帯主からの贈与」にしてください(年110万円を超えると贈与税がかかります)。</p>
+                <p class="field-note">子1人あたりの年間贈与額を変えて、贈与税と相続税の合計が最小になる額を探します。<button type="button" class="help-btn help-btn-info" data-help="info" aria-label="解説" aria-expanded="false" tabindex="-1"></button><template class="help-content"><p>子1人あたりの年間贈与額を0円〜1,000万円で変え、暦年課税・相続時精算課税のそれぞれについて、贈与税の合計と相続税(被相続人: 世帯主、死亡年齢はステップ1と同じ)の合計が最小になる額を探します。</p><p>贈与は現金・預金から出ます。死亡年齢までに現金・預金が足りなくなる案は候補から外します。教育資金・住宅取得資金などの非課税の特例は考えません。</p><p><strong>配偶者への贈与は対象外です。</strong>配偶者は相続時に税額軽減(1億6,000万円または法定相続分まで非課税)を受けられるため、生前に贈与しても相続税はあまり減らず、配偶者が亡くなったとき(二次相続)の相続税がかえって増えることもあります。配偶者名義のNISAで世帯の非課税枠を広げたい場合は、「2. 資産」の配偶者のNISAタブで「積立資金の出し手」を「世帯主からの贈与」にしてください(年110万円を超えると贈与税がかかります)。</p></template></p>
                 <div class="button-row modal-actions">
                     <button type="button" id="btn_gift_wizard_cancel" class="btn btn-link">キャンセル</button>
                     <button type="button" id="btn_gift_wizard_search" class="btn btn-primary">探索する</button>
@@ -600,12 +580,11 @@
                 <p class="field-note" id="gift_wizard_result_summary"></p>
                 <div class="table-responsive">
                     <table class="pension-wizard-compare-table estate-wizard-table" id="gift_wizard_table">
-                        <thead><tr><th>課税方式・子1人あたり年額</th><th>贈与の総額</th><th>贈与税</th><th>相続税(還付は▲)</th><th>合計</th><th></th></tr></thead>
+                        <thead><tr><th>課税方式・子1人あたり年額</th><th>贈与の総額</th><th>贈与税</th><th>相続税(還付は▲)<button type="button" class="help-btn help-btn-info" data-help="info" aria-label="解説" aria-expanded="false" tabindex="-1"></button><template class="help-content"><p>相続時精算課税で払った贈与税を差し引いた、実質の負担です。差し引ききれない分は還付されるため▲で示します。</p></template></th><th>合計</th><th></th></tr></thead>
                         <tbody></tbody>
                     </table>
                 </div>
-                <p class="field-note">相続税は、相続時精算課税で払った贈与税を差し引いた実質の負担です。差し引ききれない分は還付されるため▲で示します。</p>
-                <p class="field-note">「この案にする」を押すと、「3. 支出」の「生前贈与(世帯外)」に子の人数分の行を追加します(同居の子への贈与も、ここでは世帯外の行として扱います)。</p>
+                <p class="field-note">「この案にする」を押すと、「3. 支出」の「生前贈与(世帯外)」に子の人数分の行を追加します。<button type="button" class="help-btn help-btn-info" data-help="info" aria-label="解説" aria-expanded="false" tabindex="-1"></button><template class="help-content"><p>同居の子への贈与も、ここでは世帯外の行として扱います。</p></template></p>
                 <div class="button-row modal-actions">
                     <button type="button" id="btn_gift_wizard_back" class="btn btn-link">条件を変える</button>
                 </div>
@@ -621,12 +600,10 @@
 
             <div id="estate_wizard_step_input">
                 <div class="form-field field-with-unit-narrow">
-                    <label for="estate_wizard_spouse_death_age" id="estate_wizard_spouse_death_age_label">配偶者の死亡年齢(二次相続の時期)</label>
+                    <label for="estate_wizard_spouse_death_age" id="estate_wizard_spouse_death_age_label">配偶者の死亡年齢(二次相続の時期)</label><button type="button" class="help-btn help-btn-info" data-help="info" aria-label="解説" aria-expanded="false" tabindex="-1"></button><template class="help-content"><p>配偶者の死亡予測年齢です。相続税・各最適化と共通の値で、ここで変えると他の場面にも反映されます。</p></template>
                     <select id="estate_wizard_spouse_death_age"></select>
-                    <p class="field-note">配偶者の死亡予測年齢です(相続税・各最適化と共通の値で、ここで変えると他の場面にも反映されます)。</p>
                 </div>
-                <p class="field-note">配偶者の取得割合を0〜100%(10%刻み)で変え、一次相続(被相続人の死亡)と二次相続(配偶者の死亡)の相続税の合計が最小になる割合を探します。</p>
-                <p class="field-note">※ 簡易化のため、一次相続で配偶者が相続した財産は二次相続まで増減しない(運用益・生活費での取り崩しを見ない)ものとして計算します(実際には使った分だけ二次相続の財産は減るため、二次相続の相続税は多めに出ます)。相次相続控除(10年以内に続けて相続があった場合の控除)は考慮しません。</p>
+                <p class="field-note">配偶者の取得割合を変えて、一次相続と二次相続の相続税の合計が最小になる割合を探します。<button type="button" class="help-btn help-btn-info" data-help="info" aria-label="解説" aria-expanded="false" tabindex="-1"></button><template class="help-content"><p>配偶者の取得割合を0〜100%(10%刻み)で変え、一次相続(被相続人の死亡)と二次相続(配偶者の死亡)の相続税の合計が最小になる割合を探します。</p><p>簡単にするため、一次相続で配偶者が相続した財産は、二次相続まで増減しない(運用益・生活費での取り崩しを見ない)ものとして計算します。実際には使った分だけ二次相続の財産は減るため、二次相続の相続税は多めに出ます。相次相続控除(10年以内に続けて相続があった場合の控除)は考えません。</p></template></p>
                 <div class="button-row modal-actions">
                     <button type="button" id="btn_estate_wizard_cancel" class="btn btn-link">キャンセル</button>
                     <button type="button" id="btn_estate_wizard_search" class="btn btn-primary">探索する</button>
@@ -749,38 +726,39 @@
         </div>
     </div>
 
-    <script src="storage.3511e9ad1c.js"></script>
+    <script src="storage.eba41503ac.js"></script>
     <script src="constants.fc32e355d8.js"></script>
-    <script src="shared/pattern-builders.9dc04e9b80.js"></script>
+    <script src="shared/pattern-builders.08641e230d.js"></script>
     <script src="shared/calculator.cf003aaa95.js"></script>
     <!-- 生涯合計の集計(全プラン比較・各ウィザード・ideco-bridge.js等が使う、docs/shared/decisions/0007参照) -->
-    <script src="shared/lifetime-totals.bcc936ebeb.js"></script>
+    <script src="shared/lifetime-totals.7878d88f1f.js"></script>
     <!-- ideco→lifeplanへのデータ引き継ぎ(model.jsのcheckIdecoHandoff/importHandoffPatternが
          IdecoBridge.HANDOFF_STORAGE_KEYを参照する、docs/shared/decisions/0006参照) -->
-    <script src="shared/ideco-bridge.86fda36e97.js"></script>
+    <script src="shared/ideco-bridge.dab0990914.js"></script>
     <!-- iDeCo出口戦略のグリッド探索(iDeCo資産追加ウィザードが使う、idecoと共通、
          docs/shared/decisions/0007参照) -->
-    <script src="shared/ideco-exit-optimizer.c3946af122.js"></script>
+    <script src="shared/ideco-exit-optimizer.2ced6c9b19.js"></script>
     <!-- nenkin→lifeplanへのデータ引き継ぎ(同上、model.jsのcheckNenkinHandoffが
          NenkinBridge.HANDOFF_STORAGE_KEYを参照する、docs/nenkin/decisions/0001
          「2026-09-23改訂(続き11)」参照。2026-09-20にideco版で発覚した「スクリプトタグ漏れで
          引き継ぎキーを読めない」不具合の再発防止のため、必ずmodel.jsより前に追加すること) -->
     <!-- 公的年金受給開始年齢のグリッド探索(nenkinトピックA・lifeplan「公的年金」タブのウィザードで共通、
          lifeplan ADR 0027参照)。nenkin-bridge.jsが参照するため、必ずその前に読み込む -->
-    <script src="shared/pension-claim-optimizer.54220c7710.js"></script>
-    <script src="shared/nenkin-bridge.ca385307dc.js"></script>
+    <script src="shared/pension-claim-optimizer.de9cfb1dab.js"></script>
+    <script src="shared/nenkin-bridge.609ea38e39.js"></script>
     <script src="shared/chart-age-cursor.b4884465a9.js"></script>
     <script src="shared/age-stepper.1b938669bf.js"></script>
-    <script src="shared/parameter-catalog.b81ac65d1a.js"></script>
-    <script src="shared/rebalance-reader.7ee687aed1.js"></script>
+    <script src="shared/parameter-catalog.a17cae65b1.js"></script>
+    <script src="shared/rebalance-reader.d1fd018f0e.js"></script>
     <script src="shared/embed-overlay.56c75d839f.js"></script>
-    <script src="shared/numeric-input-select.8f7204db06.js"></script>
+    <script src="shared/numeric-input-select.4cbd9315f1.js"></script>
+    <script src="shared/help-popover.55f0409eb0.js"></script>
     <script src="model.3ba0d065de.js"></script>
     <script src="auth.f95b7f2cb8.js"></script>
     <script src="consent.6a30cb2135.js"></script>
     <script src="resize-notifier.bbc2b52d92.js"></script>
-    <script src="vendor/chart.845cebbbb6.js"></script>
-    <script src="ui.868170558f.js"></script>
+    <script src="vendor/chart.2532476de2.js"></script>
+    <script src="ui.4851c557b9.js"></script>
     <script>
         window.model = new LifeplanModel({ window: window, storage: AppStorage });
         AppAuth.init();
@@ -788,6 +766,7 @@
         ResizeNotifier.init();
         EmbedOverlay.init();
         NumericInputSelect.init();
+        HelpPopover.init();
     </script>
 </body>
 </html>

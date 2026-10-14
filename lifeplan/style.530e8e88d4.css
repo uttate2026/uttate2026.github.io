@@ -2134,6 +2134,121 @@ th, td {
 
 /* 一方が亡くなった後の生活費の欄・結果カードの死亡予測年齢(ADR 0053)。直前の注記・要約と詰まって見えないよう余白を空ける */
 #living_cost_after_death_wrap,
-.result-death-ages {
+.result-death-ages,
+.result-return-scenario {
     margin-top: 12px;
+}
+
+/* 運用がうまくいかなかったら(ADR 0055)の結果。シナリオの説明・資金不足・死亡予測年齢の時点の総資産を1行ずつ並べる */
+.return-scenario-line {
+    display: block;
+}
+
+/* 補足のアイコンとポップアップ(MEMO.md 2026/10/15コメント2-(1)、docs/lifeplan/decisions/0056、src/shared/help-popover.js)。
+   「解説」(i)は落ち着いた色、「入力のヒント」(?)は緑で見分ける。押しやすいよう見た目より広く押せる */
+.help-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 18px;
+    height: 18px;
+    margin: 0 0 0 4px;
+    padding: 0;
+    border: 1.5px solid currentColor;
+    border-radius: 50%;
+    background: var(--bg-card);
+    font: bold 12px/1 Georgia, "Times New Roman", serif;
+    vertical-align: text-bottom;
+    cursor: pointer;
+    position: relative;
+}
+.help-btn::after {
+    content: "";
+    position: absolute;
+    inset: -8px;
+}
+.help-btn-info {
+    color: var(--primary);
+    font-style: italic;
+}
+.help-btn-hint {
+    color: var(--success);
+    font-family: inherit;
+}
+.help-btn-info::before {
+    content: "i";
+}
+.help-btn-hint::before {
+    content: "?";
+}
+.help-btn[aria-expanded="true"] {
+    color: var(--bg-card);
+    background: var(--primary);
+    border-color: var(--primary);
+}
+.help-btn-hint[aria-expanded="true"] {
+    background: var(--success);
+    border-color: var(--success);
+}
+.help-popover {
+    position: absolute;
+    z-index: 2000;
+    width: max-content;
+    max-width: min(380px, calc(100vw - 16px));
+    background: var(--bg-card);
+    border: 1px solid var(--border-strong);
+    border-top: 3px solid var(--primary);
+    border-radius: 8px;
+    box-shadow: 0 6px 20px rgba(15, 23, 42, 0.18);
+    padding: 8px 12px 10px;
+    font-size: 13px;
+    font-weight: normal;
+    line-height: 1.6;
+    color: var(--text-main);
+    text-align: left;
+}
+.help-popover[data-kind="hint"] {
+    border-top-color: var(--success);
+}
+.help-popover-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    margin-bottom: 4px;
+}
+.help-popover-title {
+    font-size: 12px;
+    font-weight: bold;
+    color: var(--primary);
+}
+.help-popover[data-kind="hint"] .help-popover-title {
+    color: var(--success);
+}
+.help-popover-close {
+    border: none;
+    background: none;
+    font-size: 18px;
+    line-height: 1;
+    color: var(--text-secondary);
+    cursor: pointer;
+    padding: 0 2px;
+}
+.help-popover-body p,
+.help-popover-body ul {
+    margin: 0 0 6px;
+}
+.help-popover-body ul {
+    padding-left: 18px;
+}
+.help-popover-body > :last-child {
+    margin-bottom: 0;
+}
+/* 見出し(.section-title-sub等)の横に置くアイコンは、見出しの文字の大きさに合わせない */
+.section-title-sub .help-btn,
+.section-title .help-btn,
+summary .help-btn,
+th .help-btn {
+    font-size: 12px;
+    font-weight: bold;
 }
