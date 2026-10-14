@@ -87,7 +87,7 @@
                         </div>
                     </div>
                     <div class="form-field">
-                        <label for="input_dependents">扶養家族数<button type="button" class="help-btn help-btn-hint" data-help="hint" aria-label="入力のヒント" aria-expanded="false" tabindex="-1"></button><template class="help-content"><p>所得税の扶養控除・配偶者控除の対象になる家族の人数です(1人あたり38万円の控除として概算します)。年末調整で出した「扶養控除等申告書」に書いた人数が目安です。</p><p>源泉徴収票の税額を入れると、実際の控除額が反映されるため、ここの人数による差は小さくなります。</p></template></label>
+                        <label for="input_dependents">扶養家族数<button type="button" class="help-btn help-btn-hint" data-help="hint" aria-label="入力のヒント" aria-expanded="false" tabindex="-1"></button><template class="help-content"><p>所得税の扶養控除・配偶者控除の対象になる家族の人数です(1人あたり<span data-help-value="DEPENDENT_DEDUCTION_PER_PERSON" data-format="yen"></span>の控除として概算します)。年末調整で出した「扶養控除等申告書」に書いた人数が目安です。</p><p>源泉徴収票の税額を入れると、実際の控除額が反映されるため、ここの人数による差は小さくなります。</p></template></label>
                         <div class="field-with-unit">
                             <input type="text" id="input_dependents" inputmode="numeric" autocomplete="off" spellcheck="false">
                             <span class="unit">人</span>
@@ -221,7 +221,7 @@
                         </div>
                     </div>
                     <div class="form-field">
-                        <label for="input_planner_contribution_end_age">拠出終了年齢<button type="button" class="help-btn help-btn-info" data-help="info" aria-label="解説" aria-expanded="false" tabindex="-1"></button><template class="help-content"><p>既定値は65歳です。iDeCoに拠出できる年齢の上限(70歳)まで延ばせます。公的年金の受給開始年齢は次の「出口戦略」の画面で決め、この年齢以降になります。</p></template></label>
+                        <label for="input_planner_contribution_end_age">拠出終了年齢<button type="button" class="help-btn help-btn-info" data-help="info" aria-label="解説" aria-expanded="false" tabindex="-1"></button><template class="help-content"><p>既定値は65歳です。iDeCoに拠出できる年齢の上限(<span data-help-value="CONTRIBUTION_END_AGE_MAX"></span>歳)まで延ばせます。公的年金の受給開始年齢は次の「出口戦略」の画面で決め、この年齢以降になります。</p></template></label>
                         <div class="field-with-unit">
                             <input type="text" id="input_planner_contribution_end_age" inputmode="numeric" autocomplete="off" spellcheck="false">
                             <span class="unit">歳</span>
@@ -479,7 +479,7 @@
     <script src="shared/lifeplan-link.d8afcfa543.js"></script>
     <script src="shared/embed-overlay.800909cf4d.js"></script>
     <script src="shared/numeric-input-select.512e9aa2d5.js"></script>
-    <script src="shared/help-popover.b7dc58fb11.js"></script>
+    <script src="shared/help-popover.bf1fa2adf4.js"></script>
     <script src="shared/parameter-catalog.162d279626.js"></script>
     <script src="ui.1466ff1e5d.js"></script>
     <script>
@@ -489,7 +489,7 @@
         ResizeNotifier.init();
         EmbedOverlay.init();
         NumericInputSelect.init();
-        HelpPopover.init();
+        HelpPopover.init(document, IdecoConstants);
     </script>
 </body>
 </html>
