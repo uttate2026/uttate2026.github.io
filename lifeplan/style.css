@@ -2274,3 +2274,9 @@ th .help-btn {
 .ideco-impact-list .impact-bad strong {
     color: var(--danger);
 }
+
+/* 計算中のボタン(src/shared/busy-button.js、MEMO.md 2026/10/16コメント1-(6)) */
+.btn.is-busy {
+    cursor: progress;
+    opacity: 0.8;
+}
