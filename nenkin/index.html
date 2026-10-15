@@ -200,7 +200,7 @@
                 <div id="public_pension_claim_age_field" class="form-field" style="display: none;">
                     <!-- 年齢の表示と▲▼ボタンはスライダーの上に置く(MEMO.md 2026/9/29コメント1-(2)、共通のAgeStepper。以前はスライダーの右に数値入力欄) -->
                     <div class="age-slider-head">
-                        <label for="input_public_pension_claim_age_slider">公的年金受給年齢<button type="button" class="help-btn help-btn-info" data-help="info" aria-label="解説" aria-expanded="false" tabindex="-1"></button><template class="help-content"><p>引退年齢とは別に、公的年金をいつから受け取るかを選びます(グラフにそのまま反映されます)。65歳が標準で、<span data-help-value="PENSION_START_AGE_MIN"></span>〜64歳は繰上げ(1か月早めるごとに<span data-help-value="EARLY_CLAIM_REDUCTION_RATE_MONTHLY" data-format="percent"></span>減額)、66〜<span data-help-value="PENSION_START_AGE_MAX"></span>歳は繰下げ(1か月遅らせるごとに<span data-help-value="DELAYED_CLAIM_INCREASE_RATE_MONTHLY" data-format="percent"></span>増額)です。</p></template></label>
+                        <label for="input_public_pension_claim_age_slider">老齢年金の受給開始年齢<button type="button" class="help-btn help-btn-info" data-help="info" aria-label="解説" aria-expanded="false" tabindex="-1"></button><template class="help-content"><p>引退年齢とは別に、老齢年金をいつから受け取るかを選びます(グラフにそのまま反映されます)。65歳が標準で、<span data-help-value="PENSION_START_AGE_MIN"></span>〜64歳は繰上げ(1か月早めるごとに<span data-help-value="EARLY_CLAIM_REDUCTION_RATE_MONTHLY" data-format="percent"></span>減額)、66〜<span data-help-value="PENSION_START_AGE_MAX"></span>歳は繰下げ(1か月遅らせるごとに<span data-help-value="DELAYED_CLAIM_INCREASE_RATE_MONTHLY" data-format="percent"></span>増額)です。</p></template></label>
                         <div class="age-stepper" id="public_pension_claim_age_stepper">
                             <span class="age-stepper-value" aria-live="polite"></span>
                             <button type="button" class="age-stepper-btn" data-step="-1" aria-label="1歳下げる">▼</button>
@@ -314,7 +314,7 @@
                 <ul class="lifeplan-cta-facts" id="lifeplan_cta_facts"></ul>
                 <dl class="lifeplan-cta-carry">
                     <dt>引き継ぐもの</dt>
-                    <dd>年齢・収入・ねんきん定期便の見込額・配偶者・引退年齢・公的年金の受給開始年齢(入れ直す必要はありません)</dd>
+                    <dd>年齢・収入・ねんきん定期便の見込額・配偶者・引退年齢・老齢年金の受給開始年齢(入れ直す必要はありません)</dd>
                     <dt>ライフプランシミュレーターで入れるもの</dt>
                     <dd>生活費・預貯金や投資などの資産</dd>
                 </dl>
@@ -439,14 +439,14 @@
          lifeplan ADR 0027参照)。nenkin-bridge.jsが参照するため、必ずその前に読み込む -->
     <script src="shared/pension-claim-optimizer.de9cfb1dab.js"></script>
     <script src="shared/nenkin-bridge.609ea38e39.js"></script>
-    <script src="shared/parameter-catalog.b332b0015c.js"></script>
+    <script src="shared/parameter-catalog.607dbf7310.js"></script>
     <script src="shared/chart-age-cursor.30ba8f7482.js"></script>
     <script src="shared/age-stepper.bc4ccf1bc4.js"></script>
     <script src="shared/lifeplan-link.e09b413bed.js"></script>
     <script src="shared/embed-overlay.c8925dca51.js"></script>
     <script src="shared/numeric-input-select.4cbd9315f1.js"></script>
     <script src="shared/help-popover.32113933db.js"></script>
-    <script src="ui.ae63e1ded6.js"></script>
+    <script src="ui.80c41410ea.js"></script>
     <script>
         window.model = new NenkinModel({ window: window, storage: AppStorage });
         AppAuth.init();
