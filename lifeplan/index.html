@@ -150,7 +150,7 @@
                             <tbody id="living_cost_change_rows"></tbody>
                         </table>
                     </div>
-                    <button type="button" class="btn btn-link" id="btn_add_living_cost_change">+ 生活費の変化を追加</button><button type="button" class="help-btn help-btn-info" data-help="info" aria-label="解説" aria-expanded="false" tabindex="-1"></button><template class="help-content"><p>子が独立した後・退職後・75歳以降など、生活費が変わる年齢ごとに行を足します。各行の生活費は、その年齢から次の行の年齢の前まで続きます。</p><p>年間の生活費は「毎月の生活費×12+年1回などの支出」です。</p></template>
+                    <button type="button" class="btn btn-link" id="btn_add_living_cost_change">➕ 生活費の変化を追加</button><button type="button" class="help-btn help-btn-info" data-help="info" aria-label="解説" aria-expanded="false" tabindex="-1"></button><template class="help-content"><p>子が独立した後・退職後・75歳以降など、生活費が変わる年齢ごとに行を足します。各行の生活費は、その年齢から次の行の年齢の前まで続きます。</p><p>年間の生活費は「毎月の生活費×12+年1回などの支出」です。</p></template>
                     <!-- 世帯主・配偶者の一方が亡くなった後の生活費の割合(docs/lifeplan/decisions/0053)。配偶者がいる場合だけ出す -->
                     <div id="living_cost_after_death_wrap" class="form-grid">
                         <div class="form-field">
@@ -174,7 +174,7 @@
                         <option value="自家用車"></option>
                     </datalist>
                     <div class="dynamic-list-add">
-                        <button type="button" id="btn_add_durable" class="btn btn-link">+ 耐久消費財を追加</button>
+                        <button type="button" id="btn_add_durable" class="btn btn-link">➕ 耐久消費財を追加</button>
                     </div>
                 </div>
                 <!-- 1回限りの支出(MEMO.md 2026/9/27コメント2-(1)、ADR 0029)。入力方式は不定期支出に揃える -->
@@ -198,7 +198,7 @@
                         <option value="葬儀費用"></option>
                     </datalist>
                     <div class="dynamic-list-add">
-                        <button type="button" id="btn_add_life_event" class="btn btn-link">+ ライフイベントを追加</button>
+                        <button type="button" id="btn_add_life_event" class="btn btn-link">➕ ライフイベントを追加</button>
                     </div>
                 </div>
                 <!-- 世帯外(子等)への生前贈与のみを扱う。世帯員(配偶者等)への贈与は、受贈者名義の資産タブの
@@ -215,7 +215,7 @@
                     <!-- 追加ボタンは不定期支出・ライフイベントと同じく表の下に置く(MEMO.md 2026/9/26のフィードバックで
                          一度表の上に移したが、2026-09-27のフィードバックでタブ間の一貫性を優先して戻した) -->
                     <div class="dynamic-list-add">
-                        <button type="button" id="btn_add_gift" class="btn btn-link">+ 世帯外への生前贈与を追加</button>
+                        <button type="button" id="btn_add_gift" class="btn btn-link">➕ 世帯外への生前贈与を追加</button>
                     </div>
                 </div>
             </div>
@@ -338,7 +338,7 @@
                             </table>
                         </div>
                         <div class="dynamic-list-add">
-                            <button type="button" id="btn_add_real_estate" class="btn btn-link">+ 不動産を追加</button>
+                            <button type="button" id="btn_add_real_estate" class="btn btn-link">➕ 不動産を追加</button>
                         </div>
                     </div>
                     <!-- 結果の見出しと、課税価格の内訳の折り畳み(MEMO.md 2026/9/29コメント1-(3)) -->
@@ -758,7 +758,7 @@
     <script src="consent.6a30cb2135.js"></script>
     <script src="resize-notifier.bbc2b52d92.js"></script>
     <script src="vendor/chart.ae6675f5be.js"></script>
-    <script src="ui.3361375ecb.js"></script>
+    <script src="ui.fe48ce2424.js"></script>
     <script>
         window.model = new LifeplanModel({ window: window, storage: AppStorage });
         AppAuth.init();
