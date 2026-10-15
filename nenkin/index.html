@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ねんきんプランナー</title>
-    <link rel="stylesheet" href="style.10882d652b.css">
+    <link rel="stylesheet" href="style.b5bf2a1606.css">
     <!-- uttate.comに埋め込まれているとき(iframeの外にページの見出しがある)は、中のタイトルを出さない(MEMO.md 2026/9/30コメント1-(12))。
          表示の後でタイトルが消えないよう、描画の前に<html>へ印を付ける -->
     <script>
@@ -420,34 +420,35 @@
         </div>
     </div>
 
-    <script src="storage.6ee4933f25.js"></script>
+    <script src="storage.88c7e8fc25.js"></script>
     <script src="model.e492046dd6.js"></script>
     <script src="auth.0b9a540a6a.js"></script>
     <script src="consent.68317a95af.js"></script>
     <script src="resize-notifier.eda0f90457.js"></script>
-    <script src="vendor/chart.ae6675f5be.js"></script>
+    <script src="vendor/chart.29017fcac0.js"></script>
     <!-- トピックA(年金受給開始年齢の比較)がlifeplanエンジンを再利用するための共有モジュール
          (docs/shared/decisions/0004参照)。scripts/sync-shared.jsがsrc/shared/からコピーする
          (このディレクトリ自体はGit管理対象外)。shared/lifeplan-constants.jsはshared/calculator.jsが
          参照するブラウザグローバルLifeplanConstantsを用意するためのもの -->
-    <script src="shared/lifeplan-constants.0393e73cbf.js"></script>
-    <script src="shared/pattern-builders.c28641ba56.js"></script>
-    <script src="shared/calculator.bdf9b1d9f2.js"></script>
+    <script src="shared/lifeplan-constants.4c4a84f62b.js"></script>
+    <script src="shared/pattern-builders.de1a9717c8.js"></script>
+    <script src="shared/calculator.46d15ac968.js"></script>
     <!-- 生涯合計の集計(docs/shared/decisions/0007参照)。以降の共通モジュールが参照するため、その前に読み込む -->
-    <script src="shared/lifetime-totals.13898b6ac2.js"></script>
+    <script src="shared/lifetime-totals.1d70faac59.js"></script>
     <!-- 公的年金受給開始年齢のグリッド探索(nenkinトピックA・lifeplan「公的年金」タブのウィザードで共通、
          lifeplan ADR 0027参照)。nenkin-bridge.jsが参照するため、必ずその前に読み込む -->
-    <script src="shared/pension-claim-optimizer.de9cfb1dab.js"></script>
-    <script src="shared/nenkin-bridge.609ea38e39.js"></script>
-    <script src="shared/parameter-catalog.ab152d461a.js"></script>
-    <script src="shared/chart-age-cursor.30ba8f7482.js"></script>
+    <script src="shared/pension-claim-optimizer.3c762cce29.js"></script>
+    <script src="shared/nenkin-bridge.bdd610ffd6.js"></script>
+    <script src="shared/parameter-catalog.609510451b.js"></script>
+    <script src="shared/chart-age-cursor.b4884465a9.js"></script>
     <script src="shared/age-stepper.bc4ccf1bc4.js"></script>
-    <script src="shared/lifeplan-link.e09b413bed.js"></script>
-    <script src="shared/embed-overlay.c8925dca51.js"></script>
-    <script src="shared/numeric-input-select.4cbd9315f1.js"></script>
-    <script src="shared/help-popover.32113933db.js"></script>
-    <script src="shared/step-history.50f97c7cc1.js"></script>
-    <script src="ui.90b7bfc9f1.js"></script>
+    <script src="shared/lifeplan-link.464e9adfb7.js"></script>
+    <script src="shared/embed-overlay.56c75d839f.js"></script>
+    <script src="shared/numeric-input-select.ca4b3dc369.js"></script>
+    <script src="shared/help-popover.acb24c7888.js"></script>
+    <script src="shared/step-history.eb3c8e9f6b.js"></script>
+    <script src="shared/busy-button.5b406138dd.js"></script>
+    <script src="ui.b1a53cacb8.js"></script>
     <script>
         window.model = new NenkinModel({ window: window, storage: AppStorage });
         AppAuth.init();
