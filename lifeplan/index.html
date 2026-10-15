@@ -452,7 +452,7 @@
                     <p class="alert-text" data-ideco-min-contribution-for="ideco_wizard_monthly_contribution" hidden></p>
                 </div>
                 <div class="form-field field-with-unit-narrow">
-                    <label for="ideco_wizard_contribution_end_age">拠出終了年齢<button type="button" class="help-btn help-btn-info" data-help="info" aria-label="解説" aria-expanded="false" tabindex="-1"></button><template class="help-content"><p>公的年金の受給開始年齢までの範囲で選べます。実際には受給しながら拠出を続けられる場合もありますが、ここでは選択肢を絞っています(資産タブでは自由に変えられます)。</p></template></label>
+                    <label for="ideco_wizard_contribution_end_age">拠出終了年齢<button type="button" class="help-btn help-btn-info" data-help="info" aria-label="解説" aria-expanded="false" tabindex="-1"></button><template class="help-content"><p>老齢年金の受給開始年齢までの範囲で選べます。実際には受給しながら拠出を続けられる場合もありますが、ここでは選択肢を絞っています(資産タブでは自由に変えられます)。</p></template></label>
                     <select id="ideco_wizard_contribution_end_age"></select>
                 </div>
                 <div class="form-field field-with-unit-narrow">
@@ -464,7 +464,7 @@
                     <label class="checkbox-label"><input type="radio" name="ideco_wizard_objective" value="netIncome" checked> 手取り最大化</label>
                     <label class="checkbox-label"><input type="radio" name="ideco_wizard_objective" value="taxAndSocial"> 税金・社会保険最小化</label>
                 </div>
-                <p class="field-note">※ 退職金・公的年金が未入力や概算のままだと、提案の精度が下がります。</p>
+                <p class="field-note">※ 退職金・老齢年金が未入力や概算のままだと、提案の精度が下がります。</p>
             </div>
             <div class="button-row modal-actions">
                 <button type="button" id="btn_asset_add_cancel" class="btn btn-link">キャンセル</button>
@@ -488,7 +488,7 @@
                     <p class="alert-text" data-ideco-min-contribution-for="ideco_wizard_review_monthly_contribution" hidden></p>
             </div>
             <div class="form-field field-with-unit-narrow">
-                <label for="ideco_wizard_review_contribution_end_age">拠出終了年齢<button type="button" class="help-btn help-btn-info" data-help="info" aria-label="解説" aria-expanded="false" tabindex="-1"></button><template class="help-content"><p>公的年金の受給開始年齢までの範囲で選べます。実際には受給しながら拠出を続けられる場合もありますが、ここでは選択肢を絞っています(資産タブでは自由に変えられます)。</p></template></label>
+                <label for="ideco_wizard_review_contribution_end_age">拠出終了年齢<button type="button" class="help-btn help-btn-info" data-help="info" aria-label="解説" aria-expanded="false" tabindex="-1"></button><template class="help-content"><p>老齢年金の受給開始年齢までの範囲で選べます。実際には受給しながら拠出を続けられる場合もありますが、ここでは選択肢を絞っています(資産タブでは自由に変えられます)。</p></template></label>
                 <select id="ideco_wizard_review_contribution_end_age"></select>
             </div>
             <div class="form-field field-with-unit-narrow">
@@ -500,7 +500,7 @@
                 <label class="checkbox-label"><input type="radio" name="ideco_wizard_review_objective" value="netIncome" checked> 手取り最大化</label>
                 <label class="checkbox-label"><input type="radio" name="ideco_wizard_review_objective" value="taxAndSocial"> 税金・社会保険最小化</label>
             </div>
-            <p class="field-note">※ 掛金・受け取り方は、ここで計算した内容で上書きされます。退職金・公的年金が未入力や概算のままだと、精度が下がります。</p>
+            <p class="field-note">※ 掛金・受け取り方は、ここで計算した内容で上書きされます。退職金・老齢年金が未入力や概算のままだと、精度が下がります。</p>
             <div class="button-row modal-actions">
                 <button type="button" id="btn_ideco_wizard_review_cancel" class="btn btn-link">キャンセル</button>
                 <button type="button" id="btn_ideco_wizard_review_confirm" class="btn btn-primary">この内容で更新する</button>
@@ -514,7 +514,7 @@
     <div id="pension_wizard_modal" class="modal-overlay" style="display: none;">
         <div class="card modal-card modal-card-wide">
             <button type="button" id="btn_pension_wizard_modal_close" class="modal-close" aria-label="閉じる">×</button>
-            <div class="section-title">公的年金の受給開始年齢を最適化する<button type="button" class="help-btn help-btn-info" data-help="info" aria-label="解説" aria-expanded="false" tabindex="-1"></button><template class="help-content"><p>選んでいるプラン全体(配偶者・資産・支出を含む)で試算します。探した結果を比べてから、反映する案を選べます(この画面ではまだ上書きしません)。</p></template></div>
+            <div class="section-title">老齢年金の受給開始年齢を最適化する<button type="button" class="help-btn help-btn-info" data-help="info" aria-label="解説" aria-expanded="false" tabindex="-1"></button><template class="help-content"><p>選んでいるプラン全体(配偶者・資産・支出を含む)で試算します。探した結果を比べてから、反映する案を選べます(この画面ではまだ上書きしません)。</p></template></div>
 
             <div id="pension_wizard_step_input">
                 <div class="form-field field-with-unit-narrow">
@@ -748,7 +748,7 @@
     <script src="shared/nenkin-bridge.609ea38e39.js"></script>
     <script src="shared/chart-age-cursor.b4884465a9.js"></script>
     <script src="shared/age-stepper.1b938669bf.js"></script>
-    <script src="shared/parameter-catalog.b332b0015c.js"></script>
+    <script src="shared/parameter-catalog.607dbf7310.js"></script>
     <script src="shared/rebalance-reader.28ed932028.js"></script>
     <script src="shared/embed-overlay.56c75d839f.js"></script>
     <script src="shared/numeric-input-select.4cbd9315f1.js"></script>
@@ -758,7 +758,7 @@
     <script src="consent.6a30cb2135.js"></script>
     <script src="resize-notifier.bbc2b52d92.js"></script>
     <script src="vendor/chart.2532476de2.js"></script>
-    <script src="ui.d125fd40bd.js"></script>
+    <script src="ui.6aa7a51f5f.js"></script>
     <script>
         window.model = new LifeplanModel({ window: window, storage: AppStorage });
         AppAuth.init();
