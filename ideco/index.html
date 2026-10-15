@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>iDeCoシミュレーター</title>
-    <link rel="stylesheet" href="style.aecf3cbd41.css">
+    <link rel="stylesheet" href="style.4b8e461624.css">
     <!-- uttate.comに埋め込まれているとき(iframeの外にページの見出しがある)は、中のタイトルを出さない(MEMO.md 2026/9/30コメント1-(12))。
          表示の後でタイトルが消えないよう、描画の前に<html>へ印を付ける -->
     <script>
@@ -400,6 +400,8 @@
 
                 <p id="exit_strategy_optimize_unavailable" class="alert-text" style="display: none;">拠出終了年齢がiDeCoの受給上限年齢(75歳)を超えているため、最適化を計算できません。</p>
                 <h4>最適化結果</h4>
+                <!-- 入力を変えた後、最適化を計算し直すまでの間に出す(MEMO.md 2026/10/16コメント1-(6)) -->
+                <p id="page3_recalc_note" class="info-note recalc-note" hidden>⏳ 入力に合わせて計算し直しています…</p>
                 <div class="table-responsive">
                     <table>
                         <thead id="page3_compare_table_head"></thead>
@@ -426,7 +428,7 @@
                     <dt>ライフプランシミュレーターで入れるもの</dt>
                     <dd>生活費・預貯金などの資産・配偶者</dd>
                 </dl>
-                <button type="button" class="btn btn-primary" id="btn_lifeplan_cta">ライフプランシミュレーターで、<wbr>資産が何歳まで持つか確かめる</button>
+                <a href="/lifeplan/" target="_blank" rel="noopener" class="btn btn-primary" id="btn_lifeplan_cta" data-lifeplan-link>ライフプランシミュレーターで、<wbr>資産が何歳まで持つか確かめる</a>
             </div>
         </div><!-- /#page3_strategist -->
 
@@ -442,37 +444,38 @@
         </div>
     </div>
 
-    <script src="storage.b2a6fdf1e1.js"></script>
+    <script src="storage.1bf22f67b9.js"></script>
     <script src="constants.4a2cd5dabf.js"></script>
-    <script src="model.a36d448f4d.js"></script>
+    <script src="model.29c4d7d66f.js"></script>
     <script src="calculator.d868cb3ad6.js"></script>
     <script src="auth.0b9a540a6a.js"></script>
     <script src="consent.79ec7cb821.js"></script>
     <script src="resize-notifier.8b3c8e9088.js"></script>
-    <script src="vendor/chart.ca2dde300c.js"></script>
+    <script src="vendor/chart.57f0131211.js"></script>
     <!-- 比較結果表示がlifeplanエンジンを再利用するための共有モジュール
          (docs/shared/decisions/0004参照)。scripts/sync-shared.jsがsrc/shared/からコピーする
          (このディレクトリ自体はGit管理対象外)。shared/lifeplan-constants.jsはshared/calculator.jsが
          参照するブラウザグローバルLifeplanConstantsを用意するためのもので、このページ自体の
          constants.js(IdecoConstants)とは別名のため衝突しない -->
-    <script src="shared/lifeplan-constants.28fa4a77f5.js"></script>
-    <script src="shared/pattern-builders.e2ca2f536e.js"></script>
-    <script src="shared/calculator.0149c0ba5b.js"></script>
+    <script src="shared/lifeplan-constants.0cfefaf483.js"></script>
+    <script src="shared/pattern-builders.d641f689b6.js"></script>
+    <script src="shared/calculator.2a3a32caa0.js"></script>
     <!-- 生涯合計の集計(docs/shared/decisions/0007参照)。以降の共通モジュールが参照するため、その前に読み込む -->
-    <script src="shared/lifetime-totals.e579354120.js"></script>
-    <script src="shared/comparison-topics.010b809e99.js"></script>
+    <script src="shared/lifetime-totals.1249b041a4.js"></script>
+    <script src="shared/comparison-topics.ae2140b713.js"></script>
     <!-- iDeCo出口戦略のグリッド探索(lifeplanのiDeCoウィザードと共通、docs/shared/decisions/0007参照)。
          ideco-bridge.jsが参照するため、必ずその前に読み込む -->
-    <script src="shared/ideco-exit-optimizer.1ea5fcfde9.js"></script>
-    <script src="shared/ideco-bridge.bfa1a3c13f.js"></script>
+    <script src="shared/ideco-exit-optimizer.fa309d32b8.js"></script>
+    <script src="shared/ideco-bridge.5e359ef1e3.js"></script>
     <script src="shared/age-stepper.93e7875a66.js"></script>
-    <script src="shared/lifeplan-link.d8afcfa543.js"></script>
-    <script src="shared/embed-overlay.800909cf4d.js"></script>
-    <script src="shared/numeric-input-select.512e9aa2d5.js"></script>
-    <script src="shared/help-popover.bf1fa2adf4.js"></script>
-    <script src="shared/step-history.ea91065817.js"></script>
-    <script src="shared/parameter-catalog.0688769e14.js"></script>
-    <script src="ui.c3632eaba7.js"></script>
+    <script src="shared/lifeplan-link.f8e4f0e877.js"></script>
+    <script src="shared/embed-overlay.8192c8453c.js"></script>
+    <script src="shared/numeric-input-select.45aa8e5f43.js"></script>
+    <script src="shared/help-popover.5d3821732b.js"></script>
+    <script src="shared/step-history.2d8661c63c.js"></script>
+    <script src="shared/busy-button.b5f591ade9.js"></script>
+    <script src="shared/parameter-catalog.573ff1d043.js"></script>
+    <script src="ui.ba66a84c3a.js"></script>
     <script>
         window.model = new IdecoModel({ window: window, storage: AppStorage });
         AppAuth.init();

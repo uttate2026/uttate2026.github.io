@@ -285,9 +285,20 @@ body {
 }
 
 /* disabled状態の見た目(見た目でも無効と分かるようにする) */
-.btn:disabled {
+.btn:disabled,
+.btn.is-disabled {
     opacity: 0.5;
     cursor: not-allowed;
+}
+/* リンク(<a class="btn">)のボタン(lifeplanへ新しいタブで開く、MEMO.md 2026/10/16コメント1-(5)) */
+a.btn {
+    display: inline-block;
+    text-decoration: none;
+}
+/* 計算中のボタン(BusyButton、MEMO.md 2026/10/16コメント1-(6)) */
+.btn.is-busy {
+    cursor: progress;
+    opacity: 0.8;
 }
 
 .btn-link {
