@@ -2259,3 +2259,18 @@ th .help-btn {
     font-size: 14px;
     line-height: 1.5;
 }
+
+/* 「このiDeCoで、生涯の家計はこう変わります」(MEMO.md 2026/10/16コメント3-(1))。増減を文で書き、家計に良い向きを緑・悪い向きを赤にする */
+.ideco-impact-list {
+    margin: 6px 0 0;
+    padding-left: 20px;
+}
+.ideco-impact-list li {
+    margin: 2px 0;
+}
+.ideco-impact-list .impact-good strong {
+    color: var(--success);
+}
+.ideco-impact-list .impact-bad strong {
+    color: var(--danger);
+}
