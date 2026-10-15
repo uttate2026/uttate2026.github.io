@@ -1,32 +1,6 @@
 {
   "deploys": [
     {
-      "deployedAt": "2026-10-14T23:29:14.173Z",
-      "files": [
-        "auth.0b9a540a6a.js",
-        "consent.68317a95af.js",
-        "model.e492046dd6.js",
-        "resize-notifier.eda0f90457.js",
-        "shared/age-stepper.bc4ccf1bc4.js",
-        "shared/calculator.2ba06e75f3.js",
-        "shared/chart-age-cursor.30ba8f7482.js",
-        "shared/embed-overlay.c8925dca51.js",
-        "shared/help-popover.32113933db.js",
-        "shared/lifeplan-constants.b32d0d3580.js",
-        "shared/lifeplan-link.e09b413bed.js",
-        "shared/lifetime-totals.13898b6ac2.js",
-        "shared/nenkin-bridge.609ea38e39.js",
-        "shared/numeric-input-select.4cbd9315f1.js",
-        "shared/parameter-catalog.b332b0015c.js",
-        "shared/pattern-builders.c28641ba56.js",
-        "shared/pension-claim-optimizer.de9cfb1dab.js",
-        "storage.a905de7f24.js",
-        "style.10882d652b.css",
-        "ui.384b36375a.js",
-        "vendor/chart.2532476de2.js"
-      ]
-    },
-    {
       "deployedAt": "2026-10-15T01:25:30.284Z",
       "files": [
         "auth.0b9a540a6a.js",
@@ -128,6 +102,33 @@
         "style.10882d652b.css",
         "ui.80c41410ea.js",
         "vendor/chart.2532476de2.js"
+      ]
+    },
+    {
+      "deployedAt": "2026-10-15T20:52:45.817Z",
+      "files": [
+        "auth.0b9a540a6a.js",
+        "consent.68317a95af.js",
+        "model.e492046dd6.js",
+        "resize-notifier.eda0f90457.js",
+        "shared/age-stepper.bc4ccf1bc4.js",
+        "shared/calculator.bdf9b1d9f2.js",
+        "shared/chart-age-cursor.30ba8f7482.js",
+        "shared/embed-overlay.c8925dca51.js",
+        "shared/help-popover.32113933db.js",
+        "shared/lifeplan-constants.0393e73cbf.js",
+        "shared/lifeplan-link.e09b413bed.js",
+        "shared/lifetime-totals.13898b6ac2.js",
+        "shared/nenkin-bridge.609ea38e39.js",
+        "shared/numeric-input-select.4cbd9315f1.js",
+        "shared/parameter-catalog.ab152d461a.js",
+        "shared/pattern-builders.c28641ba56.js",
+        "shared/pension-claim-optimizer.de9cfb1dab.js",
+        "shared/step-history.50f97c7cc1.js",
+        "storage.6ee4933f25.js",
+        "style.10882d652b.css",
+        "ui.90b7bfc9f1.js",
+        "vendor/chart.ae6675f5be.js"
       ]
     }
   ]
