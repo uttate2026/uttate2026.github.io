@@ -224,6 +224,14 @@
                     </label>
                 </div>
                 <div id="planner_current_contribution_fields" class="form-grid" style="display: none;">
+                    <!-- 今の掛金(MEMO.md 2026/10/16コメント1-(3)。拠出中の人は、変えない限りこの額のまま進む) -->
+                    <div class="form-field">
+                        <label for="input_planner_current_monthly">現在の毎月の拠出額<button type="button" class="help-btn help-btn-hint" data-help="hint" aria-label="入力のヒント" aria-expanded="false" tabindex="-1"></button><template class="help-content"><p>今iDeCoに出している掛金の月額です。加入している金融機関のWebサイトや、年1回届く「残高のお知らせ」で確かめられます。</p></template></label>
+                        <div class="field-with-unit">
+                            <input type="text" id="input_planner_current_monthly" inputmode="numeric" autocomplete="off" spellcheck="false">
+                            <span class="unit">円</span>
+                        </div>
+                    </div>
                     <div class="form-field">
                         <label for="input_planner_current_balance">現在のiDeCo残高<button type="button" class="help-btn help-btn-hint" data-help="hint" aria-label="入力のヒント" aria-expanded="false" tabindex="-1"></button><template class="help-content"><p>年1回届く「残高のお知らせ」や、加入している金融機関・記録関連運営管理機関(JIS&amp;T等)のWebサイトの資産評価額(時価)です。</p></template></label>
                         <div class="field-with-unit">
@@ -236,8 +244,14 @@
                         <select id="input_planner_enrolled_years"></select>
                     </div>
                 </div>
+                <div id="planner_consider_change_field" class="form-field" style="display: none;">
+                    <label class="checkbox-label">
+                        <input type="checkbox" id="input_planner_consider_change">
+                        拠出額の変更も検討する<button type="button" class="help-btn help-btn-info" data-help="info" aria-label="解説" aria-expanded="false" tabindex="-1"></button><template class="help-content"><p>チェックしないときは、今の毎月の拠出額のまま受け取り方の検討(次の画面)へ進みます。</p><p>チェックすると、拠出額をスライダーで変えて、「現状維持」(今の拠出額のまま)と比べられます。NISAとの配分も検討できます。</p></template>
+                    </label>
+                </div>
 
-                <div class="form-field">
+                <div class="form-field" id="planner_nisa_toggle_field">
                     <label class="checkbox-label">
                         <input type="checkbox" id="input_planner_nisa_balance_considered">
                         NISAとのバランスを考慮したい<button type="button" class="help-btn help-btn-info" data-help="info" aria-label="解説" aria-expanded="false" tabindex="-1"></button><template class="help-content"><p>ONにすると、比較表に「NISA全振り」の列が加わります。</p></template>
@@ -255,7 +269,7 @@
                     </label>
                 </div>
 
-                <div class="form-field">
+                <div class="form-field" id="planner_ideco_slider_field">
                     <label for="input_planner_ideco_slider" id="planner_ideco_slider_label">毎月の拠出額</label>
                     <div class="slider-with-input">
                         <input type="range" id="input_planner_ideco_slider" class="range-input" min="0" max="0" step="1000" value="0">
@@ -268,7 +282,7 @@
                     <p id="monthly_contribution_warning" class="alert-text" style="display: none;">⚠️ iDeCoの毎月の拠出額は5,000円以上である必要があります。</p>
                 </div>
 
-                <h4>拠出プラン比較<button type="button" class="help-btn help-btn-info" data-help="info" aria-label="解説" aria-expanded="false" tabindex="-1"></button><template class="help-content"><p>拠出を終えるまでの積立の期間だけを見た数値です。受け取り方によって変わる税金・手取りは、次の「出口戦略」の画面で確かめられます。</p></template></h4>
+                <h4><span id="planner_compare_heading">拠出プラン比較</span><button type="button" class="help-btn help-btn-info" data-help="info" aria-label="解説" aria-expanded="false" tabindex="-1"></button><template class="help-content"><p>拠出を終えるまでの積立の期間だけを見た数値です。受け取り方によって変わる税金・手取りは、次の「出口戦略」の画面で確かめられます。</p></template></h4>
                 <div class="table-responsive">
                     <table>
                         <thead id="page2_compare_table_head"></thead>
@@ -430,7 +444,7 @@
 
     <script src="storage.b2a6fdf1e1.js"></script>
     <script src="constants.4a2cd5dabf.js"></script>
-    <script src="model.c1b76b4528.js"></script>
+    <script src="model.a36d448f4d.js"></script>
     <script src="calculator.d868cb3ad6.js"></script>
     <script src="auth.0b9a540a6a.js"></script>
     <script src="consent.79ec7cb821.js"></script>
@@ -458,7 +472,7 @@
     <script src="shared/help-popover.bf1fa2adf4.js"></script>
     <script src="shared/step-history.ea91065817.js"></script>
     <script src="shared/parameter-catalog.0688769e14.js"></script>
-    <script src="ui.91705b5695.js"></script>
+    <script src="ui.c888a877f3.js"></script>
     <script>
         window.model = new IdecoModel({ window: window, storage: AppStorage });
         AppAuth.init();
