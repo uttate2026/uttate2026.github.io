@@ -81,17 +81,11 @@
                 <div class="form-grid form-grid-pair">
                     <div class="form-field">
                         <label for="input_current_age">現在の年齢<button type="button" class="help-btn help-btn-info" data-help="info" aria-label="解説" aria-expanded="false" tabindex="-1"></button><template class="help-content"><p>シミュレーション全体の基準になる年齢です。</p></template></label>
-                        <div class="field-with-unit">
-                            <input type="text" id="input_current_age" inputmode="numeric" autocomplete="off" spellcheck="false">
-                            <span class="unit">歳</span>
-                        </div>
+                        <select id="input_current_age"></select>
                     </div>
                     <div class="form-field">
                         <label for="input_dependents">扶養家族数<button type="button" class="help-btn help-btn-hint" data-help="hint" aria-label="入力のヒント" aria-expanded="false" tabindex="-1"></button><template class="help-content"><p>所得税の扶養控除・配偶者控除の対象になる家族の人数です(1人あたり<span data-help-value="DEPENDENT_DEDUCTION_PER_PERSON" data-format="yen"></span>の控除として概算します)。年末調整で出した「扶養控除等申告書」に書いた人数が目安です。</p><p>源泉徴収票の税額を入れると、実際の控除額が反映されるため、ここの人数による差は小さくなります。</p></template></label>
-                        <div class="field-with-unit">
-                            <input type="text" id="input_dependents" inputmode="numeric" autocomplete="off" spellcheck="false">
-                            <span class="unit">人</span>
-                        </div>
+                        <select id="input_dependents"></select>
                     </div>
                 </div>
                 <div class="form-grid form-grid-pair">
@@ -105,10 +99,7 @@
                     </div>
                     <div class="form-field">
                         <label for="input_retirement_age">退職年齢<button type="button" class="help-btn help-btn-hint" data-help="hint" aria-label="入力のヒント" aria-expanded="false" tabindex="-1"></button><template class="help-content"><p>給与収入が無くなる年齢です。再雇用等で働き続ける予定なら、完全に働くのをやめる年齢を入れます。</p></template></label>
-                        <div class="field-with-unit">
-                            <input type="text" id="input_retirement_age" inputmode="numeric" autocomplete="off" spellcheck="false">
-                            <span class="unit">歳</span>
-                        </div>
+                        <select id="input_retirement_age"></select>
                     </div>
                 </div>
 
@@ -222,10 +213,7 @@
                     </div>
                     <div class="form-field">
                         <label for="input_planner_contribution_end_age">拠出終了年齢<button type="button" class="help-btn help-btn-info" data-help="info" aria-label="解説" aria-expanded="false" tabindex="-1"></button><template class="help-content"><p>既定値は65歳です。iDeCoに拠出できる年齢の上限(<span data-help-value="CONTRIBUTION_END_AGE_MAX"></span>歳)まで延ばせます。公的年金の受給開始年齢は次の「出口戦略」の画面で決め、この年齢以降になります。</p></template></label>
-                        <div class="field-with-unit">
-                            <input type="text" id="input_planner_contribution_end_age" inputmode="numeric" autocomplete="off" spellcheck="false">
-                            <span class="unit">歳</span>
-                        </div>
+                        <select id="input_planner_contribution_end_age"></select>
                     </div>
                 </div>
 
@@ -245,10 +233,7 @@
                     </div>
                     <div class="form-field">
                         <label for="input_planner_enrolled_years">これまでの加入年数<button type="button" class="help-btn help-btn-hint" data-help="hint" aria-label="入力のヒント" aria-expanded="false" tabindex="-1"></button><template class="help-content"><p>iDeCoに加入してから今までの年数です。一時金で受け取るときの退職所得控除の計算に使います。</p></template></label>
-                        <div class="field-with-unit">
-                            <input type="text" id="input_planner_enrolled_years" inputmode="numeric" autocomplete="off" spellcheck="false">
-                            <span class="unit">年</span>
-                        </div>
+                        <select id="input_planner_enrolled_years"></select>
                     </div>
                 </div>
 
@@ -336,10 +321,7 @@
                     </p>
                     <div class="form-field">
                         <label for="input_pension_start_age">公的年金受給開始年齢<button type="button" class="help-btn help-btn-info" data-help="info" aria-label="解説" aria-expanded="false" tabindex="-1"></button><template class="help-content"><p>拠出終了年齢(前の画面で設定)より前にはできません。65歳が標準です。</p></template></label>
-                        <div class="field-with-unit">
-                            <input type="text" id="input_pension_start_age" inputmode="numeric" autocomplete="off" spellcheck="false">
-                            <span class="unit">歳</span>
-                        </div>
+                        <select id="input_pension_start_age"></select>
                     </div>
                     <p id="working_pension_notice" class="info-note" style="display: none;">
                         ℹ️ 退職年齢が公的年金受給開始年齢より後のため、その重複期間は「働きながら年金を受け取る」期間として扱われます。この期間は在職老齢年金による老齢厚生年金の支給停止調整が結果に反映されます。
@@ -371,10 +353,7 @@
                 <div id="employer_severance_fields" class="form-grid" style="display: none;">
                     <div class="form-field">
                         <label for="input_employer_receipt_age">受給年齢<button type="button" class="help-btn help-btn-hint" data-help="hint" aria-label="入力のヒント" aria-expanded="false" tabindex="-1"></button><template class="help-content"><p>退職金を受け取る(受け取った)年齢です。既に受け取っている場合は、実際に受け取った年齢を入れてください。</p></template></label>
-                        <div class="field-with-unit">
-                            <input type="text" id="input_employer_receipt_age" inputmode="numeric" autocomplete="off" spellcheck="false">
-                            <span class="unit">歳</span>
-                        </div>
+                        <select id="input_employer_receipt_age"></select>
                     </div>
                     <div class="form-field">
                         <label for="input_employer_amount">金額<button type="button" class="help-btn help-btn-hint" data-help="hint" aria-label="入力のヒント" aria-expanded="false" tabindex="-1"></button><template class="help-content"><p>税金を引く前の額です。勤め先の退職金規程・退職金の試算(人事部門や社内のWebサービス)で確かめられます。</p></template></label>
@@ -384,11 +363,8 @@
                         </div>
                     </div>
                     <div class="form-field">
-                        <label for="input_employer_service_years">勤続年数<button type="button" class="help-btn help-btn-info" data-help="info" aria-label="解説" aria-expanded="false" tabindex="-1"></button><template class="help-content"><p>9年/19年ルール(退職金とiDeCoの一時金の控除の重なりの調整)の計算に使います。空欄(0)なら調整しません。</p></template><button type="button" class="help-btn help-btn-hint" data-help="hint" aria-label="入力のヒント" aria-expanded="false" tabindex="-1"></button><template class="help-content"><p>退職金を受け取るときの勤続年数です。1年未満の端数は1年に切り上げます。</p></template></label>
-                        <div class="field-with-unit">
-                            <input type="text" id="input_employer_service_years" inputmode="numeric" autocomplete="off" spellcheck="false">
-                            <span class="unit">年</span>
-                        </div>
+                        <label for="input_employer_service_years">勤続年数<button type="button" class="help-btn help-btn-info" data-help="info" aria-label="解説" aria-expanded="false" tabindex="-1"></button><template class="help-content"><p>9年/19年ルール(退職金とiDeCoの一時金の控除の重なりの調整)の計算に使います。「未入力」なら調整しません。</p></template><button type="button" class="help-btn help-btn-hint" data-help="hint" aria-label="入力のヒント" aria-expanded="false" tabindex="-1"></button><template class="help-content"><p>退職金を受け取るときの勤続年数です。1年未満の端数は1年に切り上げます。</p></template></label>
+                        <select id="input_employer_service_years"></select>
                     </div>
                 </div>
 
@@ -481,7 +457,7 @@
     <script src="shared/numeric-input-select.512e9aa2d5.js"></script>
     <script src="shared/help-popover.bf1fa2adf4.js"></script>
     <script src="shared/parameter-catalog.1fc0a9eee9.js"></script>
-    <script src="ui.1466ff1e5d.js"></script>
+    <script src="ui.12a682ba05.js"></script>
     <script>
         window.model = new IdecoModel({ window: window, storage: AppStorage });
         AppAuth.init();
