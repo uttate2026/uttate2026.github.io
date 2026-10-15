@@ -164,6 +164,11 @@ header h1 {
     flex-wrap: wrap;
 }
 
+/* 段の右端に寄せる操作(全口座をまたぐ設定等、MEMO.md 2026/10/8コメント3-(1))。折り返したときも、次の行の右端に寄る */
+.button-row-end {
+    margin-left: auto;
+}
+
 .btn-large {
     width: 100%;
     padding: 12px;
@@ -175,6 +180,36 @@ header h1 {
     background: transparent;
     border: 1px solid var(--danger);
     color: var(--danger);
+}
+
+/* 資産項目の行の削除はゴミ箱のアイコンにする(lifeplanの表の行の削除と同じ見た目、MEMO.md 2026/10/7コメント1-(4)) */
+.btn-delete.row-delete-btn {
+    border: none;
+    padding: 2px 4px;
+    font-size: 16px;
+    line-height: 1;
+    cursor: pointer;
+}
+
+.btn-delete.row-delete-btn:disabled {
+    cursor: default;
+    opacity: 0.4;
+}
+
+/* 現在の比率(資産額÷合計、表示だけ、MEMO.md 2026/10/7コメント1-(4)) */
+.asset-current-ratio {
+    color: var(--text-secondary, #64748b);
+    white-space: nowrap;
+}
+
+/* 見出しを画面には出さず、読み上げにだけ伝える */
+.visually-hidden {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    white-space: nowrap;
 }
 
 .execute-row {
@@ -962,6 +997,10 @@ input[type="text"]:disabled, input[type="number"]:disabled, select:disabled {
 .lifeplan-open-btn {
     text-decoration: none;
     margin-left: auto;
+}
+/* 「保存してから開きますか？」のダイアログのボタンも、新しいタブで開くリンク(<a class="btn">)にした */
+#lifeplan_save_confirm_modal a.btn {
+    text-decoration: none;
 }
 
 /* 計算の実行はリバランス方針のカードの中に置く(コメント2-(1)) */

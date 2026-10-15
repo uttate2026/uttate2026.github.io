@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>資産リバランスシミュレーター</title>
-    <link rel="stylesheet" href="style.e2094b3a50.css">
+    <link rel="stylesheet" href="style.0966e4f6cf.css">
     <!-- uttate.comに埋め込まれているとき(iframeの外にページの見出しがある)は、中のタイトルを出さない(MEMO.md 2026/9/30コメント1-(12))。
          表示の後でタイトルが消えないよう、描画の前に<html>へ印を付ける -->
     <script>
@@ -509,8 +509,10 @@
             <div class="section-title" id="lifeplan_save_confirm_title">未保存の口座があります</div>
             <p id="lifeplan_save_confirm_text" class="auth-desc"></p>
             <div class="button-row modal-actions">
-                <button type="button" id="btn_lifeplan_save_and_open" class="btn btn-primary">保存して開く</button>
-                <button type="button" id="btn_lifeplan_open_without_save" class="btn btn-secondary">保存せずに開く</button>
+                <!-- 新しいタブはリンク(target="_blank")で開く。window.openは、uttate.comに埋め込まれているとき(特にiOS)に
+                     ポップアップとしてブロックされることがある(MEMO.md 2026/10/16、ideco ADR 0012「2026-10-16改訂」と同じ) -->
+                <a href="/lifeplan/" target="_blank" rel="noopener" id="btn_lifeplan_save_and_open" class="btn btn-primary">保存して開く</a>
+                <a href="/lifeplan/" target="_blank" rel="noopener" id="btn_lifeplan_open_without_save" class="btn btn-secondary">保存せずに開く</a>
                 <button type="button" id="btn_lifeplan_save_confirm_cancel" class="btn btn-link">キャンセル</button>
             </div>
         </div>
@@ -565,7 +567,7 @@
     <script src="shared/embed-overlay.201abf63a2.js"></script>
     <script src="shared/numeric-input-select.d7e902b4cc.js"></script>
     <script src="vendor/chart.1e8bb56e9f.js"></script>
-    <script src="ui.23dfdda127.js"></script>
+    <script src="ui.1db680a545.js"></script>
     <script>
         window.model = new AssetModel({ window: window, storage: AppStorage });
         AssetAuth.init();

@@ -998,6 +998,10 @@ input[type="text"]:disabled, input[type="number"]:disabled, select:disabled {
     text-decoration: none;
     margin-left: auto;
 }
+/* 「保存してから開きますか？」のダイアログのボタンも、新しいタブで開くリンク(<a class="btn">)にした */
+#lifeplan_save_confirm_modal a.btn {
+    text-decoration: none;
+}
 
 /* 計算の実行はリバランス方針のカードの中に置く(コメント2-(1)) */
 .card .execute-row {
