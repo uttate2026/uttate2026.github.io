@@ -81,10 +81,7 @@
                 <div class="form-grid form-grid-pair">
                     <div class="form-field">
                         <label for="input_current_age">現在の年齢</label>
-                        <div class="field-with-unit">
-                            <input type="text" id="input_current_age" inputmode="numeric" autocomplete="off" spellcheck="false">
-                            <span class="unit">歳</span>
-                        </div>
+                        <select id="input_current_age"></select>
                     </div>
                     <div class="form-field">
                         <label for="input_salary_income">給与収入(年額)<button type="button" class="help-btn help-btn-hint" data-help="hint" aria-label="入力のヒント" aria-expanded="false" tabindex="-1"></button><template class="help-content"><p>源泉徴収票の左上の「支払金額」欄です。給与・賞与の1年分の合計(税金・社会保険料を引く前)です。</p><p>源泉徴収票は、勤め先から毎年12月〜1月に受け取ります。手元に無ければ、勤め先の給与明細のWebサービスや担当部署で確かめられます。</p></template></label>
@@ -104,10 +101,7 @@
                 <div id="spouse_fields" class="form-grid form-grid-pair" style="display: none;">
                     <div class="form-field">
                         <label for="input_spouse_age">配偶者の年齢</label>
-                        <div class="field-with-unit">
-                            <input type="text" id="input_spouse_age" inputmode="numeric" autocomplete="off" spellcheck="false">
-                            <span class="unit">歳</span>
-                        </div>
+                        <select id="input_spouse_age"></select>
                     </div>
                     <div class="form-field">
                         <label for="input_spouse_income">配偶者の年収(概算)<button type="button" class="help-btn help-btn-hint" data-help="hint" aria-label="入力のヒント" aria-expanded="false" tabindex="-1"></button><template class="help-content"><p>配偶者の給与収入の1年分(税金・社会保険料を引く前)のおおよその額です。配偶者の税金・社会保険料や、配偶者控除の計算に使います。働いていなければ0のままにします。</p></template></label>
@@ -452,7 +446,7 @@
     <script src="shared/embed-overlay.c8925dca51.js"></script>
     <script src="shared/numeric-input-select.4cbd9315f1.js"></script>
     <script src="shared/help-popover.32113933db.js"></script>
-    <script src="ui.384b36375a.js"></script>
+    <script src="ui.ae63e1ded6.js"></script>
     <script>
         window.model = new NenkinModel({ window: window, storage: AppStorage });
         AppAuth.init();
