@@ -1160,7 +1160,7 @@ th, td {
 
 /* 臨時収入(ADR 0060)は列が多いため、スマホ幅では列を潰さず横スクロールにする(.table-responsive) */
 .windfall-table {
-    min-width: 820px;
+    min-width: 940px;
 }
 
 .windfall-table th {
@@ -1168,7 +1168,25 @@ th, td {
 }
 
 .windfall-table input[data-windfall-field="name"] {
-    min-width: 11em;
+    min-width: 12em;
+}
+
+/* 「区分ごとの設定」の列を、ごみ箱の列の手前まで広げる。課税の区分は名前が切れないよう幅を保つ */
+.windfall-table td:nth-child(5) {
+    width: 36%;
+}
+
+.windfall-table select[data-windfall-field="taxType"] {
+    min-width: 12em;
+}
+
+.windfall-table input[data-windfall-field="amount"] {
+    min-width: 8em;
+}
+
+.windfall-detail-note {
+    font-size: 12px;
+    color: var(--text-secondary);
 }
 
 /* 臨時収入の「区分ごとの設定」(不動産の売却は4つの欄)。欄の名前を上に小さく出し、横に並べて折り返す */
@@ -1181,7 +1199,18 @@ th, td {
 .windfall-detail {
     display: flex;
     flex-direction: column;
+    /* 列の幅いっぱいまで広げる(譲渡費用の「空欄なら仲介手数料の目安」が入り切るように) */
+    flex: 1 1 10em;
     font-size: 12px;
+    color: var(--text-secondary);
+}
+
+/* 臨時収入の金額の欄の下の、何の額を入れるかの注記 */
+.windfall-amount-note {
+    display: block;
+    margin-top: 2px;
+    white-space: nowrap;
+    font-size: 11px;
     color: var(--text-secondary);
 }
 
