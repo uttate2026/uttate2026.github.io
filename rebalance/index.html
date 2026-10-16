@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>資産リバランスシミュレーター</title>
-    <link rel="stylesheet" href="style.0966e4f6cf.css">
+    <link rel="stylesheet" href="style.072f1cd4f6.css">
     <!-- uttate.comに埋め込まれているとき(iframeの外にページの見出しがある)は、中のタイトルを出さない(MEMO.md 2026/9/30コメント1-(12))。
          表示の後でタイトルが消えないよう、描画の前に<html>へ印を付ける -->
     <script>
@@ -13,6 +13,14 @@
         } catch (e) {
             document.documentElement.classList.add('is-embedded');
         }
+        // 認証済み、またはuttate.comに埋め込まれているときは、認証画面を描画の前から隠す(スクリプトの読み込みの間に一瞬見えないように、
+        // MEMO.md 2026/10/17コメント1-(1))。判定が外れたとき(記録が古い等)はauth.jsが認証画面を出し直す
+        try {
+            if (localStorage.getItem('app_auth_hash')
+                || (window.self !== window.top && document.referrer.indexOf('https://uttate.com') === 0)) {
+                document.documentElement.classList.add('auth-skip');
+            }
+        } catch (e) { /* 保存領域が使えないときは今までどおり認証画面を出す */ }
     </script>
 </head>
 <body>
