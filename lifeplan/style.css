@@ -1158,6 +1158,15 @@ th, td {
     padding: 4px 6px;
 }
 
+/* 臨時収入(ADR 0060)は列が多いため、スマホ幅では列を潰さず横スクロールにする(.table-responsive) */
+.windfall-table {
+    min-width: 680px;
+}
+
+.windfall-table th {
+    white-space: nowrap;
+}
+
 .dynamic-list-add {
     display: flex;
     align-items: center;
