@@ -401,8 +401,9 @@
                 </div>
                 <div id="position_retirement_fields" class="form-grid form-grid-pair" style="display: none;">
                     <div class="form-field">
-                        <label for="input_position_retirement_age">年収が下がる年齢<button type="button" class="help-btn help-btn-hint" data-help="hint" aria-label="入力のヒント" aria-expanded="false" tabindex="-1"></button><template class="help-content"><p>役職定年・定年後の再雇用などで年収が下がる年齢です。引退年齢より後にはできません。</p><p>定年後の再雇用では、年収が定年前の7〜9割程度(平均で約8割)になるという調査があります(労働政策研究・研修機構、2020年)。勤め先の制度を確かめてください。</p></template></label>
+                        <label for="input_position_retirement_age">年収が下がる年齢<button type="button" class="help-btn help-btn-hint" data-help="hint" aria-label="入力のヒント" aria-expanded="false" tabindex="-1"></button><template class="help-content"><p>役職定年・定年後の再雇用などで年収が下がる年齢です。下がった後の年収で1年以上働く前提のため、引退年齢の前の年までです。引退年齢より後を選ぶと、引退年齢をその翌年に延ばします。</p><p>定年後の再雇用では、年収が定年前の7〜9割程度(平均で約8割)になるという調査があります(労働政策研究・研修機構、2020年)。勤め先の制度を確かめてください。</p></template></label>
                         <select id="input_position_retirement_age"></select>
+                        <p id="position_retirement_extended_note" class="field-note" style="display: none;"></p>
                     </div>
                     <div class="form-field">
                         <label for="input_income_after_position_retirement">下がった後の年収(年額)</label>
@@ -429,7 +430,7 @@
     </div>
 
     <script src="storage.88c7e8fc25.js"></script>
-    <script src="model.e492046dd6.js"></script>
+    <script src="model.0fe2321eab.js"></script>
     <script src="auth.0b9a540a6a.js"></script>
     <script src="consent.68317a95af.js"></script>
     <script src="resize-notifier.eda0f90457.js"></script>
@@ -456,7 +457,7 @@
     <script src="shared/help-popover.acb24c7888.js"></script>
     <script src="shared/step-history.eb3c8e9f6b.js"></script>
     <script src="shared/busy-button.5b406138dd.js"></script>
-    <script src="ui.b1a53cacb8.js"></script>
+    <script src="ui.0efc43893f.js"></script>
     <script>
         window.model = new NenkinModel({ window: window, storage: AppStorage });
         AppAuth.init();
