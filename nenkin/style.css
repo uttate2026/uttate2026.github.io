@@ -224,6 +224,12 @@ body {
     padding: 20px;
 }
 
+/* 認証済み・uttate.comからのアクセスでは、描画の前から認証画面を隠す(index.htmlの<head>で印を付ける)。auth.jsが出し直すときは
+   style.displayで上書きする */
+html.auth-skip #auth_overlay {
+    display: none;
+}
+
 .auth-card {
     max-width: 420px;
     width: 100%;
