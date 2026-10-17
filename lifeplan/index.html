@@ -109,12 +109,14 @@
                 <div id="person_form_container"></div>
                 <!-- 世帯の設定: お住まいの級地(住民税の非課税の判定、ADR 0042、MEMO.md 2026/10/1コメント3-(2)) -->
                 <div class="form-field household-setting">
-                    <label for="select_resident_tax_area_grade">お住まいの級地<button type="button" class="help-btn help-btn-info" data-help="info" aria-label="解説" aria-expanded="false" tabindex="-1"></button><template class="help-content"><p>収入の少ない年に、住民税が非課税になるかの判定に使います。非課税になる所得の基準が、級地によって異なるためです。</p></template><button type="button" class="help-btn help-btn-hint" data-help="hint" aria-label="入力のヒント" aria-expanded="false" tabindex="-1"></button><template class="help-content"><p>「(市区町村名) 級地」で検索するか、お住まいの市区町村のWebサイトで確かめられます。</p><ul><li>1級地: 東京23区や多くの政令指定都市など</li><li>2級地: 一部の県庁所在市や大都市周辺の市など</li><li>3級地: その他の市区町村(全国の約8割)</li></ul><p>分からなければ3級地のままで構いません(非課税になるかの判定に少し差が出るだけです)。</p></template></label>
+                    <label for="select_resident_tax_area_grade">お住まいの級地<button type="button" class="help-btn help-btn-hint" data-help="hint" aria-label="入力のヒント" aria-expanded="false" tabindex="-1"></button><template class="help-content"><p>「(市区町村名) 級地」で検索するか、お住まいの市区町村のWebサイトで確かめられます。</p><ul><li>1級地: 東京23区や多くの政令指定都市など</li><li>2級地: 一部の県庁所在市や大都市周辺の市など</li><li>3級地: その他の市区町村(全国の約8割)</li></ul><p>分からなければ3級地のままで構いません(非課税になるかの判定に少し差が出るだけです)。</p></template></label>
                     <select id="select_resident_tax_area_grade">
                         <option value="1">1級地(東京23区や多くの政令指定都市など)</option>
                         <option value="2">2級地(一部の県庁所在市や大都市周辺の市など)</option>
                         <option value="3">3級地(その他の一般市区町村、全国の約8割が該当)</option>
                     </select>
+                    <!-- 何に使うかを、ⓘを押さなくても分かるように書く(MEMO.md 2026/10/18コメント1-(5)) -->
+                    <p class="field-note">住民税が非課税になるかの判定に使います(基準が市区町村の規模で違うため)。分からなければ3級地のままで構いません。</p>
                 </div>
             </div>
 
@@ -745,7 +747,7 @@
     <script src="shared/pattern-builders.e2ca2f536e.js"></script>
     <script src="shared/calculator.d09597349c.js"></script>
     <!-- 生涯合計の集計(全プラン比較・各ウィザード・ideco-bridge.js等が使う、docs/shared/decisions/0007参照) -->
-    <script src="shared/lifetime-totals.b81cda86ac.js"></script>
+    <script src="shared/lifetime-totals.db73c006cf.js"></script>
     <!-- ideco→lifeplanへのデータ引き継ぎ(model.jsのcheckIdecoHandoff/importHandoffPatternが
          IdecoBridge.HANDOFF_STORAGE_KEYを参照する、docs/shared/decisions/0006参照) -->
     <script src="shared/ideco-bridge.5e359ef1e3.js"></script>
@@ -758,11 +760,11 @@
          引き継ぎキーを読めない」不具合の再発防止のため、必ずmodel.jsより前に追加すること) -->
     <!-- 公的年金受給開始年齢のグリッド探索(nenkinトピックA・lifeplan「公的年金」タブのウィザードで共通、
          lifeplan ADR 0027参照)。nenkin-bridge.jsが参照するため、必ずその前に読み込む -->
-    <script src="shared/pension-claim-optimizer.4767c5edb2.js"></script>
-    <script src="shared/nenkin-bridge.bacff10518.js"></script>
+    <script src="shared/pension-claim-optimizer.0665162824.js"></script>
+    <script src="shared/nenkin-bridge.2941159c93.js"></script>
     <script src="shared/chart-age-cursor.9e60b9cb2c.js"></script>
     <script src="shared/age-stepper.1b938669bf.js"></script>
-    <script src="shared/parameter-catalog.4f151346f2.js"></script>
+    <script src="shared/parameter-catalog.7a4bf62d29.js"></script>
     <script src="shared/rebalance-reader.ed268305f1.js"></script>
     <script src="shared/embed-overlay.8192c8453c.js"></script>
     <script src="shared/numeric-input-select.512e9aa2d5.js"></script>
@@ -774,7 +776,7 @@
     <script src="resize-notifier.bbc2b52d92.js"></script>
     <script src="vendor/chart.ca2dde300c.js"></script>
     <script src="shared/app-loading.f82bcde711.js"></script>
-    <script src="ui.0332cb3f0f.js"></script>
+    <script src="ui.b02343995d.js"></script>
     <script>
         window.model = new LifeplanModel({ window: window, storage: AppStorage });
         AppAuth.init();
