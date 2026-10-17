@@ -133,18 +133,18 @@
                 <div class="section-title">3. 支出</div>
                 <div class="sub-tabs-bar">
                     <button type="button" class="sub-tab-btn" data-expense-tab="living">生活費</button>
-                    <button type="button" class="sub-tab-btn" data-expense-tab="durable">不定期支出</button>
+                    <button type="button" class="sub-tab-btn" data-expense-tab="durable">数年おきの支出</button>
                     <button type="button" class="sub-tab-btn" data-expense-tab="lifeEvent">ライフイベント</button>
                     <button type="button" class="sub-tab-btn" data-expense-tab="gift">生前贈与(世帯外)</button>
                 </div>
                 <!-- 生活費は、年齢(世帯主)ごとの行で入れる表にする(MEMO.md 2026/10/2コメント2-(11))。1行目が今からの生活費で、
                      「+ 生活費の変化を追加」で「○歳から」の行を何行でも足せる。年1回などの支出は、毎月ではない支出を月額に換算せずに
-                     入れる欄(MEMO.md 2026/9/30コメント1-(4))。数年おきの支出は「不定期支出」 -->
+                     入れる欄(MEMO.md 2026/9/30コメント1-(4))。数年おきの支出は「数年おきの支出」 -->
                 <div id="expense_living_panel">
                     <div class="table-responsive">
                         <table class="dynamic-list-table living-cost-table">
                             <thead>
-                                <tr><th>年齢(世帯主)</th><th>毎月の生活費<button type="button" class="help-btn help-btn-hint" data-help="hint" aria-label="入力のヒント" aria-expanded="false" tabindex="-1"></button><template class="help-content"><p>家計簿や、口座の引き落とし・クレジットカードの明細から、1か月に使うおおよその額を入れます。家賃・住宅ローンも含めます。</p><p><strong>含めないもの</strong>: 税金・社会保険料(収入から別に計算します)、iDeCo・NISAの積立(「2. 資産」で入れます)。</p><p>分からなければ、総務省の家計調査(2024年)が目安になります: 65歳以上の夫婦のみの無職世帯で月約26万円、65歳以上の単身の無職世帯で月約15万円(どちらも住宅ローンの返済は含みません)。</p></template></th><th>年1回などの支出<button type="button" class="help-btn help-btn-hint" data-help="hint" aria-label="入力のヒント" aria-expanded="false" tabindex="-1"></button><template class="help-content"><p>毎月ではない支出の1年分を入れます。例: 固定資産税・自動車税、保険料の年払い、帰省や旅行、冠婚葬祭。</p><p>数年おきの支出(給湯器・車の買い替え・外壁塗装など)は「不定期支出」タブに入れます。</p></template></th><th class="text-right">年間</th><th></th></tr>
+                                <tr><th>年齢(世帯主)</th><th>毎月の生活費<button type="button" class="help-btn help-btn-hint" data-help="hint" aria-label="入力のヒント" aria-expanded="false" tabindex="-1"></button><template class="help-content"><p>家計簿や、口座の引き落とし・クレジットカードの明細から、1か月に使うおおよその額を入れます。家賃・住宅ローンも含めます。</p><p><strong>含めないもの</strong>: 税金・社会保険料(収入から別に計算します)、iDeCo・NISAの積立(「2. 資産」で入れます)。</p><p>分からなければ、総務省の家計調査(2024年)が目安になります: 65歳以上の夫婦のみの無職世帯で月約26万円、65歳以上の単身の無職世帯で月約15万円(どちらも住宅ローンの返済は含みません)。</p></template></th><th>年1回などの支出<button type="button" class="help-btn help-btn-hint" data-help="hint" aria-label="入力のヒント" aria-expanded="false" tabindex="-1"></button><template class="help-content"><p>毎月ではない支出の1年分を入れます。例: 固定資産税・自動車税、保険料の年払い、帰省や旅行、冠婚葬祭。</p><p>数年おきの支出(給湯器・車の買い替え・外壁塗装など)は「数年おきの支出」タブに入れます。</p></template></th><th class="text-right">年間</th><th></th></tr>
                             </thead>
                             <tbody>
                                 <tr>
@@ -182,15 +182,15 @@
                         <option value="自家用車"></option>
                     </datalist>
                     <div class="dynamic-list-add">
-                        <button type="button" id="btn_add_durable" class="btn btn-link">➕ 耐久消費財を追加</button>
+                        <button type="button" id="btn_add_durable" class="btn btn-link">➕ 数年おきの支出を追加</button>
                     </div>
                 </div>
-                <!-- 1回限りの支出(MEMO.md 2026/9/27コメント2-(1)、ADR 0029)。入力方式は不定期支出に揃える -->
+                <!-- 1回限りの支出(MEMO.md 2026/9/27コメント2-(1)、ADR 0029)。入力方式は数年おきの支出に揃える -->
                 <div id="expense_life_event_panel" style="display:none;">
                     <div class="table-responsive">
                         <table class="dynamic-list-table">
                             <thead>
-                                <tr><th>項目<button type="button" class="help-btn help-btn-hint" data-help="hint" aria-label="入力のヒント" aria-expanded="false" tabindex="-1"></button><template class="help-content"><p>結婚・住宅購入・子の進学など、1回限りの大きな支出(任意、0件でも構いません)。定期的な修繕・買い替えは「不定期支出」タブに入れます。</p><p>候補から選ぶと、金額が空欄なら目安の金額が入ります。目安なので、ご自身の見込みに書き換えてください。候補にない名前も入れられます。</p></template></th><th>年齢(世帯主)<button type="button" class="help-btn help-btn-info" data-help="info" aria-label="解説" aria-expanded="false" tabindex="-1"></button><template class="help-content"><p>支出する年の世帯主の年齢です。その年の支出として、現金・預金から差し引きます。</p></template></th><th>金額</th><th></th></tr>
+                                <tr><th>項目<button type="button" class="help-btn help-btn-hint" data-help="hint" aria-label="入力のヒント" aria-expanded="false" tabindex="-1"></button><template class="help-content"><p>結婚・住宅購入・子の進学など、1回限りの大きな支出(任意、0件でも構いません)。定期的な修繕・買い替えは「数年おきの支出」タブに入れます。</p><p>候補から選ぶと、金額が空欄なら目安の金額が入ります。目安なので、ご自身の見込みに書き換えてください。候補にない名前も入れられます。</p></template></th><th>年齢(世帯主)<button type="button" class="help-btn help-btn-info" data-help="info" aria-label="解説" aria-expanded="false" tabindex="-1"></button><template class="help-content"><p>支出する年の世帯主の年齢です。その年の支出として、現金・預金から差し引きます。</p></template></th><th>金額</th><th></th></tr>
                             </thead>
                             <tbody id="life_event_rows"></tbody>
                         </table>
@@ -220,7 +220,7 @@
                             <tbody id="gift_rows"></tbody>
                         </table>
                     </div>
-                    <!-- 追加ボタンは不定期支出・ライフイベントと同じく表の下に置く(MEMO.md 2026/9/26のフィードバックで
+                    <!-- 追加ボタンは数年おきの支出・ライフイベントと同じく表の下に置く(MEMO.md 2026/9/26のフィードバックで
                          一度表の上に移したが、2026-09-27のフィードバックでタブ間の一貫性を優先して戻した) -->
                     <div class="dynamic-list-add">
                         <button type="button" id="btn_add_gift" class="btn btn-link">➕ 世帯外への生前贈与を追加</button>
@@ -756,18 +756,18 @@
     <script src="shared/nenkin-bridge.bdd610ffd6.js"></script>
     <script src="shared/chart-age-cursor.823d607c46.js"></script>
     <script src="shared/age-stepper.1b938669bf.js"></script>
-    <script src="shared/parameter-catalog.d8d2d03a31.js"></script>
+    <script src="shared/parameter-catalog.44998f4588.js"></script>
     <script src="shared/rebalance-reader.c65cb0259a.js"></script>
     <script src="shared/embed-overlay.800909cf4d.js"></script>
     <script src="shared/numeric-input-select.ca4b3dc369.js"></script>
     <script src="shared/help-popover.bf1fa2adf4.js"></script>
     <script src="shared/busy-button.7a1e930049.js"></script>
-    <script src="model.2e06cee3fb.js"></script>
+    <script src="model.f54db6c700.js"></script>
     <script src="auth.f95b7f2cb8.js"></script>
     <script src="consent.6a30cb2135.js"></script>
     <script src="resize-notifier.bbc2b52d92.js"></script>
     <script src="vendor/chart.29017fcac0.js"></script>
-    <script src="ui.9640b75aee.js"></script>
+    <script src="ui.000b75fa27.js"></script>
     <script>
         window.model = new LifeplanModel({ window: window, storage: AppStorage });
         AppAuth.init();
