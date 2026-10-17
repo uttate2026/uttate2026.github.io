@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ねんきんプランナー</title>
-    <link rel="stylesheet" href="style.f67011373f.css">
+    <link rel="stylesheet" href="style.fa8736102c.css">
     <!-- uttate.comに埋め込まれているとき(iframeの外にページの見出しがある)は、中のタイトルを出さない(MEMO.md 2026/9/30コメント1-(12))。
          表示の後でタイトルが消えないよう、描画の前に<html>へ印を付ける -->
     <script>
@@ -124,7 +124,7 @@
             <!-- ねんきん定期便は必須項目のため、他の書類系フィールド(任意、ステップ2へ移動)とは
                  別カードにし、チェックボックスでの開閉もしない(MEMO.md 2026/9/22コメント3-(2)) -->
             <div class="card">
-                <div class="section-title">ねんきん定期便の年金見込額(年額)<button type="button" class="help-btn help-btn-info" data-help="info" aria-label="解説" aria-expanded="false" tabindex="-1"></button><template class="help-content"><p>年金は何歳からもらうのが得かを試算するために、必ず入れていただく項目です。</p></template></div>
+                <div class="section-title">ねんきん定期便の年金見込額(年額)<button type="button" class="help-btn help-btn-info" data-help="info" aria-label="解説" aria-expanded="false" tabindex="-1"></button><template class="help-content"><p>年金は何歳からもらうのが得かを試算するために、必ず入力していただく項目です。</p></template></div>
                 <div class="form-grid form-grid-pair">
                     <div class="form-field">
                         <label for="input_basic_pension_estimate">老齢基礎年金の見込額(年額)<button type="button" class="help-btn help-btn-hint" data-help="hint" aria-label="入力のヒント" aria-expanded="false" tabindex="-1"></button><template class="help-content"><p>誕生月に届く「ねんきん定期便」の「老齢年金の見込額(年額)」のうち、「老齢基礎年金」の額です。</p><p>50歳以上の定期便には、今の条件で60歳まで加入した場合の見込額が載っています。50歳未満の定期便は、これまでの加入実績に応じた額のため、実際より少なく出ます。「ねんきんネット」で将来の見込額を試算できます。</p></template></label>
@@ -156,7 +156,7 @@
                         <button type="button" id="btn_topic_pension_start_age" class="btn btn-primary">検討する</button>
                     </div>
                     <div class="topic-card">
-                        <h3>② いつまで働く？収入の推移を比較</h3>
+                        <h3>② いつまで働く？収入の推移を確かめる</h3>
                         <p>継続雇用でいつまで働くかによる収入・税金・手取りの推移を比較します。</p>
                         <button type="button" id="btn_topic_work_until" class="btn btn-primary">検討する</button>
                     </div>
@@ -312,106 +312,110 @@
                 </details>
             </div>
 
-            <!-- ライフプランシミュレーターへの導線(MEMO.md 2026/10/9コメント2-(1)、docs/shared/marketing/priorities.md 2・
-                 docs/shared/decisions/0015)。結果のすぐ下に全幅で置き、その人の結果の数字で「引き継ぐと分かること」を示す
-                 (ui.jsの_renderLifeplanCta)。以前は「より正確に試算する(任意)」の右列に「入力し直すこともできます」と一般的な
-                 説明だけを置いていた(実際は入力を引き継ぐ)。クリック時に現在の入力内容をlifeplanへの引き継ぎ用one-shotキーへ
-                 書き出してから遷移する([docs/shared/decisions/0006]、ui.jsのclickハンドラ参照) -->
-            <div class="card lifeplan-cta" id="lifeplan_handoff_link_wrap">
-                <div class="section-title">ライフプランシミュレーターに引き継ぐと分かること</div>
-                <ul class="lifeplan-cta-facts" id="lifeplan_cta_facts"></ul>
-                <dl class="lifeplan-cta-carry">
-                    <dt>引き継ぐもの</dt>
-                    <dd>年齢・収入・ねんきん定期便の見込額・配偶者・引退年齢・老齢年金の受給開始年齢(入れ直す必要はありません)</dd>
-                    <dt>ライフプランシミュレーターで入れるもの</dt>
-                    <dd>生活費・預貯金や投資などの資産</dd>
-                </dl>
-                <!-- 引き継ぐ公的年金受給開始年齢(MEMO.md 2026/9/26コメント1-(3)。ui.jsの_renderHandoffNoteが
-                     トピックに応じた文言と現在の年齢を表示する) -->
-                <p class="field-note" id="lifeplan_handoff_note"></p>
-                <a href="/lifeplan/" target="_blank" rel="noopener" class="btn btn-primary" id="btn_lifeplan_handoff" data-lifeplan-link>ライフプランシミュレーターで、<wbr>資産が何歳まで持つか確かめる</a>
-            </div>
+            <!-- ①「より正確に試算する(任意)」と②ライフプランシミュレーターへの導線を、パソコンの幅では左右に、スマホの幅では①②の順に
+                 縦に並べる(MEMO.md 2026/10/18コメント2-(1)。数字を正確にしてから引き継ぐ流れ。2026-10-09〜10-17は導線を結果のすぐ下に
+                 全幅で置き、その下に任意項目を置いていた) -->
+            <div class="card-pair">
+                <!-- 任意項目(ステップ1から移動、MEMO.md 2026/9/22コメント3-(4))。結果カードより下に置く
+                     (2026-09-23の追加フィードバック)。2026-09-23〜10-09は右列にlifeplanへの導線を置いていたが、
+                     結果のすぐ下の専用のカードに移した(MEMO.md 2026/10/9コメント2-(1)) -->
+                <div class="card">
+                    <div class="section-title">より正確に試算する(任意)</div>
+                    <p class="field-note">お手元に書類があれば、チェックを入れて入力してください(無くても概算で試算を続けられます)。</p>
 
-            <!-- 任意項目(ステップ1から移動、MEMO.md 2026/9/22コメント3-(4))。結果カードより下に置く
-                 (2026-09-23の追加フィードバック)。2026-09-23〜10-09は右列にlifeplanへの導線を置いていたが、
-                 結果のすぐ下の専用のカードに移した(MEMO.md 2026/10/9コメント2-(1)) -->
-            <div class="card">
-                <div class="section-title">より正確に試算する(任意)</div>
-                <p class="field-note">お手元に書類があれば、チェックを入れて入力してください(無くても概算で試算を続けられます)。</p>
+                    <div class="form-field">
+                        <label class="checkbox-label">
+                            <input type="checkbox" id="input_has_withholding_slip">
+                            手元に源泉徴収票がある
+                        </label>
+                    </div>
+                    <div id="withholding_slip_fields" class="form-grid" style="display: none;">
+                        <div class="form-field">
+                            <label for="input_income_tax_withheld">源泉徴収税額(年額)<button type="button" class="help-btn help-btn-hint" data-help="hint" aria-label="入力のヒント" aria-expanded="false" tabindex="-1"></button><template class="help-content"><p>源泉徴収票の上の段の右端「源泉徴収税額」欄です。年末調整で確定した1年分の所得税(復興特別所得税を含む)です。</p></template></label>
+                            <div class="field-with-unit">
+                                <input type="text" id="input_income_tax_withheld" inputmode="numeric" autocomplete="off" spellcheck="false">
+                                <span class="unit">円</span>
+                            </div>
+                        </div>
+                        <div class="form-field">
+                            <label for="input_social_insurance">社会保険料等の金額<button type="button" class="help-btn help-btn-hint" data-help="hint" aria-label="入力のヒント" aria-expanded="false" tabindex="-1"></button><template class="help-content"><p>源泉徴収票の「社会保険料等の金額」欄です。2段ある場合は下段(合計)の金額を入力します。</p><p>健康保険・厚生年金・雇用保険・介護保険の保険料のほか、iDeCo等の掛金や、年末調整で申告した国民年金保険料も含まれます(含まれたままの額で構いません)。</p></template><span class="label-hint">(2段ある場合は下段)</span></label>
+                            <div class="field-with-unit">
+                                <input type="text" id="input_social_insurance" inputmode="numeric" autocomplete="off" spellcheck="false">
+                                <span class="unit">円</span>
+                            </div>
+                        </div>
+                        <!-- 「社会保険料等の金額」の内訳(lifeplan ADR 0048、MEMO.md 2026/10/4コメント1-(9)) -->
+                        <div class="form-field">
+                            <label for="input_small_business_mutual_aid">うち小規模企業共済等掛金(任意)<button type="button" class="help-btn help-btn-hint" data-help="hint" aria-label="入力のヒント" aria-expanded="false" tabindex="-1"></button><template class="help-content"><p>「社会保険料等の金額」欄の上段(左上に「内」と書かれた小さな金額)です。iDeCoや企業型DCのマッチング拠出などの掛金です。</p><p>入力すると、本人の給与にかかる社会保険料と分けて計算します(iDeCoの掛金を社会保険料として二重に数えないため)。</p></template><span class="label-hint">(2段ある場合は上段)</span></label>
+                            <div class="field-with-unit">
+                                <input type="text" id="input_small_business_mutual_aid" inputmode="numeric" autocomplete="off" spellcheck="false">
+                                <span class="unit">円</span>
+                            </div>
+                        </div>
+                        <div class="form-field">
+                            <label for="input_declared_national_pension">国民年金保険料等の金額(任意)<button type="button" class="help-btn help-btn-hint" data-help="hint" aria-label="入力のヒント" aria-expanded="false" tabindex="-1"></button><template class="help-content"><p>源泉徴収票の下のほうの「国民年金保険料等の金額」欄です。年末調整で申告した国民年金保険料・国民年金基金の掛金(ご家族の分や、就職前のご自身の分など)です。</p><p>入力すると、本人の給与にかかる社会保険料と分けて計算します。</p></template></label>
+                            <div class="field-with-unit">
+                                <input type="text" id="input_declared_national_pension" inputmode="numeric" autocomplete="off" spellcheck="false">
+                                <span class="unit">円</span>
+                            </div>
+                        </div>
+                    </div>
 
-                <div class="form-field">
-                    <label class="checkbox-label">
-                        <input type="checkbox" id="input_has_withholding_slip">
-                        手元に源泉徴収票がある
-                    </label>
-                </div>
-                <div id="withholding_slip_fields" class="form-grid" style="display: none;">
                     <div class="form-field">
-                        <label for="input_income_tax_withheld">源泉徴収税額(年額)<button type="button" class="help-btn help-btn-hint" data-help="hint" aria-label="入力のヒント" aria-expanded="false" tabindex="-1"></button><template class="help-content"><p>源泉徴収票の上の段の右端「源泉徴収税額」欄です。年末調整で確定した1年分の所得税(復興特別所得税を含む)です。</p></template></label>
-                        <div class="field-with-unit">
-                            <input type="text" id="input_income_tax_withheld" inputmode="numeric" autocomplete="off" spellcheck="false">
-                            <span class="unit">円</span>
+                        <label class="checkbox-label">
+                            <input type="checkbox" id="input_has_resident_tax_notice">
+                            手元に住民税決定通知書がある
+                        </label>
+                    </div>
+                    <div id="resident_tax_notice_fields" class="form-grid" style="display: none;">
+                        <div class="form-field">
+                            <label for="input_resident_tax">住民税(年額)<button type="button" class="help-btn help-btn-hint" data-help="hint" aria-label="入力のヒント" aria-expanded="false" tabindex="-1"></button><template class="help-content"><p>勤め先から毎年5〜6月に渡される「住民税決定通知書」(特別徴収税額の決定通知書)の、1年分の税額(市町村民税と道府県民税の合計)です。</p><p>給与から引かれる毎月の住民税の約12か月分にあたります。</p></template></label>
+                            <div class="field-with-unit">
+                                <input type="text" id="input_resident_tax" inputmode="numeric" autocomplete="off" spellcheck="false">
+                                <span class="unit">円</span>
+                            </div>
                         </div>
                     </div>
-                    <div class="form-field">
-                        <label for="input_social_insurance">社会保険料等の金額<button type="button" class="help-btn help-btn-hint" data-help="hint" aria-label="入力のヒント" aria-expanded="false" tabindex="-1"></button><template class="help-content"><p>源泉徴収票の「社会保険料等の金額」欄です。2段ある場合は下段(合計)の金額を入れます。</p><p>健康保険・厚生年金・雇用保険・介護保険の保険料のほか、iDeCo等の掛金や、年末調整で申告した国民年金保険料も含まれます(含まれたままの額で構いません)。</p></template><span class="label-hint">(2段ある場合は下段)</span></label>
-                        <div class="field-with-unit">
-                            <input type="text" id="input_social_insurance" inputmode="numeric" autocomplete="off" spellcheck="false">
-                            <span class="unit">円</span>
-                        </div>
-                    </div>
-                    <!-- 「社会保険料等の金額」の内訳(lifeplan ADR 0048、MEMO.md 2026/10/4コメント1-(9)) -->
-                    <div class="form-field">
-                        <label for="input_small_business_mutual_aid">うち小規模企業共済等掛金(任意)<button type="button" class="help-btn help-btn-hint" data-help="hint" aria-label="入力のヒント" aria-expanded="false" tabindex="-1"></button><template class="help-content"><p>「社会保険料等の金額」欄の上段(左上に「内」と書かれた小さな金額)です。iDeCoや企業型DCのマッチング拠出などの掛金です。</p><p>入れると、本人の給与にかかる社会保険料と分けて計算します(iDeCoの掛金を社会保険料として二重に数えないため)。</p></template><span class="label-hint">(2段ある場合は上段)</span></label>
-                        <div class="field-with-unit">
-                            <input type="text" id="input_small_business_mutual_aid" inputmode="numeric" autocomplete="off" spellcheck="false">
-                            <span class="unit">円</span>
-                        </div>
-                    </div>
-                    <div class="form-field">
-                        <label for="input_declared_national_pension">国民年金保険料等の金額(任意)<button type="button" class="help-btn help-btn-hint" data-help="hint" aria-label="入力のヒント" aria-expanded="false" tabindex="-1"></button><template class="help-content"><p>源泉徴収票の下のほうの「国民年金保険料等の金額」欄です。年末調整で申告した国民年金保険料・国民年金基金の掛金(ご家族の分や、就職前のご自身の分など)です。</p><p>入れると、本人の給与にかかる社会保険料と分けて計算します。</p></template></label>
-                        <div class="field-with-unit">
-                            <input type="text" id="input_declared_national_pension" inputmode="numeric" autocomplete="off" spellcheck="false">
-                            <span class="unit">円</span>
-                        </div>
-                    </div>
-                </div>
 
-                <div class="form-field">
-                    <label class="checkbox-label">
-                        <input type="checkbox" id="input_has_resident_tax_notice">
-                        手元に住民税決定通知書がある
-                    </label>
-                </div>
-                <div id="resident_tax_notice_fields" class="form-grid" style="display: none;">
                     <div class="form-field">
-                        <label for="input_resident_tax">住民税(年額)<button type="button" class="help-btn help-btn-hint" data-help="hint" aria-label="入力のヒント" aria-expanded="false" tabindex="-1"></button><template class="help-content"><p>勤め先から毎年5〜6月に渡される「住民税決定通知書」(特別徴収税額の決定通知書)の、1年分の税額(市町村民税と道府県民税の合計)です。</p><p>給与から引かれる毎月の住民税の約12か月分にあたります。</p></template></label>
-                        <div class="field-with-unit">
-                            <input type="text" id="input_resident_tax" inputmode="numeric" autocomplete="off" spellcheck="false">
-                            <span class="unit">円</span>
+                        <label class="checkbox-label">
+                            <input type="checkbox" id="input_has_position_retirement">
+                            役職定年等で年収が下がる予定がある
+                        </label>
+                    </div>
+                    <div id="position_retirement_fields" class="form-grid form-grid-pair" style="display: none;">
+                        <div class="form-field">
+                            <label for="input_position_retirement_age">年収が下がる年齢<button type="button" class="help-btn help-btn-hint" data-help="hint" aria-label="入力のヒント" aria-expanded="false" tabindex="-1"></button><template class="help-content"><p>役職定年・定年後の再雇用などで年収が下がる年齢です。下がった後の年収で1年以上働く前提のため、引退年齢の前の年までです。引退年齢より後を選ぶと、引退年齢をその翌年に延ばします。</p><p>定年後の再雇用では、年収が定年前の7〜9割程度(平均で約8割)になるという調査があります(労働政策研究・研修機構、2020年)。勤め先の制度を確かめてください。</p></template></label>
+                            <select id="input_position_retirement_age"></select>
+                            <p id="position_retirement_extended_note" class="field-note" style="display: none;"></p>
+                        </div>
+                        <div class="form-field">
+                            <label for="input_income_after_position_retirement">下がった後の年収(年額)</label>
+                            <div class="field-with-unit">
+                                <input type="text" id="input_income_after_position_retirement" inputmode="numeric" autocomplete="off" spellcheck="false">
+                                <span class="unit">円</span>
+                            </div>
                         </div>
                     </div>
                 </div>
-
-                <div class="form-field">
-                    <label class="checkbox-label">
-                        <input type="checkbox" id="input_has_position_retirement">
-                        役職定年等で年収が下がる予定がある
-                    </label>
-                </div>
-                <div id="position_retirement_fields" class="form-grid form-grid-pair" style="display: none;">
-                    <div class="form-field">
-                        <label for="input_position_retirement_age">年収が下がる年齢<button type="button" class="help-btn help-btn-hint" data-help="hint" aria-label="入力のヒント" aria-expanded="false" tabindex="-1"></button><template class="help-content"><p>役職定年・定年後の再雇用などで年収が下がる年齢です。下がった後の年収で1年以上働く前提のため、引退年齢の前の年までです。引退年齢より後を選ぶと、引退年齢をその翌年に延ばします。</p><p>定年後の再雇用では、年収が定年前の7〜9割程度(平均で約8割)になるという調査があります(労働政策研究・研修機構、2020年)。勤め先の制度を確かめてください。</p></template></label>
-                        <select id="input_position_retirement_age"></select>
-                        <p id="position_retirement_extended_note" class="field-note" style="display: none;"></p>
-                    </div>
-                    <div class="form-field">
-                        <label for="input_income_after_position_retirement">下がった後の年収(年額)</label>
-                        <div class="field-with-unit">
-                            <input type="text" id="input_income_after_position_retirement" inputmode="numeric" autocomplete="off" spellcheck="false">
-                            <span class="unit">円</span>
-                        </div>
-                    </div>
+                <!-- ライフプランシミュレーターへの導線(MEMO.md 2026/10/9コメント2-(1)、docs/shared/marketing/priorities.md 2・
+                     docs/shared/decisions/0015)。見出しで何が分かるかを書き、その人の結果の数字で示し、ボタンで引き継ぐ(ui.jsの
+                     _renderLifeplanCta、MEMO.md 2026/10/18コメント1-(2))。2026-09-23〜10-09は「入力し直すこともできます」と一般的な
+                     説明だけを置いていた(実際は入力を引き継ぐ)。クリック時に現在の入力内容をlifeplanへの引き継ぎ用one-shotキーへ
+                     書き出してから遷移する([docs/shared/decisions/0006]、ui.jsのclickハンドラ参照) -->
+                <div class="card lifeplan-cta" id="lifeplan_handoff_link_wrap">
+                    <div class="section-title">ライフプランシミュレーターで、<wbr>資産が何歳まで枯渇しないか確かめる</div>
+                    <ul class="lifeplan-cta-facts" id="lifeplan_cta_facts"></ul>
+                    <dl class="lifeplan-cta-carry">
+                        <dt>引き継ぐ情報</dt>
+                        <dd>年齢・収入・ねんきん定期便の見込額・配偶者・引退年齢・老齢年金の受給開始年齢(改めて入力する必要はありません)</dd>
+                        <dt>ライフプランシミュレーターで入力する情報</dt>
+                        <dd>生活費・預貯金や投資などの資産</dd>
+                    </dl>
+                    <!-- 引き継ぐ公的年金受給開始年齢(MEMO.md 2026/9/26コメント1-(3)。ui.jsの_renderHandoffNoteが
+                         トピックに応じた文言と現在の年齢を表示する) -->
+                    <p class="field-note" id="lifeplan_handoff_note"></p>
+                    <a href="/lifeplan/" target="_blank" rel="noopener" class="btn btn-primary" id="btn_lifeplan_handoff" data-lifeplan-link>ライフプランシミュレーターに引き継ぐ</a>
                 </div>
             </div>
 
@@ -429,35 +433,42 @@
         </div>
     </div>
 
-    <script src="storage.88c7e8fc25.js"></script>
-    <script src="model.0fe2321eab.js"></script>
+    <!-- 起動中の表示(MEMO.md 2026/10/18コメント1-(1)、docs/shared/decisions/0017)。認証済み(html.auth-skip)のときだけ出し、
+         認証画面・同意画面・画面の本体のどれかが見えたらstyle.cssで消す(そのため、これらより後に置く)。輪はCSSで回す -->
+    <div id="app_loading" class="app-loading" role="status" aria-live="polite">
+        <span class="app-loading-spinner" aria-hidden="true"></span><span id="app_loading_text">読み込んでいます…</span>
+    </div>
+
+    <script src="storage.b2a6fdf1e1.js"></script>
+    <script src="model.c55f3a1dc8.js"></script>
     <script src="auth.0b9a540a6a.js"></script>
     <script src="consent.68317a95af.js"></script>
     <script src="resize-notifier.eda0f90457.js"></script>
-    <script src="vendor/chart.29017fcac0.js"></script>
+    <script src="vendor/chart.ca2dde300c.js"></script>
     <!-- トピックA(年金受給開始年齢の比較)がlifeplanエンジンを再利用するための共有モジュール
          (docs/shared/decisions/0004参照)。scripts/sync-shared.jsがsrc/shared/からコピーする
          (このディレクトリ自体はGit管理対象外)。shared/lifeplan-constants.jsはshared/calculator.jsが
          参照するブラウザグローバルLifeplanConstantsを用意するためのもの -->
-    <script src="shared/lifeplan-constants.854ed2c3e1.js"></script>
-    <script src="shared/pattern-builders.de1a9717c8.js"></script>
-    <script src="shared/calculator.af2a9a2ca0.js"></script>
+    <script src="shared/lifeplan-constants.58982d3acf.js"></script>
+    <script src="shared/pattern-builders.e2ca2f536e.js"></script>
+    <script src="shared/calculator.176a911b50.js"></script>
     <!-- 生涯合計の集計(docs/shared/decisions/0007参照)。以降の共通モジュールが参照するため、その前に読み込む -->
-    <script src="shared/lifetime-totals.8cc129acec.js"></script>
+    <script src="shared/lifetime-totals.b81cda86ac.js"></script>
     <!-- 公的年金受給開始年齢のグリッド探索(nenkinトピックA・lifeplan「公的年金」タブのウィザードで共通、
          lifeplan ADR 0027参照)。nenkin-bridge.jsが参照するため、必ずその前に読み込む -->
-    <script src="shared/pension-claim-optimizer.3c762cce29.js"></script>
-    <script src="shared/nenkin-bridge.bdd610ffd6.js"></script>
-    <script src="shared/parameter-catalog.44998f4588.js"></script>
-    <script src="shared/chart-age-cursor.b4884465a9.js"></script>
+    <script src="shared/pension-claim-optimizer.4767c5edb2.js"></script>
+    <script src="shared/nenkin-bridge.bacff10518.js"></script>
+    <script src="shared/parameter-catalog.4f151346f2.js"></script>
+    <script src="shared/chart-age-cursor.823d607c46.js"></script>
     <script src="shared/age-stepper.bc4ccf1bc4.js"></script>
-    <script src="shared/lifeplan-link.464e9adfb7.js"></script>
-    <script src="shared/embed-overlay.56c75d839f.js"></script>
-    <script src="shared/numeric-input-select.ca4b3dc369.js"></script>
-    <script src="shared/help-popover.acb24c7888.js"></script>
-    <script src="shared/step-history.eb3c8e9f6b.js"></script>
-    <script src="shared/busy-button.5b406138dd.js"></script>
-    <script src="ui.0efc43893f.js"></script>
+    <script src="shared/lifeplan-link.d8afcfa543.js"></script>
+    <script src="shared/embed-overlay.800909cf4d.js"></script>
+    <script src="shared/numeric-input-select.512e9aa2d5.js"></script>
+    <script src="shared/help-popover.bf1fa2adf4.js"></script>
+    <script src="shared/step-history.ea91065817.js"></script>
+    <script src="shared/busy-button.7a1e930049.js"></script>
+    <script src="shared/app-loading.d6c9e530ae.js"></script>
+    <script src="ui.db6b4b9558.js"></script>
     <script>
         window.model = new NenkinModel({ window: window, storage: AppStorage });
         AppAuth.init();
