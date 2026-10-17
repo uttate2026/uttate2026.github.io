@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>iDeCoシミュレーター</title>
-    <link rel="stylesheet" href="style.344155429a.css">
+    <link rel="stylesheet" href="style.432f8f35d8.css">
     <!-- uttate.comに埋め込まれているとき(iframeの外にページの見出しがある)は、中のタイトルを出さない(MEMO.md 2026/9/30コメント1-(12))。
          表示の後でタイトルが消えないよう、描画の前に<html>へ印を付ける -->
     <script>
@@ -401,6 +401,8 @@
                         <option value="2">2級地(一部の県庁所在市や大都市周辺の市など)</option>
                         <option value="3">3級地(その他の一般市区町村、全国の約8割が該当)</option>
                     </select>
+                    <!-- 何に使うかを、ⓘを押さなくても分かるように書く(MEMO.md 2026/10/18コメント1-(5)) -->
+                    <p class="field-note">住民税が非課税になるかの判定に使います(基準が市区町村の規模で違うため)。分からなければ3級地のままで構いません。</p>
                 </div>
                 <p id="resident_tax_disclaimer" class="field-note" style="display: none;">
                     ⚠️ 目安です。合計所得金額をもとにした簡易判定であり、実際の非課税判定はお住まいの市区町村にご確認ください。
@@ -475,7 +477,7 @@
     <script src="shared/pattern-builders.702a4838e0.js"></script>
     <script src="shared/calculator.b9e402b15d.js"></script>
     <!-- 生涯合計の集計(docs/shared/decisions/0007参照)。以降の共通モジュールが参照するため、その前に読み込む -->
-    <script src="shared/lifetime-totals.6ceae5395f.js"></script>
+    <script src="shared/lifetime-totals.a4379f2c44.js"></script>
     <script src="shared/comparison-topics.dea9c66f04.js"></script>
     <!-- iDeCo出口戦略のグリッド探索(lifeplanのiDeCoウィザードと共通、docs/shared/decisions/0007参照)。
          ideco-bridge.jsが参照するため、必ずその前に読み込む -->
@@ -488,7 +490,7 @@
     <script src="shared/help-popover.67831257c3.js"></script>
     <script src="shared/step-history.c2a0d4607a.js"></script>
     <script src="shared/busy-button.494d9ed66f.js"></script>
-    <script src="shared/parameter-catalog.a3acdb665b.js"></script>
+    <script src="shared/parameter-catalog.584324b4bf.js"></script>
     <script src="shared/app-loading.475b247e14.js"></script>
     <script src="ui.fd776c2b76.js"></script>
     <script>
