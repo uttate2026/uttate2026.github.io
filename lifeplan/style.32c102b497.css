@@ -179,6 +179,40 @@ html.auth-skip #auth_overlay {
     display: none;
 }
 
+/* 起動中の表示(MEMO.md 2026/10/18コメント1-(1)、docs/shared/decisions/0017)。認証画面を描画の前から隠すとき(auth-skip)だけ出し、
+   認証画面・同意画面・画面の本体のどれかが見えたら消す。輪は回転(transform)で回すため、重い計算でJavaScriptが止まっていても回り続ける */
+.app-loading {
+    display: none;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    padding: 48px 16px;
+    font-size: 15px;
+    color: var(--text-secondary);
+}
+html.auth-skip .app-loading {
+    display: flex;
+}
+html.auth-skip #auth_overlay[style*="flex"] ~ .app-loading,
+html.auth-skip #consent_overlay[style*="flex"] ~ .app-loading,
+html.auth-skip #app_container[style*="block"] ~ .app-loading {
+    display: none;
+}
+.app-loading-spinner {
+    width: 22px;
+    height: 22px;
+    border: 3px solid var(--border);
+    border-top-color: var(--primary);
+    border-radius: 50%;
+    animation: app-loading-spin 0.8s linear infinite;
+}
+@keyframes app-loading-spin {
+    to { transform: rotate(360deg); }
+}
+@media (prefers-reduced-motion: reduce) {
+    .app-loading-spinner { display: none; }
+}
+
 .auth-card {
     max-width: 420px;
     width: 100%;
@@ -1156,6 +1190,62 @@ th, td {
 .dynamic-list-table select {
     font-size: 13px;
     padding: 4px 6px;
+}
+
+/* 臨時収入(ADR 0060)は列が多いため、スマホ幅では列を潰さず横スクロールにする(.table-responsive) */
+.windfall-table {
+    min-width: 940px;
+}
+
+.windfall-table th {
+    white-space: nowrap;
+}
+
+.windfall-table input[data-windfall-field="name"] {
+    min-width: 12em;
+}
+
+/* 「区分ごとの設定」の列を、ごみ箱の列の手前まで広げる。課税の区分は名前が切れないよう幅を保つ */
+.windfall-table td:nth-child(5) {
+    width: 36%;
+}
+
+.windfall-table select[data-windfall-field="taxType"] {
+    min-width: 12em;
+}
+
+.windfall-table input[data-windfall-field="amount"] {
+    min-width: 8em;
+}
+
+.windfall-detail-note {
+    font-size: 12px;
+    color: var(--text-secondary);
+}
+
+/* 臨時収入の「区分ごとの設定」(不動産の売却は4つの欄)。欄の名前を上に小さく出し、横に並べて折り返す */
+.windfall-details {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px 10px;
+}
+
+.windfall-detail {
+    display: flex;
+    flex-direction: column;
+    /* 列の幅いっぱいまで広げる(譲渡費用の「空欄なら仲介手数料の目安」が入り切るように) */
+    flex: 1 1 10em;
+    font-size: 12px;
+    color: var(--text-secondary);
+}
+
+/* 臨時収入の金額の欄の下の、何の額を入れるかの注記 */
+.windfall-amount-note {
+    display: block;
+    margin-top: 2px;
+    white-space: nowrap;
+    font-size: 11px;
+    color: var(--text-secondary);
 }
 
 .dynamic-list-add {

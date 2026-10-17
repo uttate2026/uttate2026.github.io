@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ライフプランシミュレーター</title>
-    <link rel="stylesheet" href="style.e09a789656.css">
+    <link rel="stylesheet" href="style.32c102b497.css">
     <!-- uttate.comに埋め込まれているとき(iframeの外にページの見出しがある)は、中のタイトルを出さない(MEMO.md 2026/9/30コメント1-(12))。
          表示の後でタイトルが消えないよう、描画の前に<html>へ印を付ける -->
     <script>
@@ -144,7 +144,7 @@
                     <div class="table-responsive">
                         <table class="dynamic-list-table living-cost-table">
                             <thead>
-                                <tr><th>年齢(世帯主)</th><th>毎月の生活費<button type="button" class="help-btn help-btn-hint" data-help="hint" aria-label="入力のヒント" aria-expanded="false" tabindex="-1"></button><template class="help-content"><p>家計簿や、口座の引き落とし・クレジットカードの明細から、1か月に使うおおよその額を入れます。家賃・住宅ローンも含めます。</p><p><strong>含めないもの</strong>: 税金・社会保険料(収入から別に計算します)、iDeCo・NISAの積立(「2. 資産」で入れます)。</p><p>分からなければ、総務省の家計調査(2024年)が目安になります: 65歳以上の夫婦のみの無職世帯で月約26万円、65歳以上の単身の無職世帯で月約15万円(どちらも住宅ローンの返済は含みません)。</p></template></th><th>年1回などの支出<button type="button" class="help-btn help-btn-hint" data-help="hint" aria-label="入力のヒント" aria-expanded="false" tabindex="-1"></button><template class="help-content"><p>毎月ではない支出の1年分を入れます。例: 固定資産税・自動車税、保険料の年払い、帰省や旅行、冠婚葬祭。</p><p>数年おきの支出(給湯器・車の買い替え・外壁塗装など)は「数年おきの支出」タブに入れます。</p></template></th><th class="text-right">年間</th><th></th></tr>
+                                <tr><th>年齢(世帯主)</th><th>毎月の生活費<button type="button" class="help-btn help-btn-hint" data-help="hint" aria-label="入力のヒント" aria-expanded="false" tabindex="-1"></button><template class="help-content"><p>家計簿や、口座の引き落とし・クレジットカードの明細から、1か月に使うおおよその額を入力します。家賃・住宅ローンも含めます。</p><p><strong>含めないもの</strong>: 税金・社会保険料(収入から別に計算します)、iDeCo・NISAの積立(「2. 資産」で入力します)。</p><p>分からなければ、総務省の家計調査(2024年)が目安になります: 65歳以上の夫婦のみの無職世帯で月約26万円、65歳以上の単身の無職世帯で月約15万円(どちらも住宅ローンの返済は含みません)。</p></template></th><th>年1回などの支出<button type="button" class="help-btn help-btn-hint" data-help="hint" aria-label="入力のヒント" aria-expanded="false" tabindex="-1"></button><template class="help-content"><p>毎月ではない支出の1年分を入力します。例: 固定資産税・自動車税、保険料の年払い、帰省や旅行、冠婚葬祭。</p><p>数年おきの支出(給湯器・車の買い替え・外壁塗装など)は「数年おきの支出」タブに入力します。</p></template></th><th class="text-right">年間</th><th></th></tr>
                             </thead>
                             <tbody>
                                 <tr>
@@ -171,7 +171,7 @@
                     <div class="table-responsive">
                         <table class="dynamic-list-table">
                             <thead>
-                                <tr><th>項目<button type="button" class="help-btn help-btn-hint" data-help="hint" aria-label="入力のヒント" aria-expanded="false" tabindex="-1"></button><template class="help-content"><p>数年おきに買い替え・修繕するもの(任意、0件でも構いません)。候補(給湯器・外壁塗装・自家用車)から選ぶと、耐用年数が自動で入ります。候補にない名前も入れられます。</p></template></th><th>耐用年数<button type="button" class="help-btn help-btn-hint" data-help="hint" aria-label="入力のヒント" aria-expanded="false" tabindex="-1"></button><template class="help-content"><p>何年ごとに買い替え・修繕するか。候補を選ぶと、給湯器<span data-help-value="DURABLE_EXPENSE_PRESETS.給湯器.usefulLifeYears"></span>年・外壁塗装<span data-help-value="DURABLE_EXPENSE_PRESETS.外壁塗装.usefulLifeYears"></span>年・自家用車<span data-help-value="DURABLE_EXPENSE_PRESETS.自家用車.usefulLifeYears"></span>年が入ります。実際の使い方に合わせて変えてください。</p></template></th><th>前回更新年<button type="button" class="help-btn help-btn-hint" data-help="hint" aria-label="入力のヒント" aria-expanded="false" tabindex="-1"></button><template class="help-content"><p>最後に買い替え・工事をした年。この年に耐用年数を足した年から、耐用年数ごとに支出します。分からなければ、おおよその年で構いません。</p></template></th><th>想定金額<button type="button" class="help-btn help-btn-hint" data-help="hint" aria-label="入力のヒント" aria-expanded="false" tabindex="-1"></button><template class="help-content"><p>次に買い替える・工事するときの見込みの金額(1回分)。見積もりや前回の金額を参考にしてください。</p></template></th><th></th></tr>
+                                <tr><th>項目<button type="button" class="help-btn help-btn-hint" data-help="hint" aria-label="入力のヒント" aria-expanded="false" tabindex="-1"></button><template class="help-content"><p>数年おきに買い替え・修繕するもの(任意、0件でも構いません)。候補(給湯器・外壁塗装・自家用車)から選ぶと、耐用年数が自動で入力されます。候補にない名前も入力できます。</p></template></th><th>耐用年数<button type="button" class="help-btn help-btn-hint" data-help="hint" aria-label="入力のヒント" aria-expanded="false" tabindex="-1"></button><template class="help-content"><p>何年ごとに買い替え・修繕するか。候補を選ぶと、給湯器<span data-help-value="DURABLE_EXPENSE_PRESETS.給湯器.usefulLifeYears"></span>年・外壁塗装<span data-help-value="DURABLE_EXPENSE_PRESETS.外壁塗装.usefulLifeYears"></span>年・自家用車<span data-help-value="DURABLE_EXPENSE_PRESETS.自家用車.usefulLifeYears"></span>年が入ります。実際の使い方に合わせて変えてください。</p></template></th><th>前回更新年<button type="button" class="help-btn help-btn-hint" data-help="hint" aria-label="入力のヒント" aria-expanded="false" tabindex="-1"></button><template class="help-content"><p>最後に買い替え・工事をした年。この年に耐用年数を足した年から、耐用年数ごとに支出します。分からなければ、おおよその年で構いません。</p></template></th><th>想定金額<button type="button" class="help-btn help-btn-hint" data-help="hint" aria-label="入力のヒント" aria-expanded="false" tabindex="-1"></button><template class="help-content"><p>次に買い替える・工事するときの見込みの金額(1回分)。見積もりや前回の金額を参考にしてください。</p></template></th><th></th></tr>
                             </thead>
                             <tbody id="durable_expense_rows"></tbody>
                         </table>
@@ -190,7 +190,7 @@
                     <div class="table-responsive">
                         <table class="dynamic-list-table">
                             <thead>
-                                <tr><th>項目<button type="button" class="help-btn help-btn-hint" data-help="hint" aria-label="入力のヒント" aria-expanded="false" tabindex="-1"></button><template class="help-content"><p>結婚・住宅購入・子の進学など、1回限りの大きな支出(任意、0件でも構いません)。定期的な修繕・買い替えは「数年おきの支出」タブに入れます。</p><p>候補から選ぶと、金額が空欄なら目安の金額が入ります。目安なので、ご自身の見込みに書き換えてください。候補にない名前も入れられます。</p></template></th><th>年齢(世帯主)<button type="button" class="help-btn help-btn-info" data-help="info" aria-label="解説" aria-expanded="false" tabindex="-1"></button><template class="help-content"><p>支出する年の世帯主の年齢です。その年の支出として、現金・預金から差し引きます。</p></template></th><th>金額</th><th></th></tr>
+                                <tr><th>項目<button type="button" class="help-btn help-btn-hint" data-help="hint" aria-label="入力のヒント" aria-expanded="false" tabindex="-1"></button><template class="help-content"><p>結婚・住宅購入・子の進学など、1回限りの大きな支出(任意、0件でも構いません)。定期的な修繕・買い替えは「数年おきの支出」タブに入力します。</p><p>候補から選ぶと、金額が空欄なら目安の金額が入ります。目安なので、ご自身の見込みに書き換えてください。候補にない名前も入力できます。</p></template></th><th>年齢(世帯主)<button type="button" class="help-btn help-btn-info" data-help="info" aria-label="解説" aria-expanded="false" tabindex="-1"></button><template class="help-content"><p>支出する年の世帯主の年齢です。その年の支出として、現金・預金から差し引きます。</p></template></th><th>金額</th><th></th></tr>
                             </thead>
                             <tbody id="life_event_rows"></tbody>
                         </table>
@@ -279,7 +279,7 @@
                     <!-- rebalanceと連携した口座のうち、履歴を保存していない口座の案内(その口座は実績の点が出ない) -->
                     <p id="asset_chart_rebalance_note" class="field-note" hidden></p>
                     <!-- 生活費が0円のままのときの注記(ADR 0047)。入力の状況を閉じても、支出0円の結果だと分かるようにする -->
-                    <p id="asset_chart_living_cost_note" class="field-note" hidden>生活費が未入力(0円)のため、支出0円で計算しています。「3. 支出」で生活費を入れると、見通しが現実に近づきます。</p>
+                    <p id="asset_chart_living_cost_note" class="field-note" hidden>生活費が未入力(0円)のため、支出0円で計算しています。「3. 支出」で生活費を入力すると、見通しが現実に近づきます。</p>
                 </div>
                 <!-- ねんきんプランナー②の「明細を見る」と同じ形(既定は畳んだ状態)。スライダーの左右の端はグラフの
                      描画範囲に合わせ(ChartAgeCursor.alignSlider)、開いている間はグラフ内に選んだ年齢の縦線を引く -->
@@ -340,7 +340,7 @@
                         <div class="table-responsive">
                             <table class="dynamic-list-table">
                                 <thead>
-                                    <tr><th>名称</th><th>評価額<button type="button" class="help-btn help-btn-hint" data-help="hint" aria-label="入力のヒント" aria-expanded="false" tabindex="-1"></button><template class="help-content"><p>相続税の評価額の目安を入れます。</p><ul><li>土地: 路線価×面積。路線価は国税庁の「路線価図・評価倍率表」で調べられます(路線価の無い地域は、固定資産税評価額×評価倍率)</li><li>建物: 固定資産税評価額。毎年届く固定資産税の課税明細書に載っています</li></ul><p>死亡時まで評価額は変わらないものとして計算します。</p></template></th><th>名義人</th><th>自宅の土地<button type="button" class="help-btn help-btn-info" data-help="info" aria-label="解説" aria-expanded="false" tabindex="-1"></button><template class="help-content"><p>チェックすると、小規模宅地等の特例(配偶者・同居の子が相続する場合に、評価額を<span data-help-value="SMALL_LAND_REDUCTION_RATE" data-format="percent"></span>減らす)を当てはめます。</p><p>面積330㎡までの特例のため、広い土地は減らしすぎになります。</p></template></th><th></th></tr>
+                                    <tr><th>名称</th><th>評価額<button type="button" class="help-btn help-btn-hint" data-help="hint" aria-label="入力のヒント" aria-expanded="false" tabindex="-1"></button><template class="help-content"><p>相続税の評価額の目安を入力します。</p><ul><li>土地: 路線価×面積。路線価は国税庁の「路線価図・評価倍率表」で調べられます(路線価の無い地域は、固定資産税評価額×評価倍率)</li><li>建物: 固定資産税評価額。毎年届く固定資産税の課税明細書に載っています</li></ul><p>死亡時まで評価額は変わらないものとして計算します。</p></template></th><th>名義人</th><th>自宅の土地<button type="button" class="help-btn help-btn-info" data-help="info" aria-label="解説" aria-expanded="false" tabindex="-1"></button><template class="help-content"><p>チェックすると、小規模宅地等の特例(配偶者・同居の子が相続する場合に、評価額を<span data-help-value="SMALL_LAND_REDUCTION_RATE" data-format="percent"></span>減らす)を当てはめます。</p><p>面積330㎡までの特例のため、広い土地は減らしすぎになります。</p></template></th><th></th></tr>
                                 </thead>
                                 <tbody id="real_estate_rows"></tbody>
                             </table>
@@ -734,40 +734,47 @@
         </div>
     </div>
 
-    <script src="storage.df28063057.js"></script>
+    <!-- 起動中の表示(MEMO.md 2026/10/18コメント1-(1)、docs/shared/decisions/0017)。認証済み(html.auth-skip)のときだけ出し、
+         認証画面・同意画面・画面の本体のどれかが見えたらstyle.cssで消す(そのため、これらより後に置く)。輪はCSSで回す -->
+    <div id="app_loading" class="app-loading" role="status" aria-live="polite">
+        <span class="app-loading-spinner" aria-hidden="true"></span><span id="app_loading_text">読み込んでいます…</span>
+    </div>
+
+    <script src="storage.77cb28f870.js"></script>
     <script src="constants.2148abf965.js"></script>
-    <script src="shared/pattern-builders.de1a9717c8.js"></script>
-    <script src="shared/calculator.176a911b50.js"></script>
+    <script src="shared/pattern-builders.e2ca2f536e.js"></script>
+    <script src="shared/calculator.d09597349c.js"></script>
     <!-- 生涯合計の集計(全プラン比較・各ウィザード・ideco-bridge.js等が使う、docs/shared/decisions/0007参照) -->
-    <script src="shared/lifetime-totals.8cc129acec.js"></script>
+    <script src="shared/lifetime-totals.b81cda86ac.js"></script>
     <!-- ideco→lifeplanへのデータ引き継ぎ(model.jsのcheckIdecoHandoff/importHandoffPatternが
          IdecoBridge.HANDOFF_STORAGE_KEYを参照する、docs/shared/decisions/0006参照) -->
-    <script src="shared/ideco-bridge.bfa1a3c13f.js"></script>
+    <script src="shared/ideco-bridge.5e359ef1e3.js"></script>
     <!-- iDeCo出口戦略のグリッド探索(iDeCo資産追加ウィザードが使う、idecoと共通、
          docs/shared/decisions/0007参照) -->
-    <script src="shared/ideco-exit-optimizer.1ea5fcfde9.js"></script>
+    <script src="shared/ideco-exit-optimizer.fa309d32b8.js"></script>
     <!-- nenkin→lifeplanへのデータ引き継ぎ(同上、model.jsのcheckNenkinHandoffが
          NenkinBridge.HANDOFF_STORAGE_KEYを参照する、docs/nenkin/decisions/0001
          「2026-09-23改訂(続き11)」参照。2026-09-20にideco版で発覚した「スクリプトタグ漏れで
          引き継ぎキーを読めない」不具合の再発防止のため、必ずmodel.jsより前に追加すること) -->
     <!-- 公的年金受給開始年齢のグリッド探索(nenkinトピックA・lifeplan「公的年金」タブのウィザードで共通、
          lifeplan ADR 0027参照)。nenkin-bridge.jsが参照するため、必ずその前に読み込む -->
-    <script src="shared/pension-claim-optimizer.3c762cce29.js"></script>
-    <script src="shared/nenkin-bridge.bdd610ffd6.js"></script>
-    <script src="shared/chart-age-cursor.823d607c46.js"></script>
+    <script src="shared/pension-claim-optimizer.4767c5edb2.js"></script>
+    <script src="shared/nenkin-bridge.bacff10518.js"></script>
+    <script src="shared/chart-age-cursor.9e60b9cb2c.js"></script>
     <script src="shared/age-stepper.1b938669bf.js"></script>
-    <script src="shared/parameter-catalog.44998f4588.js"></script>
-    <script src="shared/rebalance-reader.c65cb0259a.js"></script>
-    <script src="shared/embed-overlay.800909cf4d.js"></script>
-    <script src="shared/numeric-input-select.ca4b3dc369.js"></script>
-    <script src="shared/help-popover.bf1fa2adf4.js"></script>
-    <script src="shared/busy-button.7a1e930049.js"></script>
+    <script src="shared/parameter-catalog.4f151346f2.js"></script>
+    <script src="shared/rebalance-reader.ed268305f1.js"></script>
+    <script src="shared/embed-overlay.8192c8453c.js"></script>
+    <script src="shared/numeric-input-select.512e9aa2d5.js"></script>
+    <script src="shared/help-popover.5d3821732b.js"></script>
+    <script src="shared/busy-button.b5f591ade9.js"></script>
     <script src="model.f54db6c700.js"></script>
     <script src="auth.f95b7f2cb8.js"></script>
     <script src="consent.6a30cb2135.js"></script>
     <script src="resize-notifier.bbc2b52d92.js"></script>
-    <script src="vendor/chart.29017fcac0.js"></script>
-    <script src="ui.000b75fa27.js"></script>
+    <script src="vendor/chart.ca2dde300c.js"></script>
+    <script src="shared/app-loading.f82bcde711.js"></script>
+    <script src="ui.0332cb3f0f.js"></script>
     <script>
         window.model = new LifeplanModel({ window: window, storage: AppStorage });
         AppAuth.init();
