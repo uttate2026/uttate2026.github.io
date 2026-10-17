@@ -350,10 +350,8 @@ html.auth-skip #app_container[style*="block"] ~ .app-loading {
    置く場所」への対応)。左に既存の任意項目(可変長)、右にlifeplanへの導線を配置する。
    align-items: endで、右列(短い)を左列の下端に揃え、「右下」に導線が来るようにする */
 /* ライフプランシミュレーターへの導線のカード(MEMO.md 2026/10/9コメント2-(1)、docs/shared/decisions/0015)。
-   その人の結果の数字で「引き継ぐと分かること」を示す。iDeCoシミュレーターと同じ見た目にする */
-.lifeplan-cta {
-    border-left: 4px solid var(--primary);
-}
+   その人の結果の数字で「引き継ぐと分かること」を示す。iDeCoシミュレーターと同じ見た目にする。左端の太い線は、見出しを「…確かめる」の
+   呼びかけにした後は不要になったため外した(MEMO.md 2026/10/18コメント1-(4)) */
 
 .lifeplan-cta-facts {
     margin: 0 0 12px;
@@ -1020,4 +1018,10 @@ th .help-btn {
         grid-template-columns: 1fr;
         gap: 0;
     }
+}
+
+/* 住民税非課税世帯になる期間の1文(MEMO.md 2026/10/18コメント2-(3)) */
+.exempt-summary {
+    margin: 8px 0 12px;
+    font-size: 14px;
 }

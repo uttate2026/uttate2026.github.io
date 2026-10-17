@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ねんきんプランナー</title>
-    <link rel="stylesheet" href="style.fa8736102c.css">
+    <link rel="stylesheet" href="style.9ba5b22496.css">
     <!-- uttate.comに埋め込まれているとき(iframeの外にページの見出しがある)は、中のタイトルを出さない(MEMO.md 2026/9/30コメント1-(12))。
          表示の後でタイトルが消えないよう、描画の前に<html>へ印を付ける -->
     <script>
@@ -183,12 +183,14 @@
 
                 <!-- 住民税の非課税の判定に使う(lifeplan ADR 0042、MEMO.md 2026/10/1コメント3-(2)) -->
                 <div class="form-field">
-                    <label for="input_resident_tax_area_grade">お住まいの級地<button type="button" class="help-btn help-btn-info" data-help="info" aria-label="解説" aria-expanded="false" tabindex="-1"></button><template class="help-content"><p>年金の少ない年に、住民税が非課税になるかの判定に使います。非課税になる所得の基準が、級地によって異なるためです。</p></template><button type="button" class="help-btn help-btn-hint" data-help="hint" aria-label="入力のヒント" aria-expanded="false" tabindex="-1"></button><template class="help-content"><p>「(市区町村名) 級地」で検索するか、お住まいの市区町村のWebサイトで確かめられます。</p><ul><li>1級地: 東京23区や多くの政令指定都市など</li><li>2級地: 一部の県庁所在市や大都市周辺の市など</li><li>3級地: その他の市区町村(全国の約8割)</li></ul><p>分からなければ3級地のままで構いません(非課税になるかの判定に少し差が出るだけです)。</p></template></label>
+                    <label for="input_resident_tax_area_grade">お住まいの級地<button type="button" class="help-btn help-btn-hint" data-help="hint" aria-label="入力のヒント" aria-expanded="false" tabindex="-1"></button><template class="help-content"><p>「(市区町村名) 級地」で検索するか、お住まいの市区町村のWebサイトで確かめられます。</p><ul><li>1級地: 東京23区や多くの政令指定都市など</li><li>2級地: 一部の県庁所在市や大都市周辺の市など</li><li>3級地: その他の市区町村(全国の約8割)</li></ul><p>分からなければ3級地のままで構いません(非課税になるかの判定に少し差が出るだけです)。</p></template></label>
                     <select id="input_resident_tax_area_grade">
                         <option value="1">1級地(東京23区や多くの政令指定都市など)</option>
                         <option value="2">2級地(一部の県庁所在市や大都市周辺の市など)</option>
                         <option value="3">3級地(その他の一般市区町村、全国の約8割が該当)</option>
                     </select>
+                    <!-- 何に使うかを、ⓘを押さなくても分かるように書く(MEMO.md 2026/10/18コメント1-(5)) -->
+                    <p class="field-note">住民税が非課税になるかの判定に使います(基準が市区町村の規模で違うため)。分からなければ3級地のままで構いません。</p>
                 </div>
 
                 <div class="form-field">
@@ -255,6 +257,9 @@
                     <label class="checkbox-label"><input type="checkbox" id="input_consider_split_pension_claim"> 老齢厚生年金を別の年齢にすることも検討する</label>
                 </div>
 
+                <!-- 住民税非課税世帯になる期間(選択中の受給開始年齢)。明細を開かなくても分かるように出す(MEMO.md 2026/10/18コメント2-(3)) -->
+                <p class="exempt-summary" id="page2_exempt_summary"></p>
+
                 <div class="table-responsive">
                     <table>
                         <thead id="page2_results_head"></thead>
@@ -276,6 +281,8 @@
                     <canvas id="page2_work_until_chart_canvas"></canvas>
                     <p id="page2_work_until_chart_error" class="alert-text" style="display: none;">グラフを表示できませんでした。</p>
                 </div>
+                <!-- 住民税非課税世帯になる期間。明細を開かなくても分かるように出す(MEMO.md 2026/10/18コメント2-(3)) -->
+                <p class="exempt-summary" id="work_until_exempt_summary"></p>
 
                 <!-- グラフの下の折り畳み明細(2026-09-23の追加フィードバック(11)「グラフの下に
                      折り畳みで明細を出してほしいです。具体的には明細を表示したい年齢をスライダにして、
@@ -453,12 +460,12 @@
     <script src="shared/pattern-builders.e2ca2f536e.js"></script>
     <script src="shared/calculator.176a911b50.js"></script>
     <!-- 生涯合計の集計(docs/shared/decisions/0007参照)。以降の共通モジュールが参照するため、その前に読み込む -->
-    <script src="shared/lifetime-totals.b81cda86ac.js"></script>
+    <script src="shared/lifetime-totals.db73c006cf.js"></script>
     <!-- 公的年金受給開始年齢のグリッド探索(nenkinトピックA・lifeplan「公的年金」タブのウィザードで共通、
          lifeplan ADR 0027参照)。nenkin-bridge.jsが参照するため、必ずその前に読み込む -->
-    <script src="shared/pension-claim-optimizer.4767c5edb2.js"></script>
-    <script src="shared/nenkin-bridge.bacff10518.js"></script>
-    <script src="shared/parameter-catalog.4f151346f2.js"></script>
+    <script src="shared/pension-claim-optimizer.0665162824.js"></script>
+    <script src="shared/nenkin-bridge.2941159c93.js"></script>
+    <script src="shared/parameter-catalog.7a4bf62d29.js"></script>
     <script src="shared/chart-age-cursor.823d607c46.js"></script>
     <script src="shared/age-stepper.bc4ccf1bc4.js"></script>
     <script src="shared/lifeplan-link.d8afcfa543.js"></script>
@@ -468,7 +475,7 @@
     <script src="shared/step-history.ea91065817.js"></script>
     <script src="shared/busy-button.7a1e930049.js"></script>
     <script src="shared/app-loading.d6c9e530ae.js"></script>
-    <script src="ui.db6b4b9558.js"></script>
+    <script src="ui.e772b72f7a.js"></script>
     <script>
         window.model = new NenkinModel({ window: window, storage: AppStorage });
         AppAuth.init();
