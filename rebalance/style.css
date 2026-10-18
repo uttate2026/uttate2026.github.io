@@ -89,39 +89,6 @@ html.auth-skip #auth_overlay {
     display: none;
 }
 
-/* 起動中の表示(MEMO.md 2026/10/18コメント1-(1)、docs/shared/decisions/0017)。認証画面を描画の前から隠すとき(auth-skip)だけ出し、
-   認証画面・同意画面・画面の本体のどれかが見えたら消す。輪は回転(transform)で回すため、重い計算でJavaScriptが止まっていても回り続ける */
-.app-loading {
-    display: none;
-    align-items: center;
-    justify-content: center;
-    gap: 10px;
-    padding: 48px 16px;
-    font-size: 15px;
-    color: var(--text-secondary);
-}
-html.auth-skip .app-loading {
-    display: flex;
-}
-html.auth-skip #auth_overlay[style*="flex"] ~ .app-loading,
-html.auth-skip #consent_overlay[style*="flex"] ~ .app-loading,
-html.auth-skip #app_container[style*="block"] ~ .app-loading {
-    display: none;
-}
-.app-loading-spinner {
-    width: 22px;
-    height: 22px;
-    border: 3px solid var(--border);
-    border-top-color: var(--primary);
-    border-radius: 50%;
-    animation: app-loading-spin 0.8s linear infinite;
-}
-@keyframes app-loading-spin {
-    to { transform: rotate(360deg); }
-}
-@media (prefers-reduced-motion: reduce) {
-    .app-loading-spinner { display: none; }
-}
 
 .auth-card {
     max-width: 400px;

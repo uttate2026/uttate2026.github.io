@@ -1,0 +1,74 @@
+/* src/shared/busy-indicator.css
+   責務: 待っている間の表示(回る輪+文字)の見た目を、4アプリで1か所にまとめる(MEMO.md 2026/10/18コメント1-(6)、
+   docs/shared/decisions/0017)。起動時・ステップの移動・時間のかかる計算のボタンのすべてで、この輪を使う。
+   見た目を変えるときはここだけを直す(各アプリのstyle.cssには書かない)。scripts/sync-shared.jsで各アプリのshared/へコピーし、
+   各アプリのindex.htmlの<head>で読み込む(起動時の表示はスクリプトより先に出すため)。
+   色は各アプリのstyle.cssの--border・--primary・--text-secondaryを使う */
+
+/* 回る輪。回転(transform)で回すため、重い計算でJavaScriptが止まっていても回り続ける。
+   「動きを減らす」設定(Windowsの「アニメーション効果」がオフ等)では、止めずにゆっくり回す(待っていることを伝える表示のため。
+   以前は隠していたが、文字だけになり動いているか分からなかった、MEMO.md 2026/10/18) */
+.busy-spinner {
+    display: inline-block;
+    flex: none;
+    width: 22px;
+    height: 22px;
+    box-sizing: border-box;
+    border: 3px solid var(--border);
+    border-top-color: var(--primary);
+    border-radius: 50%;
+    vertical-align: middle;
+    animation: busy-spin 0.8s linear infinite;
+}
+@keyframes busy-spin {
+    to { transform: rotate(360deg); }
+}
+@media (prefers-reduced-motion: reduce) {
+    .busy-spinner { animation-duration: 2s; }
+}
+
+/* ボタン・文の中に出すとき(文字の大きさに合わせ、白抜きのボタンの上でも見えるよう輪を文字の色にする) */
+.btn .busy-spinner,
+button .busy-spinner,
+.busy-spinner.busy-spinner-inline {
+    width: 1em;
+    height: 1em;
+    border-width: 2px;
+    border-color: currentColor;
+    border-top-color: transparent;
+    margin-right: 6px;
+}
+
+/* 計算中のボタン(押せない間) */
+.btn.is-busy {
+    cursor: progress;
+    opacity: 0.8;
+}
+
+/* 輪と文字を並べたかたまり(起動時・ステップの移動) */
+.busy-block {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    padding: 48px 16px;
+    font-size: 15px;
+    color: var(--text-secondary);
+}
+.busy-block[hidden] {
+    display: none;
+}
+
+/* 起動時の表示(#app_loading): 認証画面を描画の前から隠すとき(html.auth-skip)だけ出し、認証画面・同意画面・画面の本体の
+   どれかが見えたら消す(そのため、index.htmlでこれらより後に置く) */
+#app_loading {
+    display: none;
+}
+html.auth-skip #app_loading {
+    display: flex;
+}
+html.auth-skip #auth_overlay[style*="flex"] ~ #app_loading,
+html.auth-skip #consent_overlay[style*="flex"] ~ #app_loading,
+html.auth-skip #app_container[style*="block"] ~ #app_loading {
+    display: none;
+}

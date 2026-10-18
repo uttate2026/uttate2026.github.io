@@ -83,6 +83,13 @@ header h1 {
     padding: 20px;
 }
 
+/* 認証済み・uttate.comからのアクセスでは、描画の前から認証画面を隠す(index.htmlの<head>で印を付ける)。auth.jsが出し直すときは
+   style.displayで上書きする */
+html.auth-skip #auth_overlay {
+    display: none;
+}
+
+
 .auth-card {
     max-width: 400px;
     width: 100%;
@@ -997,6 +1004,10 @@ input[type="text"]:disabled, input[type="number"]:disabled, select:disabled {
 .lifeplan-open-btn {
     text-decoration: none;
     margin-left: auto;
+}
+/* 「保存してから開きますか？」のダイアログのボタンも、新しいタブで開くリンク(<a class="btn">)にした */
+#lifeplan_save_confirm_modal a.btn {
+    text-decoration: none;
 }
 
 /* 計算の実行はリバランス方針のカードの中に置く(コメント2-(1)) */

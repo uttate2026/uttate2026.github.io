@@ -4,7 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>資産リバランスシミュレーター</title>
-    <link rel="stylesheet" href="style.474c9bca8a.css">
+    <link rel="stylesheet" href="style.7ecde4f235.css">
+    <!-- 待っている間の表示(回る輪+文字)の見た目は4アプリで共通(docs/shared/decisions/0017)。起動時の表示より先に読む -->
+    <link rel="stylesheet" href="shared/busy-indicator.6fbf9e1ca8.css">
     <!-- uttate.comに埋め込まれているとき(iframeの外にページの見出しがある)は、中のタイトルを出さない(MEMO.md 2026/9/30コメント1-(12))。
          表示の後でタイトルが消えないよう、描画の前に<html>へ印を付ける -->
     <script>
@@ -565,10 +567,10 @@
         </div>
     </div>
 
-    <!-- 起動中の表示(MEMO.md 2026/10/18コメント1-(1)、docs/shared/decisions/0017)。認証済み(html.auth-skip)のときだけ出し、
-         認証画面・同意画面・画面の本体のどれかが見えたらstyle.cssで消す(そのため、これらより後に置く)。輪はCSSで回す -->
-    <div id="app_loading" class="app-loading" role="status" aria-live="polite">
-        <span class="app-loading-spinner" aria-hidden="true"></span><span id="app_loading_text">読み込んでいます…</span>
+    <!-- 起動中の表示(MEMO.md 2026/10/18コメント1-(1)、docs/shared/decisions/0017)。見た目と出し消しはshared/busy-indicator.css
+         (認証済みのときだけ出し、認証画面・同意画面・画面の本体のどれかが見えたら消すため、これらより後に置く) -->
+    <div id="app_loading" class="busy-block" role="status" aria-live="polite">
+        <span class="busy-spinner" aria-hidden="true"></span><span id="app_loading_text">読み込んでいます…</span>
     </div>
 
     <script src="storage.1b768bf7f9.js"></script>
@@ -581,8 +583,8 @@
     <script src="shared/embed-overlay.3ba1cf0bba.js"></script>
     <script src="shared/numeric-input-select.dc4acf4849.js"></script>
     <script src="vendor/chart.4ab5e6b27d.js"></script>
-    <script src="shared/app-loading.d6c9e530ae.js"></script>
-    <script src="ui.f5c560cbd3.js"></script>
+    <script src="shared/busy-indicator.f5c7cd784d.js"></script>
+    <script src="ui.6da4ccd53c.js"></script>
     <script>
         window.model = new AssetModel({ window: window, storage: AppStorage });
         AssetAuth.init();
