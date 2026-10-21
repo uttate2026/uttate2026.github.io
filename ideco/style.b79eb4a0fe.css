@@ -16,6 +16,16 @@
     --danger: #dc2626;
     --text-main: #0f172a;
     --text-secondary: #64748b;
+    /* 2026-10-22(docs/shared/decisions/0018): 答えのカード・比較の2つ目の案・前提のお知らせの色 */
+    --primary-wash: #eef6f8;
+    --compare-alt: #94a3b8;
+    --notice-bg: #fff7ed;
+    --notice-fg: #9a3412;
+}
+
+/* displayを指定したクラスの要素でも、hidden属性で隠せるようにする */
+[hidden] {
+    display: none !important;
 }
 
 * {
@@ -54,6 +64,8 @@ body {
 /* サイト名(MEMO.md 2026/9/26コメント1-(8))。rebalance・lifeplanのヘッダーh1と同じ左上に置き、
    下線でステップ見出しと区切る。主見出しはステップ名(h1)のため、それより控えめにする */
 .site-name {
+    /* スマホ幅で「iDeCoシミュレータ／ー」と折り返さない(2026-10-22) */
+    white-space: nowrap;
     font-size: 15px;
     font-weight: bold;
     color: var(--primary-dark);
@@ -236,39 +248,6 @@ html.auth-skip #auth_overlay {
     display: none;
 }
 
-/* 起動中の表示(MEMO.md 2026/10/18コメント1-(1)、docs/shared/decisions/0017)。認証画面を描画の前から隠すとき(auth-skip)だけ出し、
-   認証画面・同意画面・画面の本体のどれかが見えたら消す。輪は回転(transform)で回すため、重い計算でJavaScriptが止まっていても回り続ける */
-.app-loading {
-    display: none;
-    align-items: center;
-    justify-content: center;
-    gap: 10px;
-    padding: 48px 16px;
-    font-size: 15px;
-    color: var(--text-secondary);
-}
-html.auth-skip .app-loading {
-    display: flex;
-}
-html.auth-skip #auth_overlay[style*="flex"] ~ .app-loading,
-html.auth-skip #consent_overlay[style*="flex"] ~ .app-loading,
-html.auth-skip #app_container[style*="block"] ~ .app-loading {
-    display: none;
-}
-.app-loading-spinner {
-    width: 22px;
-    height: 22px;
-    border: 3px solid var(--border);
-    border-top-color: var(--primary);
-    border-radius: 50%;
-    animation: app-loading-spin 0.8s linear infinite;
-}
-@keyframes app-loading-spin {
-    to { transform: rotate(360deg); }
-}
-@media (prefers-reduced-motion: reduce) {
-    .app-loading-spinner { display: none; }
-}
 
 .auth-card {
     max-width: 420px;
@@ -334,11 +313,6 @@ html.auth-skip #app_container[style*="block"] ~ .app-loading {
 a.btn {
     display: inline-block;
     text-decoration: none;
-}
-/* 計算中のボタン(BusyButton、MEMO.md 2026/10/16コメント1-(6)) */
-.btn.is-busy {
-    cursor: progress;
-    opacity: 0.8;
 }
 
 .btn-link {
@@ -433,7 +407,8 @@ a.btn {
 
 input[type="text"], input[type="number"], select {
     padding: 6px 8px;
-    border: 1px solid var(--border);
+    /* 2026-10-22: 欄の境目が見えるよう、枠線を少し濃くした(docs/shared/decisions/0018) */
+    border: 1px solid var(--border-strong);
     border-radius: 6px;
     font-size: 14px;
     width: 100%;
@@ -946,10 +921,8 @@ table.is-stale {
 }
 
 /* ライフプランシミュレーターへの導線のカード(MEMO.md 2026/10/9コメント2-(1)、docs/shared/decisions/0015)。
-   その人の結果の数字で「引き継ぐと分かること」を示す。ねんきんプランナーと同じ見た目にする */
-.lifeplan-cta {
-    border-left: 4px solid var(--primary);
-}
+   その人の結果の数字で「引き継ぐと分かること」を示す。ねんきんプランナーと同じ見た目にする。左端の太い線は、見出しを「…確かめる」の
+   呼びかけにした後は不要になったため外した(MEMO.md 2026/10/18コメント1-(4)) */
 
 .lifeplan-cta-facts {
     margin: 0 0 12px;
@@ -1096,4 +1069,357 @@ summary .help-btn,
 th .help-btn {
     font-size: 12px;
     font-weight: bold;
+}
+
+/* ===== ステップ3「受け取り方」(2026-10-22の作り直し、docs/shared/decisions/0018) =====
+   答え(手取りが最も多い受け取り方と金額)を一番上に大きく出し、比較は万円の5行、条件の入力は閉じて下にまとめる。
+   文字の大きさは、答えの金額・見出し・本文・補足の4段階に絞る */
+
+.answer-card {
+    border-color: var(--primary);
+    display: grid;
+    gap: 16px;
+}
+
+.answer-card > p {
+    margin: 0;
+}
+
+.answer-body {
+    display: grid;
+    gap: 12px;
+}
+
+.answer-label {
+    font-size: 13px;
+    font-weight: bold;
+    color: var(--primary-dark);
+    letter-spacing: 0.04em;
+}
+
+.answer-how {
+    margin: 2px 0 0;
+    font-size: 20px;
+    font-weight: bold;
+    text-wrap: balance;
+}
+
+.answer-figure {
+    display: flex;
+    align-items: baseline;
+    flex-wrap: wrap;
+    gap: 6px 12px;
+}
+
+.answer-caption {
+    font-size: 14px;
+    color: var(--text-secondary);
+}
+
+.answer-amount {
+    font-size: 40px;
+    font-weight: 800;
+    line-height: 1.1;
+    color: var(--primary-dark);
+    font-variant-numeric: tabular-nums;
+}
+
+.answer-amount small {
+    font-size: 20px;
+    font-weight: bold;
+    margin-left: 2px;
+}
+
+.answer-delta {
+    background: var(--primary-wash);
+    color: var(--primary-dark);
+    font-size: 13px;
+    font-weight: bold;
+    padding: 2px 10px;
+    border-radius: 999px;
+}
+
+.answer-basis {
+    margin: 0;
+    font-size: 14px;
+    line-height: 1.7;
+    max-width: 62ch;
+}
+
+.answer-body.is-stale {
+    opacity: 0.5;
+    transition: opacity 0.15s;
+}
+
+/* 前提のお知らせ(赤字の警告ではなく、入力を促す1行) */
+.soft-notice {
+    display: flex;
+    gap: 8px;
+    align-items: flex-start;
+    background: var(--notice-bg);
+    color: var(--notice-fg);
+    border-radius: 8px;
+    padding: 10px 14px;
+    font-size: 13px;
+    line-height: 1.6;
+}
+
+.soft-notice .btn-link {
+    color: inherit;
+    font-weight: bold;
+    font-size: inherit;
+    padding: 0;
+}
+
+.btn-answer {
+    font-weight: bold;
+    font-size: 15px;
+    padding: 10px 18px;
+}
+
+.btn-outline {
+    background: var(--bg-card);
+    border-color: var(--primary);
+    color: var(--primary);
+    font-weight: bold;
+}
+
+.btn-outline:hover {
+    background: var(--primary-wash);
+}
+
+.btn-small {
+    font-size: 13px;
+    padding: 6px 10px;
+}
+
+/* 表の欄の単位(MEMO.md 2026/10/22コメント1-(2)。以前は表の右上に「単位: 万円」と1度だけ書いていたが、
+   3〜4桁の数字だけでは一瞬何か分からないため、欄ごとに付ける。数字より少し小さくして桁を読みやすくする) */
+.cell-unit {
+    font-size: 0.85em;
+    font-weight: normal;
+    margin-left: 1px;
+}
+
+/* 答えのカードのボタンの上に、押すと何が開くかを書く(MEMO.md 2026/10/22コメント1-(1)) */
+.answer-next {
+    margin: 12px 0 0;
+    font-size: 13px;
+    color: var(--text-secondary);
+    line-height: 1.6;
+}
+
+/* 比較(万円)。数字の列は右寄せで桁をそろえ、生涯の手取りの行だけを太くする */
+.summary-table td {
+    font-variant-numeric: tabular-nums;
+}
+
+.summary-table th {
+    font-size: 13px;
+    color: var(--text-secondary);
+    vertical-align: bottom;
+}
+
+.summary-table td:not(:first-child),
+.summary-table th:not(:first-child) {
+    width: 36%;
+}
+
+.summary-table .cell-sub {
+    display: block;
+    font-size: 12px;
+    color: var(--text-secondary);
+}
+
+.summary-table .summary-total td {
+    font-weight: 800;
+    font-size: 16px;
+    border-bottom: 2px solid var(--border-strong);
+}
+
+.summary-table .summary-total td:nth-child(2) {
+    color: var(--primary-dark);
+}
+
+.summary-table .summary-actions td {
+    border-bottom: none;
+    padding-top: 12px;
+}
+
+.summary-table.is-stale {
+    opacity: 0.5;
+    transition: opacity 0.15s;
+}
+
+/* 比較表の見出しの色の印(グラフの線と同じ色) */
+.plan-key {
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    border-radius: 2px;
+    margin-right: 6px;
+    background: var(--primary);
+}
+
+.plan-key-alt {
+    background: var(--compare-alt);
+}
+
+/* 内訳(以前の円単位の比較表)・「条件を変える」の開閉 */
+.more-details {
+    margin-top: 12px;
+    border-top: 1px solid var(--border);
+}
+
+.more-details > summary {
+    cursor: pointer;
+    padding-top: 12px;
+    color: var(--primary);
+    font-weight: bold;
+    font-size: 13px;
+}
+
+.more-details[open] > summary {
+    margin-bottom: 8px;
+}
+
+.card.conditions {
+    padding: 0;
+}
+
+.conditions > summary {
+    list-style: none;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 16px 20px;
+}
+
+.conditions > summary::-webkit-details-marker {
+    display: none;
+}
+
+.conditions-head {
+    display: grid;
+    gap: 2px;
+}
+
+.conditions-head .section-title {
+    margin-bottom: 0;
+}
+
+.conditions-now {
+    font-size: 13px;
+    color: var(--text-secondary);
+}
+
+.conditions-toggle {
+    color: var(--primary);
+    font-weight: bold;
+    font-size: 13px;
+    white-space: nowrap;
+}
+
+.conditions[open] .when-closed,
+.conditions:not([open]) .when-open {
+    display: none;
+}
+
+.conditions-body {
+    border-top: 1px solid var(--border);
+    padding: 16px 20px 20px;
+}
+
+/* lifeplanへの案内は「次に」の控えめなカード(答えのカードのボタンも同じく引き継ぐため) */
+.lifeplan-cta {
+    background: var(--primary-wash);
+    border-color: var(--primary-tint);
+    box-shadow: none;
+}
+
+@media (max-width: 600px) {
+    .answer-amount {
+        font-size: 34px;
+    }
+
+    .answer-how {
+        font-size: 18px;
+    }
+
+    .btn-answer {
+        width: 100%;
+        text-align: center;
+    }
+
+    .summary-table th,
+    .summary-table td {
+        padding: 8px 4px;
+    }
+
+    .summary-table .summary-total td {
+        font-size: 15px;
+    }
+
+    .conditions > summary {
+        padding: 14px 16px;
+    }
+
+    .conditions-body {
+        padding: 14px 16px 16px;
+    }
+}
+
+/* 見出しは「手取りが／最も多い」のように、言葉の切れ目(<wbr>)でだけ折り返す */
+.summary-table th {
+    word-break: keep-all;
+}
+
+.summary-table td:first-child {
+    white-space: nowrap;
+}
+
+/* ===== ステップ2「拠出プラン」の答えのカード(2026-10-22、docs/shared/decisions/0018) =====
+   掛金のスライダーを答えの金額のすぐ下に置き、動かすとすぐ上の金額が変わるようにする */
+.answer-controls {
+    border-top: 1px solid var(--border);
+    padding-top: 16px;
+}
+
+.answer-controls .form-field:last-child {
+    margin-bottom: 0;
+}
+
+/* ===== 入力の部品の見た目をそろえる(2026-10-22、docs/shared/decisions/0018) =====
+   選択欄はブラウザの既定の灰色をやめて入力欄と同じ白に、金額・年齢などの短い欄は幅いっぱいに伸ばさない */
+select {
+    background-color: var(--bg-card);
+    color: var(--text-main);
+    min-height: 32px;
+}
+
+.field-with-unit,
+.form-field > select,
+.form-grid select {
+    max-width: 320px;
+}
+
+/* 金額・年数のセルは途中で折り返さない(「iDeCo 2／万円」とならないように)。ボタンの行は除く */
+.summary-table tr:not(.summary-actions) td:not(:first-child) {
+    white-space: nowrap;
+}
+
+/* スマホ幅では、表の中の「⬆️ 入力欄に反映」を「⬆️/入力欄に/反映」と言葉の切れ目(<wbr>)でだけ折り返す
+   (3列が並ぶと欄が狭く、そのままでは「入力/欄に反/映」と崩れるため) */
+@media (max-width: 600px) {
+    .summary-actions .btn-small {
+        padding: 4px 6px;
+        font-size: 12px;
+        word-break: keep-all;
+    }
+
+    .summary-actions .btn-icon {
+        display: block;
+    }
 }

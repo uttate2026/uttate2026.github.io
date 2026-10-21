@@ -1193,11 +1193,20 @@ th .help-btn {
     padding: 6px 10px;
 }
 
-.unit-caption {
-    margin: -8px 0 4px;
-    font-size: 12px;
+/* 表の欄の単位(MEMO.md 2026/10/22コメント1-(2)。以前は表の右上に「単位: 万円」と1度だけ書いていたが、
+   3〜4桁の数字だけでは一瞬何か分からないため、欄ごとに付ける。数字より少し小さくして桁を読みやすくする) */
+.cell-unit {
+    font-size: 0.85em;
+    font-weight: normal;
+    margin-left: 1px;
+}
+
+/* 答えのカードのボタンの上に、押すと何が開くかを書く(MEMO.md 2026/10/22コメント1-(1)) */
+.answer-next {
+    margin: 12px 0 0;
+    font-size: 13px;
     color: var(--text-secondary);
-    text-align: right;
+    line-height: 1.6;
 }
 
 /* 比較(万円)。数字の列は右寄せで桁をそろえ、生涯の手取りの行だけを太くする */

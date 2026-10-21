@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>iDeCoシミュレーター</title>
-    <link rel="stylesheet" href="style.06b790bdd9.css">
+    <link rel="stylesheet" href="style.b79eb4a0fe.css">
     <!-- 待っている間の表示(回る輪+文字)の見た目は4アプリで共通(docs/shared/decisions/0017)。起動時の表示より先に読む -->
     <link rel="stylesheet" href="shared/busy-indicator.6fbf9e1ca8.css">
     <!-- uttate.comに埋め込まれているとき(iframeの外にページの見出しがある)は、中のタイトルを出さない(MEMO.md 2026/9/30コメント1-(12))。
@@ -259,7 +259,6 @@
             <!-- 比べる相手があるとき(NISAとの配分・拠出中の人の現状維持)だけ出す(_renderPage2) -->
             <section class="card" id="page2_compare_card" aria-labelledby="planner_compare_heading">
                 <div class="section-title"><span id="planner_compare_heading">ほかの掛金と比べる</span><button type="button" class="help-btn help-btn-info" data-help="info" aria-label="解説" aria-expanded="false" tabindex="-1"></button><template class="help-content"><p>拠出を終えるまでの積立の期間だけを見た数値です。受け取り方によって変わる税金・手取りは、次の「受け取り方」の画面で確かめられます。</p></template></div>
-                <p class="unit-caption">単位: 万円</p>
                 <div class="table-responsive">
                     <table class="summary-table" id="page2_compare_table">
                         <thead id="page2_compare_table_head"></thead>
@@ -371,14 +370,16 @@
                     <span aria-hidden="true">ⓘ</span>
                     <span>老齢年金の見込額が未入力のため、年金を0円として計算しています。<button type="button" class="btn-link" id="btn_page3_enter_pension">ねんきん定期便の金額を入れる</button></span>
                 </p>
+                <!-- 押すと何が開き、何が分かるかを、押す前に書く(MEMO.md 2026/10/22コメント1-(1)。以前は「この受け取り方で詳しく調整する」
+                     だけで、いきなりライフプランシミュレーターが開くのが唐突だった) -->
+                <p class="answer-next" id="page3_answer_next">ライフプランシミュレーターが新しいタブで開き、入力した内容とこの受け取り方を引き継ぎます。生活費や預貯金を加えると、資産が何歳まで枯渇しないかを確かめられます。</p>
                 <div class="button-row">
-                    <a href="/lifeplan/" target="_blank" rel="noopener" class="btn btn-primary btn-answer" id="btn_page3_adopt_best" data-action="adopt-comparison-plan" data-lifeplan-link>この受け取り方で詳しく調整する</a>
+                    <a href="/lifeplan/" target="_blank" rel="noopener" class="btn btn-primary btn-answer" id="btn_page3_adopt_best" data-action="adopt-comparison-plan" data-lifeplan-link>この受け取り方をライフプランシミュレーターに引き継ぐ</a>
                 </div>
             </section>
 
             <section class="card" aria-labelledby="page3_compare_title">
                 <div class="section-title" id="page3_compare_title">2つの受け取り方を比べる</div>
-                <p class="unit-caption">単位: 万円</p>
                 <div class="table-responsive">
                     <table class="summary-table" id="page3_summary_table">
                         <thead id="page3_summary_head"></thead>
@@ -577,9 +578,9 @@
     <script src="shared/numeric-input-select.45aa8e5f43.js"></script>
     <script src="shared/help-popover.5d3821732b.js"></script>
     <script src="shared/step-history.2d8661c63c.js"></script>
-    <script src="shared/parameter-catalog.c71cb0ffb9.js"></script>
+    <script src="shared/parameter-catalog.3b49acd364.js"></script>
     <script src="shared/busy-indicator.985410e3ab.js"></script>
-    <script src="ui.3f3a42acbd.js"></script>
+    <script src="ui.547160aa56.js"></script>
     <script>
         window.model = new IdecoModel({ window: window, storage: AppStorage });
         AppAuth.init();
