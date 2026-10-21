@@ -20,6 +20,15 @@
     --danger: #dc2626;
     --text-main: #0f172a;
     --text-secondary: #64748b;
+    /* 2026-10-22(docs/shared/decisions/0018): 答えのカード・前提のお知らせの色(idecoと同じ) */
+    --primary-wash: #eef6f8;
+    --notice-bg: #fff7ed;
+    --notice-fg: #9a3412;
+}
+
+/* displayを指定したクラスの要素でも、hidden属性で隠せるようにする */
+[hidden] {
+    display: none !important;
 }
 
 * {
@@ -488,7 +497,8 @@ html.auth-skip #auth_overlay {
 
 input[type="text"], input[type="number"], select {
     padding: 6px 8px;
-    border: 1px solid var(--border);
+    /* 2026-10-22: 欄の境目が見えるよう、枠線を少し濃くした(docs/shared/decisions/0018、idecoと同じ) */
+    border: 1px solid var(--border-strong);
     border-radius: 6px;
     font-size: 14px;
     width: 100%;
@@ -534,12 +544,8 @@ th, td {
     overflow-x: auto;
 }
 
-/* 参考値の列(手取り最大・税/社会保険料最小、2026-09-22の追加フィードバックで新設)を、
-   選択中の列より控えめな見た目にする */
-th.reference-col, td.reference-col {
-    color: var(--text-secondary);
-    font-style: italic;
-}
+/* 手取りが最も多い年齢の列(reference-col)は、2026-09-22〜10-21は「参考」として灰色の斜体にしていた。2026-10-22から答えのカードで
+   一番に出すため、ほかの列と同じ見た目にした(docs/shared/decisions/0018) */
 
 /* 内訳行(「手取り合計」の下の「うち加給年金合計」等、2026-09-22の追加フィードバック
    コメント(11))をインデントして親行の内訳であることを示す */
@@ -960,30 +966,242 @@ th .help-btn {
 }
 
 
-/* 「より正確に試算する(任意)」とライフプランシミュレーターへの導線を左右に並べる(MEMO.md 2026/10/18コメント2-(1))。
-   狭い幅では①②の順に縦に並べる */
-.card-pair {
-    display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 20px;
-    align-items: start;
-}
-/* 左右に並べると右の列が狭いため、引き継ぐ情報の見出しと中身を縦に並べる */
-.card-pair .lifeplan-cta-carry {
-    grid-template-columns: 1fr;
-}
-.card-pair .lifeplan-cta-carry dd {
-    margin-bottom: 6px;
-}
-@media (max-width: 768px) {
-    .card-pair {
-        grid-template-columns: 1fr;
-        gap: 0;
-    }
-}
-
 /* 住民税非課税世帯になる期間の1文(MEMO.md 2026/10/18コメント2-(3)) */
 .exempt-summary {
     margin: 8px 0 12px;
     font-size: 14px;
+}
+
+/* ===== ステップ2「比較結果」(2026-10-22の作り直し、docs/shared/decisions/0018) =====
+   答え(トピックA: 手取りが最も多い受け取り開始年齢、トピックB: 年金生活に入ってからの手取り)を一番上に大きく出し、
+   結果の表は万円、条件の入力は閉じて下にまとめる。部品の見た目はiDeCoシミュレーターと同じ。
+   文字の大きさは、答えの金額・見出し・本文・補足の4段階に絞る */
+
+.answer-card {
+    border-color: var(--primary);
+    display: grid;
+    gap: 16px;
+}
+
+.answer-card > .button-row {
+    margin: 0;
+}
+
+.answer-body {
+    display: grid;
+    gap: 12px;
+}
+
+.answer-body p {
+    margin: 0;
+}
+
+.answer-label {
+    font-size: 13px;
+    font-weight: bold;
+    color: var(--primary-dark);
+    letter-spacing: 0.04em;
+}
+
+.answer-body .answer-how {
+    margin: 2px 0 0;
+    font-size: 20px;
+    font-weight: bold;
+    text-wrap: balance;
+}
+
+.answer-figure {
+    display: flex;
+    align-items: baseline;
+    flex-wrap: wrap;
+    gap: 6px 12px;
+}
+
+.answer-caption {
+    font-size: 14px;
+    color: var(--text-secondary);
+}
+
+.answer-amount {
+    font-size: 40px;
+    font-weight: 800;
+    line-height: 1.1;
+    color: var(--primary-dark);
+    font-variant-numeric: tabular-nums;
+}
+
+.answer-amount small {
+    font-size: 20px;
+    font-weight: bold;
+    margin-left: 2px;
+}
+
+.answer-delta {
+    background: var(--primary-wash);
+    color: var(--primary-dark);
+    font-size: 13px;
+    font-weight: bold;
+    padding: 2px 10px;
+    border-radius: 999px;
+}
+
+.answer-basis {
+    font-size: 14px;
+    line-height: 1.7;
+    max-width: 62ch;
+}
+
+/* 前提のお知らせ(赤字の警告ではなく、1行のお知らせ) */
+.soft-notice {
+    background: var(--notice-bg);
+    color: var(--notice-fg);
+    border-radius: 8px;
+    padding: 10px 14px;
+    font-size: 13px;
+    line-height: 1.6;
+}
+
+/* トピックBの引退年齢・受給開始年齢のスライダー(答えの金額のすぐ下。動かすと、すぐ上の金額が変わる) */
+.answer-controls {
+    border-top: 1px solid var(--border);
+    padding-top: 16px;
+}
+
+.answer-controls .form-field:last-child {
+    margin-bottom: 0;
+}
+
+.btn-outline {
+    background: var(--bg-card);
+    border: 1px solid var(--primary);
+    color: var(--primary);
+    font-weight: bold;
+}
+
+.btn-outline:hover {
+    background: var(--primary-wash);
+}
+
+.btn-small {
+    font-size: 13px;
+    padding: 6px 10px;
+}
+
+.unit-caption {
+    margin: 0 0 4px;
+    font-size: 12px;
+    color: var(--text-secondary);
+    text-align: right;
+}
+
+/* 結果の表(万円)。数字の列は右寄せで桁をそろえる */
+.breakdown-table td {
+    font-variant-numeric: tabular-nums;
+}
+
+.summary-table th {
+    font-size: 13px;
+    color: var(--text-secondary);
+    vertical-align: bottom;
+    word-break: keep-all;
+}
+
+/* 「条件を変える」(閉じた状態で、今の条件を1行で見せる) */
+.card.conditions {
+    padding: 0;
+}
+
+.conditions > summary {
+    list-style: none;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 16px 20px;
+}
+
+.conditions > summary::-webkit-details-marker {
+    display: none;
+}
+
+.conditions-head {
+    display: grid;
+    gap: 2px;
+}
+
+.conditions-head .section-title {
+    margin-bottom: 0;
+}
+
+.conditions-now {
+    font-size: 13px;
+    color: var(--text-secondary);
+}
+
+.conditions-toggle {
+    color: var(--primary);
+    font-weight: bold;
+    font-size: 13px;
+    white-space: nowrap;
+}
+
+.conditions[open] .when-closed,
+.conditions:not([open]) .when-open {
+    display: none;
+}
+
+.conditions-body {
+    border-top: 1px solid var(--border);
+    padding: 16px 20px 20px;
+}
+
+/* 「より正確に試算する(任意)」は、条件の中の2つ目のまとまり */
+.conditions-sub {
+    border-top: 1px solid var(--border);
+    margin-top: 6px;
+    padding-top: 16px;
+}
+
+/* lifeplanへの案内は「次に」の控えめなカード */
+.lifeplan-cta {
+    background: var(--primary-wash);
+    border-color: var(--primary-tint);
+    box-shadow: none;
+}
+
+.lifeplan-cta .lifeplan-cta-carry {
+    background: var(--bg-card);
+}
+
+/* 入力の部品の見た目をそろえる(idecoと同じ): 選択欄はブラウザの既定の灰色をやめて入力欄と同じ白に、
+   金額・年齢などの短い欄は幅いっぱいに伸ばさない */
+select {
+    background-color: var(--bg-card);
+    color: var(--text-main);
+    min-height: 32px;
+}
+
+.field-with-unit,
+.form-field > select,
+.form-grid select {
+    max-width: 320px;
+}
+
+@media (max-width: 600px) {
+    .answer-amount {
+        font-size: 34px;
+    }
+
+    .answer-body .answer-how {
+        font-size: 18px;
+    }
+
+    .conditions > summary {
+        padding: 14px 16px;
+    }
+
+    .conditions-body {
+        padding: 14px 16px 16px;
+    }
 }

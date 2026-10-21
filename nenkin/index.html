@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ねんきんプランナー</title>
-    <link rel="stylesheet" href="style.035d380c98.css">
+    <link rel="stylesheet" href="style.954d9d119e.css">
     <!-- 待っている間の表示(回る輪+文字)の見た目は4アプリで共通(docs/shared/decisions/0017)。起動時の表示より先に読む -->
     <link rel="stylesheet" href="shared/busy-indicator.6fbf9e1ca8.css">
     <!-- uttate.comに埋め込まれているとき(iframeの外にページの見出しがある)は、中のタイトルを出さない(MEMO.md 2026/9/30コメント1-(12))。
@@ -77,7 +77,7 @@
                     <span class="wizard-step-num">1</span><span class="wizard-step-label">基本情報</span>
                 </li>
                 <li class="wizard-step" data-step="2">
-                    <span class="wizard-step-num">2</span><span class="wizard-step-label">詳細設定・比較結果</span>
+                    <span class="wizard-step-num">2</span><span class="wizard-step-label">比較結果</span>
                 </li>
             </ol>
         </header>
@@ -156,7 +156,7 @@
                  「今後の見直し条件」参照)。①②いずれも共通のステップ2へ進む(ideco[ADR 0010]と同じ、
                  MEMO.md 2026/9/22コメント3-(3)「idecoの①②③が同じページ(2)に合流する形」) -->
             <div class="card">
-                <div class="section-title">年金・退職について何を調べたいですか？<button type="button" class="help-btn help-btn-info" data-help="info" aria-label="解説" aria-expanded="false" tabindex="-1"></button><template class="help-content"><p>どちらを選んでも、同じステップ2「詳細設定」へ進みます。</p></template></div>
+                <div class="section-title">年金・退職について何を調べたいですか？<button type="button" class="help-btn help-btn-info" data-help="info" aria-label="解説" aria-expanded="false" tabindex="-1"></button><template class="help-content"><p>どちらを選んでも、同じステップ2「比較結果」へ進みます。</p></template></div>
                 <div class="topic-cards">
                     <div class="topic-card">
                         <h3>① 年金は何歳からもらうのが得？</h3>
@@ -174,67 +174,34 @@
 
         </div><!-- /#page1_income -->
 
-        <!-- (2) 詳細設定・比較結果(①②共通、MEMO.md 2026/9/22コメント3-(3)(4)(5)(6)(7)) -->
+        <!-- (2) 比較結果(2026-10-22に「詳細設定・比較結果」から改名、①②共通、MEMO.md 2026/9/22コメント3-(3)(4)(5)(6)(7)) -->
         <div id="page2_details" class="wizard-page" style="display: none;">
-
-            <!-- 「簡易ライフプラン」カード(2026-09-23の追加フィードバック(9)(10)。旧名称
-                 「引退年齢・死亡予測年齢」。死亡予測年齢を一番上にし、公的年金受給年齢(②のみ)も
-                 このカードへ統合することで、下の結果カード(グラフ)にスライダー群を直接隣接させる
-                 「スライダとグラフを近づけたい」への対応) -->
-            <div class="card">
-                <div class="section-title">簡易ライフプラン</div>
-
-                <div class="form-field">
-                    <label for="input_death_age_estimate">死亡予測年齢<button type="button" class="help-btn help-btn-info" data-help="info" aria-label="解説" aria-expanded="false" tabindex="-1"></button><template class="help-content"><p>何歳まで生きるかによって損得が変わるため、目安の年齢を選んでください。決めるものではなく見積もる値のため、ほかの項目と違ってスライダーではなく選択肢にしています。</p><p>平均余命は半数を超える人がそれより長生きする年齢のため、長生きしても困らないかを見るなら、少し長めに見積もるのがおすすめです。</p></template></label>
-                    <select id="input_death_age_estimate"></select>
-                </div>
-
-                <!-- 住民税の非課税の判定に使う(lifeplan ADR 0042、MEMO.md 2026/10/1コメント3-(2)) -->
-                <div class="form-field">
-                    <label for="input_resident_tax_area_grade">お住まいの級地<button type="button" class="help-btn help-btn-hint" data-help="hint" aria-label="入力のヒント" aria-expanded="false" tabindex="-1"></button><template class="help-content"><p>「(市区町村名) 級地」で検索するか、お住まいの市区町村のWebサイトで確かめられます。</p><ul><li>1級地: 東京23区や多くの政令指定都市など</li><li>2級地: 一部の県庁所在市や大都市周辺の市など</li><li>3級地: その他の市区町村(全国の約8割)</li></ul><p>分からなければ3級地のままで構いません(非課税になるかの判定に少し差が出るだけです)。</p></template></label>
-                    <select id="input_resident_tax_area_grade">
-                        <option value="1">1級地(東京23区や多くの政令指定都市など)</option>
-                        <option value="2">2級地(一部の県庁所在市や大都市周辺の市など)</option>
-                        <option value="3">3級地(その他の一般市区町村、全国の約8割が該当)</option>
-                    </select>
-                    <!-- 何に使うかを、ⓘを押さなくても分かるように書く(MEMO.md 2026/10/18コメント1-(5)) -->
-                    <p class="field-note">住民税が非課税になるかの判定に使います(基準が市区町村の規模で違うため)。分からなければ3級地のままで構いません。</p>
-                </div>
-
-                <div class="form-field">
-                    <!-- 年齢の表示と▲▼ボタンはスライダーの上に置く(MEMO.md 2026/9/29コメント1-(2)、共通のAgeStepper。以前はスライダーの右に数値入力欄) -->
-                    <div class="age-slider-head">
-                        <label for="input_retirement_age_slider">引退年齢<button type="button" class="help-btn help-btn-info" data-help="info" aria-label="解説" aria-expanded="false" tabindex="-1"></button><template class="help-content"><p>再雇用等で働き続けることもあるため、完全に働くのをやめる年齢です。死亡予測年齢より後にはできません。</p></template></label>
-                        <div class="age-stepper" id="retirement_age_stepper">
-                            <span class="age-stepper-value" aria-live="polite"></span>
-                            <button type="button" class="age-stepper-btn" data-step="-1" aria-label="1歳下げる">▼</button>
-                            <button type="button" class="age-stepper-btn" data-step="1" aria-label="1歳上げる">▲</button>
-                        </div>
+            <!-- 2026-10-22の作り直し(docs/shared/decisions/0018): 答え(トピックA: 手取りが最も多い受け取り開始年齢、
+                 トピックB: 年金生活に入ってからの手取り)を一番上に置き、結果のグラフ・表(万円)、条件の入力(閉じた状態)、
+                 lifeplanへの案内の順に並べる。トピックBでは問いそのものの引退年齢・受給開始年齢のスライダーを答えのカードの中に
+                 移す(_populatePage2)。計算は変えず、表示の順番・単位・言葉だけを変えた -->
+            <section class="card answer-card" id="page2_answer" aria-labelledby="page2_answer_label">
+                <div id="page2_answer_body" class="answer-body">
+                    <div>
+                        <div class="answer-label" id="page2_answer_label"></div>
+                        <p class="answer-how" id="page2_answer_how"></p>
                     </div>
-                    <input type="range" id="input_retirement_age_slider" class="range-input" min="50" max="80" step="1" value="65">
-                </div>
-
-                <!-- ②(トピックB)専用。①の場合は非表示(_populatePage2参照) -->
-                <div id="public_pension_claim_age_field" class="form-field" style="display: none;">
-                    <!-- 年齢の表示と▲▼ボタンはスライダーの上に置く(MEMO.md 2026/9/29コメント1-(2)、共通のAgeStepper。以前はスライダーの右に数値入力欄) -->
-                    <div class="age-slider-head">
-                        <label for="input_public_pension_claim_age_slider">老齢年金の受給開始年齢<button type="button" class="help-btn help-btn-info" data-help="info" aria-label="解説" aria-expanded="false" tabindex="-1"></button><template class="help-content"><p>引退年齢とは別に、老齢年金をいつから受け取るかを選びます(グラフにそのまま反映されます)。65歳が標準で、<span data-help-value="PENSION_START_AGE_MIN"></span>〜64歳は繰上げ(1か月早めるごとに<span data-help-value="EARLY_CLAIM_REDUCTION_RATE_MONTHLY" data-format="percent"></span>減額)、66〜<span data-help-value="PENSION_START_AGE_MAX"></span>歳は繰下げ(1か月遅らせるごとに<span data-help-value="DELAYED_CLAIM_INCREASE_RATE_MONTHLY" data-format="percent"></span>増額)です。</p></template></label>
-                        <div class="age-stepper" id="public_pension_claim_age_stepper">
-                            <span class="age-stepper-value" aria-live="polite"></span>
-                            <button type="button" class="age-stepper-btn" data-step="-1" aria-label="1歳下げる">▼</button>
-                            <button type="button" class="age-stepper-btn" data-step="1" aria-label="1歳上げる">▲</button>
-                        </div>
+                    <div class="answer-figure">
+                        <span class="answer-caption" id="page2_answer_caption"></span>
+                        <span class="answer-amount" id="page2_answer_amount"></span>
+                        <span class="answer-delta" id="page2_answer_delta"></span>
                     </div>
-                    <input type="range" id="input_public_pension_claim_age_slider" class="range-input" min="60" max="75" step="1" value="65">
+                    <p class="answer-basis" id="page2_answer_basis"></p>
+                    <p class="soft-notice" id="page2_answer_notice" hidden></p>
                 </div>
-            </div>
+                <div class="button-row" id="page2_answer_actions" hidden>
+                    <button type="button" id="btn_page2_select_best" class="btn btn-outline btn-small"></button>
+                </div>
+                <div class="answer-controls" id="page2_answer_controls" hidden></div>
+            </section>
 
-            <!-- 比較結果(旧ステップ3。コメント(7)を受けてこのページに統合、実行ボタン無しで
-                 常にリアルタイムに更新される)。「簡易ライフプラン」カードのスライダー/ドロップダウンと
-                 直接隣接させるため、下の「より正確に試算する(任意)」より先に置く
-                 (2026-09-23の追加フィードバック「スライダーとグラフが離れて見づらい」) -->
             <div id="page2_pension_start_age_results" class="card" style="display: none;">
-                <div class="section-title">年金受給開始年齢の比較<button type="button" class="help-btn help-btn-info" data-help="info" aria-label="解説" aria-expanded="false" tabindex="-1"></button><template class="help-content"><p>受給開始年齢<span data-help-value="PENSION_START_AGE_MIN"></span>〜<span data-help-value="PENSION_START_AGE_MAX"></span>歳を1年刻みで試算した結果です。手取りが最も多くなる年齢を探します(税金・社会保険料が最も少なくなる年齢は、繰上げ受給ほど有利になりやすく参考になりにくいため、比べていません)。</p></template></div>
+                <div class="section-title">受け取り開始年齢ごとの手取り合計<button type="button" class="help-btn help-btn-info" data-help="info" aria-label="解説" aria-expanded="false" tabindex="-1"></button><template class="help-content"><p>受給開始年齢<span data-help-value="PENSION_START_AGE_MIN"></span>〜<span data-help-value="PENSION_START_AGE_MAX"></span>歳を1年刻みで試算した結果です。手取りが最も多くなる年齢を探します(税金・社会保険料が最も少なくなる年齢は、繰上げ受給ほど有利になりやすく参考になりにくいため、比べていません)。</p></template></div>
                 <div id="page2_chart_wrap">
                     <canvas id="page2_chart_canvas"></canvas>
                     <p id="page2_chart_error" class="alert-text" style="display: none;">グラフを表示できませんでした。</p>
@@ -243,7 +210,7 @@
                 <div class="form-field">
                     <!-- 年齢の表示と▲▼ボタンはスライダーの上に置く(MEMO.md 2026/9/29コメント1-(2)、共通のAgeStepper。以前はスライダーの右に数値入力欄) -->
                     <div class="age-slider-head">
-                        <label for="input_selected_pension_start_age_slider">詳しく確認したい受給開始年齢</label>
+                        <label for="input_selected_pension_start_age_slider">表で比べる受給開始年齢</label>
                         <div class="age-stepper" id="selected_pension_start_age_stepper">
                             <span class="age-stepper-value" aria-live="polite"></span>
                             <button type="button" class="age-stepper-btn" data-step="-1" aria-label="1歳下げる">▼</button>
@@ -268,23 +235,21 @@
                 <!-- 住民税非課税世帯になる期間(選択中の受給開始年齢)。明細を開かなくても分かるように出す(MEMO.md 2026/10/18コメント2-(3)) -->
                 <p class="exempt-summary" id="page2_exempt_summary"></p>
 
+                <p class="unit-caption">単位: 万円</p>
                 <div class="table-responsive">
-                    <table>
+                    <table class="summary-table breakdown-table">
                         <thead id="page2_results_head"></thead>
                         <tbody id="page2_results_body"></tbody>
                     </table>
                 </div>
-                <p class="field-note">「手取り最大」の列は参考値です(その受給開始年齢を選んだ場合の結果)。<button type="button" class="help-btn help-btn-info" data-help="info" aria-label="解説" aria-expanded="false" tabindex="-1"></button><template class="help-content"><p>税金合計・社会保険料合計の内訳も参考に載せています。</p><p>住民税・国保などの保険料・住民税非課税の判定は、実際の制度と同じく前年の所得で計算しています。引退した翌年は、前年の給与に対する住民税と保険料を払います。</p><p>ご本人が亡くなった後に配偶者が受け取る遺族厚生年金は、繰り下げる前の額がもとになり、繰下げで増えた分は配偶者には残りません(ライフプランシミュレーターでは、亡くなった後の遺族年金まで計算できます)。</p></template></p>
+                <p class="field-note">「手取りが最も多い」の列は、その年齢から受け取った場合の結果です。<button type="button" class="help-btn help-btn-info" data-help="info" aria-label="解説" aria-expanded="false" tabindex="-1"></button><template class="help-content"><p>税金合計・社会保険料合計の内訳も参考に載せています。</p><p>住民税・国保などの保険料・住民税非課税の判定は、実際の制度と同じく前年の所得で計算しています。引退した翌年は、前年の給与に対する住民税と保険料を払います。</p><p>ご本人が亡くなった後に配偶者が受け取る遺族厚生年金は、繰り下げる前の額がもとになり、繰下げで増えた分は配偶者には残りません(ライフプランシミュレーターでは、亡くなった後の遺族年金まで計算できます)。</p></template></p>
                 <!-- 老齢基礎年金・老齢厚生年金を別々の年齢で受け取る場合との比較(MEMO.md 2026/9/26
                      コメント1-(2)、docs/nenkin/decisions/0002参照)。老齢厚生年金の見込額がある場合のみ -->
                 <p id="page2_split_note" class="info-note" hidden></p>
             </div>
 
-            <!-- 見出し・説明文(カード単位)は削除済み(2026-09-23の追加フィードバック「不要です」)。
-                 公的年金受給年齢は上の「簡易ライフプラン」カードへ移動済み(コメント(10))。
-                 グラフの見出しはChart.jsのtitleプラグインで直接付ける(コメント(10)
-                 「グラフに適切な見出しをつけてください」) -->
             <div id="page2_work_until_results" class="card" style="display: none;">
+                <div class="section-title">年ごとの収入と税・社会保険料</div>
                 <div id="page2_work_until_chart_wrap">
                     <canvas id="page2_work_until_chart_canvas"></canvas>
                     <p id="page2_work_until_chart_error" class="alert-text" style="display: none;">グラフを表示できませんでした。</p>
@@ -319,23 +284,72 @@
                             <input type="range" id="input_work_until_detail_age_slider" class="range-input" min="40" max="105" step="1" value="40">
                         </div>
                     </div>
+                    <p class="unit-caption">単位: 万円</p>
                     <div class="table-responsive">
-                        <table>
+                        <table class="breakdown-table">
                             <tbody id="work_until_detail_body"></tbody>
                         </table>
                     </div>
                 </details>
             </div>
 
-            <!-- ①「より正確に試算する(任意)」と②ライフプランシミュレーターへの導線を、パソコンの幅では左右に、スマホの幅では①②の順に
-                 縦に並べる(MEMO.md 2026/10/18コメント2-(1)。数字を正確にしてから引き継ぐ流れ。2026-10-09〜10-17は導線を結果のすぐ下に
-                 全幅で置き、その下に任意項目を置いていた) -->
-            <div class="card-pair">
-                <!-- 任意項目(ステップ1から移動、MEMO.md 2026/9/22コメント3-(4))。結果カードより下に置く
-                     (2026-09-23の追加フィードバック)。2026-09-23〜10-09は右列にlifeplanへの導線を置いていたが、
-                     結果のすぐ下の専用のカードに移した(MEMO.md 2026/10/9コメント2-(1)) -->
-                <div class="card">
-                    <div class="section-title">より正確に試算する(任意)</div>
+            <!-- 前提の入力は、結果の後にまとめて閉じておく。「より正確に試算する(任意)」(源泉徴収票等)もこの中に入れる -->
+            <details class="card conditions" id="page2_conditions">
+                <summary>
+                    <span class="conditions-head">
+                        <span class="section-title">条件を変える</span>
+                        <span class="conditions-now" id="page2_conditions_now"></span>
+                    </span>
+                    <span class="conditions-toggle" aria-hidden="true"><span class="when-closed">開く ＋</span><span class="when-open">閉じる −</span></span>
+                </summary>
+                <div class="conditions-body">
+                    <div id="page2_conditions_lifeplan">
+                    <div class="form-field">
+                        <label for="input_death_age_estimate">死亡予測年齢<button type="button" class="help-btn help-btn-info" data-help="info" aria-label="解説" aria-expanded="false" tabindex="-1"></button><template class="help-content"><p>何歳まで生きるかによって損得が変わるため、目安の年齢を選んでください。決めるものではなく見積もる値のため、ほかの項目と違ってスライダーではなく選択肢にしています。</p><p>平均余命は半数を超える人がそれより長生きする年齢のため、長生きしても困らないかを見るなら、少し長めに見積もるのがおすすめです。</p></template></label>
+                        <select id="input_death_age_estimate"></select>
+                    </div>
+
+                    <!-- 住民税の非課税の判定に使う(lifeplan ADR 0042、MEMO.md 2026/10/1コメント3-(2)) -->
+                    <div class="form-field">
+                        <label for="input_resident_tax_area_grade">お住まいの級地<button type="button" class="help-btn help-btn-hint" data-help="hint" aria-label="入力のヒント" aria-expanded="false" tabindex="-1"></button><template class="help-content"><p>「(市区町村名) 級地」で検索するか、お住まいの市区町村のWebサイトで確かめられます。</p><ul><li>1級地: 東京23区や多くの政令指定都市など</li><li>2級地: 一部の県庁所在市や大都市周辺の市など</li><li>3級地: その他の市区町村(全国の約8割)</li></ul><p>分からなければ3級地のままで構いません(非課税になるかの判定に少し差が出るだけです)。</p></template></label>
+                        <select id="input_resident_tax_area_grade">
+                            <option value="1">1級地(東京23区や多くの政令指定都市など)</option>
+                            <option value="2">2級地(一部の県庁所在市や大都市周辺の市など)</option>
+                            <option value="3">3級地(その他の一般市区町村、全国の約8割が該当)</option>
+                        </select>
+                        <!-- 何に使うかを、ⓘを押さなくても分かるように書く(MEMO.md 2026/10/18コメント1-(5)) -->
+                        <p class="field-note">住民税が非課税になるかの判定に使います(基準が市区町村の規模で違うため)。分からなければ3級地のままで構いません。</p>
+                    </div>
+
+                    <div class="form-field" id="retirement_age_field">
+                        <!-- 年齢の表示と▲▼ボタンはスライダーの上に置く(MEMO.md 2026/9/29コメント1-(2)、共通のAgeStepper。以前はスライダーの右に数値入力欄) -->
+                        <div class="age-slider-head">
+                            <label for="input_retirement_age_slider">引退年齢<button type="button" class="help-btn help-btn-info" data-help="info" aria-label="解説" aria-expanded="false" tabindex="-1"></button><template class="help-content"><p>再雇用等で働き続けることもあるため、完全に働くのをやめる年齢です。死亡予測年齢より後にはできません。</p></template></label>
+                            <div class="age-stepper" id="retirement_age_stepper">
+                                <span class="age-stepper-value" aria-live="polite"></span>
+                                <button type="button" class="age-stepper-btn" data-step="-1" aria-label="1歳下げる">▼</button>
+                                <button type="button" class="age-stepper-btn" data-step="1" aria-label="1歳上げる">▲</button>
+                            </div>
+                        </div>
+                        <input type="range" id="input_retirement_age_slider" class="range-input" min="50" max="80" step="1" value="65">
+                    </div>
+
+                    <!-- ②(トピックB)専用。①の場合は非表示(_populatePage2参照) -->
+                    <div id="public_pension_claim_age_field" class="form-field" style="display: none;">
+                        <!-- 年齢の表示と▲▼ボタンはスライダーの上に置く(MEMO.md 2026/9/29コメント1-(2)、共通のAgeStepper。以前はスライダーの右に数値入力欄) -->
+                        <div class="age-slider-head">
+                            <label for="input_public_pension_claim_age_slider">老齢年金の受給開始年齢<button type="button" class="help-btn help-btn-info" data-help="info" aria-label="解説" aria-expanded="false" tabindex="-1"></button><template class="help-content"><p>引退年齢とは別に、老齢年金をいつから受け取るかを選びます(グラフにそのまま反映されます)。65歳が標準で、<span data-help-value="PENSION_START_AGE_MIN"></span>〜64歳は繰上げ(1か月早めるごとに<span data-help-value="EARLY_CLAIM_REDUCTION_RATE_MONTHLY" data-format="percent"></span>減額)、66〜<span data-help-value="PENSION_START_AGE_MAX"></span>歳は繰下げ(1か月遅らせるごとに<span data-help-value="DELAYED_CLAIM_INCREASE_RATE_MONTHLY" data-format="percent"></span>増額)です。</p></template></label>
+                            <div class="age-stepper" id="public_pension_claim_age_stepper">
+                                <span class="age-stepper-value" aria-live="polite"></span>
+                                <button type="button" class="age-stepper-btn" data-step="-1" aria-label="1歳下げる">▼</button>
+                                <button type="button" class="age-stepper-btn" data-step="1" aria-label="1歳上げる">▲</button>
+                            </div>
+                        </div>
+                        <input type="range" id="input_public_pension_claim_age_slider" class="range-input" min="60" max="75" step="1" value="65">
+                    </div>
+                    </div>
+                    <div class="conditions-sub">
+                        <div class="section-title">より正確に試算する(任意)</div>
                     <p class="field-note">お手元に書類があれば、チェックを入れて入力してください(無くても概算で試算を続けられます)。</p>
 
                     <div class="form-field">
@@ -412,26 +426,28 @@
                             </div>
                         </div>
                     </div>
-                </div>
-                <!-- ライフプランシミュレーターへの導線(MEMO.md 2026/10/9コメント2-(1)、docs/shared/marketing/priorities.md 2・
-                     docs/shared/decisions/0015)。見出しで何が分かるかを書き、その人の結果の数字で示し、ボタンで引き継ぐ(ui.jsの
-                     _renderLifeplanCta、MEMO.md 2026/10/18コメント1-(2))。2026-09-23〜10-09は「入力し直すこともできます」と一般的な
-                     説明だけを置いていた(実際は入力を引き継ぐ)。クリック時に現在の入力内容をlifeplanへの引き継ぎ用one-shotキーへ
-                     書き出してから遷移する([docs/shared/decisions/0006]、ui.jsのclickハンドラ参照) -->
-                <div class="card lifeplan-cta" id="lifeplan_handoff_link_wrap">
-                    <div class="section-title">ライフプランシミュレーターで、<wbr>資産が何歳まで枯渇しないか確かめる</div>
-                    <ul class="lifeplan-cta-facts" id="lifeplan_cta_facts"></ul>
-                    <dl class="lifeplan-cta-carry">
-                        <dt>引き継ぐ情報</dt>
-                        <dd>年齢・収入・ねんきん定期便の見込額・配偶者・引退年齢・老齢年金の受給開始年齢(改めて入力する必要はありません)</dd>
-                        <dt>ライフプランシミュレーターで入力する情報</dt>
-                        <dd>生活費・預貯金や投資などの資産</dd>
-                    </dl>
-                    <!-- 引き継ぐ公的年金受給開始年齢(MEMO.md 2026/9/26コメント1-(3)。ui.jsの_renderHandoffNoteが
-                         トピックに応じた文言と現在の年齢を表示する) -->
-                    <p class="field-note" id="lifeplan_handoff_note"></p>
-                    <a href="/lifeplan/" target="_blank" rel="noopener" class="btn btn-primary" id="btn_lifeplan_handoff" data-lifeplan-link>ライフプランシミュレーターに引き継ぐ</a>
-                </div>
+                    </div>
+                </div><!-- /.conditions-body -->
+            </details>
+
+            <!-- ライフプランシミュレーターへの導線(MEMO.md 2026/10/9コメント2-(1)、docs/shared/marketing/priorities.md 2・
+                 docs/shared/decisions/0015)。見出しで何が分かるかを書き、その人の結果の数字で示し、ボタンで引き継ぐ(ui.jsの
+                 _renderLifeplanCta、MEMO.md 2026/10/18コメント1-(2))。2026-09-23〜10-09は「入力し直すこともできます」と一般的な
+                 説明だけを置いていた(実際は入力を引き継ぐ)。クリック時に現在の入力内容をlifeplanへの引き継ぎ用one-shotキーへ
+                 書き出してから遷移する([docs/shared/decisions/0006]、ui.jsのclickハンドラ参照) -->
+            <div class="card lifeplan-cta" id="lifeplan_handoff_link_wrap">
+                <div class="section-title">次に: 生活費まで含めて、<wbr>資産が何歳まで枯渇しないか確かめる</div>
+                <ul class="lifeplan-cta-facts" id="lifeplan_cta_facts"></ul>
+                <dl class="lifeplan-cta-carry">
+                    <dt>引き継ぐ情報</dt>
+                    <dd>年齢・収入・ねんきん定期便の見込額・配偶者・引退年齢・老齢年金の受給開始年齢(改めて入力する必要はありません)</dd>
+                    <dt>ライフプランシミュレーターで入力する情報</dt>
+                    <dd>生活費・預貯金や投資などの資産</dd>
+                </dl>
+                <!-- 引き継ぐ公的年金受給開始年齢(MEMO.md 2026/9/26コメント1-(3)。ui.jsの_renderHandoffNoteが
+                     トピックに応じた文言と現在の年齢を表示する) -->
+                <p class="field-note" id="lifeplan_handoff_note"></p>
+                <a href="/lifeplan/" target="_blank" rel="noopener" class="btn btn-primary" id="btn_lifeplan_handoff" data-lifeplan-link>ライフプランシミュレーターに引き継ぐ</a>
             </div>
 
         </div><!-- /#page2_details -->
@@ -473,7 +489,7 @@
          lifeplan ADR 0027参照)。nenkin-bridge.jsが参照するため、必ずその前に読み込む -->
     <script src="shared/pension-claim-optimizer.5781c92d55.js"></script>
     <script src="shared/nenkin-bridge.9e62d52bf6.js"></script>
-    <script src="shared/parameter-catalog.ce6c2261ed.js"></script>
+    <script src="shared/parameter-catalog.6cef955eb2.js"></script>
     <script src="shared/chart-age-cursor.b4884465a9.js"></script>
     <script src="shared/age-stepper.bc4ccf1bc4.js"></script>
     <script src="shared/lifeplan-link.464e9adfb7.js"></script>
@@ -482,7 +498,7 @@
     <script src="shared/help-popover.acb24c7888.js"></script>
     <script src="shared/step-history.eb3c8e9f6b.js"></script>
     <script src="shared/busy-indicator.f5c7cd784d.js"></script>
-    <script src="ui.dd0e1f8720.js"></script>
+    <script src="ui.b8bac31c2a.js"></script>
     <script>
         window.model = new NenkinModel({ window: window, storage: AppStorage });
         AppAuth.init();
