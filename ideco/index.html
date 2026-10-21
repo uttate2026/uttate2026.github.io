@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>iDeCoシミュレーター</title>
-    <link rel="stylesheet" href="style.9643b99378.css">
+    <link rel="stylesheet" href="style.06b790bdd9.css">
     <!-- 待っている間の表示(回る輪+文字)の見た目は4アプリで共通(docs/shared/decisions/0017)。起動時の表示より先に読む -->
     <link rel="stylesheet" href="shared/busy-indicator.6fbf9e1ca8.css">
     <!-- uttate.comに埋め込まれているとき(iframeの外にページの見出しがある)は、中のタイトルを出さない(MEMO.md 2026/9/30コメント1-(12))。
@@ -78,7 +78,7 @@
                     <span class="wizard-step-num">2</span><span class="wizard-step-label">拠出プラン</span>
                 </li>
                 <li class="wizard-step" data-step="3">
-                    <span class="wizard-step-num">3</span><span class="wizard-step-label">出口戦略</span>
+                    <span class="wizard-step-num">3</span><span class="wizard-step-label">受け取り方</span>
                 </li>
             </ol>
         </header>
@@ -190,8 +190,8 @@
                         <button type="button" id="btn_topic_nisa_compare" class="btn btn-primary">検討する</button>
                     </div>
                     <div class="topic-card">
-                        <h3>③ 今すでに拠出しており、出口戦略に迷っている</h3>
-                        <p>現在のiDeCo拠出プランをそのまま入力し、受け取り方の最適化へ進みます。</p>
+                        <h3>③ 今すでに拠出しており、受け取り方に迷っている</h3>
+                        <p>現在のiDeCo拠出プランをそのまま入力し、受け取り方の検討へ進みます。</p>
                         <button type="button" id="btn_topic_existing" class="btn btn-primary">検討する</button>
                     </div>
                 </div>
@@ -208,10 +208,76 @@
              考慮したい」の2チェックボックスの状態から動的に決まる。積立フェーズだけの比較、
              ADR 0010・0011参照) -->
         <div id="page2_planner" class="wizard-page" style="display: none;">
-            <div class="card">
-                <div class="section-title">現在の拠出状況と、iDeCoへの配分を入力してください</div>
+            <!-- 2026-10-22の作り直し(docs/shared/decisions/0018): 答え(この掛金での節税額)を一番上に置き、掛金のスライダーも
+                 その中に置く(動かすと、すぐ上の金額が変わる)。ほかの掛金との比較(万円)・条件の入力(閉じた状態)の順に並べる。
+                 計算は変えず、表示の順番・単位・言葉だけを変えた -->
+            <section class="card answer-card" id="page2_answer" aria-labelledby="page2_answer_label">
+                <div id="page2_answer_body" class="answer-body">
+                    <div>
+                        <div class="answer-label" id="page2_answer_label"></div>
+                        <p class="answer-how" id="page2_answer_how"></p>
+                    </div>
+                    <div class="answer-figure">
+                        <span class="answer-caption">所得税・住民税の節税(合計)</span>
+                        <span class="answer-amount" id="page2_answer_amount"></span>
+                        <span class="answer-delta" id="page2_answer_delta"></span>
+                    </div>
+                    <p class="answer-basis" id="page2_answer_basis"></p>
+                </div>
+                <div class="answer-controls">
+                    <div id="planner_nisa_fields" class="form-field" style="display: none;">
+                        <label for="input_planner_monthly_budget">投資に回せる金額(月額)<button type="button" class="help-btn help-btn-info" data-help="info" aria-label="解説" aria-expanded="false" tabindex="-1"></button><template class="help-content"><p>下のスライダーで、この金額をiDeCoとNISAにどう配分するか調整できます。NISAの想定利回りはiDeCoと同じ値を使います。</p></template></label>
+                        <div class="field-with-unit">
+                            <input type="text" id="input_planner_monthly_budget" inputmode="numeric" autocomplete="off" spellcheck="false">
+                            <span class="unit">円</span>
+                        </div>
+                        <label class="checkbox-label">
+                            <input type="checkbox" id="input_planner_nisa_reinvest_savings" checked>
+                            iDeCoによる節税分をNISAに投資<button type="button" class="help-btn help-btn-info" data-help="info" aria-label="解説" aria-expanded="false" tabindex="-1"></button><template class="help-content"><p>iDeCoの掛金による所得控除の効果(節税額)を、毎年NISAへの追加投資に回すかどうかです。</p></template>
+                        </label>
+                    </div>
 
-                <h4>拠出プラン</h4>
+                    <div class="form-field" id="planner_ideco_slider_field">
+                        <label for="input_planner_ideco_slider" id="planner_ideco_slider_label">毎月の拠出額</label>
+                        <div class="slider-with-input">
+                            <input type="range" id="input_planner_ideco_slider" class="range-input" min="0" max="0" step="1000" value="0">
+                            <div class="field-with-unit slider-number">
+                                <input type="text" id="input_planner_ideco_value" inputmode="numeric" autocomplete="off" spellcheck="false">
+                                <span class="unit">円</span>
+                            </div>
+                        </div>
+                        <p class="field-note" id="planner_ideco_slider_note">上限は「あなたの拠出限度額」です。</p>
+                        <p id="monthly_contribution_warning" class="alert-text" style="display: none;">⚠️ iDeCoの毎月の拠出額は5,000円以上である必要があります。</p>
+                    </div>
+
+                </div>
+                <div class="button-row">
+                    <button type="button" id="btn_page2_next" class="btn btn-primary btn-answer">この拠出プランで受け取り方を調べる</button>
+                </div>
+            </section>
+
+            <!-- 比べる相手があるとき(NISAとの配分・拠出中の人の現状維持)だけ出す(_renderPage2) -->
+            <section class="card" id="page2_compare_card" aria-labelledby="planner_compare_heading">
+                <div class="section-title"><span id="planner_compare_heading">ほかの掛金と比べる</span><button type="button" class="help-btn help-btn-info" data-help="info" aria-label="解説" aria-expanded="false" tabindex="-1"></button><template class="help-content"><p>拠出を終えるまでの積立の期間だけを見た数値です。受け取り方によって変わる税金・手取りは、次の「受け取り方」の画面で確かめられます。</p></template></div>
+                <p class="unit-caption">単位: 万円</p>
+                <div class="table-responsive">
+                    <table class="summary-table" id="page2_compare_table">
+                        <thead id="page2_compare_table_head"></thead>
+                        <tbody id="page2_compare_table_body"></tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- 前提の入力は、答えの後にまとめて閉じておく(拠出中の人は、今の掛金・残高を入れるため開いた状態で始める) -->
+            <details class="card conditions" id="page2_conditions">
+                <summary>
+                    <span class="conditions-head">
+                        <span class="section-title">条件を変える</span>
+                        <span class="conditions-now" id="page2_conditions_now"></span>
+                    </span>
+                    <span class="conditions-toggle" aria-hidden="true"><span class="when-closed">開く ＋</span><span class="when-open">閉じる −</span></span>
+                </summary>
+                <div class="conditions-body">
                 <div class="form-grid">
                     <div class="form-field">
                         <label for="input_planner_contribution_limit">あなたの拠出限度額(月額)<button type="button" class="help-btn help-btn-hint" data-help="hint" aria-label="入力のヒント" aria-expanded="false" tabindex="-1"></button><template class="help-content"><p>iDeCoの掛金の上限は、働き方で異なります(2026年12月から):</p><ul><li>会社員(企業年金なし): 月6.2万円</li><li>会社員・公務員(企業年金あり): 月6.2万円から企業年金の掛金を引いた額</li><li>自営業者など: 月7.5万円(国民年金基金・付加保険料と合わせて)</li><li>専業主婦(夫): 月2.3万円</li></ul><p>企業年金の掛金は、勤め先の担当部署や、企業型DCの加入者サイトで確かめられます。既定値は企業年金なしの会社員の62,000円です。</p></template></label>
@@ -228,7 +294,7 @@
                         </div>
                     </div>
                     <div class="form-field">
-                        <label for="input_planner_contribution_end_age">拠出終了年齢<button type="button" class="help-btn help-btn-info" data-help="info" aria-label="解説" aria-expanded="false" tabindex="-1"></button><template class="help-content"><p>既定値は65歳です。iDeCoに拠出できる年齢の上限(<span data-help-value="CONTRIBUTION_END_AGE_MAX"></span>歳)まで延ばせます。老齢年金の受給開始年齢は次の「出口戦略」の画面で決め、この年齢以降になります。</p></template></label>
+                        <label for="input_planner_contribution_end_age">拠出終了年齢<button type="button" class="help-btn help-btn-info" data-help="info" aria-label="解説" aria-expanded="false" tabindex="-1"></button><template class="help-content"><p>既定値は65歳です。iDeCoに拠出できる年齢の上限(<span data-help-value="CONTRIBUTION_END_AGE_MAX"></span>歳)まで延ばせます。老齢年金の受給開始年齢は次の「受け取り方」の画面で決め、この年齢以降になります。</p></template></label>
                         <select id="input_planner_contribution_end_age"></select>
                     </div>
                 </div>
@@ -273,51 +339,82 @@
                         NISAとのバランスを考慮したい<button type="button" class="help-btn help-btn-info" data-help="info" aria-label="解説" aria-expanded="false" tabindex="-1"></button><template class="help-content"><p>ONにすると、比較表に「NISA全振り」の列が加わります。</p></template>
                     </label>
                 </div>
-                <div id="planner_nisa_fields" class="form-field" style="display: none;">
-                    <label for="input_planner_monthly_budget">投資に回せる金額(月額)<button type="button" class="help-btn help-btn-info" data-help="info" aria-label="解説" aria-expanded="false" tabindex="-1"></button><template class="help-content"><p>下のスライダーで、この金額をiDeCoとNISAにどう配分するか調整できます。NISAの想定利回りはiDeCoと同じ値を使います。</p></template></label>
-                    <div class="field-with-unit">
-                        <input type="text" id="input_planner_monthly_budget" inputmode="numeric" autocomplete="off" spellcheck="false">
-                        <span class="unit">円</span>
-                    </div>
-                    <label class="checkbox-label">
-                        <input type="checkbox" id="input_planner_nisa_reinvest_savings" checked>
-                        iDeCoによる節税分をNISAに投資<button type="button" class="help-btn help-btn-info" data-help="info" aria-label="解説" aria-expanded="false" tabindex="-1"></button><template class="help-content"><p>iDeCoの掛金による所得控除の効果(節税額)を、毎年NISAへの追加投資に回すかどうかです。</p></template>
-                    </label>
-                </div>
-
-                <div class="form-field" id="planner_ideco_slider_field">
-                    <label for="input_planner_ideco_slider" id="planner_ideco_slider_label">毎月の拠出額</label>
-                    <div class="slider-with-input">
-                        <input type="range" id="input_planner_ideco_slider" class="range-input" min="0" max="0" step="1000" value="0">
-                        <div class="field-with-unit slider-number">
-                            <input type="text" id="input_planner_ideco_value" inputmode="numeric" autocomplete="off" spellcheck="false">
-                            <span class="unit">円</span>
-                        </div>
-                    </div>
-                    <p class="field-note" id="planner_ideco_slider_note">上限は「あなたの拠出限度額」です。</p>
-                    <p id="monthly_contribution_warning" class="alert-text" style="display: none;">⚠️ iDeCoの毎月の拠出額は5,000円以上である必要があります。</p>
-                </div>
-
-                <h4><span id="planner_compare_heading">拠出プラン比較</span><button type="button" class="help-btn help-btn-info" data-help="info" aria-label="解説" aria-expanded="false" tabindex="-1"></button><template class="help-content"><p>拠出を終えるまでの積立の期間だけを見た数値です。受け取り方によって変わる税金・手取りは、次の「出口戦略」の画面で確かめられます。</p></template></h4>
-                <div class="table-responsive">
-                    <table>
-                        <thead id="page2_compare_table_head"></thead>
-                        <tbody id="page2_compare_table_body"></tbody>
-                    </table>
-                </div>
-
-                <div class="button-row button-row-end">
-                    <button type="button" id="btn_page2_next" class="btn btn-primary">この拠出プランで出口戦略を最適化する</button>
-                </div>
-            </div>
+                </div><!-- /.conditions-body -->
+            </details>
         </div><!-- /#page2_planner -->
 
         <!-- (3) 出口戦略(出口戦略最適化専用。拠出プラン関連の入力はページ(2)にある、ADR 0010参照。
              公的年金受給額・受給開始年齢の入力はここにある、ADR 0011参照) -->
+        <!-- 2026-10-22の作り直し(docs/shared/decisions/0018): 答え(手取りが最も多い受け取り方と金額)を一番上に置き、
+             2つの受け取り方の比較(万円)・残高の推移・条件の入力(閉じた状態)・lifeplanへの案内の順に並べる。
+             計算は変えず、表示の順番・単位・言葉だけを変えた -->
         <div id="page3_strategist" class="wizard-page" style="display: none;">
 
-            <div class="card">
-                <div class="section-title">手取りや節税を最大化する受け取り方を調べます<button type="button" class="help-btn help-btn-info" data-help="info" aria-label="解説" aria-expanded="false" tabindex="-1"></button><template class="help-content"><p>「死亡予測年齢」を前提に、受取比率・一時金受取年齢・年金受取開始年齢の組み合わせを自動で探し、目的別に最適な組み合わせを提案します。ご自身で受取比率・受取年齢を調整する必要はありません。</p></template></div>
+            <section class="card answer-card" id="page3_answer" aria-labelledby="page3_answer_label">
+                <!-- 入力を変えた後、最適化を計算し直すまでの間に出す(MEMO.md 2026/10/16コメント1-(6)) -->
+                <p id="page3_recalc_note" class="info-note recalc-note" hidden><span class="busy-spinner busy-spinner-inline" aria-hidden="true"></span>入力に合わせて計算し直しています…</p>
+                <p id="exit_strategy_optimize_unavailable" class="alert-text" style="display: none;">拠出終了年齢がiDeCoの受給上限年齢(75歳)を超えているため、最適化を計算できません。</p>
+                <div id="page3_answer_body" class="answer-body">
+                    <div>
+                        <div class="answer-label" id="page3_answer_label">手取りが最も多い受け取り方<button type="button" class="help-btn help-btn-info" data-help="info" aria-label="解説" aria-expanded="false" tabindex="-1"></button><template class="help-content"><p>「何歳まで生きる前提で考えるか」(下の「条件を変える」)を前提に、一時金の割合・一時金を受け取る年齢・年金を受け取り始める年齢の組み合わせを自動で探し、手取りが最も多いものと、税金・社会保険料が最も少ないものを示します。ご自身で受け取り方を調整する必要はありません。</p></template></div>
+                        <p class="answer-how" id="page3_answer_how"></p>
+                    </div>
+                    <div class="answer-figure">
+                        <span class="answer-caption" id="page3_answer_caption"></span>
+                        <span class="answer-amount" id="page3_answer_amount"></span>
+                        <span class="answer-delta" id="page3_answer_delta"></span>
+                    </div>
+                    <p class="answer-basis" id="page3_answer_basis"></p>
+                </div>
+                <!-- 老齢年金が未入力のときの前提(以前は赤字の警告だった。入力を促す1行にした) -->
+                <p class="soft-notice" id="page3_pension_notice" hidden>
+                    <span aria-hidden="true">ⓘ</span>
+                    <span>老齢年金の見込額が未入力のため、年金を0円として計算しています。<button type="button" class="btn-link" id="btn_page3_enter_pension">ねんきん定期便の金額を入れる</button></span>
+                </p>
+                <div class="button-row">
+                    <a href="/lifeplan/" target="_blank" rel="noopener" class="btn btn-primary btn-answer" id="btn_page3_adopt_best" data-action="adopt-comparison-plan" data-lifeplan-link>この受け取り方で詳しく調整する</a>
+                </div>
+            </section>
+
+            <section class="card" aria-labelledby="page3_compare_title">
+                <div class="section-title" id="page3_compare_title">2つの受け取り方を比べる</div>
+                <p class="unit-caption">単位: 万円</p>
+                <div class="table-responsive">
+                    <table class="summary-table" id="page3_summary_table">
+                        <thead id="page3_summary_head"></thead>
+                        <tbody id="page3_summary_body"></tbody>
+                    </table>
+                </div>
+                <!-- 以前の円単位の比較表(iDeCo/NISA別・税金の内訳・住民税が非課税になる期間を含む)は、内訳として残す -->
+                <details class="more-details" id="page3_detail">
+                    <summary>内訳を円単位で見る</summary>
+                    <div class="table-responsive">
+                        <table>
+                            <thead id="page3_compare_table_head"></thead>
+                            <tbody id="page3_compare_table_body"></tbody>
+                        </table>
+                    </div>
+                </details>
+            </section>
+
+            <section class="card" aria-labelledby="page3_chart_title">
+                <div class="section-title" id="page3_chart_title">残高の推移</div>
+                <div id="page3_compare_chart_wrap">
+                    <canvas id="page3_compare_chart_canvas"></canvas>
+                    <p id="page3_compare_chart_error" class="alert-text" style="display: none;">グラフを表示できませんでした。</p>
+                </div>
+            </section>
+
+            <!-- 前提の入力は、答えの後にまとめて閉じておく。閉じていても今の条件が分かるよう、見出しの下に1行で出す -->
+            <details class="card conditions" id="page3_conditions">
+                <summary>
+                    <span class="conditions-head">
+                        <span class="section-title">条件を変える</span>
+                        <span class="conditions-now" id="page3_conditions_now"></span>
+                    </span>
+                    <span class="conditions-toggle" aria-hidden="true"><span class="when-closed">開く ＋</span><span class="when-open">閉じる −</span></span>
+                </summary>
+                <div class="conditions-body">
 
                 <div class="form-field">
                     <label class="checkbox-label">
@@ -357,9 +454,6 @@
                         ℹ️ 退職年齢が老齢年金の受給開始年齢より後のため、その重複期間は「働きながら年金を受け取る」期間として扱われます。この期間は在職老齢年金による老齢厚生年金の支給停止調整が結果に反映されます。
                     </p>
                 </div>
-                <p class="alert-text">
-                    ⚠️ 未入力の場合、老齢年金の収入が無いものとして最適化を計算します。多くの方は老齢基礎年金だけでも受給対象のため、年金受給開始後の税金・社会保険料の見積もりに大きな誤差が生じる可能性があります。
-                </p>
 
                 <div class="form-field">
                     <!-- 年齢の表示と▲▼ボタンはスライダーの上に置く(MEMO.md 2026/9/29コメント1-(2)、共通のAgeStepper。以前はスライダーの右に数値入力欄) -->
@@ -416,29 +510,15 @@
                     ⚠️ 目安です。合計所得金額をもとにした簡易判定であり、実際の非課税判定はお住まいの市区町村にご確認ください。
                 </p>
 
-                <p id="exit_strategy_optimize_unavailable" class="alert-text" style="display: none;">拠出終了年齢がiDeCoの受給上限年齢(75歳)を超えているため、最適化を計算できません。</p>
-                <h4>最適化結果</h4>
-                <!-- 入力を変えた後、最適化を計算し直すまでの間に出す(MEMO.md 2026/10/16コメント1-(6)) -->
-                <p id="page3_recalc_note" class="info-note recalc-note" hidden><span class="busy-spinner busy-spinner-inline" aria-hidden="true"></span>入力に合わせて計算し直しています…</p>
-                <div class="table-responsive">
-                    <table>
-                        <thead id="page3_compare_table_head"></thead>
-                        <tbody id="page3_compare_table_body"></tbody>
-                    </table>
-                </div>
-
-                <h4>資産残高推移</h4>
-                <div id="page3_compare_chart_wrap">
-                    <canvas id="page3_compare_chart_canvas"></canvas>
-                    <p id="page3_compare_chart_error" class="alert-text" style="display: none;">グラフを表示できませんでした。</p>
-                </div>
-            </div>
+                </div><!-- /.conditions-body -->
+            </details>
 
             <!-- ライフプランシミュレーターへの導線(MEMO.md 2026/10/9コメント2-(1)、docs/shared/marketing/priorities.md 2・
                  docs/shared/decisions/0015)。結果のすぐ下に、見出しで何が分かるかを書き、その人の結果の数字で示し、ボタンで引き継ぐ(MEMO.md 2026/10/18コメント1-(2)、ui.jsの
                  _renderLifeplanCta)。ボタンは比較表の「この設定で詳しく調整する」と同じく、手取り最適化の案を採用して引き継ぐ -->
+            <!-- 2026-10-22: 答えのカードのボタンも同じくlifeplanへ引き継ぐため、こちらは「次に」の控えめなカードにした(docs/shared/decisions/0018) -->
             <div class="card lifeplan-cta" id="lifeplan_cta">
-                <div class="section-title">ライフプランシミュレーターで、<wbr>資産が何歳まで枯渇しないか確かめる</div>
+                <div class="section-title">次に: 生活費まで含めて、<wbr>資産が何歳まで枯渇しないか確かめる</div>
                 <ul class="lifeplan-cta-facts" id="lifeplan_cta_facts"></ul>
                 <dl class="lifeplan-cta-carry">
                     <dt>引き継ぐ情報</dt>
@@ -446,7 +526,7 @@
                     <dt>ライフプランシミュレーターで入力する情報</dt>
                     <dd>生活費・預貯金などの資産・配偶者</dd>
                 </dl>
-                <a href="/lifeplan/" target="_blank" rel="noopener" class="btn btn-primary" id="btn_lifeplan_cta" data-lifeplan-link>ライフプランシミュレーターに引き継ぐ</a>
+                <a href="/lifeplan/" target="_blank" rel="noopener" class="btn btn-outline" id="btn_lifeplan_cta" data-lifeplan-link>ライフプランシミュレーターに引き継ぐ</a>
             </div>
         </div><!-- /#page3_strategist -->
 
@@ -497,9 +577,9 @@
     <script src="shared/numeric-input-select.45aa8e5f43.js"></script>
     <script src="shared/help-popover.5d3821732b.js"></script>
     <script src="shared/step-history.2d8661c63c.js"></script>
-    <script src="shared/parameter-catalog.e12887fe15.js"></script>
+    <script src="shared/parameter-catalog.f1b55dfee7.js"></script>
     <script src="shared/busy-indicator.985410e3ab.js"></script>
-    <script src="ui.71c941de4a.js"></script>
+    <script src="ui.84603dda87.js"></script>
     <script>
         window.model = new IdecoModel({ window: window, storage: AppStorage });
         AppAuth.init();
