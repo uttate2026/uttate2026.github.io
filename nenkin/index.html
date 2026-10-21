@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ねんきんプランナー</title>
-    <link rel="stylesheet" href="style.954d9d119e.css">
+    <link rel="stylesheet" href="style.b43a49ef8c.css">
     <!-- 待っている間の表示(回る輪+文字)の見た目は4アプリで共通(docs/shared/decisions/0017)。起動時の表示より先に読む -->
     <link rel="stylesheet" href="shared/busy-indicator.6fbf9e1ca8.css">
     <!-- uttate.comに埋め込まれているとき(iframeの外にページの見出しがある)は、中のタイトルを出さない(MEMO.md 2026/9/30コメント1-(12))。
@@ -235,7 +235,6 @@
                 <!-- 住民税非課税世帯になる期間(選択中の受給開始年齢)。明細を開かなくても分かるように出す(MEMO.md 2026/10/18コメント2-(3)) -->
                 <p class="exempt-summary" id="page2_exempt_summary"></p>
 
-                <p class="unit-caption">単位: 万円</p>
                 <div class="table-responsive">
                     <table class="summary-table breakdown-table">
                         <thead id="page2_results_head"></thead>
@@ -284,7 +283,6 @@
                             <input type="range" id="input_work_until_detail_age_slider" class="range-input" min="40" max="105" step="1" value="40">
                         </div>
                     </div>
-                    <p class="unit-caption">単位: 万円</p>
                     <div class="table-responsive">
                         <table class="breakdown-table">
                             <tbody id="work_until_detail_body"></tbody>
@@ -489,7 +487,7 @@
          lifeplan ADR 0027参照)。nenkin-bridge.jsが参照するため、必ずその前に読み込む -->
     <script src="shared/pension-claim-optimizer.5781c92d55.js"></script>
     <script src="shared/nenkin-bridge.9e62d52bf6.js"></script>
-    <script src="shared/parameter-catalog.a312c4874c.js"></script>
+    <script src="shared/parameter-catalog.26154bcb22.js"></script>
     <script src="shared/chart-age-cursor.b4884465a9.js"></script>
     <script src="shared/age-stepper.bc4ccf1bc4.js"></script>
     <script src="shared/lifeplan-link.464e9adfb7.js"></script>
@@ -498,7 +496,7 @@
     <script src="shared/help-popover.acb24c7888.js"></script>
     <script src="shared/step-history.eb3c8e9f6b.js"></script>
     <script src="shared/busy-indicator.f5c7cd784d.js"></script>
-    <script src="ui.b8bac31c2a.js"></script>
+    <script src="ui.081394a981.js"></script>
     <script>
         window.model = new NenkinModel({ window: window, storage: AppStorage });
         AppAuth.init();
