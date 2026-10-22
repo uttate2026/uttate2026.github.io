@@ -1,36 +1,6 @@
 {
   "deploys": [
     {
-      "deployedAt": "2026-10-21T22:15:27.510Z",
-      "files": [
-        "auth.f95b7f2cb8.js",
-        "consent.6a30cb2135.js",
-        "constants.2148abf965.js",
-        "model.f54db6c700.js",
-        "resize-notifier.bbc2b52d92.js",
-        "shared/age-stepper.1b938669bf.js",
-        "shared/busy-indicator.4a72177cfe.js",
-        "shared/busy-indicator.6fbf9e1ca8.css",
-        "shared/calculator.176a911b50.js",
-        "shared/chart-age-cursor.823d607c46.js",
-        "shared/embed-overlay.800909cf4d.js",
-        "shared/help-popover.bf1fa2adf4.js",
-        "shared/ideco-bridge.bfa1a3c13f.js",
-        "shared/ideco-exit-optimizer.1ea5fcfde9.js",
-        "shared/lifetime-totals.8f9cb4f391.js",
-        "shared/nenkin-bridge.9e62d52bf6.js",
-        "shared/numeric-input-select.ca4b3dc369.js",
-        "shared/parameter-catalog.a312c4874c.js",
-        "shared/pattern-builders.de1a9717c8.js",
-        "shared/pension-claim-optimizer.5781c92d55.js",
-        "shared/rebalance-reader.c65cb0259a.js",
-        "storage.df28063057.js",
-        "style.ea16d7cc1c.css",
-        "ui.985b7c4812.js",
-        "vendor/chart.29017fcac0.js"
-      ]
-    },
-    {
       "deployedAt": "2026-10-21T23:29:01.274Z",
       "files": [
         "auth.f95b7f2cb8.js",
@@ -141,6 +111,36 @@
         "shared/nenkin-bridge.9e62d52bf6.js",
         "shared/numeric-input-select.ca4b3dc369.js",
         "shared/parameter-catalog.8f0368a727.js",
+        "shared/pattern-builders.71647e6721.js",
+        "shared/pension-claim-optimizer.5781c92d55.js",
+        "shared/rebalance-reader.c65cb0259a.js",
+        "storage.df28063057.js",
+        "style.721899752e.css",
+        "ui.09bdc44524.js",
+        "vendor/chart.29017fcac0.js"
+      ]
+    },
+    {
+      "deployedAt": "2026-10-22T18:54:34.106Z",
+      "files": [
+        "auth.f95b7f2cb8.js",
+        "consent.6a30cb2135.js",
+        "constants.6341339eec.js",
+        "model.cfc965100c.js",
+        "resize-notifier.bbc2b52d92.js",
+        "shared/age-stepper.1b938669bf.js",
+        "shared/busy-indicator.4a72177cfe.js",
+        "shared/busy-indicator.6fbf9e1ca8.css",
+        "shared/calculator.69752a56f9.js",
+        "shared/chart-age-cursor.823d607c46.js",
+        "shared/embed-overlay.800909cf4d.js",
+        "shared/help-popover.bf1fa2adf4.js",
+        "shared/ideco-bridge.bfa1a3c13f.js",
+        "shared/ideco-exit-optimizer.1ea5fcfde9.js",
+        "shared/lifetime-totals.8f9cb4f391.js",
+        "shared/nenkin-bridge.9e62d52bf6.js",
+        "shared/numeric-input-select.ca4b3dc369.js",
+        "shared/parameter-catalog.426ab67e8c.js",
         "shared/pattern-builders.71647e6721.js",
         "shared/pension-claim-optimizer.5781c92d55.js",
         "shared/rebalance-reader.c65cb0259a.js",
