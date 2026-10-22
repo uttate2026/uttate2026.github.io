@@ -824,6 +824,13 @@ th, td {
     position: relative;
 }
 
+/* 起動の後に描く表(引退後の健康保険の比べる表など、ui.jsがinnerHTMLで毎回作り直す)は、initScrollShadowsが
+   .table-scroll-areaで包まないため、外側の要素そのものを横スクロールにする(2026-10-22。以前は横スクロールが無く、
+   スマホ幅で国保と任意継続を比べる表がページ全体を横に広げていた) */
+.table-responsive:not(:has(> .table-scroll-area)) {
+    overflow-x: auto;
+}
+
 .table-scroll-area {
     overflow-x: auto;
 }
