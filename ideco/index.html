@@ -488,10 +488,12 @@
                         </div>
                     </div>
                     <div class="form-field">
-                        <label for="input_employer_service_years">勤続年数<button type="button" class="help-btn help-btn-info" data-help="info" aria-label="解説" aria-expanded="false" tabindex="-1"></button><template class="help-content"><p>9年/19年ルール(退職金とiDeCoの一時金の控除の重なりの調整)の計算に使います。「未入力」なら調整しません。</p></template><button type="button" class="help-btn help-btn-hint" data-help="hint" aria-label="入力のヒント" aria-expanded="false" tabindex="-1"></button><template class="help-content"><p>退職金を受け取るときの勤続年数です。1年未満の端数は1年に切り上げます。</p></template></label>
+                        <label for="input_employer_service_years">勤続年数<button type="button" class="help-btn help-btn-info" data-help="info" aria-label="解説" aria-expanded="false" tabindex="-1"></button><template class="help-content"><p>退職所得控除と、9年/19年ルール(退職金とiDeCoの一時金の控除の重なりの調整)の計算に使います。「未入力」なら、受給年齢から22歳を引いた年数と見積もります。</p></template><button type="button" class="help-btn help-btn-hint" data-help="hint" aria-label="入力のヒント" aria-expanded="false" tabindex="-1"></button><template class="help-content"><p>退職金を受け取るときの勤続年数です。1年未満の端数は1年に切り上げます。</p></template></label>
                         <select id="input_employer_service_years"></select>
                     </div>
                 </div>
+                <!-- 勤続年数が未入力のとき、見積もった年数で計算していることを知らせる(docs/lifeplan/decisions/0062) -->
+                <p class="soft-notice" id="employer_service_years_note" hidden></p>
 
                 <label class="checkbox-label resident-tax-check-toggle">
                     <input type="checkbox" id="input_resident_tax_check_enabled">
@@ -562,9 +564,9 @@
          (このディレクトリ自体はGit管理対象外)。shared/lifeplan-constants.jsはshared/calculator.jsが
          参照するブラウザグローバルLifeplanConstantsを用意するためのもので、このページ自体の
          constants.js(IdecoConstants)とは別名のため衝突しない -->
-    <script src="shared/lifeplan-constants.14526684e5.js"></script>
+    <script src="shared/lifeplan-constants.2ba1670597.js"></script>
     <script src="shared/pattern-builders.1808441387.js"></script>
-    <script src="shared/calculator.d09597349c.js"></script>
+    <script src="shared/calculator.98ab95a0f8.js"></script>
     <!-- 生涯合計の集計(docs/shared/decisions/0007参照)。以降の共通モジュールが参照するため、その前に読み込む -->
     <script src="shared/lifetime-totals.16e3fca542.js"></script>
     <script src="shared/comparison-topics.ae2140b713.js"></script>
@@ -578,9 +580,9 @@
     <script src="shared/numeric-input-select.45aa8e5f43.js"></script>
     <script src="shared/help-popover.5d3821732b.js"></script>
     <script src="shared/step-history.2d8661c63c.js"></script>
-    <script src="shared/parameter-catalog.a4bf6c6384.js"></script>
+    <script src="shared/parameter-catalog.84b91457b3.js"></script>
     <script src="shared/busy-indicator.985410e3ab.js"></script>
-    <script src="ui.547160aa56.js"></script>
+    <script src="ui.3c33324961.js"></script>
     <script>
         window.model = new IdecoModel({ window: window, storage: AppStorage });
         AppAuth.init();
