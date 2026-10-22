@@ -16,6 +16,10 @@
     --danger: #dc2626;
     --text-main: #0f172a;
     --text-secondary: #64748b;
+    /* 2026-10-22(docs/shared/decisions/0018・docs/lifeplan/decisions/0061): 答えのカード・前提のお知らせの色(idecoと同じ) */
+    --primary-wash: #eef6f8;
+    --notice-bg: #fff7ed;
+    --notice-fg: #9a3412;
 }
 
 * {
@@ -2128,13 +2132,125 @@ th, td {
     color: var(--text-secondary);
 }
 
-/* 資金不足の案内(MEMO.md 2026/10/2コメント2-(6)) */
-.shortage-note {
-    border: 1px solid #f59e0b;
-    background: #fffbeb;
+/* 結果の答えのカード(2026-10-22、docs/shared/decisions/0018・docs/lifeplan/decisions/0061)。資産が何歳まで尽きないかを1文と
+   大きな金額で答える(idecoの答えのカードと同じ見た目)。文字の大きさは、答えの金額・見出し・本文・補足の4段階に絞る */
+.answer-card {
+    border: 1.5px solid var(--primary);
+    border-radius: 10px;
+    background: var(--bg-card);
+    padding: 16px 20px;
+    margin-top: 12px;
+    display: grid;
+    gap: 14px;
+}
+
+.answer-body {
+    display: grid;
+    gap: 12px;
+}
+
+.answer-label {
+    font-size: 13px;
+    font-weight: bold;
+    color: var(--primary-dark);
+    letter-spacing: 0.04em;
+}
+
+.answer-how {
+    margin: 2px 0 0;
+    font-size: 20px;
+    font-weight: bold;
+    text-wrap: balance;
+}
+
+.answer-figure {
+    display: flex;
+    align-items: baseline;
+    flex-wrap: wrap;
+    gap: 6px 12px;
+}
+
+.answer-caption {
+    font-size: 14px;
+    color: var(--text-secondary);
+}
+
+.answer-amount {
+    font-size: 40px;
+    font-weight: 800;
+    line-height: 1.1;
+    color: var(--primary-dark);
+    font-variant-numeric: tabular-nums;
+}
+
+.answer-amount small {
+    font-size: 20px;
+    font-weight: bold;
+    margin-left: 2px;
+}
+
+.answer-delta {
+    background: var(--primary-wash);
+    color: var(--primary-dark);
+    font-size: 13px;
+    font-weight: bold;
+    padding: 2px 10px;
+    border-radius: 12px;
+}
+
+.answer-basis {
+    margin: 0;
+    font-size: 14px;
+    line-height: 1.7;
+    max-width: 48em;
+}
+
+/* 現金・預金が足りなくなるときは、金額と札をお知らせの色にする(赤字の警告にはしない) */
+.answer-card.is-short {
+    border-color: var(--notice-fg);
+}
+
+.answer-card.is-short .answer-amount,
+.answer-card.is-short .answer-label {
+    color: var(--notice-fg);
+}
+
+.answer-card.is-short .answer-delta {
+    background: var(--notice-bg);
+    color: var(--notice-fg);
+}
+
+/* displayを指定した答えのカードの部品も、hidden属性で隠せるようにする */
+.answer-card [hidden] {
+    display: none !important;
+}
+
+/* 前提のお知らせ(赤字の警告ではなく、入力を促す1行) */
+.soft-notice {
+    display: flex;
+    gap: 8px;
+    align-items: flex-start;
+    background: var(--notice-bg);
+    color: var(--notice-fg);
     border-radius: 8px;
     padding: 10px 14px;
-    margin-bottom: 12px;
+    margin: 0;
+    font-size: 13px;
+    line-height: 1.6;
+}
+
+.soft-notice .btn-link {
+    color: inherit;
+    font-weight: bold;
+    font-size: inherit;
+    padding: 0;
+    margin-left: 4px;
+}
+
+/* 資金不足の考えられる原因(MEMO.md 2026/10/2コメント2-(6))。答えのカードの中に、原因ごとにその入力欄を開くボタンを並べる */
+.shortage-note {
+    border-top: 1px solid var(--border);
+    padding-top: 12px;
     font-size: 14px;
 }
 
@@ -2142,13 +2258,139 @@ th, td {
     margin: 0 0 6px;
 }
 
+.shortage-note .shortage-note-title {
+    font-weight: bold;
+    font-size: 13px;
+}
+
 .shortage-causes {
     margin: 0;
-    padding-left: 20px;
+    padding: 0;
+    list-style: none;
+    display: grid;
+    gap: 8px;
 }
 
 .shortage-causes li {
-    margin-bottom: 4px;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 6px 10px;
+    line-height: 1.6;
+}
+
+.shortage-causes li > span {
+    flex: 1 1 280px;
+    min-width: 0;
+}
+
+.btn.btn-compact {
+    font-size: 13px;
+    padding: 5px 10px;
+}
+
+/* 引退直後に暴落が来たら(ADR 0055)。押してすぐ切り替わる3つのボタン */
+.scenario-head {
+    font-weight: bold;
+    font-size: 13px;
+    margin-bottom: 6px;
+}
+
+.scenario-pills {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-bottom: 8px;
+}
+
+.scenario-pill {
+    border: 1px solid var(--border-strong);
+    background: var(--bg-card);
+    color: var(--text-main);
+    border-radius: 999px;
+    padding: 6px 14px;
+    font-size: 13px;
+    cursor: pointer;
+}
+
+.scenario-pill:hover {
+    border-color: var(--primary);
+}
+
+.scenario-pill[aria-pressed="true"] {
+    background: var(--primary);
+    border-color: var(--primary);
+    color: #fff;
+    font-weight: bold;
+}
+
+/* 条件を変える(死亡予測年齢・性別)。閉じていても今の条件を1行で出す */
+details.conditions {
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    margin-top: 16px;
+    background: var(--bg-card);
+}
+
+.conditions > summary {
+    list-style: none;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 14px 16px;
+}
+
+.conditions > summary::-webkit-details-marker {
+    display: none;
+}
+
+.conditions-head {
+    display: grid;
+    gap: 2px;
+    min-width: 0;
+}
+
+.conditions-title {
+    font-weight: bold;
+    font-size: 14px;
+}
+
+.conditions-now {
+    font-size: 13px;
+    color: var(--text-secondary);
+}
+
+.conditions-toggle {
+    color: var(--primary);
+    font-weight: bold;
+    font-size: 13px;
+    white-space: nowrap;
+}
+
+.conditions[open] .when-closed,
+.conditions:not([open]) .when-open {
+    display: none;
+}
+
+.conditions-body {
+    border-top: 1px solid var(--border);
+    padding: 4px 16px 16px;
+}
+
+@media (max-width: 600px) {
+    .answer-card {
+        padding: 14px 16px;
+    }
+
+    .answer-amount {
+        font-size: 34px;
+    }
+
+    .answer-how {
+        font-size: 18px;
+    }
 }
 
 /* 生活費の表(MEMO.md 2026/10/2コメント2-(11))。スマホ幅でも欄が潰れないよう幅を確保し、はみ出す分は横にスクロールする */

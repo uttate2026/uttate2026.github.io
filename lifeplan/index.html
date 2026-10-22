@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ライフプランシミュレーター</title>
-    <link rel="stylesheet" href="style.86be52e40c.css">
+    <link rel="stylesheet" href="style.721899752e.css">
     <!-- 待っている間の表示(回る輪+文字)の見た目は4アプリで共通(docs/shared/decisions/0017)。起動時の表示より先に読む -->
     <link rel="stylesheet" href="shared/busy-indicator.6fbf9e1ca8.css">
     <!-- uttate.comに埋め込まれているとき(iframeの外にページの見出しがある)は、中のタイトルを出さない(MEMO.md 2026/9/30コメント1-(12))。
@@ -237,34 +237,34 @@
                 <!-- 入力の状況: 収入・年金/資産/支出のうちまだ入っていないものと、その入力欄へのボタン(MEMO.md 2026/10/4コメント1-(8)、
                      docs/lifeplan/decisions/0047)。他のサイトから引き継いだ直後に、残りの入力を促す -->
                 <div id="result_input_status" class="input-status-note" role="status" hidden></div>
-                <!-- 現金・預金がマイナス(資金不足)になる年があるときの案内と、考えられる原因の入力欄へのボタン(MEMO.md 2026/10/2コメント2-(6)) -->
-                <div id="result_shortage_note" class="shortage-note" role="status" hidden></div>
-                <div class="result-summary">
-                    <div class="result-summary-item">
-                        <span class="result-summary-label">総手取り額(生涯)</span>
-                        <span class="result-summary-value" id="summary_net_income">¥0</span>
+                <!-- 答え(資産が何歳まで尽きないか、2026-10-22、docs/shared/decisions/0018・docs/lifeplan/decisions/0061)。ideco・ねんきんプランナーの「次に」の
+                     カードが約束する問いに、見出しの1文と金額で答える。足りなくなるときは、その年と最も足りないときの額を答えにし、考えられる原因の
+                     入力欄へのボタン(以前の資金不足の案内)をこのカードの中に出す(ui.jsの_renderResultAnswer・_renderShortageNote) -->
+                <div class="answer-card" id="result_answer">
+                    <div class="answer-body">
+                        <div>
+                            <div class="answer-label" id="result_answer_label">資産の見通し</div>
+                            <p class="answer-how" id="result_answer_how"></p>
+                        </div>
+                        <div class="answer-figure">
+                            <span class="answer-caption" id="result_answer_caption"></span>
+                            <span class="answer-amount" id="result_answer_amount"></span>
+                            <span class="answer-delta" id="result_answer_delta" hidden></span>
+                        </div>
+                        <p class="answer-basis" id="result_answer_basis" hidden></p>
                     </div>
-                    <div class="result-summary-item">
-                        <span class="result-summary-label">総税額(生涯)</span>
-                        <span class="result-summary-value" id="summary_tax">¥0</span>
-                    </div>
-                    <div class="result-summary-item">
-                        <span class="result-summary-label">総社会保険料(生涯)</span>
-                        <span class="result-summary-value" id="summary_social_insurance">¥0</span>
-                    </div>
-                    <!-- 住民税非課税世帯になる年数(MEMO.md 2026/10/9コメント2-(2)、docs/shared/marketing/priorities.md 3。以前は「明細を見る」の
-                         1年分の表にしか出ておらず、計算の深さが伝わりにくかった) -->
-                    <div class="result-summary-item">
-                        <span class="result-summary-label">住民税非課税世帯(生涯)</span>
-                        <span class="result-summary-value" id="summary_resident_tax_exempt">なし</span>
-                    </div>
+                    <!-- 資金不足のときの、考えられる原因とその入力欄へのボタン(MEMO.md 2026/10/2コメント2-(6)) -->
+                    <div id="result_shortage_note" class="shortage-note" role="status" hidden></div>
+                    <!-- 死亡予測年齢が平均余命のままのとき、長生きした場合の確かめ方(ADR 0054) -->
+                    <p class="soft-notice" id="result_longevity_note" hidden><span aria-hidden="true">ⓘ</span><span>平均余命は、半数を超える人がそれより長生きする年齢です。長生きしても足りるかは、死亡予測年齢を「4人に1人が生きている年齢」にして確かめられます。<button type="button" class="btn-link" id="btn_result_change_death_age">死亡予測年齢を変える</button></span></p>
                 </div>
-                <!-- 死亡予測年齢(docs/lifeplan/decisions/0053)。その年までは生きているとして計算し、翌年からは遺族年金・亡くなった後の
-                     生活費で計算するため、結果を大きく左右する。公的年金・iDeCoの最適化・相続税と共通の値(Person.deathAgeEstimate) -->
-                <div id="result_death_ages" class="result-death-ages"></div>
+
+                <!-- 資産の推移(グラフ)。引退直後の暴落のシナリオ(ADR 0055)は、グラフの見出しの下の3つのボタンで切り替える -->
+                <div class="section-title-sub">資産の推移</div>
                 <!-- 運用がうまくいかなかったら(docs/lifeplan/decisions/0055)。世帯主が引退した年から過去の実際の下落を当てはめ、
                      総資産の線をグラフに重ねて比べる。保存しない表示上の選択 -->
                 <div id="result_return_scenario" class="result-return-scenario"></div>
+
                 <!-- 以前の「グラフ/明細」タブ(全年齢の明細表)は廃止し、グラフの下の「明細を見る」で1年分を
                      表示する(MEMO.md 2026/9/28コメント1-(2)、docs/lifeplan/decisions/0032) -->
                 <div id="asset_chart_wrap">
@@ -306,6 +306,45 @@
                             <thead id="result_detail_head"></thead>
                             <tbody id="result_detail_body"></tbody>
                         </table>
+                    </div>
+                </details>
+
+                <!-- 生涯の合計(万円)。答え・グラフの後ろに下げた(2026-10-22、以前は結果の一番上に円で出していた) -->
+                <div class="section-title-sub">生涯の合計</div>
+                <div class="result-summary">
+                    <div class="result-summary-item">
+                        <span class="result-summary-label">手取り</span>
+                        <span class="result-summary-value" id="summary_net_income">0万円</span>
+                    </div>
+                    <div class="result-summary-item">
+                        <span class="result-summary-label">税金</span>
+                        <span class="result-summary-value" id="summary_tax">0万円</span>
+                    </div>
+                    <div class="result-summary-item">
+                        <span class="result-summary-label">社会保険料</span>
+                        <span class="result-summary-value" id="summary_social_insurance">0万円</span>
+                    </div>
+                    <!-- 住民税非課税世帯になる年数(MEMO.md 2026/10/9コメント2-(2)、docs/shared/marketing/priorities.md 3。以前は「明細を見る」の
+                         1年分の表にしか出ておらず、計算の深さが伝わりにくかった) -->
+                    <div class="result-summary-item">
+                        <span class="result-summary-label">住民税非課税世帯</span>
+                        <span class="result-summary-value" id="summary_resident_tax_exempt">なし</span>
+                    </div>
+                </div>
+
+                <!-- 死亡予測年齢・性別は、閉じた「条件を変える」に入れ、閉じていても今の条件を1行で出す(docs/shared/decisions/0018) -->
+                <details class="conditions" id="result_conditions">
+                    <summary>
+                        <span class="conditions-head">
+                            <span class="conditions-title">条件を変える</span>
+                            <span class="conditions-now" id="result_conditions_now"></span>
+                        </span>
+                        <span class="conditions-toggle" aria-hidden="true"><span class="when-closed">開く ＋</span><span class="when-open">閉じる −</span></span>
+                    </summary>
+                    <div class="conditions-body">
+                        <!-- 死亡予測年齢(docs/lifeplan/decisions/0053)。その年までは生きているとして計算し、翌年からは遺族年金・亡くなった後の
+                             生活費で計算するため、結果を大きく左右する。公的年金・iDeCoの最適化・相続税と共通の値(Person.deathAgeEstimate) -->
+                        <div id="result_death_ages" class="result-death-ages"></div>
                     </div>
                 </details>
             </div>
@@ -766,7 +805,7 @@
     <script src="shared/nenkin-bridge.9e62d52bf6.js"></script>
     <script src="shared/chart-age-cursor.823d607c46.js"></script>
     <script src="shared/age-stepper.1b938669bf.js"></script>
-    <script src="shared/parameter-catalog.2d1d40ec45.js"></script>
+    <script src="shared/parameter-catalog.0afc6a2c15.js"></script>
     <script src="shared/rebalance-reader.c65cb0259a.js"></script>
     <script src="shared/embed-overlay.800909cf4d.js"></script>
     <script src="shared/numeric-input-select.ca4b3dc369.js"></script>
@@ -777,7 +816,7 @@
     <script src="resize-notifier.bbc2b52d92.js"></script>
     <script src="vendor/chart.29017fcac0.js"></script>
     <script src="shared/busy-indicator.4a72177cfe.js"></script>
-    <script src="ui.985b7c4812.js"></script>
+    <script src="ui.c476245362.js"></script>
     <script>
         window.model = new LifeplanModel({ window: window, storage: AppStorage });
         AppAuth.init();
