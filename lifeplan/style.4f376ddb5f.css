@@ -445,6 +445,43 @@ html.auth-skip #auth_overlay {
     align-items: end;
 }
 
+/* 欄が1つだけでも横幅いっぱいに伸ばさない並び(給与収入タブ、lifeplan ADR 0064)。auto-fillで空の列を残す */
+.form-grid-compact {
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+}
+
+/* まとまり(.section-title-sub)の中の小さな見出し。区切り線は引かない(給与収入タブの「① 役職定年」等、lifeplan ADR 0064) */
+.subgroup-title {
+    font-weight: bold;
+    font-size: 13px;
+    margin: 4px 0 8px;
+}
+
+/* 給与収入タブの「これからの働き方」の各段階(①役職定年・②定年退職・③勤めをやめる年齢、lifeplan ADR 0064)。左の線で段階を分ける */
+.work-stage {
+    border-left: 3px solid var(--border-strong);
+    padding: 2px 0 2px 12px;
+    margin: 0 0 14px;
+}
+
+.work-stage-note {
+    display: block;
+    font-weight: normal;
+    font-size: 12px;
+    color: var(--text-secondary);
+    margin-top: 2px;
+}
+
+/* 失業給付の補足。すぐ下の「勤め先の健康保険を抜けた後」の見出しと間を空ける(lifeplan ADR 0064) */
+.field-note.work-stage-after-note {
+    margin-bottom: 16px;
+}
+
+/* 入力欄の代わりに、決まっている値を文字で出す(失業給付の「高年齢求職者給付金(一時金)」) */
+.field-static {
+    margin: 6px 0 0;
+}
+
 /* 住民税決定通知書から写す住民税は、源泉徴収票の項目と行を分ける */
 .form-field-row-start {
     grid-column-start: 1;
@@ -2142,6 +2179,27 @@ th, td {
     margin-top: 12px;
     display: grid;
     gap: 14px;
+}
+
+.answer-card-actions {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.field-with-copy {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.field-with-copy input {
+    flex: 1;
+    min-width: 0;
+}
+
+#share_link_qr svg {
+    display: block;
+    margin: 8px 0;
 }
 
 .answer-body {
