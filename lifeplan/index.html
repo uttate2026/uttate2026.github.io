@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ライフプランシミュレーター</title>
-    <link rel="stylesheet" href="style.721899752e.css">
+    <link rel="stylesheet" href="style.6f24eaca9d.css">
     <!-- 待っている間の表示(回る輪+文字)の見た目は4アプリで共通(docs/shared/decisions/0017)。起動時の表示より先に読む -->
     <link rel="stylesheet" href="shared/busy-indicator.6fbf9e1ca8.css">
     <!-- uttate.comに埋め込まれているとき(iframeの外にページの見出しがある)は、中のタイトルを出さない(MEMO.md 2026/9/30コメント1-(12))。
@@ -241,6 +241,11 @@
                      カードが約束する問いに、見出しの1文と金額で答える。足りなくなるときは、その年と最も足りないときの額を答えにし、考えられる原因の
                      入力欄へのボタン(以前の資金不足の案内)をこのカードの中に出す(ui.jsの_renderResultAnswer・_renderShortageNote) -->
                 <div class="answer-card" id="result_answer">
+                    <!-- プランをURLで共有(lifeplan ADR 0063)。サーバーには保存しないため、見出しで「共有」ではなく
+                         「URLに書き出す」とし(バックアップの「書き出す」と同じ言い方)、誤解を避ける -->
+                    <div class="answer-card-actions">
+                        <button type="button" id="btn_share_link" class="btn btn-secondary" hidden>🔗 URLに書き出す</button>
+                    </div>
                     <div class="answer-body">
                         <div>
                             <div class="answer-label" id="result_answer_label">資産の見通し</div>
@@ -727,6 +732,29 @@
         </div>
     </div>
 
+    <!-- プランをURLで共有(lifeplan ADR 0063)。サーバーには何も送らない旨をここで明記する -->
+    <div id="share_link_modal" class="modal-overlay" style="display: none;" role="dialog" aria-modal="true" aria-labelledby="share_link_modal_title">
+        <div class="card modal-card">
+            <button type="button" id="btn_share_link_close" class="modal-close" aria-label="閉じる">×</button>
+            <div class="section-title" id="share_link_modal_title">プランをURLに書き出す</div>
+            <p class="soft-notice"><span aria-hidden="true">ⓘ</span><span>このURL自体にプランの中身が入っています。サーバーには何も送らず、このURLを知っている人だけが開けます。</span></p>
+            <div class="form-field">
+                <label for="share_link_url">URL</label>
+                <div class="field-with-copy">
+                    <input type="text" id="share_link_url" readonly>
+                    <button type="button" id="btn_share_link_copy" class="btn btn-secondary">コピー</button>
+                </div>
+                <p id="share_link_copied_note" class="field-note" hidden>コピーしました。</p>
+            </div>
+            <div id="share_link_qr_wrap" hidden>
+                <div id="share_link_qr"></div>
+                <p class="field-note">このQRコードも同じURLです。</p>
+            </div>
+            <p id="share_link_qr_omitted_note" class="field-note" hidden>プランの内容が多いため、QRコードは省略しました(リンクはそのまま使えます)。</p>
+            <p class="field-note">開いた相手の画面では、新しいプランとして追加されます(今のプランは変わりません)。</p>
+        </div>
+    </div>
+
     <div id="rebalance_import_modal" class="modal-overlay" style="display: none;" role="dialog" aria-modal="true" aria-labelledby="rebalance_import_modal_title">
         <div class="card modal-card modal-card-wide">
             <button type="button" id="btn_rebalance_import_close" class="modal-close" aria-label="閉じる">×</button>
@@ -783,7 +811,7 @@
         <span class="busy-spinner" aria-hidden="true"></span><span id="app_loading_text">読み込んでいます…</span>
     </div>
 
-    <script src="storage.df28063057.js"></script>
+    <script src="storage.77cb28f870.js"></script>
     <script src="constants.6341339eec.js"></script>
     <script src="shared/pattern-builders.71647e6721.js"></script>
     <script src="shared/calculator.69752a56f9.js"></script>
@@ -806,17 +834,19 @@
     <script src="shared/chart-age-cursor.823d607c46.js"></script>
     <script src="shared/age-stepper.1b938669bf.js"></script>
     <script src="shared/parameter-catalog.426ab67e8c.js"></script>
-    <script src="shared/rebalance-reader.c65cb0259a.js"></script>
+    <script src="shared/rebalance-reader.ed268305f1.js"></script>
     <script src="shared/embed-overlay.800909cf4d.js"></script>
     <script src="shared/numeric-input-select.ca4b3dc369.js"></script>
     <script src="shared/help-popover.bf1fa2adf4.js"></script>
-    <script src="model.cfc965100c.js"></script>
+    <script src="shared/plan-share-link.e8c64e2722.js"></script>
+    <script src="vendor/qrcode.2cf264cf03.js"></script>
+    <script src="model.4c57aae15f.js"></script>
     <script src="auth.f95b7f2cb8.js"></script>
     <script src="consent.6a30cb2135.js"></script>
     <script src="resize-notifier.bbc2b52d92.js"></script>
-    <script src="vendor/chart.29017fcac0.js"></script>
+    <script src="vendor/chart.ca2dde300c.js"></script>
     <script src="shared/busy-indicator.4a72177cfe.js"></script>
-    <script src="ui.09bdc44524.js"></script>
+    <script src="ui.61cde4bced.js"></script>
     <script>
         window.model = new LifeplanModel({ window: window, storage: AppStorage });
         AppAuth.init();

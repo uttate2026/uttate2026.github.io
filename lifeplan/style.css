@@ -2144,6 +2144,27 @@ th, td {
     gap: 14px;
 }
 
+.answer-card-actions {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.field-with-copy {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.field-with-copy input {
+    flex: 1;
+    min-width: 0;
+}
+
+#share_link_qr svg {
+    display: block;
+    margin: 8px 0;
+}
+
 .answer-body {
     display: grid;
     gap: 12px;
