@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>任意継続・国保シミュレーター</title>
-    <link rel="stylesheet" href="style.4d09037428.css">
+    <link rel="stylesheet" href="style.b9cbf5a7d3.css">
     <!-- 待っている間の表示(回る輪+文字)の見た目は全アプリで共通(docs/shared/decisions/0017)。起動時の表示より先に読む -->
     <link rel="stylesheet" href="shared/busy-indicator.6fbf9e1ca8.css">
     <!-- uttate.comに埋め込まれているときは中のタイトルを出さない・認証画面を描画の前から隠す(ねんきんプランナーと同じ) -->
@@ -150,6 +150,16 @@
                     <label for="input_dependents_count">扶養している家族(配偶者のほか)<button type="button" class="help-btn help-btn-hint" data-help="hint" aria-label="入力のヒント" aria-expanded="false" tabindex="-1"></button><template class="help-content"><p>今の勤め先の健康保険で、被扶養者になっている子などの人数です。年収の少ない子(20歳未満)として計算します。</p></template></label>
                     <select id="input_dependents_count"></select>
                 </div>
+                <div class="form-grid form-grid-pair">
+                    <div class="form-field">
+                        <label for="input_supporter">退職後に扶養に入れてくれる家族<button type="button" class="help-btn help-btn-hint" data-help="hint" aria-label="入力のヒント" aria-expanded="false" tabindex="-1"></button><template class="help-content"><p>勤め先の健康保険に入っている家族の被扶養者になれば、保険料はかかりません。退職した後の年収(パート等・年金)が180万円未満(60歳未満は130万円未満)で、扶養する人の年収の半分未満であることが目安です。</p><p>配偶者に年収があれば、配偶者が勤め先の健康保険に入っているものとして計算します(65歳まで)。</p></template></label>
+                        <select id="input_supporter"></select>
+                    </div>
+                    <div class="form-field" id="unemployment_field">
+                        <label for="input_unemployment_days">失業給付を受け取る日数<button type="button" class="help-btn help-btn-hint" data-help="hint" aria-label="入力のヒント" aria-expanded="false" tabindex="-1"></button><template class="help-content"><p>雇用保険の失業給付(基本手当)を受け取る間は、日額が5,000円(60歳未満は3,612円)以上だと扶養に入れません。その間は国保か任意継続に入り、受け取り終わってから扶養に入ります。</p><ul><li>定年・自己都合で辞めた場合: 勤めた年数が10年未満なら90日、10〜20年なら120日、20年以上なら150日</li><li>会社都合の場合: 年齢と勤めた年数で90〜330日</li></ul><p>仕事を探さない(すぐには働かない)なら受け取れないため、「受け取らない」を選びます。日額が基準より少ないときも「受け取らない」を選ぶと、受け取る間も扶養に入る計算になります。</p></template></label>
+                        <select id="input_unemployment_days"></select>
+                    </div>
+                </div>
             </div>
 
             <div class="card">
@@ -185,6 +195,7 @@
                         <tbody id="compare_body"></tbody>
                     </table>
                 </div>
+                <p class="field-note" id="compare_dependent_note" hidden></p>
                 <p class="field-note" id="compare_note">選んだ選び方(はじめは最も安いもの)を、下の支払いとライフプランシミュレーターへの引き継ぎに使います。</p>
             </div>
 
@@ -282,23 +293,23 @@
     </div>
 
     <script src="storage.1bf22f67b9.js"></script>
-    <script src="model.763a57f07b.js"></script>
+    <script src="model.ad6825e61a.js"></script>
     <script src="auth.0b9a540a6a.js"></script>
     <script src="consent.394981c811.js"></script>
     <script src="resize-notifier.eda0f90457.js"></script>
     <!-- lifeplanエンジンを使う共有モジュール(scripts/sync-shared.jsがsrc/shared/からコピーする。このディレクトリはGit管理対象外) -->
     <script src="shared/lifeplan-constants.6304ecfd74.js"></script>
     <script src="shared/pattern-builders.ec14488f43.js"></script>
-    <script src="shared/calculator.4d0afdf986.js"></script>
-    <script src="shared/kenpo-bridge.6adb1deb47.js"></script>
-    <script src="shared/parameter-catalog.f7a1d054d2.js"></script>
+    <script src="shared/calculator.301110ce78.js"></script>
+    <script src="shared/kenpo-bridge.cc44b354e4.js"></script>
+    <script src="shared/parameter-catalog.2552ef9033.js"></script>
     <script src="shared/lifeplan-link.d8afcfa543.js"></script>
     <script src="shared/embed-overlay.56c75d839f.js"></script>
     <script src="shared/numeric-input-select.512e9aa2d5.js"></script>
     <script src="shared/help-popover.acb24c7888.js"></script>
     <script src="shared/step-history.2d8661c63c.js"></script>
     <script src="shared/busy-indicator.f5c7cd784d.js"></script>
-    <script src="ui.99523b69ca.js"></script>
+    <script src="ui.029df833b0.js"></script>
     <script>
         window.model = new KenpoModel({ window: window, storage: AppStorage });
         AppAuth.init();

@@ -1250,6 +1250,14 @@ select {
     min-width: 8em;
 }
 
+/* 「家族の扶養に入る」の、失業給付を受け取る間の入り方(kenpo ADR 0002) */
+.option-sub {
+    display: block;
+    color: var(--text-secondary);
+    font-size: 12px;
+    font-weight: normal;
+}
+
 /* 金額は折り返さない(スマホ幅で「万円」だけが次の行に落ちないように) */
 #compare_body td.text-right,
 #payments_body td.text-right {
