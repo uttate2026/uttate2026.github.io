@@ -745,12 +745,13 @@
                     <button type="button" id="btn_share_link_copy" class="btn btn-secondary">コピー</button>
                 </div>
                 <p id="share_link_copied_note" class="field-note" hidden>コピーしました。</p>
+                <p id="share_link_copy_manual_note" class="field-note" hidden>自動でコピーできませんでした。上のURLが選択状態になっています。Ctrl+C(Macは⌘+C)でコピーしてください。</p>
             </div>
             <div id="share_link_qr_wrap" hidden>
                 <div id="share_link_qr"></div>
                 <p class="field-note">このQRコードも同じURLです。</p>
             </div>
-            <p id="share_link_qr_omitted_note" class="field-note" hidden>プランの内容が多いため、QRコードは省略しました(リンクはそのまま使えます)。</p>
+            <p id="share_link_qr_omitted_note" class="field-note" hidden>プランの内容が多いため、QRコードは省略しました。URLが長いため、LINEなど一部のアプリでは送れないことがあります。メール等でお使いください。</p>
             <p class="field-note">開いた相手の画面では、新しいプランとして追加されます(今のプランは変わりません)。</p>
         </div>
     </div>
@@ -846,7 +847,7 @@
     <script src="resize-notifier.bbc2b52d92.js"></script>
     <script src="vendor/chart.ca2dde300c.js"></script>
     <script src="shared/busy-indicator.4a72177cfe.js"></script>
-    <script src="ui.61cde4bced.js"></script>
+    <script src="ui.37694ee772.js"></script>
     <script>
         window.model = new LifeplanModel({ window: window, storage: AppStorage });
         AppAuth.init();
