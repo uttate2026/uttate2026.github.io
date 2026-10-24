@@ -89,6 +89,7 @@ html.auth-skip #auth_overlay {
     display: none;
 }
 
+
 .auth-card {
     max-width: 400px;
     width: 100%;
@@ -692,18 +693,38 @@ input[type="text"]:disabled, input[type="number"]:disabled, select:disabled {
     pointer-events: none;
 }
 
-.volume-subfield {
-    margin-top: 6px;
-    padding: 6px;
-    background: #f8fafc;
-    border-radius: 6px;
-    border: 1px solid var(--border);
-    font-size: 12px;
-    text-align: left; /* 親td(現在の資産額列)の右寄せを継承しないようにする */
-}
-
 .input-asset-volume {
     width: 90px;
+    text-align: right;
+}
+
+/* 計算結果のアクション(「🔴 一部売却」等)は1行に収める(スマホ幅で1文字ずつ折り返さないように) */
+.result-table .result-action {
+    white-space: nowrap;
+}
+
+/* 金額・口数は途中で折り返さない */
+.result-table .result-amount,
+.result-table .result-volume {
+    white-space: nowrap;
+}
+
+/* スマホ幅では「現在金額」の列を省く(資産の表にあるため)。4列だと売買指示・アクションが収まらない(ADR 0013) */
+@media (max-width: 600px) {
+    .result-table .result-current {
+        display: none;
+    }
+}
+
+/* 計算結果の、売るときの口数(ADR 0013) */
+.result-volume {
+    font-size: 12px;
+    font-weight: normal;
+}
+
+.result-volume-missing .btn-link {
+    font-size: 12px;
+    padding: 0;
     text-align: right;
 }
 
