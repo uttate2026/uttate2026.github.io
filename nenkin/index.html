@@ -150,6 +150,31 @@
                     </div>
                 </div>
                 <p class="info-note">50歳未満の場合、ねんきん定期便の金額はこれまでの加入実績に基づくもので、将来の受給見込額ではありません。<a href="https://www.nenkin.go.jp/n_net/" target="_blank" rel="noopener">ねんきんネット</a>で将来の見込額を試算してから入力してください。</p>
+
+                <!-- 勤め先の企業年金を年金で受け取る分(docs/nenkin/decisions/0003)。公的年金と合わせて課税されるため、受け取り始める年齢の手取りの比較に効く -->
+                <div class="form-field">
+                    <label class="checkbox-label">
+                        <input type="checkbox" id="input_has_employer_pension">
+                        勤め先の企業年金(確定給付企業年金など)を年金で受け取る
+                    </label>
+                </div>
+                <div id="employer_pension_fields" class="form-grid" style="display: none;">
+                    <div class="form-field">
+                        <label for="input_employer_pension_amount">企業年金の年額<button type="button" class="help-btn help-btn-hint" data-help="hint" aria-label="入力のヒント" aria-expanded="false" tabindex="-1"></button><template class="help-content"><p>勤め先の確定給付企業年金(DB)・厚生年金基金などを、年金(分割)で受け取る1年の額(税金を引く前)です。退職のときに会社・企業年金基金から届く「年金・一時金の選択」の案内や、在職中なら企業年金の加入者向けのWebサイト・お知らせで確かめられます。</p><p>公的年金と合わせて「公的年金等の雑所得」として課税され、国民健康保険料・介護保険料の計算にも入ります。一時金で受け取る分は、ここには入れません。</p></template></label>
+                        <div class="field-with-unit">
+                            <input type="text" id="input_employer_pension_amount" inputmode="numeric" autocomplete="off" spellcheck="false">
+                            <span class="unit">円</span>
+                        </div>
+                    </div>
+                    <div class="form-field">
+                        <label for="input_employer_pension_start_age">受け取り始める年齢</label>
+                        <select id="input_employer_pension_start_age"></select>
+                    </div>
+                    <div class="form-field">
+                        <label for="input_employer_pension_years">受け取る期間<button type="button" class="help-btn help-btn-hint" data-help="hint" aria-label="入力のヒント" aria-expanded="false" tabindex="-1"></button><template class="help-content"><p>5年・10年・15年・20年などの有期か、終身(一生涯)かは、制度の規約で決まっています。案内で確かめてください。</p></template></label>
+                        <select id="input_employer_pension_years"></select>
+                    </div>
+                </div>
             </div>
 
             <!-- トピックB本体は未実装([docs/nenkin/decisions/0001](../../docs/nenkin/decisions/0001-nenkin-planner-kickoff.md)
@@ -469,7 +494,7 @@
     </div>
 
     <script src="storage.1bf22f67b9.js"></script>
-    <script src="model.c55f3a1dc8.js"></script>
+    <script src="model.5b4a61b9b6.js"></script>
     <script src="auth.0b9a540a6a.js"></script>
     <script src="consent.68317a95af.js"></script>
     <script src="resize-notifier.eda0f90457.js"></script>
@@ -485,9 +510,9 @@
     <script src="shared/lifetime-totals.77419253bd.js"></script>
     <!-- 公的年金受給開始年齢のグリッド探索(nenkinトピックA・lifeplan「公的年金」タブのウィザードで共通、
          lifeplan ADR 0027参照)。nenkin-bridge.jsが参照するため、必ずその前に読み込む -->
-    <script src="shared/pension-claim-optimizer.0665162824.js"></script>
-    <script src="shared/nenkin-bridge.2941159c93.js"></script>
-    <script src="shared/parameter-catalog.ea5d660cd6.js"></script>
+    <script src="shared/pension-claim-optimizer.9ea81a3850.js"></script>
+    <script src="shared/nenkin-bridge.8e68b3e38c.js"></script>
+    <script src="shared/parameter-catalog.4f91a8f9ef.js"></script>
     <script src="shared/chart-age-cursor.b4884465a9.js"></script>
     <script src="shared/age-stepper.bc4ccf1bc4.js"></script>
     <script src="shared/lifeplan-link.d8afcfa543.js"></script>
@@ -496,7 +521,7 @@
     <script src="shared/help-popover.acb24c7888.js"></script>
     <script src="shared/step-history.2d8661c63c.js"></script>
     <script src="shared/busy-indicator.f5c7cd784d.js"></script>
-    <script src="ui.dc88591d65.js"></script>
+    <script src="ui.9c4489ee4b.js"></script>
     <script>
         window.model = new NenkinModel({ window: window, storage: AppStorage });
         AppAuth.init();
