@@ -414,6 +414,12 @@ input[type="text"], input[type="number"], select {
     width: 100%;
 }
 
+/* 計算した値を出すだけの欄(企業年金から計算したiDeCoの上限、docs/ideco/decisions/0014)は、入れられる欄と見分けられるよう地の色を変える */
+input[readonly] {
+    background: var(--bg-main);
+    color: var(--text-secondary);
+}
+
 /* 数値入力欄では日本語入力モードを自動解除する(要件4.4節、rebalance踏襲) */
 input[inputmode="numeric"], input[inputmode="decimal"] {
     ime-mode: disabled;

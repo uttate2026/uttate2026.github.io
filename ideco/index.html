@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>iDeCoシミュレーター</title>
-    <link rel="stylesheet" href="style.b79eb4a0fe.css">
+    <link rel="stylesheet" href="style.8f865601e2.css">
     <!-- 待っている間の表示(回る輪+文字)の見た目は4アプリで共通(docs/shared/decisions/0017)。起動時の表示より先に読む -->
     <link rel="stylesheet" href="shared/busy-indicator.6fbf9e1ca8.css">
     <!-- uttate.comに埋め込まれているとき(iframeの外にページの見出しがある)は、中のタイトルを出さない(MEMO.md 2026/9/30コメント1-(12))。
@@ -117,6 +117,39 @@
                         <label for="input_retirement_age">退職年齢<button type="button" class="help-btn help-btn-hint" data-help="hint" aria-label="入力のヒント" aria-expanded="false" tabindex="-1"></button><template class="help-content"><p>給与収入が無くなる年齢です。再雇用等で働き続ける予定なら、完全に働くのをやめる年齢を入力します。</p></template></label>
                         <select id="input_retirement_age"></select>
                     </div>
+                </div>
+
+                <!-- 勤め先の企業年金(docs/ideco/decisions/0014)。あると、iDeCoの掛金の上限が下がる -->
+                <div class="form-field">
+                    <label class="checkbox-label">
+                        <input type="checkbox" id="input_has_corporate_pension">
+                        勤め先に企業年金(企業型DC・確定給付企業年金など)がある
+                    </label>
+                </div>
+                <div id="corporate_pension_fields" style="display: none;">
+                    <div class="form-grid form-grid-pair">
+                        <div class="form-field">
+                            <label for="input_corporate_dc_employer_monthly">企業型DCの会社の掛金(月額)<button type="button" class="help-btn help-btn-hint" data-help="hint" aria-label="入力のヒント" aria-expanded="false" tabindex="-1"></button><template class="help-content"><p>勤め先が企業型確定拠出年金(企業型DC)に出している、あなたの分の掛金(事業主掛金)の月額です。企業型DCの加入者サイトや、勤め先の担当部署で確かめられます。</p><p>企業型DCが無く、確定給付企業年金(DB)だけの場合は0円にします。</p></template></label>
+                            <div class="field-with-unit">
+                                <input type="text" id="input_corporate_dc_employer_monthly" inputmode="numeric" autocomplete="off" spellcheck="false">
+                                <span class="unit">円</span>
+                            </div>
+                        </div>
+                        <div class="form-field">
+                            <label for="input_corporate_other_plan_monthly">他制度掛金相当額(月額、任意)<button type="button" class="help-btn help-btn-hint" data-help="hint" aria-label="入力のヒント" aria-expanded="false" tabindex="-1"></button><template class="help-content"><p>確定給付企業年金(DB)・厚生年金基金などがあるとき、その掛金を企業型DCに置き換えた額として、制度ごとに決められている月額です。公務員は共済の掛金相当額です。</p><p>勤め先の担当部署で確かめられます。DB等が無ければ0円のままにします。</p></template></label>
+                            <div class="field-with-unit">
+                                <input type="text" id="input_corporate_other_plan_monthly" inputmode="numeric" autocomplete="off" spellcheck="false">
+                                <span class="unit">円</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-field">
+                        <label class="checkbox-label">
+                            <input type="checkbox" id="input_corporate_dc_matching">
+                            企業型DCでマッチング拠出(自分の掛金の上乗せ)をしている
+                        </label>
+                    </div>
+                    <p id="corporate_pension_limit_note" class="field-note" style="margin-bottom: 12px;"></p>
                 </div>
 
                 <p class="field-note">お手元に書類があれば、チェックを入れて入力してください(無くても概算で進められます)。<button type="button" class="help-btn help-btn-info" data-help="info" aria-label="解説" aria-expanded="false" tabindex="-1"></button><template class="help-content"><p>未入力の間は、給与収入・扶養家族数からの概算で計算します。最初は概算のまま先に進み、本格的に試算したくなったら戻って正確な値を入力する、という使い方もできます。</p><p>源泉徴収税額・社会保険料・住民税を入力すると、比較結果の手取り・税金の精度が上がります(扶養家族の年齢構成による控除額の違いも、実額を使えば個別に入れなくても反映されます)。</p></template></p>
@@ -279,11 +312,12 @@
                 <div class="conditions-body">
                 <div class="form-grid">
                     <div class="form-field">
-                        <label for="input_planner_contribution_limit">あなたの拠出限度額(月額)<button type="button" class="help-btn help-btn-hint" data-help="hint" aria-label="入力のヒント" aria-expanded="false" tabindex="-1"></button><template class="help-content"><p>iDeCoの掛金の上限は、働き方で異なります(2026年12月から):</p><ul><li>会社員(企業年金なし): 月6.2万円</li><li>会社員・公務員(企業年金あり): 月6.2万円から企業年金の掛金を引いた額</li><li>自営業者など: 月7.5万円(国民年金基金・付加保険料と合わせて)</li><li>専業主婦(夫): 月2.3万円</li></ul><p>企業年金の掛金は、勤め先の担当部署や、企業型DCの加入者サイトで確かめられます。既定値は企業年金なしの会社員の62,000円です。</p></template></label>
+                        <label for="input_planner_contribution_limit">あなたの拠出限度額(月額)<button type="button" class="help-btn help-btn-hint" data-help="hint" aria-label="入力のヒント" aria-expanded="false" tabindex="-1"></button><template class="help-content"><p>iDeCoの掛金の上限は、働き方で異なります(2026年12月から):</p><ul><li>会社員(企業年金なし): 月6.2万円</li><li>会社員・公務員(企業年金あり): 月6.2万円から企業年金の掛金を引いた額(最初の画面で企業年金の掛金を入れると、自動で計算します)</li><li>自営業者など: 月7.5万円(国民年金基金・付加保険料と合わせて)</li><li>専業主婦(夫): 月2.3万円</li></ul><p>企業年金の掛金は、勤め先の担当部署や、企業型DCの加入者サイトで確かめられます。既定値は企業年金なしの会社員の62,000円です。</p></template></label>
                         <div class="field-with-unit">
                             <input type="text" id="input_planner_contribution_limit" inputmode="numeric" autocomplete="off" spellcheck="false">
                             <span class="unit">円</span>
                         </div>
+                        <p id="planner_contribution_limit_note" class="field-note" style="display: none;"></p>
                     </div>
                     <div class="form-field">
                         <label for="input_planner_expected_return_rate">想定利回り(年率)<button type="button" class="help-btn help-btn-hint" data-help="hint" aria-label="入力のヒント" aria-expanded="false" tabindex="-1"></button><template class="help-content"><p>毎年の運用の利回りの見込み(手数料を引いた後)です。過去の実績は商品によって大きく違うため、控えめに見ておくと安心です。</p><p>目安: 株式中心の投資信託で3〜5%、債券・バランス型で1〜3%程度。</p></template></label>
@@ -552,8 +586,8 @@
     </div>
 
     <script src="storage.e70cf646cb.js"></script>
-    <script src="constants.5bc7cc2415.js"></script>
-    <script src="model.29c4d7d66f.js"></script>
+    <script src="constants.ab4d2a1ef3.js"></script>
+    <script src="model.92ea110759.js"></script>
     <script src="calculator.d868cb3ad6.js"></script>
     <script src="auth.0b9a540a6a.js"></script>
     <script src="consent.79ec7cb821.js"></script>
@@ -580,9 +614,9 @@
     <script src="shared/numeric-input-select.e800d77f0f.js"></script>
     <script src="shared/help-popover.5d3821732b.js"></script>
     <script src="shared/step-history.c2df611d65.js"></script>
-    <script src="shared/parameter-catalog.92902a55de.js"></script>
+    <script src="shared/parameter-catalog.5913136dc2.js"></script>
     <script src="shared/busy-indicator.985410e3ab.js"></script>
-    <script src="ui.987c5d4b64.js"></script>
+    <script src="ui.256302c099.js"></script>
     <script>
         window.model = new IdecoModel({ window: window, storage: AppStorage });
         AppAuth.init();
