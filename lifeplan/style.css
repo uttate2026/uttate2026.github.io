@@ -2297,6 +2297,11 @@ th, td {
     line-height: 1.6;
 }
 
+/* display: flex が hidden 属性より優先され、隠したはずの空の帯が出ていた(退職金の勤続年数の見積もりの注記、lifeplan ADR 0062) */
+.soft-notice[hidden] {
+    display: none;
+}
+
 .soft-notice .btn-link {
     color: inherit;
     font-weight: bold;
