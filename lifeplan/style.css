@@ -2650,3 +2650,43 @@ th .help-btn {
     color: var(--danger);
 }
 
+
+/* 住宅ローンのカード(lifeplan ADR 0068) */
+.housing-loan-card {
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 12px 14px;
+    margin-bottom: 12px;
+}
+
+.housing-loan-card-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 8px;
+}
+
+.housing-loan-summary p {
+    margin: 4px 0;
+    font-size: 13px;
+}
+
+.housing-loan-summary .field-note {
+    display: block;
+}
+
+.housing-loan-checks {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px 24px;
+    margin: 8px 0 12px;
+}
+
+/* 繰上げ返済の表は、スマホ幅で選択欄が潰れないよう最小幅を持たせ、はみ出す分は横にスクロールする */
+.housing-loan-card .dynamic-list-table select {
+    min-width: 96px;
+}
+
+.housing-loan-card .dynamic-list-table input {
+    min-width: 120px;
+}

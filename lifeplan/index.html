@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ライフプランシミュレーター</title>
-    <link rel="stylesheet" href="style.4f977ebf66.css">
+    <link rel="stylesheet" href="style.576024fcce.css">
     <!-- 待っている間の表示(回る輪+文字)の見た目は4アプリで共通(docs/shared/decisions/0017)。起動時の表示より先に読む -->
     <link rel="stylesheet" href="shared/busy-indicator.6fbf9e1ca8.css">
     <!-- uttate.comに埋め込まれているとき(iframeの外にページの見出しがある)は、中のタイトルを出さない(MEMO.md 2026/9/30コメント1-(12))。
@@ -141,6 +141,7 @@
                     <button type="button" class="sub-tab-btn" data-expense-tab="living">生活費</button>
                     <button type="button" class="sub-tab-btn" data-expense-tab="durable">数年おきの支出</button>
                     <button type="button" class="sub-tab-btn" data-expense-tab="lifeEvent">ライフイベント</button>
+                    <button type="button" class="sub-tab-btn" data-expense-tab="housingLoan">住宅ローン</button>
                     <button type="button" class="sub-tab-btn" data-expense-tab="gift">生前贈与(世帯外)</button>
                 </div>
                 <!-- 生活費は、年齢(世帯主)ごとの行で入れる表にする(MEMO.md 2026/10/2コメント2-(11))。1行目が今からの生活費で、
@@ -150,7 +151,7 @@
                     <div class="table-responsive">
                         <table class="dynamic-list-table living-cost-table">
                             <thead>
-                                <tr><th>年齢(世帯主)</th><th>毎月の生活費<button type="button" class="help-btn help-btn-hint" data-help="hint" aria-label="入力のヒント" aria-expanded="false" tabindex="-1"></button><template class="help-content"><p>家計簿や、口座の引き落とし・クレジットカードの明細から、1か月に使うおおよその額を入力します。家賃・住宅ローンも含めます。</p><p><strong>含めないもの</strong>: 税金・社会保険料(収入から別に計算します)、iDeCo・NISAの積立(「2. 資産」で入力します)。</p><p>分からなければ、総務省の家計調査(2024年)が目安になります: 65歳以上の夫婦のみの無職世帯で月約26万円、65歳以上の単身の無職世帯で月約15万円(どちらも住宅ローンの返済は含みません)。</p></template></th><th>年1回などの支出<button type="button" class="help-btn help-btn-hint" data-help="hint" aria-label="入力のヒント" aria-expanded="false" tabindex="-1"></button><template class="help-content"><p>毎月ではない支出の1年分を入力します。例: 固定資産税・自動車税、保険料の年払い、帰省や旅行、冠婚葬祭。</p><p>数年おきの支出(給湯器・車の買い替え・外壁塗装など)は「数年おきの支出」タブに入力します。</p></template></th><th class="text-right">年間</th><th></th></tr>
+                                <tr><th>年齢(世帯主)</th><th>毎月の生活費<button type="button" class="help-btn help-btn-hint" data-help="hint" aria-label="入力のヒント" aria-expanded="false" tabindex="-1"></button><template class="help-content"><p>家計簿や、口座の引き落とし・クレジットカードの明細から、1か月に使うおおよその額を入力します。家賃も含めます。</p><p>住宅ローンの返済は「住宅ローン」タブに入力します(ここにも含めると二重に数えます)。</p><p><strong>含めないもの</strong>: 税金・社会保険料(収入から別に計算します)、iDeCo・NISAの積立(「2. 資産」で入力します)。</p><p>分からなければ、総務省の家計調査(2024年)が目安になります: 65歳以上の夫婦のみの無職世帯で月約26万円、65歳以上の単身の無職世帯で月約15万円(どちらも住宅ローンの返済は含みません)。</p></template></th><th>年1回などの支出<button type="button" class="help-btn help-btn-hint" data-help="hint" aria-label="入力のヒント" aria-expanded="false" tabindex="-1"></button><template class="help-content"><p>毎月ではない支出の1年分を入力します。例: 固定資産税・自動車税、保険料の年払い、帰省や旅行、冠婚葬祭。</p><p>数年おきの支出(給湯器・車の買い替え・外壁塗装など)は「数年おきの支出」タブに入力します。</p></template></th><th class="text-right">年間</th><th></th></tr>
                             </thead>
                             <tbody>
                                 <tr>
@@ -214,6 +215,15 @@
                     <div class="dynamic-list-add">
                         <button type="button" id="btn_add_life_event" class="btn btn-link">➕ ライフイベントを追加</button>
                     </div>
+                </div>
+                <!-- 住宅ローン(lifeplan ADR 0068)。今の残高から返済・一括返済・繰上げ返済・団信・住宅ローン控除を計算する。カードはui-asset-expense-form.jsの_renderHousingLoansで作る -->
+                <div id="expense_housing_loan_panel" style="display:none;">
+                    <p class="field-note" id="housing_loan_double_count_note" hidden>⚠️ 生活費に住宅ローンの返済を含めていたら、生活費から外してください(二重に数えます)。</p>
+                    <div id="housing_loan_list"></div>
+                    <div class="dynamic-list-add">
+                        <button type="button" id="btn_add_housing_loan" class="btn btn-link">➕ 住宅ローンを追加</button>
+                    </div>
+                    <p class="field-note">退職金で一括返済するかを比べるには、プランを複製し、「一括返済する年齢」だけを変えて「全プラン比較」で並べます。</p>
                 </div>
                 <!-- 世帯外(子等)への生前贈与のみを扱う。世帯員(配偶者等)への贈与は、受贈者名義の資産タブの
                      「積立資金の出し手」で設定する(MEMO.md 2026/9/26コメント2-(2)、ADR 0007「2026-09-26改訂」) -->
@@ -815,9 +825,9 @@
     </div>
 
     <script src="storage.66015682c9.js"></script>
-    <script src="constants.016536f381.js"></script>
+    <script src="constants.27a5fb21eb.js"></script>
     <script src="shared/pattern-builders.12f8792896.js"></script>
-    <script src="shared/calculator.a6fb5f48d1.js"></script>
+    <script src="shared/calculator.7c9e64efbc.js"></script>
     <!-- 生涯合計の集計(全プラン比較・各ウィザード・ideco-bridge.js等が使う、docs/shared/decisions/0007参照) -->
     <script src="shared/lifetime-totals.66038d2b39.js"></script>
     <!-- ideco→lifeplanへのデータ引き継ぎ(model.jsのcheckIdecoHandoff/importHandoffPatternが
@@ -838,27 +848,27 @@
     <script src="shared/kenpo-bridge.06ba52601d.js"></script>
     <script src="shared/chart-age-cursor.823d607c46.js"></script>
     <script src="shared/age-stepper.1b938669bf.js"></script>
-    <script src="shared/parameter-catalog.b01facd11e.js"></script>
+    <script src="shared/parameter-catalog.bf26f9e8ee.js"></script>
     <script src="shared/rebalance-reader.2b253c51a0.js"></script>
     <script src="shared/embed-overlay.800909cf4d.js"></script>
     <script src="shared/numeric-input-select.512e9aa2d5.js"></script>
     <script src="shared/help-popover.bf1fa2adf4.js"></script>
     <script src="shared/plan-share-link.c9e2440a5a.js"></script>
     <script src="vendor/qrcode.d57124bba8.js"></script>
-    <script src="model.d3cf30c7d0.js"></script>
+    <script src="model.1d8ee559a9.js"></script>
     <script src="auth.f95b7f2cb8.js"></script>
     <script src="consent.6a30cb2135.js"></script>
     <script src="resize-notifier.bbc2b52d92.js"></script>
     <script src="vendor/chart.77f300ead9.js"></script>
     <script src="shared/busy-indicator.4a72177cfe.js"></script>
-    <script src="ui-helpers.8cc720b953.js"></script>
+    <script src="ui-helpers.3547f7be1e.js"></script>
     <script src="ui-records.66e244be3a.js"></script>
-    <script src="ui-person-form.3cc0732c54.js"></script>
-    <script src="ui-asset-expense-form.7a21e133a8.js"></script>
-    <script src="ui-results.cc17b4baaf.js"></script>
-    <script src="ui-inheritance.d49d395c20.js"></script>
-    <script src="ui-compare.2db385a876.js"></script>
-    <script src="ui.1ac602e398.js"></script>
+    <script src="ui-person-form.ac2b5d2fc0.js"></script>
+    <script src="ui-asset-expense-form.51b909a4d0.js"></script>
+    <script src="ui-results.c1360e7714.js"></script>
+    <script src="ui-inheritance.401f0a06ad.js"></script>
+    <script src="ui-compare.9e3e048d63.js"></script>
+    <script src="ui.e961a4b623.js"></script>
     <script>
         window.model = new LifeplanModel({ window: window, storage: AppStorage });
         AppAuth.init();
