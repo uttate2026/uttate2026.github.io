@@ -141,6 +141,7 @@
                     <button type="button" class="sub-tab-btn" data-expense-tab="living">生活費</button>
                     <button type="button" class="sub-tab-btn" data-expense-tab="durable">数年おきの支出</button>
                     <button type="button" class="sub-tab-btn" data-expense-tab="lifeEvent">ライフイベント</button>
+                    <button type="button" class="sub-tab-btn" data-expense-tab="education">教育費</button>
                     <button type="button" class="sub-tab-btn" data-expense-tab="housingLoan">住宅ローン</button>
                     <button type="button" class="sub-tab-btn" data-expense-tab="gift">生前贈与(世帯外)</button>
                 </div>
@@ -215,6 +216,13 @@
                     <div class="dynamic-list-add">
                         <button type="button" id="btn_add_life_event" class="btn btn-link">➕ ライフイベントを追加</button>
                     </div>
+                </div>
+                <!-- 教育費(lifeplan ADR 0069)。続柄が子の人ごとのカードは、ui-asset-expense-form.jsの_renderEducationPlansで作る。授業料の支援・
+                     無償化などの制度は変わりやすいため計算に入れず、ここの補足で案内する -->
+                <div id="expense_education_panel" style="display:none;">
+                    <p class="field-note">子ごとに進路を選ぶと、目安の学費をその年の支出に入れます。年額は書き換えられます。<button type="button" class="help-btn help-btn-info" data-help="info" aria-label="解説" aria-expanded="false" tabindex="-1"></button><template class="help-content"><p><strong>目安の額</strong>: 小中高は文部科学省「子供の学習費調査」(2023年度)の、塾・習い事を含む1年間の額です。大学などは日本政策金融公庫「教育費負担の実態調査」(2021年度)の入学費用と1年間の在学費用、自宅外の通学は同じ調査の始めるための費用と仕送りの額です。</p><p><strong>授業料の支援は入れていません</strong>(制度が変わりやすいため)。対象になる場合は、年額を書き換えてください。例: 高校の授業料の支援(2026年度から所得の制限なし、私立は年45.7万円まで)、扶養する子が3人以上の世帯の大学の授業料・入学金の減免(2025年度から、私立は授業料が年70万円まで)、給付型の奨学金。</p><p><strong>貸与型の奨学金</strong>は子が卒業後に返すため、親が払う分だけになるよう年額を減らしてください。<strong>学資保険の満期金</strong>や祖父母からの援助は、臨時収入タブに入れられます。</p><p>学年は暦年で数えます(4月の入学から翌3月までを、入学した年の1年分とします)。浪人・留年・大学院・留学は、年額を書き換えて調整してください。</p></template></p>
+                    <p class="field-note" id="education_life_event_note" hidden>⚠️ ライフイベントに「大学」の入学費用などを入れていたら、二重に数えないよう外してください。</p>
+                    <div id="education_list"></div>
                 </div>
                 <!-- 住宅ローン(lifeplan ADR 0068)。今の残高から返済・一括返済・繰上げ返済・団信・住宅ローン控除を計算する。カードはui-asset-expense-form.jsの_renderHousingLoansで作る -->
                 <div id="expense_housing_loan_panel" style="display:none;">
@@ -825,9 +833,9 @@
     </div>
 
     <script src="storage.66015682c9.js"></script>
-    <script src="constants.27a5fb21eb.js"></script>
+    <script src="constants.b1cb0be387.js"></script>
     <script src="shared/pattern-builders.12f8792896.js"></script>
-    <script src="shared/calculator.7c9e64efbc.js"></script>
+    <script src="shared/calculator.e1d1ba0dbe.js"></script>
     <!-- 生涯合計の集計(全プラン比較・各ウィザード・ideco-bridge.js等が使う、docs/shared/decisions/0007参照) -->
     <script src="shared/lifetime-totals.66038d2b39.js"></script>
     <!-- ideco→lifeplanへのデータ引き継ぎ(model.jsのcheckIdecoHandoff/importHandoffPatternが
@@ -848,27 +856,27 @@
     <script src="shared/kenpo-bridge.06ba52601d.js"></script>
     <script src="shared/chart-age-cursor.823d607c46.js"></script>
     <script src="shared/age-stepper.1b938669bf.js"></script>
-    <script src="shared/parameter-catalog.bf26f9e8ee.js"></script>
+    <script src="shared/parameter-catalog.f7671b6bac.js"></script>
     <script src="shared/rebalance-reader.2b253c51a0.js"></script>
     <script src="shared/embed-overlay.800909cf4d.js"></script>
     <script src="shared/numeric-input-select.512e9aa2d5.js"></script>
     <script src="shared/help-popover.bf1fa2adf4.js"></script>
     <script src="shared/plan-share-link.c9e2440a5a.js"></script>
     <script src="vendor/qrcode.d57124bba8.js"></script>
-    <script src="model.1d8ee559a9.js"></script>
+    <script src="model.419a430949.js"></script>
     <script src="auth.f95b7f2cb8.js"></script>
     <script src="consent.6a30cb2135.js"></script>
     <script src="resize-notifier.bbc2b52d92.js"></script>
     <script src="vendor/chart.77f300ead9.js"></script>
     <script src="shared/busy-indicator.4a72177cfe.js"></script>
-    <script src="ui-helpers.3547f7be1e.js"></script>
+    <script src="ui-helpers.55baddcb73.js"></script>
     <script src="ui-records.66e244be3a.js"></script>
-    <script src="ui-person-form.ac2b5d2fc0.js"></script>
-    <script src="ui-asset-expense-form.51b909a4d0.js"></script>
-    <script src="ui-results.c1360e7714.js"></script>
+    <script src="ui-person-form.3228e4be42.js"></script>
+    <script src="ui-asset-expense-form.9a062f8cda.js"></script>
+    <script src="ui-results.44ba2f821a.js"></script>
     <script src="ui-inheritance.401f0a06ad.js"></script>
-    <script src="ui-compare.9e3e048d63.js"></script>
-    <script src="ui.e961a4b623.js"></script>
+    <script src="ui-compare.3135d50664.js"></script>
+    <script src="ui.2ff9cc336c.js"></script>
     <script>
         window.model = new LifeplanModel({ window: window, storage: AppStorage });
         AppAuth.init();
