@@ -142,6 +142,7 @@
                     <button type="button" class="sub-tab-btn" data-expense-tab="durable">数年おきの支出</button>
                     <button type="button" class="sub-tab-btn" data-expense-tab="lifeEvent">ライフイベント</button>
                     <button type="button" class="sub-tab-btn" data-expense-tab="education">教育費</button>
+                    <button type="button" class="sub-tab-btn" data-expense-tab="care">介護</button>
                     <button type="button" class="sub-tab-btn" data-expense-tab="housingLoan">住宅ローン</button>
                     <button type="button" class="sub-tab-btn" data-expense-tab="gift">生前贈与(世帯外)</button>
                 </div>
@@ -210,7 +211,6 @@
                         <option value="子の結婚援助"></option>
                         <option value="バリアフリー改修"></option>
                         <option value="海外旅行"></option>
-                        <option value="介護施設の入居一時金"></option>
                         <option value="葬儀費用"></option>
                     </datalist>
                     <div class="dynamic-list-add">
@@ -223,6 +223,14 @@
                     <p class="field-note">子ごとに進路を選ぶと、目安の学費をその年の支出に入れます。年額は書き換えられます。<button type="button" class="help-btn help-btn-info" data-help="info" aria-label="解説" aria-expanded="false" tabindex="-1"></button><template class="help-content"><p><strong>目安の額</strong>: 小中高は文部科学省「子供の学習費調査」(2023年度)の、塾・習い事を含む1年間の額です。大学などは日本政策金融公庫「教育費負担の実態調査」(2021年度)の入学費用と1年間の在学費用、自宅外の通学は同じ調査の始めるための費用と仕送りの額です。</p><p><strong>授業料の支援は入れていません</strong>(制度が変わりやすいため)。対象になる場合は、年額を書き換えてください。例: 高校の授業料の支援(2026年度から所得の制限なし、私立は年45.7万円まで)、扶養する子が3人以上の世帯の大学の授業料・入学金の減免(2025年度から、私立は授業料が年70万円まで)、給付型の奨学金。</p><p><strong>貸与型の奨学金</strong>は子が卒業後に返すため、親が払う分だけになるよう年額を減らしてください。<strong>学資保険の満期金</strong>や祖父母からの援助は、臨時収入タブに入れられます。</p><p>学年は暦年で数えます(4月の入学から翌3月までを、入学した年の1年分とします)。浪人・留年・大学院・留学は、年額を書き換えて調整してください。</p></template></p>
                     <p class="field-note" id="education_life_event_note" hidden>⚠️ ライフイベントに「大学」の入学費用などを入れていたら、二重に数えないよう外してください。</p>
                     <div id="education_list"></div>
+                </div>
+                <!-- 介護(lifeplan ADR 0070)。子以外の人ごとのカードは、ui-asset-expense-form.jsの_renderCarePlansで作る。親の介護・介護休業などは
+                     計算に入れず、ここの補足で案内する -->
+                <div id="expense_care_panel" style="display:none;">
+                    <p class="field-note">介護が要る人ごとに要介護度と場所を選ぶと、介護保険の自己負担(所得で1〜3割)と、施設の食費・居住費、保険外の費用をその年の支出に入れます。<button type="button" class="help-btn help-btn-info" data-help="info" aria-label="解説" aria-expanded="false" tabindex="-1"></button><template class="help-content"><p><strong>自己負担の割合</strong>: 65歳以上は、前年の所得で1割・2割・3割が決まります(本人の合計所得金額と、世帯の65歳以上の人の年金収入+その他の所得で判定)。住民税非課税なら1割です。2割負担の対象を広げる案は、2026年中に判断される予定です。</p><p><strong>高額介護サービス費</strong>: 介護サービスの自己負担は、世帯の所得に応じた月の上限(住民税非課税なら<span data-help-value="CARE_HIGH_COST_CAP_MONTHLY.exempt" data-format="yen"></span>、一般は<span data-help-value="CARE_HIGH_COST_CAP_MONTHLY.taxed" data-format="yen"></span>など)までになります。</p><p><strong>施設の食費・居住費の軽減</strong>: 特養などに入り、世帯全員が住民税非課税で、預貯金等が基準以下(単身<span data-help-value="CARE_SAVINGS_LIMITS.stage2.single" data-format="yen"></span>以下など。NISA・特定口座の残高も含めて判定します)なら、食費・居住費が下がります。有料老人ホームは対象外です。</p><p><strong>目安の額</strong>: 介護サービス費は厚生労働省「介護給付費等実態統計」(2024年12月審査分)の要介護度ごとの1人当たりの額、保険外の費用と一時費用は生命保険文化センター「生命保険に関する全国実態調査」(2024年度)、有料老人ホームの月額利用料は介護付きホームの平均(厚生労働省の老健事業の調査、2023年度)です。</p><p>施設に入ると、食費など生活費の一部が減ります。生活費の変化で減らせます。</p></template></p>
+                    <p class="field-note">親の介護: 親を世帯人(続柄「父母」)に入れると、親の介護もここで入れられます。仕送りは生前贈与(世帯外)、介護のために仕事を辞める・減らすときは給与収入の働き方で入れてください。<button type="button" class="help-btn help-btn-hint" data-help="hint" aria-label="入力のヒント" aria-expanded="false" tabindex="-1"></button><template class="help-content"><p><strong>介護休業給付金</strong>: 雇用保険に入っている人が家族の介護で休むと、休業前の賃金の67%が、対象の家族1人につき通算93日まで出ます(計算には入れていません)。</p><p><strong>扶養控除</strong>: 親の所得が少なければ、扶養控除を受けられます。世帯人に入れた父母は、扶養控除を自動で計算します。</p><p>介護保険の制度・地域の支援は、お住まいの市区町村の地域包括支援センターで相談できます。</p></template></p>
+                    <p class="field-note" id="care_life_event_note" hidden>⚠️ ライフイベントに介護の費用(入居一時金など)を入れていたら、二重に数えないよう外してください(入居一時金は、介護付き有料老人ホームを選ぶと出る欄に入れます)。</p>
+                    <div id="care_list"></div>
                 </div>
                 <!-- 住宅ローン(lifeplan ADR 0068)。今の残高から返済・一括返済・繰上げ返済・団信・住宅ローン控除を計算する。カードはui-asset-expense-form.jsの_renderHousingLoansで作る -->
                 <div id="expense_housing_loan_panel" style="display:none;">
@@ -833,9 +841,9 @@
     </div>
 
     <script src="storage.66015682c9.js"></script>
-    <script src="constants.b1cb0be387.js"></script>
+    <script src="constants.dbc2c84ec9.js"></script>
     <script src="shared/pattern-builders.12f8792896.js"></script>
-    <script src="shared/calculator.526ff1b0b8.js"></script>
+    <script src="shared/calculator.44891563ae.js"></script>
     <!-- 生涯合計の集計(全プラン比較・各ウィザード・ideco-bridge.js等が使う、docs/shared/decisions/0007参照) -->
     <script src="shared/lifetime-totals.66038d2b39.js"></script>
     <!-- ideco→lifeplanへのデータ引き継ぎ(model.jsのcheckIdecoHandoff/importHandoffPatternが
@@ -856,27 +864,27 @@
     <script src="shared/kenpo-bridge.06ba52601d.js"></script>
     <script src="shared/chart-age-cursor.823d607c46.js"></script>
     <script src="shared/age-stepper.1b938669bf.js"></script>
-    <script src="shared/parameter-catalog.45d96dff23.js"></script>
+    <script src="shared/parameter-catalog.87baf38d07.js"></script>
     <script src="shared/rebalance-reader.2b253c51a0.js"></script>
     <script src="shared/embed-overlay.800909cf4d.js"></script>
     <script src="shared/numeric-input-select.512e9aa2d5.js"></script>
     <script src="shared/help-popover.bf1fa2adf4.js"></script>
     <script src="shared/plan-share-link.c9e2440a5a.js"></script>
     <script src="vendor/qrcode.d57124bba8.js"></script>
-    <script src="model.419a430949.js"></script>
+    <script src="model.b88946c45f.js"></script>
     <script src="auth.f95b7f2cb8.js"></script>
     <script src="consent.6a30cb2135.js"></script>
     <script src="resize-notifier.bbc2b52d92.js"></script>
     <script src="vendor/chart.77f300ead9.js"></script>
     <script src="shared/busy-indicator.4a72177cfe.js"></script>
-    <script src="ui-helpers.55baddcb73.js"></script>
+    <script src="ui-helpers.176e8cda62.js"></script>
     <script src="ui-records.66e244be3a.js"></script>
     <script src="ui-person-form.3228e4be42.js"></script>
-    <script src="ui-asset-expense-form.9a062f8cda.js"></script>
-    <script src="ui-results.e4c3dbdc54.js"></script>
+    <script src="ui-asset-expense-form.ba567c09d4.js"></script>
+    <script src="ui-results.e4c970861b.js"></script>
     <script src="ui-inheritance.401f0a06ad.js"></script>
-    <script src="ui-compare.3135d50664.js"></script>
-    <script src="ui.566645a9f1.js"></script>
+    <script src="ui-compare.1f04a668aa.js"></script>
+    <script src="ui.709cd62a81.js"></script>
     <script>
         window.model = new LifeplanModel({ window: window, storage: AppStorage });
         AppAuth.init();
