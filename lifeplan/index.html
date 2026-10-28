@@ -290,6 +290,8 @@
                     <div id="result_shortage_note" class="shortage-note" role="status" hidden></div>
                     <!-- 死亡予測年齢が平均余命のままのとき、長生きした場合の確かめ方(ADR 0054) -->
                     <p class="soft-notice" id="result_longevity_note" hidden><span aria-hidden="true">ⓘ</span><span>平均余命は、半数を超える人がそれより長生きする年齢です。長生きしても足りるかは、死亡予測年齢を「4人に1人が生きている年齢」にして確かめられます。<button type="button" class="btn-link" id="btn_result_change_death_age">死亡予測年齢を変える</button></span></p>
+                    <!-- 障害年金をやめてから老齢年金を受け取るまでの空白の期間と、繰り下げられるか(ADR 0009「2026-10-29改訂」) -->
+                    <p class="soft-notice" id="result_disability_forfeit_note" hidden><span aria-hidden="true">ⓘ</span><span id="result_disability_forfeit_text"></span></p>
                 </div>
 
                 <!-- 資産の推移(グラフ)。引退直後の暴落のシナリオ(ADR 0055)は、グラフの見出しの下の3つのボタンで切り替える -->
@@ -841,9 +843,9 @@
     </div>
 
     <script src="storage.66015682c9.js"></script>
-    <script src="constants.dbc2c84ec9.js"></script>
-    <script src="shared/pattern-builders.12f8792896.js"></script>
-    <script src="shared/calculator.44891563ae.js"></script>
+    <script src="constants.96771685c6.js"></script>
+    <script src="shared/pattern-builders.d92f836b46.js"></script>
+    <script src="shared/calculator.06b1b9b170.js"></script>
     <!-- 生涯合計の集計(全プラン比較・各ウィザード・ideco-bridge.js等が使う、docs/shared/decisions/0007参照) -->
     <script src="shared/lifetime-totals.66038d2b39.js"></script>
     <!-- ideco→lifeplanへのデータ引き継ぎ(model.jsのcheckIdecoHandoff/importHandoffPatternが
@@ -864,27 +866,27 @@
     <script src="shared/kenpo-bridge.06ba52601d.js"></script>
     <script src="shared/chart-age-cursor.823d607c46.js"></script>
     <script src="shared/age-stepper.1b938669bf.js"></script>
-    <script src="shared/parameter-catalog.87baf38d07.js"></script>
+    <script src="shared/parameter-catalog.e7cb7a7244.js"></script>
     <script src="shared/rebalance-reader.2b253c51a0.js"></script>
     <script src="shared/embed-overlay.800909cf4d.js"></script>
     <script src="shared/numeric-input-select.512e9aa2d5.js"></script>
     <script src="shared/help-popover.bf1fa2adf4.js"></script>
     <script src="shared/plan-share-link.c9e2440a5a.js"></script>
     <script src="vendor/qrcode.d57124bba8.js"></script>
-    <script src="model.b88946c45f.js"></script>
+    <script src="model.6314c593b6.js"></script>
     <script src="auth.f95b7f2cb8.js"></script>
     <script src="consent.6a30cb2135.js"></script>
     <script src="resize-notifier.bbc2b52d92.js"></script>
     <script src="vendor/chart.77f300ead9.js"></script>
     <script src="shared/busy-indicator.4a72177cfe.js"></script>
-    <script src="ui-helpers.176e8cda62.js"></script>
+    <script src="ui-helpers.9f8da23e4e.js"></script>
     <script src="ui-records.66e244be3a.js"></script>
-    <script src="ui-person-form.3228e4be42.js"></script>
+    <script src="ui-person-form.03f7614ead.js"></script>
     <script src="ui-asset-expense-form.ba567c09d4.js"></script>
-    <script src="ui-results.e4c970861b.js"></script>
+    <script src="ui-results.442ccbc36b.js"></script>
     <script src="ui-inheritance.401f0a06ad.js"></script>
     <script src="ui-compare.1f04a668aa.js"></script>
-    <script src="ui.709cd62a81.js"></script>
+    <script src="ui.d3d2ff0442.js"></script>
     <script>
         window.model = new LifeplanModel({ window: window, storage: AppStorage });
         AppAuth.init();
