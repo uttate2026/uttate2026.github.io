@@ -1,30 +1,6 @@
 {
   "deploys": [
     {
-      "deployedAt": "2026-10-28T21:29:23.816Z",
-      "files": [
-        "auth.0b9a540a6a.js",
-        "consent.394981c811.js",
-        "model.ad6825e61a.js",
-        "resize-notifier.eda0f90457.js",
-        "shared/busy-indicator.6fbf9e1ca8.css",
-        "shared/busy-indicator.f5c7cd784d.js",
-        "shared/calculator.fea16011d5.js",
-        "shared/embed-overlay.56c75d839f.js",
-        "shared/help-popover.acb24c7888.js",
-        "shared/kenpo-bridge.cc44b354e4.js",
-        "shared/lifeplan-constants.e635bb3fac.js",
-        "shared/lifeplan-link.d8afcfa543.js",
-        "shared/numeric-input-select.512e9aa2d5.js",
-        "shared/parameter-catalog.e7cb7a7244.js",
-        "shared/pattern-builders.d92f836b46.js",
-        "shared/step-history.2d8661c63c.js",
-        "storage.1bf22f67b9.js",
-        "style.b9cbf5a7d3.css",
-        "ui.029df833b0.js"
-      ]
-    },
-    {
       "deployedAt": "2026-10-29T08:24:57.711Z",
       "files": [
         "auth.0b9a540a6a.js",
@@ -113,6 +89,30 @@
         "shared/lifeplan-link.d8afcfa543.js",
         "shared/numeric-input-select.512e9aa2d5.js",
         "shared/parameter-catalog.fb5723bdb6.js",
+        "shared/pattern-builders.98df30db78.js",
+        "shared/step-history.2d8661c63c.js",
+        "storage.1bf22f67b9.js",
+        "style.b9cbf5a7d3.css",
+        "ui.029df833b0.js"
+      ]
+    },
+    {
+      "deployedAt": "2026-10-29T23:46:27.814Z",
+      "files": [
+        "auth.0b9a540a6a.js",
+        "consent.394981c811.js",
+        "model.ad6825e61a.js",
+        "resize-notifier.eda0f90457.js",
+        "shared/busy-indicator.6fbf9e1ca8.css",
+        "shared/busy-indicator.f5c7cd784d.js",
+        "shared/calculator.3a1b9dfe2b.js",
+        "shared/embed-overlay.56c75d839f.js",
+        "shared/help-popover.acb24c7888.js",
+        "shared/kenpo-bridge.cc44b354e4.js",
+        "shared/lifeplan-constants.88bf1411e6.js",
+        "shared/lifeplan-link.d8afcfa543.js",
+        "shared/numeric-input-select.512e9aa2d5.js",
+        "shared/parameter-catalog.ecaefa9404.js",
         "shared/pattern-builders.98df30db78.js",
         "shared/step-history.2d8661c63c.js",
         "storage.1bf22f67b9.js",
