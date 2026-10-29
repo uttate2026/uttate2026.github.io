@@ -2364,6 +2364,11 @@ th, td {
     margin-bottom: 6px;
 }
 
+/* 全プラン比較のグラフの見出しと切り替え(lifeplan ADR 0073) */
+.compare-chart-head {
+    margin-top: 16px;
+}
+
 .scenario-pills {
     display: flex;
     flex-wrap: wrap;
