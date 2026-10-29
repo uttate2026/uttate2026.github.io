@@ -228,6 +228,11 @@ html.auth-skip #auth_overlay {
     font-size: 14px;
 }
 
+/* .btnのdisplayがhidden属性(ブラウザ既定のdisplay: none)に勝って、隠したボタンが出てしまうのを防ぐ */
+.btn[hidden] {
+    display: none;
+}
+
 .btn-primary {
     background: var(--primary);
     border-color: var(--primary);
