@@ -448,6 +448,10 @@
                             <div class="pension-wizard-button-row">
                                 <button type="button" id="btn_open_estate_wizard" class="btn btn-secondary">🔍 最適な遺産分割を探す</button>
                             </div>
+                            <label class="checkbox-label">
+                                <input type="checkbox" id="input_inheritance_child_lives_apart">
+                                自宅を継ぐ子が同居していない<button type="button" class="help-btn help-btn-info" data-help="info" aria-label="解説" aria-expanded="false" tabindex="-1"></button><template class="help-content"><p>配偶者が亡くなったとき(二次相続)に子が自宅の土地を相続する場合、小規模宅地等の特例を使えるのは、原則として亡くなった親と同居し、申告期限まで住み続ける子です。別に住んでいて自分(や配偶者)の持ち家がある子は使えません。</p><p>印を付けると、二次相続では自宅の土地を減らさずに計算します。一次相続(配偶者が相続)には影響しません。</p></template>
+                            </label>
                         </div>
                         <div class="inheritance-result-box" id="inheritance_step2_result"></div>
                     </details>
@@ -860,7 +864,7 @@
     <script src="storage.66015682c9.js"></script>
     <script src="constants.73f64a6346.js"></script>
     <script src="shared/pattern-builders.98df30db78.js"></script>
-    <script src="shared/calculator.4c849458ae.js"></script>
+    <script src="shared/calculator.d69c51d052.js"></script>
     <!-- 生涯合計の集計(全プラン比較・各ウィザード・ideco-bridge.js等が使う、docs/shared/decisions/0007参照) -->
     <script src="shared/lifetime-totals.66038d2b39.js"></script>
     <!-- ideco→lifeplanへのデータ引き継ぎ(model.jsのcheckIdecoHandoff/importHandoffPatternが
@@ -881,14 +885,14 @@
     <script src="shared/kenpo-bridge.06ba52601d.js"></script>
     <script src="shared/chart-age-cursor.823d607c46.js"></script>
     <script src="shared/age-stepper.1b938669bf.js"></script>
-    <script src="shared/parameter-catalog.e34b3276f8.js"></script>
+    <script src="shared/parameter-catalog.02ecc23a57.js"></script>
     <script src="shared/rebalance-reader.2b253c51a0.js"></script>
     <script src="shared/embed-overlay.800909cf4d.js"></script>
     <script src="shared/numeric-input-select.512e9aa2d5.js"></script>
     <script src="shared/help-popover.bf1fa2adf4.js"></script>
     <script src="shared/plan-share-link.c9e2440a5a.js"></script>
     <script src="vendor/qrcode.d57124bba8.js"></script>
-    <script src="model.37099f1ae7.js"></script>
+    <script src="model.cb7e2a480d.js"></script>
     <script src="auth.f95b7f2cb8.js"></script>
     <script src="consent.6a30cb2135.js"></script>
     <script src="resize-notifier.bbc2b52d92.js"></script>
@@ -899,9 +903,9 @@
     <script src="ui-person-form.90fdbd1512.js"></script>
     <script src="ui-asset-expense-form.32e586c77c.js"></script>
     <script src="ui-results.6f509de444.js"></script>
-    <script src="ui-inheritance.401f0a06ad.js"></script>
+    <script src="ui-inheritance.c7861945bc.js"></script>
     <script src="ui-compare.5d50205796.js"></script>
-    <script src="ui.8d4584b1fe.js"></script>
+    <script src="ui.2e07e6a404.js"></script>
     <script>
         window.model = new LifeplanModel({ window: window, storage: AppStorage });
         AppAuth.init();
