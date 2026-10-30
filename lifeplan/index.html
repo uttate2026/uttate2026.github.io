@@ -318,6 +318,8 @@
                     <!-- rebalanceと連携した口座のうち、履歴を保存していない口座の案内(その口座は実績の点が出ない) -->
                     <p id="asset_chart_rebalance_note" class="field-note" hidden></p>
                     <!-- 生活費が0円のままのときの注記(ADR 0047)。入力の状況を閉じても、支出0円の結果だと分かるようにする -->
+                    <!-- 足りない年に特定口座・NISAから自動で取り崩した年の注記(lifeplan ADR 0073) -->
+                    <p id="asset_chart_auto_withdrawal_note" class="field-note" hidden></p>
                     <p id="asset_chart_living_cost_note" class="field-note" hidden>生活費が未入力(0円)のため、支出0円で計算しています。「3. 支出」で生活費を入力すると、見通しが現実に近づきます。</p>
                 </div>
                 <!-- ねんきんプランナー②の「明細を見る」と同じ形(既定は畳んだ状態)。スライダーの左右の端はグラフの
@@ -896,10 +898,10 @@
     <script src="ui-records.66e244be3a.js"></script>
     <script src="ui-person-form.e8d9c4c3f5.js"></script>
     <script src="ui-asset-expense-form.32e586c77c.js"></script>
-    <script src="ui-results.540a585c61.js"></script>
+    <script src="ui-results.6f509de444.js"></script>
     <script src="ui-inheritance.401f0a06ad.js"></script>
     <script src="ui-compare.5d50205796.js"></script>
-    <script src="ui.3e3395859a.js"></script>
+    <script src="ui.1d91e51890.js"></script>
     <script>
         window.model = new LifeplanModel({ window: window, storage: AppStorage });
         AppAuth.init();
