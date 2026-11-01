@@ -539,6 +539,16 @@
                     <option value="ideco">iDeCo</option>
                 </select>
             </div>
+            <!-- NISA・特定口座の中身(lifeplan ADR 0074)。追加するときに選べるようにし、配当金・債券も入れられることに気づけるようにする -->
+            <div class="form-field" id="asset_add_holding_field">
+                <label for="select_asset_holding">中身</label>
+                <select id="select_asset_holding">
+                    <option value="growth">取り崩して使う(投資信託・株式)</option>
+                    <option value="dividend">配当金を受け取る(高配当株など)</option>
+                    <option value="bond">債券(満期まで持つ)</option>
+                </select>
+                <p class="field-note">中身ごとにタブを分けて足せます(インデックス投資と高配当株など)。</p>
+            </div>
             <!-- iDeCo拠出プラン・出口戦略ウィザード(2026-09-20のフィードバックで追加。廃止した
                  「検討トピック」の後継、ADR 0026参照) -->
             <div class="form-field" id="asset_add_ideco_wizard_field" hidden>
@@ -864,9 +874,9 @@
     <script src="storage.a200f36952.js"></script>
     <script src="constants.73f64a6346.js"></script>
     <script src="shared/pattern-builders.d3332a06a6.js"></script>
-    <script src="shared/calculator.b1230ad212.js"></script>
+    <script src="shared/calculator.9f21035322.js"></script>
     <!-- 生涯合計の集計(全プラン比較・各ウィザード・ideco-bridge.js等が使う、docs/shared/decisions/0007参照) -->
-    <script src="shared/lifetime-totals.a7f241de5a.js"></script>
+    <script src="shared/lifetime-totals.523c623d0c.js"></script>
     <!-- ideco→lifeplanへのデータ引き継ぎ(model.jsのcheckIdecoHandoff/importHandoffPatternが
          IdecoBridge.HANDOFF_STORAGE_KEYを参照する、docs/shared/decisions/0006参照) -->
     <script src="shared/ideco-bridge.5e359ef1e3.js"></script>
@@ -885,14 +895,14 @@
     <script src="shared/kenpo-bridge.d352a8861b.js"></script>
     <script src="shared/chart-age-cursor.9e60b9cb2c.js"></script>
     <script src="shared/age-stepper.1b938669bf.js"></script>
-    <script src="shared/parameter-catalog.9cd723712f.js"></script>
+    <script src="shared/parameter-catalog.99fba88a99.js"></script>
     <script src="shared/rebalance-reader.5ba7073ad7.js"></script>
     <script src="shared/embed-overlay.8192c8453c.js"></script>
     <script src="shared/numeric-input-select.45aa8e5f43.js"></script>
     <script src="shared/help-popover.5d3821732b.js"></script>
     <script src="shared/plan-share-link.066b772c75.js"></script>
     <script src="vendor/qrcode.0a88500742.js"></script>
-    <script src="model.cb7e2a480d.js"></script>
+    <script src="model.be9e56b830.js"></script>
     <script src="auth.f95b7f2cb8.js"></script>
     <script src="consent.8d0a497152.js"></script>
     <!-- 利用状況の計測(GA4、docs/shared/decisions/0019)。同意の後にタグを読み込む -->
@@ -903,11 +913,11 @@
     <script src="ui-helpers.abee210883.js"></script>
     <script src="ui-records.51c08cd7af.js"></script>
     <script src="ui-person-form.36c8d45d45.js"></script>
-    <script src="ui-asset-expense-form.550f627010.js"></script>
-    <script src="ui-results.e7e22a3844.js"></script>
+    <script src="ui-asset-expense-form.54691832d5.js"></script>
+    <script src="ui-results.c1cbdb3b03.js"></script>
     <script src="ui-inheritance.d051775dd0.js"></script>
-    <script src="ui-compare.3997c311ba.js"></script>
-    <script src="ui.5ddffbd95a.js"></script>
+    <script src="ui-compare.479d2c0ad5.js"></script>
+    <script src="ui.a830a20614.js"></script>
     <script>
         window.model = new LifeplanModel({ window: window, storage: AppStorage });
         AppAuth.init();
