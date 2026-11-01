@@ -1215,3 +1215,52 @@ select {
         padding: 14px 16px 16px;
     }
 }
+
+/* 戻ってきた人への案内(前回から変わったこと、docs/shared/decisions/0020)。見た目は.soft-notice */
+.revisit-card {
+    display: block;
+    position: relative;
+    margin: 12px 0;
+    padding-right: 36px;
+}
+
+.revisit-card .hint-close {
+    position: absolute;
+    top: 4px;
+    right: 6px;
+    padding: 0 6px;
+    border: none;
+    background: transparent;
+    color: inherit;
+    font-size: 20px;
+    line-height: 1;
+    cursor: pointer;
+}
+
+.revisit-card .revisit-title {
+    margin: 0 0 4px;
+    font-weight: bold;
+}
+
+.revisit-card .revisit-list {
+    margin: 0 0 4px;
+    padding-left: 1.4em;
+}
+
+.revisit-card .revisit-affects {
+    font-weight: bold;
+}
+
+.revisit-card .revisit-more {
+    margin: 4px 0 0;
+}
+
+.revisit-card button.btn-link {
+    padding: 0;
+    border: none;
+    background: none;
+    color: inherit;
+    font: inherit;
+    text-decoration: underline;
+    cursor: pointer;
+}
