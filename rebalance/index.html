@@ -574,21 +574,25 @@
         <span class="busy-spinner" aria-hidden="true"></span><span id="app_loading_text">読み込んでいます…</span>
     </div>
 
-    <script src="storage.493bc7cb8c.js"></script>
+    <script src="storage.8bc70d66b4.js"></script>
     <script src="model.ad90f88577.js"></script>
-    <script src="solver.8cdc968f09.js"></script>
+    <script src="solver.edc8ae8e60.js"></script>
     <script src="ocr.b4fec03f47.js"></script>
     <script src="auth.3451c4b58b.js"></script>
     <script src="consent.4ff8510d2b.js"></script>
     <!-- 利用状況の計測(GA4、docs/shared/decisions/0019)。同意の後にタグを読み込む -->
     <script src="shared/analytics.52738646c9.js" data-app="rebalance"></script>
     <script src="resize-notifier.026b62acdf.js"></script>
-    <script src="shared/embed-overlay.fa039822be.js"></script>
-    <script src="shared/numeric-input-select.ccea453546.js"></script>
-    <script src="vendor/chart.d439b04260.js"></script>
+    <!-- ホーム画面に追加するときのデータの移し替え(docs/shared/decisions/0020)。アプリが最初の保存をする前に取り込むかを決めるため、先に読む -->
+    <script src="shared/plan-share-link.15f04ff2c2.js"></script>
+    <script src="shared/carry-over.e5f191d6b8.js"></script>
+    <script src="shared/embed-overlay.c8925dca51.js"></script>
+    <script src="shared/numeric-input-select.176d1dee33.js"></script>
+    <script src="vendor/chart.16ab8e006d.js"></script>
     <script src="shared/busy-indicator.4a72177cfe.js"></script>
-    <script src="ui.5731191965.js"></script>
+    <script src="ui.324efa1f54.js"></script>
     <script>
+        CarryOver.init();
         window.model = new AssetModel({ window: window, storage: AppStorage });
         AssetAuth.init();
         AssetConsent.init();
