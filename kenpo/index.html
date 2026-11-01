@@ -292,27 +292,31 @@
         <span class="busy-spinner" aria-hidden="true"></span><span id="app_loading_text">読み込んでいます…</span>
     </div>
 
-    <script src="storage.f7d62de941.js"></script>
+    <script src="storage.4a1101652b.js"></script>
     <script src="model.ad6825e61a.js"></script>
     <script src="auth.0b9a540a6a.js"></script>
     <script src="consent.f2d3df23a8.js"></script>
     <!-- 利用状況の計測(GA4、docs/shared/decisions/0019)。同意の後にタグを読み込む -->
     <script src="shared/analytics.52738646c9.js" data-app="kenpo"></script>
     <script src="resize-notifier.eda0f90457.js"></script>
+    <!-- ホーム画面に追加するときのデータの移し替え(docs/shared/decisions/0020)。アプリが最初の保存をする前に取り込むかを決めるため、先に読む -->
+    <script src="shared/plan-share-link.184c819c6d.js"></script>
+    <script src="shared/carry-over.7d0dbbeb39.js"></script>
     <!-- lifeplanエンジンを使う共有モジュール(scripts/sync-shared.jsがsrc/shared/からコピーする。このディレクトリはGit管理対象外) -->
-    <script src="shared/lifeplan-constants.b7b60584db.js"></script>
-    <script src="shared/pattern-builders.d3332a06a6.js"></script>
+    <script src="shared/lifeplan-constants.d172d826a5.js"></script>
+    <script src="shared/pattern-builders.f3063ea7f3.js"></script>
     <script src="shared/calculator.f5a735e0d9.js"></script>
-    <script src="shared/kenpo-bridge.06ba52601d.js"></script>
-    <script src="shared/parameter-catalog.99fba88a99.js"></script>
-    <script src="shared/lifeplan-link.f8e4f0e877.js"></script>
-    <script src="shared/embed-overlay.800909cf4d.js"></script>
-    <script src="shared/numeric-input-select.45aa8e5f43.js"></script>
-    <script src="shared/help-popover.bf1fa2adf4.js"></script>
-    <script src="shared/step-history.c2a0d4607a.js"></script>
+    <script src="shared/kenpo-bridge.d352a8861b.js"></script>
+    <script src="shared/parameter-catalog.9743462f1e.js"></script>
+    <script src="shared/lifeplan-link.b3b578deac.js"></script>
+    <script src="shared/embed-overlay.8192c8453c.js"></script>
+    <script src="shared/numeric-input-select.e800d77f0f.js"></script>
+    <script src="shared/help-popover.5d3821732b.js"></script>
+    <script src="shared/step-history.b23157f0ec.js"></script>
     <script src="shared/busy-indicator.4a72177cfe.js"></script>
-    <script src="ui.1e0c3a5cc0.js"></script>
+    <script src="ui.3d707211b7.js"></script>
     <script>
+        CarryOver.init();
         window.model = new KenpoModel({ window: window, storage: AppStorage });
         AppAuth.init();
         AppConsent.init();
