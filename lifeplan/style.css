@@ -2733,3 +2733,18 @@ th .help-btn {
     text-decoration: underline;
     cursor: pointer;
 }
+
+/* 見直す日をカレンダーに(docs/shared/decisions/0020)。メニューはバックアップと同じ見た目で、ボタンの下に出す */
+.review-calendar-wrap {
+    position: relative;
+}
+
+.review-calendar-wrap .record-menu {
+    width: min(320px, calc(100vw - 32px));
+}
+
+.review-calendar-wrap a.record-menu-item {
+    color: var(--text-primary, #0f172a);
+    text-decoration: none;
+    font-size: 14px;
+}

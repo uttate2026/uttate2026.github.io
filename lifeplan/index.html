@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ライフプランシミュレーター</title>
-    <link rel="stylesheet" href="style.8402af2339.css">
+    <link rel="stylesheet" href="style.7f2b7976b3.css">
     <!-- 待っている間の表示(回る輪+文字)の見た目は4アプリで共通(docs/shared/decisions/0017)。起動時の表示より先に読む -->
     <link rel="stylesheet" href="shared/busy-indicator.6fbf9e1ca8.css">
     <!-- uttate.comに埋め込まれているとき(iframeの外にページの見出しがある)は、中のタイトルを出さない(MEMO.md 2026/9/30コメント1-(12))。
@@ -276,8 +276,11 @@
                          「URLに書き出す」とし(バックアップの「書き出す」と同じ言い方)、誤解を避ける -->
                     <div class="answer-card-actions">
                         <button type="button" id="btn_share_link" class="btn btn-secondary" data-track="create_share_link" hidden>🔗 URLに書き出す</button>
-                        <!-- 見直しの予定(1月・誕生月、毎年)をカレンダーに入れる.ics(docs/shared/decisions/0020) -->
-                        <button type="button" id="btn_review_calendar" class="btn btn-secondary" data-track="download_review_calendar" hidden>📅 見直す日をカレンダーに</button>
+                        <!-- 見直しの予定(1月・誕生月、毎年)をカレンダーに入れる。Googleカレンダーか.icsを選ぶ(docs/shared/decisions/0020) -->
+                        <div class="record-menu-wrap review-calendar-wrap">
+                            <button type="button" id="btn_review_calendar" class="btn btn-secondary" data-track="open_review_calendar" aria-haspopup="true" aria-expanded="false" hidden>📅 見直す日をカレンダーに</button>
+                            <div id="review_calendar_menu" class="record-menu" hidden></div>
+                        </div>
                     </div>
                     <div class="answer-body">
                         <div>
@@ -900,8 +903,8 @@
     <script src="shared/kenpo-bridge.3380b50c30.js"></script>
     <script src="shared/chart-age-cursor.6b007e2eae.js"></script>
     <script src="shared/age-stepper.1b938669bf.js"></script>
-    <script src="shared/parameter-catalog.9743462f1e.js"></script>
-    <script src="shared/revisit.b861514cc1.js"></script>
+    <script src="shared/parameter-catalog.64be483a33.js"></script>
+    <script src="shared/revisit.457211bfd9.js"></script>
     <script src="shared/rebalance-reader.0f7f25ff6f.js"></script>
     <script src="shared/embed-overlay.3e451105d1.js"></script>
     <script src="shared/numeric-input-select.e800d77f0f.js"></script>
@@ -925,8 +928,8 @@
     <script src="ui-results.5bbfac0317.js"></script>
     <script src="ui-inheritance.9c865ac74f.js"></script>
     <script src="ui-compare.e6b6724a30.js"></script>
-    <script src="ui-revisit.3bdcde3111.js"></script>
-    <script src="ui.f2e4b81e0d.js"></script>
+    <script src="ui-revisit.992a7fb471.js"></script>
+    <script src="ui.82621c780e.js"></script>
     <script>
         CarryOver.init();
         window.model = new LifeplanModel({ window: window, storage: AppStorage });
