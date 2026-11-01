@@ -41,8 +41,8 @@
         <div class="card auth-card">
             <div class="section-title">ご利用にあたって</div>
             <ol class="consent-list">
-                <li>入力したデータは、運営側サーバーには保存されません。お使いのブラウザ内にのみ保存されます。</li>
-                <li>外部への送信は行いません。</li>
+                <li>入力した金額や家族の情報は、お使いのブラウザの中にだけ保存し、どこにも送りません。</li>
+                <li>よく使われる機能を知るため、Googleアナリティクスで利用状況を集計しています(入力した値は含みません)。詳しくは<a href="https://uttate.com/page-197/" target="_blank" rel="noopener">プライバシーポリシー</a>をご覧ください。</li>
                 <li>本サービスの試算結果は、税務・年金相談の代替にはなりません。控除額表・税率等の「制度の値」は変更されることがあり、最新の制度と異なる場合があります。自己責任でご利用ください。</li>
             </ol>
             <button type="button" id="btn_consent_agree" class="btn btn-primary btn-large">同意して利用を開始する</button>
@@ -58,8 +58,8 @@
                 <div class="site-name">iDeCoシミュレーター</div>
                 <!-- 計算に使っている制度の値・仮定の一覧を開く(MEMO.md 2026/9/29コメント2) -->
                 <!-- 制度改正への対応(MEMO.md 2026/10/9コメント2-(2)、docs/shared/decisions/0012「2026-10-09改訂」)。押すと「ⓘ 計算の前提」を開く -->
-                <button type="button" id="btn_law_change_badge" class="law-change-badge"></button>
-                <button type="button" id="btn_parameter_info" class="param-info-btn">ⓘ 計算の前提</button>
+                <button type="button" id="btn_law_change_badge" class="law-change-badge" data-track="open_changelog"></button>
+                <button type="button" id="btn_parameter_info" class="param-info-btn" data-track="open_assumptions">ⓘ 計算の前提</button>
             </div>
             <div class="wizard-header-top">
                 <button type="button" id="btn_nav_back" class="nav-back-btn" style="display: none;">
@@ -585,38 +585,40 @@
         <span class="busy-spinner" aria-hidden="true"></span><span id="app_loading_text">読み込んでいます…</span>
     </div>
 
-    <script src="storage.e70cf646cb.js"></script>
+    <script src="storage.4a1101652b.js"></script>
     <script src="constants.ab4d2a1ef3.js"></script>
     <script src="model.92ea110759.js"></script>
     <script src="calculator.d868cb3ad6.js"></script>
     <script src="auth.0b9a540a6a.js"></script>
-    <script src="consent.79ec7cb821.js"></script>
+    <script src="consent.7771e70964.js"></script>
+    <!-- 利用状況の計測(GA4、docs/shared/decisions/0019)。同意の後にタグを読み込む -->
+    <script src="shared/analytics.906a22523c.js" data-app="ideco"></script>
     <script src="resize-notifier.8b3c8e9088.js"></script>
-    <script src="vendor/chart.d480762d15.js"></script>
+    <script src="vendor/chart.6c07e159ae.js"></script>
     <!-- 比較結果表示がlifeplanエンジンを再利用するための共有モジュール
          (docs/shared/decisions/0004参照)。scripts/sync-shared.jsがsrc/shared/からコピーする
          (このディレクトリ自体はGit管理対象外)。shared/lifeplan-constants.jsはshared/calculator.jsが
          参照するブラウザグローバルLifeplanConstantsを用意するためのもので、このページ自体の
          constants.js(IdecoConstants)とは別名のため衝突しない -->
-    <script src="shared/lifeplan-constants.d172d826a5.js"></script>
-    <script src="shared/pattern-builders.f3063ea7f3.js"></script>
-    <script src="shared/calculator.b1230ad212.js"></script>
+    <script src="shared/lifeplan-constants.4746ae698b.js"></script>
+    <script src="shared/pattern-builders.bd6079f444.js"></script>
+    <script src="shared/calculator.d063f18fcb.js"></script>
     <!-- 生涯合計の集計(docs/shared/decisions/0007参照)。以降の共通モジュールが参照するため、その前に読み込む -->
-    <script src="shared/lifetime-totals.e6df9250bd.js"></script>
-    <script src="shared/comparison-topics.ae2140b713.js"></script>
+    <script src="shared/lifetime-totals.1cb24b50f1.js"></script>
+    <script src="shared/comparison-topics.dea9c66f04.js"></script>
     <!-- iDeCo出口戦略のグリッド探索(lifeplanのiDeCoウィザードと共通、docs/shared/decisions/0007参照)。
          ideco-bridge.jsが参照するため、必ずその前に読み込む -->
-    <script src="shared/ideco-exit-optimizer.fa309d32b8.js"></script>
-    <script src="shared/ideco-bridge.5e359ef1e3.js"></script>
+    <script src="shared/ideco-exit-optimizer.f4a6c89e5a.js"></script>
+    <script src="shared/ideco-bridge.08cca109c5.js"></script>
     <script src="shared/age-stepper.93e7875a66.js"></script>
-    <script src="shared/lifeplan-link.b3b578deac.js"></script>
-    <script src="shared/embed-overlay.8192c8453c.js"></script>
-    <script src="shared/numeric-input-select.e800d77f0f.js"></script>
-    <script src="shared/help-popover.5d3821732b.js"></script>
-    <script src="shared/step-history.c2df611d65.js"></script>
-    <script src="shared/parameter-catalog.66cb2ebd8c.js"></script>
-    <script src="shared/busy-indicator.985410e3ab.js"></script>
-    <script src="ui.256302c099.js"></script>
+    <script src="shared/lifeplan-link.78c7fe284e.js"></script>
+    <script src="shared/embed-overlay.3e451105d1.js"></script>
+    <script src="shared/numeric-input-select.2a9ee73ade.js"></script>
+    <script src="shared/help-popover.67831257c3.js"></script>
+    <script src="shared/step-history.b23157f0ec.js"></script>
+    <script src="shared/parameter-catalog.0d351af00c.js"></script>
+    <script src="shared/busy-indicator.5c10fe98df.js"></script>
+    <script src="ui.47db6b6543.js"></script>
     <script>
         window.model = new IdecoModel({ window: window, storage: AppStorage });
         AppAuth.init();
