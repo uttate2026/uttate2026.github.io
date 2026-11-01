@@ -1,0 +1,47 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//uttate//lifeplan//JA
+CALSCALE:GREGORIAN
+BEGIN:VEVENT
+UID:lifeplan-review-january@uttate.com
+DTSTAMP:20251231T000000Z
+DTSTART;VALUE=DATE:20260115
+DTEND;VALUE=DATE:20260116
+RRULE:FREQ=YEARLY
+SUMMARY:ライフプランの見直し(源泉徴収票
+ が届いたら)
+DESCRIPTION:源泉徴収票の金額と年末の
+ 残高を、ライフプランシミュレーターの「📋 計画
+ と実績」に入れると、計画とのずれが分かります。\
+ nhttps://uttate.com/tool
+ s/lifeplan/
+URL:https://uttate.com/tools/lifeplan/
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:ライフプランの見直し(源
+ 泉徴収票が届いたら)
+TRIGGER:PT9H
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:lifeplan-review-pension@uttate.com
+DTSTAMP:20251231T000000Z
+DTSTART;VALUE=DATE:20260115
+DTEND;VALUE=DATE:20260116
+RRULE:FREQ=YEARLY
+SUMMARY:年金の見込みの見直し(ねんきん定
+ 期便が届いたら)
+DESCRIPTION:ねんきん定期便の見込額を
+ 、ライフプランシミュレーターの老齢年金の欄に入れ
+ 直すと、結果が今の見込みに合います。\nhttp
+ s://uttate.com/tools/lif
+ eplan/
+URL:https://uttate.com/tools/lifeplan/
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:年金の見込みの見直し(ね
+ んきん定期便が届いたら)
+TRIGGER:PT9H
+END:VALARM
+END:VEVENT
+END:VCALENDAR
