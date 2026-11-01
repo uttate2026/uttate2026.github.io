@@ -41,8 +41,8 @@
         <div class="card auth-card">
             <div class="section-title">ご利用にあたって</div>
             <ol class="consent-list">
-                <li>入力したデータは、運営側サーバーには保存されません。お使いのブラウザ内にのみ保存されます。</li>
-                <li>外部への送信は行いません。</li>
+                <li>入力した金額や家族の情報は、お使いのブラウザの中にだけ保存し、どこにも送りません。</li>
+                <li>よく使われる機能を知るため、Googleアナリティクスで利用状況を集計しています(入力した値は含みません)。詳しくは<a href="https://uttate.com/page-197/" target="_blank" rel="noopener">プライバシーポリシー</a>をご覧ください。</li>
                 <li>本サービスの試算結果は、税務・相続相談の代替にはなりません。控除額表・税率等の「制度の値」は変更されることがあり、最新の制度と異なる場合があります。自己責任でご利用ください。</li>
             </ol>
             <button type="button" id="btn_consent_agree" class="btn btn-primary btn-large">同意して利用を開始する</button>
@@ -56,8 +56,8 @@
             <!-- 計算に使っている制度の値・仮定の一覧を開く(MEMO.md 2026/9/29コメント2)。iframeに中身の高さで
                  埋め込まれるため、画面の隅に固定するボタンにはせず見出しの右端に置く -->
             <!-- 制度改正への対応(MEMO.md 2026/10/9コメント2-(2)、docs/shared/decisions/0012「2026-10-09改訂」)。押すと「ⓘ 計算の前提」を開く -->
-            <button type="button" id="btn_law_change_badge" class="law-change-badge"></button>
-            <button type="button" id="btn_parameter_info" class="param-info-btn">ⓘ 計算の前提</button>
+            <button type="button" id="btn_law_change_badge" class="law-change-badge" data-track="open_changelog"></button>
+            <button type="button" id="btn_parameter_info" class="param-info-btn" data-track="open_assumptions">ⓘ 計算の前提</button>
         </header>
 
         <div class="account-tabs-container">
@@ -70,7 +70,7 @@
             <div class="account-toolbar">
                 <button type="button" id="btn_toggle_pattern_properties" class="btn btn-link">🏷️ プラン名を変更</button>
                 <!-- プランをURLに書き出す(lifeplan ADR 0063「2026-10-24改訂」)。結果のカードの同じボタンまで下がらなくても、開いているプランを書き出せるように -->
-                <button type="button" id="btn_share_link_toolbar" class="btn btn-link" hidden>🔗 URLに書き出す</button>
+                <button type="button" id="btn_share_link_toolbar" class="btn btn-link" data-track="create_share_link" hidden>🔗 URLに書き出す</button>
                 <!-- バックアップ(ファイルへの書き出し・読み込み、ADR 0038)。保存データ全体に対する操作のため、資産リバランスシミュレーターの
                      「📦 バックアップ」と同じくツールバーの右端に、同じアイコン・見た目で置く(MEMO.md 2026/10/2コメント2-(3)) -->
                 <div class="record-menu-wrap toolbar-end">
@@ -272,7 +272,7 @@
                     <!-- プランをURLで共有(lifeplan ADR 0063)。サーバーには保存しないため、見出しで「共有」ではなく
                          「URLに書き出す」とし(バックアップの「書き出す」と同じ言い方)、誤解を避ける -->
                     <div class="answer-card-actions">
-                        <button type="button" id="btn_share_link" class="btn btn-secondary" hidden>🔗 URLに書き出す</button>
+                        <button type="button" id="btn_share_link" class="btn btn-secondary" data-track="create_share_link" hidden>🔗 URLに書き出す</button>
                     </div>
                     <div class="answer-body">
                         <div>
@@ -325,7 +325,7 @@
                 <!-- ねんきんプランナー②の「明細を見る」と同じ形(既定は畳んだ状態)。スライダーの左右の端はグラフの
                      描画範囲に合わせ(ChartAgeCursor.alignSlider)、開いている間はグラフ内に選んだ年齢の縦線を引く -->
                 <details class="detail-toggle" id="result_detail_toggle">
-                    <summary>明細を見る</summary>
+                    <summary data-track="open_detail">明細を見る</summary>
                     <!-- 年齢の表示と▲▼ボタンはスライダーの上に置く(MEMO.md 2026/9/29コメント1-(2)、共通のAgeStepper) -->
                     <div class="age-slider-head">
                         <label for="input_result_detail_age_slider">明細を表示したい年齢(世帯主の年齢)<!-- 前年の所得で決まる税・保険料(MEMO.md 2026/10/9、docs/lifeplan/decisions/0050) --><button type="button" class="help-btn help-btn-info" data-help="info" aria-label="解説" aria-expanded="false" tabindex="-1"></button><template class="help-content"><p>住民税・国保などの保険料・住民税非課税の判定は、実際の制度と同じく前年の所得で計算しています。引退した翌年は、前年の給与に対する住民税と保険料を払います。</p></template></label>
@@ -861,51 +861,53 @@
         <span class="busy-spinner" aria-hidden="true"></span><span id="app_loading_text">読み込んでいます…</span>
     </div>
 
-    <script src="storage.66015682c9.js"></script>
+    <script src="storage.a200f36952.js"></script>
     <script src="constants.73f64a6346.js"></script>
-    <script src="shared/pattern-builders.98df30db78.js"></script>
-    <script src="shared/calculator.d69c51d052.js"></script>
+    <script src="shared/pattern-builders.d3332a06a6.js"></script>
+    <script src="shared/calculator.b1230ad212.js"></script>
     <!-- 生涯合計の集計(全プラン比較・各ウィザード・ideco-bridge.js等が使う、docs/shared/decisions/0007参照) -->
-    <script src="shared/lifetime-totals.66038d2b39.js"></script>
+    <script src="shared/lifetime-totals.a7f241de5a.js"></script>
     <!-- ideco→lifeplanへのデータ引き継ぎ(model.jsのcheckIdecoHandoff/importHandoffPatternが
          IdecoBridge.HANDOFF_STORAGE_KEYを参照する、docs/shared/decisions/0006参照) -->
-    <script src="shared/ideco-bridge.bfa1a3c13f.js"></script>
+    <script src="shared/ideco-bridge.5e359ef1e3.js"></script>
     <!-- iDeCo出口戦略のグリッド探索(iDeCo資産追加ウィザードが使う、idecoと共通、
          docs/shared/decisions/0007参照) -->
-    <script src="shared/ideco-exit-optimizer.1ea5fcfde9.js"></script>
+    <script src="shared/ideco-exit-optimizer.fa309d32b8.js"></script>
     <!-- nenkin→lifeplanへのデータ引き継ぎ(同上、model.jsのcheckNenkinHandoffが
          NenkinBridge.HANDOFF_STORAGE_KEYを参照する、docs/nenkin/decisions/0001
          「2026-09-23改訂(続き11)」参照。2026-09-20にideco版で発覚した「スクリプトタグ漏れで
          引き継ぎキーを読めない」不具合の再発防止のため、必ずmodel.jsより前に追加すること) -->
     <!-- 公的年金受給開始年齢のグリッド探索(nenkinトピックA・lifeplan「公的年金」タブのウィザードで共通、
          lifeplan ADR 0027参照)。nenkin-bridge.jsが参照するため、必ずその前に読み込む -->
-    <script src="shared/pension-claim-optimizer.9ea81a3850.js"></script>
-    <script src="shared/nenkin-bridge.8e68b3e38c.js"></script>
+    <script src="shared/pension-claim-optimizer.e4c6e4a51a.js"></script>
+    <script src="shared/nenkin-bridge.49ad1a4324.js"></script>
     <!-- 任意継続・国保シミュレーター→lifeplanへのデータ引き継ぎ(model.jsのcheckKenpoHandoff、docs/kenpo/decisions/0001) -->
-    <script src="shared/kenpo-bridge.06ba52601d.js"></script>
-    <script src="shared/chart-age-cursor.823d607c46.js"></script>
+    <script src="shared/kenpo-bridge.d352a8861b.js"></script>
+    <script src="shared/chart-age-cursor.9e60b9cb2c.js"></script>
     <script src="shared/age-stepper.1b938669bf.js"></script>
-    <script src="shared/parameter-catalog.02ecc23a57.js"></script>
-    <script src="shared/rebalance-reader.2b253c51a0.js"></script>
-    <script src="shared/embed-overlay.800909cf4d.js"></script>
-    <script src="shared/numeric-input-select.512e9aa2d5.js"></script>
-    <script src="shared/help-popover.bf1fa2adf4.js"></script>
-    <script src="shared/plan-share-link.c9e2440a5a.js"></script>
-    <script src="vendor/qrcode.d57124bba8.js"></script>
+    <script src="shared/parameter-catalog.9cd723712f.js"></script>
+    <script src="shared/rebalance-reader.5ba7073ad7.js"></script>
+    <script src="shared/embed-overlay.8192c8453c.js"></script>
+    <script src="shared/numeric-input-select.45aa8e5f43.js"></script>
+    <script src="shared/help-popover.5d3821732b.js"></script>
+    <script src="shared/plan-share-link.066b772c75.js"></script>
+    <script src="vendor/qrcode.0a88500742.js"></script>
     <script src="model.cb7e2a480d.js"></script>
     <script src="auth.f95b7f2cb8.js"></script>
-    <script src="consent.6a30cb2135.js"></script>
+    <script src="consent.8d0a497152.js"></script>
+    <!-- 利用状況の計測(GA4、docs/shared/decisions/0019)。同意の後にタグを読み込む -->
+    <script src="shared/analytics.99920ef839.js" data-app="lifeplan"></script>
     <script src="resize-notifier.bbc2b52d92.js"></script>
-    <script src="vendor/chart.77f300ead9.js"></script>
-    <script src="shared/busy-indicator.4a72177cfe.js"></script>
-    <script src="ui-helpers.4a0ef9468b.js"></script>
-    <script src="ui-records.66e244be3a.js"></script>
-    <script src="ui-person-form.90fdbd1512.js"></script>
-    <script src="ui-asset-expense-form.32e586c77c.js"></script>
-    <script src="ui-results.6f509de444.js"></script>
-    <script src="ui-inheritance.c7861945bc.js"></script>
-    <script src="ui-compare.5d50205796.js"></script>
-    <script src="ui.2e07e6a404.js"></script>
+    <script src="vendor/chart.98420d3f3c.js"></script>
+    <script src="shared/busy-indicator.985410e3ab.js"></script>
+    <script src="ui-helpers.abee210883.js"></script>
+    <script src="ui-records.51c08cd7af.js"></script>
+    <script src="ui-person-form.36c8d45d45.js"></script>
+    <script src="ui-asset-expense-form.550f627010.js"></script>
+    <script src="ui-results.e7e22a3844.js"></script>
+    <script src="ui-inheritance.d051775dd0.js"></script>
+    <script src="ui-compare.3997c311ba.js"></script>
+    <script src="ui.5ddffbd95a.js"></script>
     <script>
         window.model = new LifeplanModel({ window: window, storage: AppStorage });
         AppAuth.init();
