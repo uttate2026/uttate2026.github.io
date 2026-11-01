@@ -2188,7 +2188,9 @@ th, td {
 
 .answer-card-actions {
     display: flex;
+    flex-wrap: wrap;
     justify-content: flex-end;
+    gap: 8px;
 }
 
 .field-with-copy {
@@ -2699,4 +2701,35 @@ th .help-btn {
 
 .housing-loan-card .dynamic-list-table input {
     min-width: 120px;
+}
+
+/* 戻ってきた人への案内(前回から変わったこと等、docs/shared/decisions/0020)。見た目は上の一度だけの案内(.rebalance-hint)と同じ */
+.revisit-card .revisit-title {
+    margin: 0 0 4px;
+    font-weight: bold;
+}
+
+.revisit-card .revisit-list {
+    margin: 0 0 4px;
+    padding-left: 1.4em;
+}
+
+.revisit-card .revisit-affects {
+    color: var(--danger, #b91c1c);
+    font-weight: bold;
+}
+
+.revisit-card .revisit-more,
+.revisit-card .revisit-extra {
+    margin: 6px 0 0;
+}
+
+.revisit-card button.btn-link {
+    padding: 0;
+    border: none;
+    background: none;
+    color: var(--primary);
+    font: inherit;
+    text-decoration: underline;
+    cursor: pointer;
 }

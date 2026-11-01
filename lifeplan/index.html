@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ライフプランシミュレーター</title>
-    <link rel="stylesheet" href="style.df944c7eac.css">
+    <link rel="stylesheet" href="style.8402af2339.css">
     <!-- 待っている間の表示(回る輪+文字)の見た目は4アプリで共通(docs/shared/decisions/0017)。起動時の表示より先に読む -->
     <link rel="stylesheet" href="shared/busy-indicator.6fbf9e1ca8.css">
     <!-- uttate.comに埋め込まれているとき(iframeの外にページの見出しがある)は、中のタイトルを出さない(MEMO.md 2026/9/30コメント1-(12))。
@@ -59,6 +59,9 @@
             <button type="button" id="btn_law_change_badge" class="law-change-badge" data-track="open_changelog"></button>
             <button type="button" id="btn_parameter_info" class="param-info-btn" data-track="open_assumptions">ⓘ 計算の前提</button>
         </header>
+
+        <!-- 戻ってきた人への案内(前回から変わったこと等、docs/shared/decisions/0020)。どの画面でも見えるよう、プランのタブの上に置く -->
+        <div id="revisit_card" class="rebalance-hint revisit-card" hidden></div>
 
         <div class="account-tabs-container">
             <div class="account-tabs-bar">
@@ -273,6 +276,8 @@
                          「URLに書き出す」とし(バックアップの「書き出す」と同じ言い方)、誤解を避ける -->
                     <div class="answer-card-actions">
                         <button type="button" id="btn_share_link" class="btn btn-secondary" data-track="create_share_link" hidden>🔗 URLに書き出す</button>
+                        <!-- 見直しの予定(1月・誕生月、毎年)をカレンダーに入れる.ics(docs/shared/decisions/0020) -->
+                        <button type="button" id="btn_review_calendar" class="btn btn-secondary" data-track="download_review_calendar" hidden>📅 見直す日をカレンダーに</button>
                     </div>
                     <div class="answer-body">
                         <div>
@@ -871,54 +876,59 @@
         <span class="busy-spinner" aria-hidden="true"></span><span id="app_loading_text">読み込んでいます…</span>
     </div>
 
-    <script src="storage.a200f36952.js"></script>
+    <script src="storage.dfebe970cc.js"></script>
     <script src="constants.73f64a6346.js"></script>
-    <script src="shared/pattern-builders.d3332a06a6.js"></script>
+    <script src="shared/pattern-builders.f3063ea7f3.js"></script>
     <script src="shared/calculator.9f21035322.js"></script>
     <!-- 生涯合計の集計(全プラン比較・各ウィザード・ideco-bridge.js等が使う、docs/shared/decisions/0007参照) -->
-    <script src="shared/lifetime-totals.523c623d0c.js"></script>
+    <script src="shared/lifetime-totals.e81d44cee3.js"></script>
     <!-- ideco→lifeplanへのデータ引き継ぎ(model.jsのcheckIdecoHandoff/importHandoffPatternが
          IdecoBridge.HANDOFF_STORAGE_KEYを参照する、docs/shared/decisions/0006参照) -->
-    <script src="shared/ideco-bridge.5e359ef1e3.js"></script>
+    <script src="shared/ideco-bridge.08cca109c5.js"></script>
     <!-- iDeCo出口戦略のグリッド探索(iDeCo資産追加ウィザードが使う、idecoと共通、
          docs/shared/decisions/0007参照) -->
-    <script src="shared/ideco-exit-optimizer.fa309d32b8.js"></script>
+    <script src="shared/ideco-exit-optimizer.f4a6c89e5a.js"></script>
     <!-- nenkin→lifeplanへのデータ引き継ぎ(同上、model.jsのcheckNenkinHandoffが
          NenkinBridge.HANDOFF_STORAGE_KEYを参照する、docs/nenkin/decisions/0001
          「2026-09-23改訂(続き11)」参照。2026-09-20にideco版で発覚した「スクリプトタグ漏れで
          引き継ぎキーを読めない」不具合の再発防止のため、必ずmodel.jsより前に追加すること) -->
     <!-- 公的年金受給開始年齢のグリッド探索(nenkinトピックA・lifeplan「公的年金」タブのウィザードで共通、
          lifeplan ADR 0027参照)。nenkin-bridge.jsが参照するため、必ずその前に読み込む -->
-    <script src="shared/pension-claim-optimizer.e4c6e4a51a.js"></script>
-    <script src="shared/nenkin-bridge.49ad1a4324.js"></script>
+    <script src="shared/pension-claim-optimizer.d8d7f96042.js"></script>
+    <script src="shared/nenkin-bridge.5f67b318de.js"></script>
     <!-- 任意継続・国保シミュレーター→lifeplanへのデータ引き継ぎ(model.jsのcheckKenpoHandoff、docs/kenpo/decisions/0001) -->
-    <script src="shared/kenpo-bridge.d352a8861b.js"></script>
-    <script src="shared/chart-age-cursor.9e60b9cb2c.js"></script>
+    <script src="shared/kenpo-bridge.3380b50c30.js"></script>
+    <script src="shared/chart-age-cursor.6b007e2eae.js"></script>
     <script src="shared/age-stepper.1b938669bf.js"></script>
-    <script src="shared/parameter-catalog.99fba88a99.js"></script>
-    <script src="shared/rebalance-reader.5ba7073ad7.js"></script>
-    <script src="shared/embed-overlay.8192c8453c.js"></script>
-    <script src="shared/numeric-input-select.45aa8e5f43.js"></script>
-    <script src="shared/help-popover.5d3821732b.js"></script>
-    <script src="shared/plan-share-link.066b772c75.js"></script>
-    <script src="vendor/qrcode.0a88500742.js"></script>
+    <script src="shared/parameter-catalog.9743462f1e.js"></script>
+    <script src="shared/revisit.b861514cc1.js"></script>
+    <script src="shared/rebalance-reader.0f7f25ff6f.js"></script>
+    <script src="shared/embed-overlay.3e451105d1.js"></script>
+    <script src="shared/numeric-input-select.e800d77f0f.js"></script>
+    <script src="shared/help-popover.67831257c3.js"></script>
+    <script src="shared/plan-share-link.184c819c6d.js"></script>
+    <!-- ホーム画面に追加するときのデータの移し替え(docs/shared/decisions/0020)。アプリが最初の保存をする前に取り込むかを決めるため、先に読む -->
+    <script src="shared/carry-over.6eeb7a90f0.js"></script>
+    <script src="vendor/qrcode.1232857753.js"></script>
     <script src="model.be9e56b830.js"></script>
     <script src="auth.f95b7f2cb8.js"></script>
     <script src="consent.8d0a497152.js"></script>
     <!-- 利用状況の計測(GA4、docs/shared/decisions/0019)。同意の後にタグを読み込む -->
     <script src="shared/analytics.99920ef839.js" data-app="lifeplan"></script>
     <script src="resize-notifier.bbc2b52d92.js"></script>
-    <script src="vendor/chart.98420d3f3c.js"></script>
+    <script src="vendor/chart.46424b781a.js"></script>
     <script src="shared/busy-indicator.985410e3ab.js"></script>
-    <script src="ui-helpers.abee210883.js"></script>
-    <script src="ui-records.51c08cd7af.js"></script>
-    <script src="ui-person-form.36c8d45d45.js"></script>
-    <script src="ui-asset-expense-form.54691832d5.js"></script>
-    <script src="ui-results.c1cbdb3b03.js"></script>
-    <script src="ui-inheritance.d051775dd0.js"></script>
-    <script src="ui-compare.479d2c0ad5.js"></script>
-    <script src="ui.a830a20614.js"></script>
+    <script src="ui-helpers.83cb682f6d.js"></script>
+    <script src="ui-records.353037877e.js"></script>
+    <script src="ui-person-form.db0bccc7a6.js"></script>
+    <script src="ui-asset-expense-form.d4c8a5726d.js"></script>
+    <script src="ui-results.5bbfac0317.js"></script>
+    <script src="ui-inheritance.9c865ac74f.js"></script>
+    <script src="ui-compare.e6b6724a30.js"></script>
+    <script src="ui-revisit.3bdcde3111.js"></script>
+    <script src="ui.f2e4b81e0d.js"></script>
     <script>
+        CarryOver.init();
         window.model = new LifeplanModel({ window: window, storage: AppStorage });
         AppAuth.init();
         AppConsent.init();
