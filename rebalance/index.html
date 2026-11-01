@@ -41,8 +41,9 @@
         <div class="card auth-card">
             <div class="section-title">ご利用にあたって</div>
             <ol class="consent-list">
-                <li>入力したデータは、運営側サーバーには保存されません。お使いのブラウザ内にのみ保存されます。</li>
+                <li>入力した金額は、お使いのブラウザの中にだけ保存し、運営側のサーバーには送りません。</li>
                 <li>データを外部(スクショ入力機能で使うLLM等)に送信する場合は、送信前に必ず確認画面を表示します。</li>
+                <li>よく使われる機能を知るため、Googleアナリティクスで利用状況を集計しています(入力した値は含みません)。詳しくは<a href="https://uttate.com/page-197/" target="_blank" rel="noopener">プライバシーポリシー</a>をご覧ください。</li>
                 <li>本サービスの計算結果の正確性は保証されません。外部LLMの利用を含め、自己責任でご利用ください。</li>
             </ol>
             <button type="button" id="btn_consent_agree" class="btn btn-primary btn-large">同意して利用を開始する</button>
@@ -309,7 +310,7 @@
                     <div id="toolbar_action_live">
                         <button type="button" id="btn_save_snapshot" class="btn btn-secondary">💾 現在の状態を履歴に保存</button>
                     </div>
-                    <a id="btn_open_lifeplan" class="btn btn-secondary lifeplan-open-btn" target="_blank" rel="noopener" hidden></a>
+                    <a id="btn_open_lifeplan" data-track="handoff_click" class="btn btn-secondary lifeplan-open-btn" target="_blank" rel="noopener" hidden></a>
                 </div>
             </div>
 
@@ -573,18 +574,20 @@
         <span class="busy-spinner" aria-hidden="true"></span><span id="app_loading_text">読み込んでいます…</span>
     </div>
 
-    <script src="storage.1b768bf7f9.js"></script>
+    <script src="storage.493bc7cb8c.js"></script>
     <script src="model.ad90f88577.js"></script>
-    <script src="solver.567123d4f3.js"></script>
+    <script src="solver.8cdc968f09.js"></script>
     <script src="ocr.b4fec03f47.js"></script>
     <script src="auth.3451c4b58b.js"></script>
-    <script src="consent.12d767ca52.js"></script>
+    <script src="consent.4ff8510d2b.js"></script>
+    <!-- 利用状況の計測(GA4、docs/shared/decisions/0019)。同意の後にタグを読み込む -->
+    <script src="shared/analytics.52738646c9.js" data-app="rebalance"></script>
     <script src="resize-notifier.026b62acdf.js"></script>
-    <script src="shared/embed-overlay.3ba1cf0bba.js"></script>
-    <script src="shared/numeric-input-select.dc4acf4849.js"></script>
-    <script src="vendor/chart.4ab5e6b27d.js"></script>
-    <script src="shared/busy-indicator.f5c7cd784d.js"></script>
-    <script src="ui.017709f57b.js"></script>
+    <script src="shared/embed-overlay.fa039822be.js"></script>
+    <script src="shared/numeric-input-select.ccea453546.js"></script>
+    <script src="vendor/chart.d439b04260.js"></script>
+    <script src="shared/busy-indicator.4a72177cfe.js"></script>
+    <script src="ui.5731191965.js"></script>
     <script>
         window.model = new AssetModel({ window: window, storage: AppStorage });
         AssetAuth.init();

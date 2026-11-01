@@ -1,24 +1,6 @@
 {
   "deploys": [
     {
-      "deployedAt": "2026-10-17T20:54:12.456Z",
-      "files": [
-        "auth.3451c4b58b.js",
-        "consent.12d767ca52.js",
-        "model.d40e725311.js",
-        "ocr.b4fec03f47.js",
-        "resize-notifier.026b62acdf.js",
-        "shared/app-loading.d6c9e530ae.js",
-        "shared/embed-overlay.3ba1cf0bba.js",
-        "shared/numeric-input-select.dc4acf4849.js",
-        "solver.d19b99fc81.js",
-        "storage.1b768bf7f9.js",
-        "style.474c9bca8a.css",
-        "ui.f5c560cbd3.js",
-        "vendor/chart.4ab5e6b27d.js"
-      ]
-    },
-    {
       "deployedAt": "2026-10-18T00:29:29.375Z",
       "files": [
         "auth.3451c4b58b.js",
@@ -92,6 +74,26 @@
         "style.b9efedb57c.css",
         "ui.017709f57b.js",
         "vendor/chart.4ab5e6b27d.js"
+      ]
+    },
+    {
+      "deployedAt": "2026-11-01T00:13:43.061Z",
+      "files": [
+        "auth.3451c4b58b.js",
+        "consent.4ff8510d2b.js",
+        "model.ad90f88577.js",
+        "ocr.b4fec03f47.js",
+        "resize-notifier.026b62acdf.js",
+        "shared/analytics.52738646c9.js",
+        "shared/busy-indicator.4a72177cfe.js",
+        "shared/busy-indicator.6fbf9e1ca8.css",
+        "shared/embed-overlay.fa039822be.js",
+        "shared/numeric-input-select.ccea453546.js",
+        "solver.8cdc968f09.js",
+        "storage.493bc7cb8c.js",
+        "style.b9efedb57c.css",
+        "ui.5731191965.js",
+        "vendor/chart.d439b04260.js"
       ]
     }
   ]
