@@ -126,19 +126,15 @@ header h1 {
     display: none;
 }
 
-/* 畳んだ相続税の欄の見込み(lifeplan ADR 0077)。開いているときは出さない */
-.section-outlook {
-    margin: 8px 0 0 26px;
-    font-size: 13px;
+/* 検討していないときの相続税の見込み(lifeplan ADR 0077) */
+.inheritance-outlook {
+    margin: 0 0 12px;
+    font-size: 14px;
     color: var(--text-secondary);
 }
 
-.section-outlook p {
+.inheritance-outlook p {
     margin: 2px 0;
-}
-
-[data-section]:not(.is-collapsed) .section-outlook {
-    display: none;
 }
 
 .section-body {
@@ -1323,6 +1319,14 @@ th, td {
 }
 
 /* 相続税検討画面(ADR 0007) */
+#inheritance_stop_row {
+    justify-content: flex-end;
+}
+
+#inheritance_stop_row[hidden] {
+    display: none;
+}
+
 .inheritance-toggle-row {
     display: flex;
     align-items: center;
