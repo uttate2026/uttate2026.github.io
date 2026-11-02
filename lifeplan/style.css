@@ -126,6 +126,21 @@ header h1 {
     display: none;
 }
 
+/* 畳んだ相続税の欄の見込み(lifeplan ADR 0077)。開いているときは出さない */
+.section-outlook {
+    margin: 8px 0 0 26px;
+    font-size: 13px;
+    color: var(--text-secondary);
+}
+
+.section-outlook p {
+    margin: 2px 0;
+}
+
+[data-section]:not(.is-collapsed) .section-outlook {
+    display: none;
+}
+
 .section-body {
     margin-top: 12px;
 }

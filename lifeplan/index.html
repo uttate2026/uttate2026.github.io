@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ライフプランシミュレーター</title>
-    <link rel="stylesheet" href="style.3d170607b9.css">
+    <link rel="stylesheet" href="style.84d9206f6b.css">
     <!-- 待っている間の表示(回る輪+文字)の見た目は4アプリで共通(docs/shared/decisions/0017)。起動時の表示より先に読む -->
     <link rel="stylesheet" href="shared/busy-indicator.6fbf9e1ca8.css">
     <!-- uttate.comに埋め込まれているとき(iframeの外にページの見出しがある)は、中のタイトルを出さない(MEMO.md 2026/9/30コメント1-(12))。
@@ -400,7 +400,7 @@
                 <div class="inheritance-toggle-row">
                     <label class="checkbox-label">
                         <input type="checkbox" id="input_inheritance_enabled">
-                        有効にする
+                        相続税を減らせるか検討する
                     </label>
                 </div>
                 <!-- ステップ1(相続税の総額)とステップ2(誰がいくら払うか、任意)に分ける(MEMO.md 2026/9/28コメント2-(1)、
@@ -908,7 +908,7 @@
     <script src="shared/kenpo-bridge.3380b50c30.js"></script>
     <script src="shared/chart-age-cursor.6b007e2eae.js"></script>
     <script src="shared/age-stepper.1b938669bf.js"></script>
-    <script src="shared/parameter-catalog.0698483b0a.js"></script>
+    <script src="shared/parameter-catalog.b62774f8ac.js"></script>
     <script src="shared/revisit.457211bfd9.js"></script>
     <script src="shared/rebalance-reader.0f7f25ff6f.js"></script>
     <script src="shared/embed-overlay.3e451105d1.js"></script>
@@ -931,10 +931,10 @@
     <script src="ui-person-form.db0bccc7a6.js"></script>
     <script src="ui-asset-expense-form.d74e423ec8.js"></script>
     <script src="ui-results.6c455d2c6f.js"></script>
-    <script src="ui-inheritance.9c865ac74f.js"></script>
+    <script src="ui-inheritance.30a47d80bf.js"></script>
     <script src="ui-compare.9aa568abc2.js"></script>
     <script src="ui-revisit.7799959ffb.js"></script>
-    <script src="ui.0d398efd8c.js"></script>
+    <script src="ui.e1848ddddb.js"></script>
     <script>
         CarryOver.init();
         window.model = new LifeplanModel({ window: window, storage: AppStorage });
