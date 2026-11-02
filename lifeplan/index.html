@@ -390,6 +390,8 @@
                         <!-- 死亡予測年齢(docs/lifeplan/decisions/0053)。その年までは生きているとして計算し、翌年からは遺族年金・亡くなった後の
                              生活費で計算するため、結果を大きく左右する。公的年金・iDeCoの最適化・相続税と共通の値(Person.deathAgeEstimate) -->
                         <div id="result_death_ages" class="result-death-ages"></div>
+                        <!-- 足りない年の自動の取り崩し(全プラン共通、docs/lifeplan/decisions/0073) -->
+                        <div id="result_auto_withdrawal"></div>
                     </div>
                 </details>
             </div>
@@ -501,6 +503,8 @@
                     <label for="compare_death_age">死亡予測年齢</label>
                     <select id="compare_death_age"></select>
                 </div>
+                <!-- 足りない年の自動の取り崩し(全プラン共通、lifeplan ADR 0073) -->
+                <div id="compare_auto_withdrawal"></div>
                 <!-- 全プランに同じ「うまくいかなかったら？」を当てはめる(lifeplan ADR 0071) -->
                 <div id="compare_return_scenario" class="result-return-scenario"></div>
                 <div class="table-responsive">
@@ -907,7 +911,7 @@
     <script src="shared/kenpo-bridge.3380b50c30.js"></script>
     <script src="shared/chart-age-cursor.6b007e2eae.js"></script>
     <script src="shared/age-stepper.1b938669bf.js"></script>
-    <script src="shared/parameter-catalog.c31c30a751.js"></script>
+    <script src="shared/parameter-catalog.9a8885ceda.js"></script>
     <script src="shared/revisit.457211bfd9.js"></script>
     <script src="shared/rebalance-reader.0f7f25ff6f.js"></script>
     <script src="shared/embed-overlay.3e451105d1.js"></script>
@@ -917,7 +921,7 @@
     <!-- ホーム画面に追加するときのデータの移し替え(docs/shared/decisions/0020)。アプリが最初の保存をする前に取り込むかを決めるため、先に読む -->
     <script src="shared/carry-over.6eeb7a90f0.js"></script>
     <script src="vendor/qrcode.1232857753.js"></script>
-    <script src="model.901575a890.js"></script>
+    <script src="model.ade2fcc9f4.js"></script>
     <script src="auth.f95b7f2cb8.js"></script>
     <script src="consent.8d0a497152.js"></script>
     <!-- 利用状況の計測(GA4、docs/shared/decisions/0019)。同意の後にタグを読み込む -->
@@ -925,15 +929,15 @@
     <script src="resize-notifier.bbc2b52d92.js"></script>
     <script src="vendor/chart.46424b781a.js"></script>
     <script src="shared/busy-indicator.985410e3ab.js"></script>
-    <script src="ui-helpers.3eec08792c.js"></script>
+    <script src="ui-helpers.3e75ff41f8.js"></script>
     <script src="ui-records.353037877e.js"></script>
     <script src="ui-person-form.db0bccc7a6.js"></script>
-    <script src="ui-asset-expense-form.840d19a66f.js"></script>
-    <script src="ui-results.b28ebc34c2.js"></script>
+    <script src="ui-asset-expense-form.d74e423ec8.js"></script>
+    <script src="ui-results.920c0d16a4.js"></script>
     <script src="ui-inheritance.9c865ac74f.js"></script>
-    <script src="ui-compare.75a692e1bc.js"></script>
+    <script src="ui-compare.a5b96cf4f7.js"></script>
     <script src="ui-revisit.25c6dbd2a7.js"></script>
-    <script src="ui.ef90bcbe7c.js"></script>
+    <script src="ui.b692d2fa59.js"></script>
     <script>
         CarryOver.init();
         window.model = new LifeplanModel({ window: window, storage: AppStorage });
