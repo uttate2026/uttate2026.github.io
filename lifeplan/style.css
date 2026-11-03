@@ -2386,8 +2386,16 @@ th, td {
 }
 
 /* 全プラン比較のグラフの見出しと切り替え(lifeplan ADR 0073) */
-.compare-chart-head {
+.compare-chart-head,
+.compare-table-head {
     margin-top: 16px;
+}
+.compare-chart-head select {
+    max-width: 560px;
+}
+/* 全プラン比較の起きる年は「各プランの世帯主が引退する年(…)」と長いため、文字の幅に合わせる */
+#compare_return_scenario .scenario-controls > .form-grid {
+    flex-basis: auto;
 }
 
 .scenario-select {
