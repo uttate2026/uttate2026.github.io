@@ -1,41 +1,6 @@
 {
   "deploys": [
     {
-      "deployedAt": "2026-11-02T19:52:08.003Z",
-      "files": [
-        "auth.0b9a540a6a.js",
-        "calculator.d868cb3ad6.js",
-        "consent.7771e70964.js",
-        "constants.ab4d2a1ef3.js",
-        "model.92ea110759.js",
-        "resize-notifier.8b3c8e9088.js",
-        "shared/age-stepper.93e7875a66.js",
-        "shared/analytics.906a22523c.js",
-        "shared/busy-indicator.5c10fe98df.js",
-        "shared/busy-indicator.6fbf9e1ca8.css",
-        "shared/calculator.d6e77ccdc8.js",
-        "shared/carry-over.3720f1297e.js",
-        "shared/comparison-topics.91f2ef8a29.js",
-        "shared/embed-overlay.183eae26c9.js",
-        "shared/help-popover.a1879fce53.js",
-        "shared/ideco-bridge.fc5b300367.js",
-        "shared/ideco-exit-optimizer.a57c7e14a2.js",
-        "shared/lifeplan-constants.d601ede4e4.js",
-        "shared/lifeplan-link.c533a2650c.js",
-        "shared/lifetime-totals.81fbc83ad2.js",
-        "shared/numeric-input-select.3cc5fe7f43.js",
-        "shared/parameter-catalog.70c766b1dd.js",
-        "shared/pattern-builders.76877aa14f.js",
-        "shared/plan-share-link.6f4a605822.js",
-        "shared/revisit.0be32bc8a7.js",
-        "shared/step-history.7d6aaaf9d8.js",
-        "storage.536ceabeae.js",
-        "style.46102a1736.css",
-        "ui.35e426f1ae.js",
-        "vendor/chart.bb2ddfc6fc.js"
-      ]
-    },
-    {
       "deployedAt": "2026-11-02T20:39:26.087Z",
       "files": [
         "auth.0b9a540a6a.js",
@@ -172,6 +137,41 @@
         "storage.536ceabeae.js",
         "style.46102a1736.css",
         "ui.35e426f1ae.js",
+        "vendor/chart.bb2ddfc6fc.js"
+      ]
+    },
+    {
+      "deployedAt": "2026-11-03T02:21:57.307Z",
+      "files": [
+        "auth.6abee73805.js",
+        "calculator.d868cb3ad6.js",
+        "consent.834b993147.js",
+        "constants.abdb49c2fe.js",
+        "model.e81ec4df75.js",
+        "resize-notifier.8b3c8e9088.js",
+        "shared/age-stepper.93e7875a66.js",
+        "shared/analytics.906a22523c.js",
+        "shared/busy-indicator.5c10fe98df.js",
+        "shared/busy-indicator.6fbf9e1ca8.css",
+        "shared/calculator.dd54f38261.js",
+        "shared/carry-over.3720f1297e.js",
+        "shared/comparison-topics.91f2ef8a29.js",
+        "shared/embed-overlay.183eae26c9.js",
+        "shared/help-popover.a1879fce53.js",
+        "shared/ideco-bridge.fc5b300367.js",
+        "shared/ideco-exit-optimizer.a57c7e14a2.js",
+        "shared/lifeplan-constants.428109791b.js",
+        "shared/lifeplan-link.c533a2650c.js",
+        "shared/lifetime-totals.81fbc83ad2.js",
+        "shared/numeric-input-select.3cc5fe7f43.js",
+        "shared/parameter-catalog.309b3be767.js",
+        "shared/pattern-builders.76877aa14f.js",
+        "shared/plan-share-link.6f4a605822.js",
+        "shared/revisit.0be32bc8a7.js",
+        "shared/step-history.7d6aaaf9d8.js",
+        "storage.536ceabeae.js",
+        "style.46102a1736.css",
+        "ui.01982c1972.js",
         "vendor/chart.bb2ddfc6fc.js"
       ]
     }
