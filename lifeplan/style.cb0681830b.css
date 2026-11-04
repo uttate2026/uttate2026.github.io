@@ -1042,27 +1042,12 @@ th, td {
     font-weight: bold;
 }
 
-/* 資産タブで積立資金の出し手に「世帯主からの贈与」を選んだ場合の注意書き(MEMO.md 2026/9/26コメント2-(2)
-   「贈与税計算の対象になることを一言目立つように」、ADR 0007「2026-09-26改訂」)。.form-grid内に置くため
-   全列にまたがらせる */
-.gift-tax-warning {
-    grid-column: 1 / -1;
-    background: #fffbeb;
-    border: 1px solid #f59e0b;
-    border-left-width: 4px;
-    border-radius: 8px;
-    padding: 10px 12px;
-    color: #78350f;
+/* 資産タブで積立資金の出し手に「世帯主からの贈与」を選んだ場合の、欄の下の1行の注意(説明はⓘ、ADR 0007・lifeplan ADR 0082) */
+.gift-tax-note {
+    margin: 6px 0 0;
+    color: #b45309;
     font-size: 13px;
-    line-height: 1.6;
-}
-
-.gift-tax-warning strong {
-    font-size: 14px;
-}
-
-.gift-tax-warning p {
-    margin: 4px 0 8px;
+    font-weight: bold;
 }
 
 .alert-text {
@@ -1079,6 +1064,16 @@ th, td {
 
     .form-grid {
         grid-template-columns: 1fr;
+    }
+
+    /* 資産タブの短い欄(残高と通貨、積立額と利回り等)は2つずつ横に並べる。長い欄は全幅(lifeplan ADR 0082) */
+    .form-grid.form-grid-pairs {
+        grid-template-columns: 1fr 1fr;
+        gap: 14px 12px;
+    }
+
+    .form-grid-pairs > .form-field-wide {
+        grid-column: 1 / -1;
     }
 }
 
@@ -2323,19 +2318,6 @@ th, td {
     line-height: 1.6;
 }
 
-/* 答えのカードの注記の中の、年金の見通しの選択欄(lifeplan ADR 0079)。スマホ幅では選択欄が文字より広くなるため、
-   入れ物を縮められるようにして注記の幅に収める */
-#result_real_terms_note,
-#result_real_terms_note > span:last-child {
-    min-width: 0;
-}
-.soft-notice .inline-select {
-    width: auto;
-    max-width: 100%;
-    margin: 2px 4px;
-    padding: 2px 6px;
-    font-size: inherit;
-}
 /* display: flex が hidden 属性より優先され、隠したはずの空の帯が出ていた(退職金の勤続年数の見積もりの注記、lifeplan ADR 0062) */
 .soft-notice[hidden] {
     display: none;
@@ -2398,13 +2380,19 @@ th, td {
     margin-bottom: 6px;
 }
 
-/* 全プラン比較のグラフの見出しと切り替え(lifeplan ADR 0073) */
-.compare-chart-head,
+/* 全プラン比較の表の見出しと、グラフの右上の総資産・現金・預金だけの切り替え(lifeplan ADR 0073・0080) */
 .compare-table-head {
     margin-top: 16px;
 }
-.compare-chart-head select {
-    max-width: 560px;
+.sub-tabs-bar.compare-chart-series {
+    justify-content: flex-end;
+    margin: 4px 0 0;
+}
+/* 全プラン比較のグラフは、うまくいかなかったら？の選択欄と一緒に1画面に収まる高さにする(lifeplan ADR 0080) */
+#compare_chart_wrap {
+    height: min(560px, 60vh);
+    min-height: 320px;
+    margin-top: 4px;
 }
 /* 全プラン比較の起きる年は「各プランの世帯主が引退する年(…)」と長いため、文字の幅に合わせる */
 #compare_return_scenario .scenario-controls > .form-grid {
