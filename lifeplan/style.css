@@ -2729,6 +2729,11 @@ th .help-btn {
 .ideco-impact-list li {
     margin: 2px 0;
 }
+/* 障害年金の、手取りが多くなる受け取り方の案内(lifeplan ADR 0083) */
+.field-note.impact-good {
+    color: var(--success);
+}
+
 .ideco-impact-list .impact-good strong {
     color: var(--success);
 }
