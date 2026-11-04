@@ -2323,6 +2323,19 @@ th, td {
     line-height: 1.6;
 }
 
+/* 答えのカードの注記の中の、年金の見通しの選択欄(lifeplan ADR 0079)。スマホ幅では選択欄が文字より広くなるため、
+   入れ物を縮められるようにして注記の幅に収める */
+#result_real_terms_note,
+#result_real_terms_note > span:last-child {
+    min-width: 0;
+}
+.soft-notice .inline-select {
+    width: auto;
+    max-width: 100%;
+    margin: 2px 4px;
+    padding: 2px 6px;
+    font-size: inherit;
+}
 /* display: flex が hidden 属性より優先され、隠したはずの空の帯が出ていた(退職金の勤続年数の見積もりの注記、lifeplan ADR 0062) */
 .soft-notice[hidden] {
     display: none;

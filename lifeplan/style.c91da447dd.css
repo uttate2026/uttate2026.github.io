@@ -126,19 +126,15 @@ header h1 {
     display: none;
 }
 
-/* 畳んだ相続税の欄の見込み(lifeplan ADR 0077)。開いているときは出さない */
-.section-outlook {
-    margin: 8px 0 0 26px;
-    font-size: 13px;
+/* 検討していないときの相続税の見込み(lifeplan ADR 0077) */
+.inheritance-outlook {
+    margin: 0 0 12px;
+    font-size: 14px;
     color: var(--text-secondary);
 }
 
-.section-outlook p {
+.inheritance-outlook p {
     margin: 2px 0;
-}
-
-[data-section]:not(.is-collapsed) .section-outlook {
-    display: none;
 }
 
 .section-body {
@@ -1323,6 +1319,14 @@ th, td {
 }
 
 /* 相続税検討画面(ADR 0007) */
+#inheritance_stop_row {
+    justify-content: flex-end;
+}
+
+#inheritance_stop_row[hidden] {
+    display: none;
+}
+
 .inheritance-toggle-row {
     display: flex;
     align-items: center;
@@ -2319,6 +2323,19 @@ th, td {
     line-height: 1.6;
 }
 
+/* 答えのカードの注記の中の、年金の見通しの選択欄(lifeplan ADR 0079)。スマホ幅では選択欄が文字より広くなるため、
+   入れ物を縮められるようにして注記の幅に収める */
+#result_real_terms_note,
+#result_real_terms_note > span:last-child {
+    min-width: 0;
+}
+.soft-notice .inline-select {
+    width: auto;
+    max-width: 100%;
+    margin: 2px 4px;
+    padding: 2px 6px;
+    font-size: inherit;
+}
 /* display: flex が hidden 属性より優先され、隠したはずの空の帯が出ていた(退職金の勤続年数の見積もりの注記、lifeplan ADR 0062) */
 .soft-notice[hidden] {
     display: none;
@@ -2382,14 +2399,94 @@ th, td {
 }
 
 /* 全プラン比較のグラフの見出しと切り替え(lifeplan ADR 0073) */
-.compare-chart-head {
+.compare-chart-head,
+.compare-table-head {
     margin-top: 16px;
+}
+.compare-chart-head select {
+    max-width: 560px;
+}
+/* 全プラン比較の起きる年は「各プランの世帯主が引退する年(…)」と長いため、文字の幅に合わせる */
+#compare_return_scenario .scenario-controls > .form-grid {
+    flex-basis: auto;
 }
 
 .scenario-select {
     width: 100%;
     max-width: 560px;
+}
+
+/* うまくいかなかったら？の選択欄と「このシナリオの前提 ⓘ」、起きる年などの操作を1〜2行にまとめ、説明はⓘに入れて、シナリオを
+   切り替えてもグラフの位置が動かないようにする(MEMO.md 2026/11/4コメント1-(1)) */
+.scenario-select-row {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 6px 12px;
     margin-bottom: 8px;
+}
+.scenario-select-row .scenario-select {
+    flex: 1 1 320px;
+}
+.scenario-premise {
+    display: inline-flex;
+    align-items: center;
+    font-size: 13px;
+    white-space: nowrap;
+}
+.scenario-controls {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-end;
+    gap: 8px 16px;
+    margin-bottom: 4px;
+}
+.scenario-controls > .form-grid {
+    flex: 0 1 240px;
+    margin: 0;
+    grid-template-columns: 1fr;
+}
+.scenario-controls > .checkbox-label {
+    min-height: 38px;
+}
+/* 「株式の割合」の枠。ボタンの下に重ねて出し、後ろのグラフを押し下げない */
+.stock-ratio-wrap {
+    position: relative;
+    min-height: 38px;
+    display: flex;
+    align-items: center;
+}
+.stock-ratio-panel {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    z-index: 1500;
+    width: min(320px, calc(100vw - 16px));
+    margin-top: 4px;
+    background: var(--bg-card);
+    border: 1px solid var(--border-strong);
+    border-top: 3px solid var(--primary);
+    border-radius: 8px;
+    box-shadow: 0 6px 20px rgba(15, 23, 42, 0.18);
+    padding: 8px 12px 10px;
+}
+.stock-ratio-panel-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-weight: bold;
+    font-size: 13px;
+    margin-bottom: 6px;
+}
+.stock-ratio-panel .form-field {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    margin-bottom: 6px;
+}
+.stock-ratio-panel .form-field select {
+    width: 96px;
 }
 
 /* 条件を変える(死亡予測年齢・性別)。閉じていても今の条件を1行で出す */
@@ -2519,10 +2616,6 @@ details.conditions {
     margin-top: 12px;
 }
 
-/* 運用がうまくいかなかったら(ADR 0055)の結果。シナリオの説明・資金不足・死亡予測年齢の時点の総資産を1行ずつ並べる */
-.return-scenario-line {
-    display: block;
-}
 
 /* 補足のアイコンとポップアップ(MEMO.md 2026/10/15コメント2-(1)、docs/lifeplan/decisions/0056、src/shared/help-popover.js)。
    「解説」(i)は落ち着いた色、「入力のヒント」(?)は緑で見分ける。押しやすいよう見た目より広く押せる */
