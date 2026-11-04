@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ライフプランシミュレーター</title>
-    <link rel="stylesheet" href="style.a642c20b8b.css">
+    <link rel="stylesheet" href="style.af53ca62d7.css">
     <!-- 待っている間の表示(回る輪+文字)の見た目は4アプリで共通(docs/shared/decisions/0017)。起動時の表示より先に読む -->
     <link rel="stylesheet" href="shared/busy-indicator.6fbf9e1ca8.css">
     <!-- uttate.comに埋め込まれているとき(iframeの外にページの見出しがある)は、中のタイトルを出さない(MEMO.md 2026/9/30コメント1-(12))。
@@ -509,23 +509,39 @@
                 </div>
                 <!-- 全プランに同じ「うまくいかなかったら？」を当てはめる(lifeplan ADR 0071) -->
                 <div id="compare_return_scenario" class="result-return-scenario"></div>
-                <!-- グラフの見出しと、総資産・現金・預金だけの切り替え(lifeplan ADR 0073、保存しない) -->
-                <div class="compare-chart-head">
-                    <div class="scenario-head" id="compare_chart_title">総資産の推移</div>
-                    <div class="form-field">
-                        <label for="compare_chart_series">グラフに出すもの</label>
-                        <select id="compare_chart_series">
-                            <option value="total">総資産(現金・預金とNISA・iDeCoなどの合計)</option>
-                            <option value="cash">現金・預金だけ</option>
-                        </select>
-                    </div>
+                <!-- 総資産・現金・預金だけの切り替え(lifeplan ADR 0073、保存しない)。シナリオの選択欄とグラフの間を詰めるため、見出しを置かず
+                     グラフの右上の小さな切り替えにする(lifeplan ADR 0080) -->
+                <div class="sub-tabs-bar compare-chart-series" id="compare_chart_series_tabs" role="group" aria-label="グラフに出すもの">
+                    <button type="button" class="sub-tab-btn active" data-compare-chart-series="total">総資産</button>
+                    <button type="button" class="sub-tab-btn" data-compare-chart-series="cash">現金・預金だけ</button>
                 </div>
                 <div id="compare_chart_wrap">
                     <canvas id="compare_chart_canvas"></canvas>
                     <p id="compare_chart_error" class="alert-text" style="display: none;">グラフを表示できませんでした。</p>
                 </div>
+                <!-- 年齢ごとの明細(lifeplan ADR 0080)。シミュレーション結果の「明細を見る」と同じ形で、列はプラン(世帯の合計) -->
+                <details class="detail-toggle" id="compare_detail_toggle">
+                    <summary>明細を見る(年齢ごと)</summary>
+                    <div class="age-slider-head">
+                        <label for="input_compare_detail_age_slider">明細を表示したい年齢(世帯主の年齢)</label>
+                        <div class="age-stepper" id="compare_detail_age_stepper">
+                            <span class="age-stepper-value" aria-live="polite"></span>
+                            <button type="button" class="age-stepper-btn" data-step="-1" aria-label="1歳下げる">▼</button>
+                            <button type="button" class="age-stepper-btn" data-step="1" aria-label="1歳上げる">▲</button>
+                        </div>
+                    </div>
+                    <div class="range-input-align" id="compare_detail_age_slider_align">
+                        <input type="range" id="input_compare_detail_age_slider" class="range-input" min="0" max="100" step="1" value="40">
+                    </div>
+                    <div class="table-responsive">
+                        <table class="result-detail-table">
+                            <thead id="compare_detail_head"></thead>
+                            <tbody id="compare_detail_body"></tbody>
+                        </table>
+                    </div>
+                </details>
                 <!-- 表はグラフの下に置き、シナリオ・系列を切り替えてもグラフの位置が動かないようにする(lifeplan ADR 0071「2026-11-04改訂」) -->
-                <div class="scenario-head compare-table-head">プランごとの比較</div>
+                <div class="scenario-head compare-table-head">プランごとの比較(生涯の合計)</div>
                 <div class="table-responsive">
                     <table>
                         <thead id="compare_table_head"></thead>
@@ -892,7 +908,7 @@
     </div>
 
     <script src="storage.dfebe970cc.js"></script>
-    <script src="constants.3700f46a6b.js"></script>
+    <script src="constants.a8ce91d379.js"></script>
     <script src="shared/pattern-builders.f3063ea7f3.js"></script>
     <script src="shared/calculator.c2531d60d8.js"></script>
     <!-- 生涯合計の集計(全プラン比較・各ウィザード・ideco-bridge.js等が使う、docs/shared/decisions/0007参照) -->
@@ -915,7 +931,7 @@
     <script src="shared/kenpo-bridge.3380b50c30.js"></script>
     <script src="shared/chart-age-cursor.6b007e2eae.js"></script>
     <script src="shared/age-stepper.1b938669bf.js"></script>
-    <script src="shared/parameter-catalog.78f585694b.js"></script>
+    <script src="shared/parameter-catalog.4acfae3a97.js"></script>
     <script src="shared/revisit.457211bfd9.js"></script>
     <script src="shared/rebalance-reader.0f7f25ff6f.js"></script>
     <script src="shared/embed-overlay.3e451105d1.js"></script>
@@ -933,15 +949,15 @@
     <script src="resize-notifier.bbc2b52d92.js"></script>
     <script src="vendor/chart.46424b781a.js"></script>
     <script src="shared/busy-indicator.985410e3ab.js"></script>
-    <script src="ui-helpers.ef127539c7.js"></script>
+    <script src="ui-helpers.184dff6b20.js"></script>
     <script src="ui-records.d3dd138642.js"></script>
     <script src="ui-person-form.db0bccc7a6.js"></script>
     <script src="ui-asset-expense-form.bf935c4712.js"></script>
-    <script src="ui-results.4673ade91c.js"></script>
+    <script src="ui-results.f73a7d5353.js"></script>
     <script src="ui-inheritance.9291923e2f.js"></script>
-    <script src="ui-compare.fd2aa47881.js"></script>
+    <script src="ui-compare.b2b4ea1dc8.js"></script>
     <script src="ui-revisit.7799959ffb.js"></script>
-    <script src="ui.460a2c6429.js"></script>
+    <script src="ui.c8d6f6c3ee.js"></script>
     <script>
         CarryOver.init();
         window.model = new LifeplanModel({ window: window, storage: AppStorage });

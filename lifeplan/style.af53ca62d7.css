@@ -2385,9 +2385,23 @@ th, td {
     margin-bottom: 6px;
 }
 
-/* 全プラン比較のグラフの見出しと切り替え(lifeplan ADR 0073) */
-.compare-chart-head {
+/* 全プラン比較の表の見出しと、グラフの右上の総資産・現金・預金だけの切り替え(lifeplan ADR 0073・0080) */
+.compare-table-head {
     margin-top: 16px;
+}
+.sub-tabs-bar.compare-chart-series {
+    justify-content: flex-end;
+    margin: 4px 0 0;
+}
+/* 全プラン比較のグラフは、うまくいかなかったら？の選択欄と一緒に1画面に収まる高さにする(lifeplan ADR 0080) */
+#compare_chart_wrap {
+    height: min(560px, 60vh);
+    min-height: 320px;
+    margin-top: 4px;
+}
+/* 全プラン比較の起きる年は「各プランの世帯主が引退する年(…)」と長いため、文字の幅に合わせる */
+#compare_return_scenario .scenario-controls > .form-grid {
+    flex-basis: auto;
 }
 
 .scenario-select {
