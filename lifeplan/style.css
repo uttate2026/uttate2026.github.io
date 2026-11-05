@@ -2752,23 +2752,26 @@ th .help-btn {
     line-height: 1.5;
 }
 
-/* 「このiDeCoで、生涯の家計はこう変わります」(MEMO.md 2026/10/16コメント3-(1))。増減を文で書き、家計に良い向きを緑・悪い向きを赤にする */
-.ideco-impact-list {
-    margin: 6px 0 0;
-    padding-left: 20px;
+/* iDeCoの生涯の家計への影響(MEMO.md 2026/10/16コメント3-(1)・2026/11/5コメント7)。手取りの1文と、税金・社会保険料の短い括弧書き。
+   家計に良い向きを緑・悪い向きを赤にする */
+.ideco-impact {
+    margin: 8px 0 0;
+    font-size: 14px;
+    line-height: 1.6;
 }
-.ideco-impact-list li {
-    margin: 2px 0;
+.ideco-impact-sub {
+    color: var(--text-secondary);
+    font-size: 13px;
 }
 /* 障害年金の、手取りが多くなる受け取り方の案内(lifeplan ADR 0083) */
 .field-note.impact-good {
     color: var(--success);
 }
 
-.ideco-impact-list .impact-good strong {
+.ideco-impact .impact-good strong {
     color: var(--success);
 }
-.ideco-impact-list .impact-bad strong {
+.ideco-impact .impact-bad strong {
     color: var(--danger);
 }
 
