@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ライフプランシミュレーター</title>
-    <link rel="stylesheet" href="style.f106990fdf.css">
+    <link rel="stylesheet" href="style.1516ed0080.css">
     <!-- 待っている間の表示(回る輪+文字)の見た目は4アプリで共通(docs/shared/decisions/0017)。起動時の表示より先に読む -->
     <link rel="stylesheet" href="shared/busy-indicator.6fbf9e1ca8.css">
     <!-- uttate.comに埋め込まれているとき(iframeの外にページの見出しがある)は、中のタイトルを出さない(MEMO.md 2026/9/30コメント1-(12))。
@@ -482,10 +482,17 @@
                 <!-- 計画が無ければ始め方、あれば計画・最新の記録の要約と操作 -->
                 <div id="record_summary"></div>
                 <div id="record_compare_body">
-                    <p class="field-note" id="record_compare_note"></p>
-                    <div class="sub-tabs-bar" id="record_compare_range">
-                        <button type="button" class="sub-tab-btn" data-record-range="recent">直近</button>
-                        <button type="button" class="sub-tab-btn" data-record-range="all">全期間</button>
+                    <!-- 結果の資産推移グラフと同じ「総資産で見る」「資産ごとに見る」と、右の小さな表示期間の切り替え(MEMO.md 2026/11/6コメント1-(1)) -->
+                    <div class="record-chart-controls">
+                        <div class="sub-tabs-bar" id="record_chart_type_tabs">
+                            <button type="button" class="sub-tab-btn" data-record-chart-type="stacked">総資産で見る</button>
+                            <button type="button" class="sub-tab-btn" data-record-chart-type="line">資産ごとに見る</button>
+                            <button type="button" class="help-btn help-btn-info" data-help="info" aria-label="解説" aria-expanded="false" tabindex="-1"></button><template class="help-content"><p>帯(資産ごとに見るときは線)は、計画を固定したときのプランで計算した資産の推移です。点は記録した残高で、丸が「残高を記録」、ひし形が「年に一度の見直し」です。</p><p>計画の値は、記録日の位置で前後の年の値を按分して求めます。計画を固定する前の記録は、点だけを出します。計画に無い資産の残高は合計にだけ入れ、資産ごとに見るときは出しません。</p></template>
+                        </div>
+                        <div class="sub-tabs-bar compare-chart-series" id="record_compare_range" role="group" aria-label="表示する期間">
+                            <button type="button" class="sub-tab-btn" data-record-range="recent">直近</button>
+                            <button type="button" class="sub-tab-btn" data-record-range="all">全期間</button>
+                        </div>
                     </div>
                     <div id="record_compare_chart_wrap">
                         <canvas id="record_compare_chart_canvas"></canvas>
@@ -950,14 +957,14 @@
     <script src="vendor/chart.46424b781a.js"></script>
     <script src="shared/busy-indicator.985410e3ab.js"></script>
     <script src="ui-helpers.c5cfd4c054.js"></script>
-    <script src="ui-records.d3dd138642.js"></script>
+    <script src="ui-records.021ef51407.js"></script>
     <script src="ui-person-form.d651f024ba.js"></script>
     <script src="ui-asset-expense-form.df28cfef43.js"></script>
     <script src="ui-results.ad981e3972.js"></script>
     <script src="ui-inheritance.9291923e2f.js"></script>
     <script src="ui-compare.78dab282bc.js"></script>
     <script src="ui-revisit.7799959ffb.js"></script>
-    <script src="ui.57466938cd.js"></script>
+    <script src="ui.6c182e6eeb.js"></script>
     <script>
         CarryOver.init();
         window.model = new LifeplanModel({ window: window, storage: AppStorage });

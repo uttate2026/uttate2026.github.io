@@ -1916,7 +1916,22 @@ th, td {
 #record_compare_chart_wrap {
     position: relative;
     height: 400px;
-    margin: 16px 0;
+    margin: 8px 0 16px;
+}
+
+/* 計画と実績のグラフの「総資産で見る/資産ごとに見る」と、右の表示期間の切り替え(MEMO.md 2026/11/6コメント1-(1)) */
+.record-chart-controls {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    gap: 4px 12px;
+}
+.record-chart-controls .sub-tabs-bar {
+    margin-bottom: 0;
+}
+.record-chart-controls #record_compare_range {
+    margin-left: auto;
 }
 
 .record-compare-row {
