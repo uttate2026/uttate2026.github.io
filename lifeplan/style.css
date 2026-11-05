@@ -262,6 +262,37 @@ html.auth-skip #auth_overlay {
     text-decoration: underline;
 }
 
+/* 変えた値を他のプランにも反映する案内(lifeplan ADR 0084)。変えた欄のすぐ下に出す */
+.plan-propagate {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 4px 10px;
+    margin-top: 4px;
+    font-size: 0.85rem;
+}
+
+.plan-propagate-row,
+.plan-propagate-row td {
+    display: table-row;
+    border-top: none;
+    padding-top: 0;
+}
+
+.plan-propagate-row td {
+    display: table-cell;
+}
+
+.plan-propagate .btn-link {
+    padding: 0;
+    font-size: inherit;
+    text-align: left;
+}
+
+.plan-propagate-done {
+    color: var(--success);
+}
+
 .btn-delete {
     background: transparent;
     border: 1px solid var(--danger);
