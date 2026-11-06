@@ -487,6 +487,33 @@ html.auth-skip #auth_overlay {
 
 /* 源泉徴収票・住民税決定通知書から転記する欄(MEMO.md 2026/10/4コメント1-(10))。源泉徴収票の5項目がなるべく1行に収まるよう
    幅を狭くし、ラベルが折り返しても入力欄の高さがそろうよう下端にそろえる */
+/* 資産のタブ: 欄を少し細くして、PCで1行に多く並べる(lifeplan ADR 0085) */
+.form-grid-dense {
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+}
+
+/* 資産のタブの「運用のしかた」と「現状」。PCでは横に並べて1行にする(lifeplan ADR 0085) */
+@media (min-width: 900px) {
+    .asset-top-sections {
+        display: grid;
+        grid-template-columns: 3fr 1fr;
+        gap: 0 20px;
+    }
+    .asset-top-sections-ratio {
+        grid-template-columns: 1fr 2fr;
+    }
+    .asset-how-grid {
+        grid-template-columns: 1.6fr 1fr 1fr;
+    }
+}
+@media (max-width: 899px) {
+    .asset-top-sections > div + div > .section-title-sub:first-child {
+        margin-top: 16px;
+        padding-top: 12px;
+        border-top: 1px solid var(--border);
+    }
+}
+
 .form-grid-slip {
     grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
     align-items: end;
@@ -1778,8 +1805,18 @@ th, td {
     white-space: normal;
 }
 
-.record-baseline-row td {
+.record-list-empty {
     color: var(--text-secondary);
+}
+
+.record-status-plan-ops {
+    margin-left: 8px;
+    white-space: nowrap;
+}
+
+.record-status-plan-ops .btn-link {
+    margin-right: 10px;
+    font-size: 13px;
 }
 
 .record-past {
@@ -1916,7 +1953,22 @@ th, td {
 #record_compare_chart_wrap {
     position: relative;
     height: 400px;
-    margin: 16px 0;
+    margin: 8px 0 16px;
+}
+
+/* 計画と実績のグラフの「総資産で見る/資産ごとに見る」と、右の表示期間の切り替え(MEMO.md 2026/11/6コメント1-(1)) */
+.record-chart-controls {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    gap: 4px 12px;
+}
+.record-chart-controls .sub-tabs-bar {
+    margin-bottom: 0;
+}
+.record-chart-controls #record_compare_range {
+    margin-left: auto;
 }
 
 .record-compare-row {
@@ -2468,46 +2520,6 @@ th, td {
 .scenario-controls > .checkbox-label {
     min-height: 38px;
 }
-/* 「株式の割合」の枠。ボタンの下に重ねて出し、後ろのグラフを押し下げない */
-.stock-ratio-wrap {
-    position: relative;
-    min-height: 38px;
-    display: flex;
-    align-items: center;
-}
-.stock-ratio-panel {
-    position: absolute;
-    top: 100%;
-    left: 0;
-    z-index: 1500;
-    width: min(320px, calc(100vw - 16px));
-    margin-top: 4px;
-    background: var(--bg-card);
-    border: 1px solid var(--border-strong);
-    border-top: 3px solid var(--primary);
-    border-radius: 8px;
-    box-shadow: 0 6px 20px rgba(15, 23, 42, 0.18);
-    padding: 8px 12px 10px;
-}
-.stock-ratio-panel-head {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    font-weight: bold;
-    font-size: 13px;
-    margin-bottom: 6px;
-}
-.stock-ratio-panel .form-field {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 8px;
-    margin-bottom: 6px;
-}
-.stock-ratio-panel .form-field select {
-    width: 96px;
-}
-
 /* 条件を変える(死亡予測年齢・性別)。閉じていても今の条件を1行で出す */
 details.conditions {
     border: 1px solid var(--border);

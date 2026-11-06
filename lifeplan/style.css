@@ -1805,8 +1805,18 @@ th, td {
     white-space: normal;
 }
 
-.record-baseline-row td {
+.record-list-empty {
     color: var(--text-secondary);
+}
+
+.record-status-plan-ops {
+    margin-left: 8px;
+    white-space: nowrap;
+}
+
+.record-status-plan-ops .btn-link {
+    margin-right: 10px;
+    font-size: 13px;
 }
 
 .record-past {
