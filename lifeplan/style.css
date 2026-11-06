@@ -122,8 +122,114 @@ header h1 {
     color: var(--text-secondary);
 }
 
-[data-section]:not(.is-collapsed) .section-summary {
+[data-section]:not(.is-collapsed) .section-summary:not(.section-summary-always) {
     display: none;
+}
+
+/* 「2. 資産」の見出し: 開閉のボタンの横に残高の操作を置く(lifeplan ADR 0086)。スマホでは操作を2段目に送る */
+.section-head {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 6px 12px;
+}
+
+.section-head .section-toggle {
+    flex: 1 1 auto;
+    width: auto;
+    min-width: 0;
+}
+
+.section-head-actions {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.section-head-actions .btn {
+    padding: 4px 12px;
+    font-size: 13px;
+}
+
+.section-head-actions .btn-link {
+    padding: 4px 0;
+}
+
+.section-summary.section-summary-always {
+    color: var(--text-main);
+    font-weight: 600;
+}
+
+.section-summary.is-empty {
+    color: var(--text-secondary);
+    font-weight: 400;
+}
+
+@media (max-width: 600px) {
+    .section-head-actions {
+        width: 100%;
+        padding-left: 26px;
+    }
+}
+
+/* 資産タブの「現在の残高(実績)」の表示 */
+.actual-balance-head {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 0 10px;
+}
+
+.actual-balance-head .btn-link {
+    font-size: 13px;
+    white-space: nowrap;
+}
+
+.actual-balance {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 4px 10px;
+    min-height: 36px;
+    padding-top: 6px;
+}
+
+.actual-balance-amount {
+    font-weight: 600;
+}
+
+.actual-balance-date,
+.actual-balance-empty {
+    font-size: 13px;
+    color: var(--text-secondary);
+}
+
+/* 残高のダイアログの外貨の資産: 外国通貨の額と今の為替 */
+.balance-foreign {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.balance-foreign-rate {
+    flex-shrink: 0;
+    margin-right: 6px;
+    font-size: 13px;
+    color: var(--text-secondary);
+}
+
+.record-balance-history {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.record-balance-history th,
+.record-balance-history td {
+    padding: 6px 8px;
+    border-bottom: 1px solid var(--border);
+    text-align: left;
+    font-size: 14px;
 }
 
 /* 検討していないときの相続税の見込み(lifeplan ADR 0077) */
