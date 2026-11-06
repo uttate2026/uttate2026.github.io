@@ -377,6 +377,12 @@ html.auth-skip #auth_overlay {
    同じ段に並べる(頻度の低い口座プロパティの変更操作はさらにその下へ畳む)。
    段の中は、適用スコープの違い(口座全体 / 現在表示中の時点のみ)が伝わるよう、
    区切り線を挟んで2グループに分けて配置する(MEMO.md 8/27コメント5)。 */
+.account-toolbar.is-dashboard .history-select-group,
+.account-toolbar.is-dashboard #toolbar_action_history,
+.account-toolbar.is-dashboard #btn_toggle_account_properties {
+    display: none !important;
+}
+
 .account-toolbar {
     display: flex;
     align-items: center;
