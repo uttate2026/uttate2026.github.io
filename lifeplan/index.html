@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ライフプランシミュレーター</title>
-    <link rel="stylesheet" href="style.663be25bbe.css">
+    <link rel="stylesheet" href="style.32653a3794.css">
     <!-- 待っている間の表示(回る輪+文字)の見た目は4アプリで共通(docs/shared/decisions/0017)。起動時の表示より先に読む -->
     <link rel="stylesheet" href="shared/busy-indicator.6fbf9e1ca8.css">
     <!-- uttate.comに埋め込まれているとき(iframeの外にページの見出しがある)は、中のタイトルを出さない(MEMO.md 2026/9/30コメント1-(12))。
@@ -273,20 +273,26 @@
                      カードが約束する問いに、見出しの1文と金額で答える。足りなくなるときは、その年と最も足りないときの額を答えにし、考えられる原因の
                      入力欄へのボタン(以前の資金不足の案内)をこのカードの中に出す(ui.jsの_renderResultAnswer・_renderShortageNote) -->
                 <div class="answer-card" id="result_answer">
-                    <!-- プランをURLで共有(lifeplan ADR 0063)。サーバーには保存しないため、見出しで「共有」ではなく
-                         「URLに書き出す」とし(バックアップの「書き出す」と同じ言い方)、誤解を避ける -->
-                    <div class="answer-card-actions">
-                        <button type="button" id="btn_share_link" class="btn btn-secondary" data-track="create_share_link" hidden>🔗 URLに書き出す</button>
-                        <!-- 見直しの予定(1月・誕生月、毎年)をカレンダーに入れる。Googleカレンダーか.icsを選ぶ(docs/shared/decisions/0020) -->
-                        <div class="record-menu-wrap review-calendar-wrap">
-                            <button type="button" id="btn_review_calendar" class="btn btn-secondary" data-track="open_review_calendar" aria-haspopup="true" aria-expanded="false" hidden>📅 見直す日をカレンダーに</button>
-                            <div id="review_calendar_menu" class="record-menu" hidden></div>
-                        </div>
-                    </div>
                     <div class="answer-body">
-                        <div>
-                            <div class="answer-label" id="result_answer_label">資産の見通し</div>
-                            <p class="answer-how" id="result_answer_how"></p>
+                        <!-- 見出しの右に書き出しの操作を置き、カードを低くする(lifeplan ADR 0088)。スマホでは書き出しのアイコン1つにまとめ、押すとメニューで開く -->
+                        <div class="answer-head">
+                            <div>
+                                <div class="answer-label"><span id="result_answer_label">資産の見通し</span><span class="answer-real-terms-hint" id="result_real_terms_hint" hidden></span></div>
+                                <p class="answer-how" id="result_answer_how"></p>
+                            </div>
+                            <div class="answer-export" id="answer_export">
+                                <button type="button" class="btn btn-secondary answer-export-toggle" id="btn_answer_export_menu" aria-label="書き出す" title="書き出す" aria-haspopup="true" aria-expanded="false"><svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 15V3"/><path d="M7 8l5-5 5 5"/><path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-7"/></svg></button>
+                            <!-- プランをURLで共有(lifeplan ADR 0063)。サーバーには保存しないため、見出しで「共有」ではなく
+                                 「URLに書き出す」とし(バックアップの「書き出す」と同じ言い方)、誤解を避ける -->
+                            <div class="answer-card-actions">
+                                <button type="button" id="btn_share_link" class="btn btn-secondary" data-track="create_share_link" hidden>🔗 URLに書き出す</button>
+                                <!-- 見直しの予定(1月・誕生月、毎年)をカレンダーに入れる。Googleカレンダーか.icsを選ぶ(docs/shared/decisions/0020) -->
+                                <div class="record-menu-wrap review-calendar-wrap">
+                                    <button type="button" id="btn_review_calendar" class="btn btn-secondary" data-track="open_review_calendar" aria-haspopup="true" aria-expanded="false" hidden>📅 見直す日をカレンダーに</button>
+                                    <div id="review_calendar_menu" class="record-menu" hidden></div>
+                                </div>
+                            </div>
+                            </div>
                         </div>
                         <div class="answer-figure">
                             <span class="answer-caption" id="result_answer_caption"></span>
@@ -299,7 +305,7 @@
                     <div id="result_shortage_note" class="shortage-note" role="status" hidden></div>
                     <!-- 想定どおりは物価が毎年2%上がる前提で、金額は今のお金の価値(lifeplan ADR 0078)。年金は財政検証の過去30年投影ケースに沿って目減りする(ADR 0079)。
                          物価高のシナリオを選んだときは説明に書くため出さない -->
-                    <p class="soft-notice" id="result_real_terms_note"><span aria-hidden="true">ⓘ</span><span>金額は今のお金の価値です。物価は毎年<span id="result_inflation_rate"></span>%(日本銀行の目標)上がり、年金は政府の年金の見通し(財政検証)に沿って目減りします。<span id="pension_outlook_help"></span>物価がもっと上がる場合は「うまくいかなかったら？」の物価の上昇で確かめられます。</span></p>
+                    <p class="soft-notice" id="result_real_terms_note"><span aria-hidden="true">ⓘ</span><span id="result_real_terms_text">金額は今のお金の価値です。物価は毎年<span id="result_inflation_rate"></span>%(日本銀行の目標)上がり、年金は政府の年金の見通し(財政検証)に沿って目減りします。<span id="pension_outlook_help"></span>物価がもっと上がる場合は「うまくいかなかったら？」の物価の上昇で確かめられます。</span><button type="button" class="soft-notice-close" id="btn_real_terms_note_close" aria-label="閉じる" title="閉じる(見出しの横のⓘでいつでも読めます)">×</button></p>
                     <!-- 死亡予測年齢が平均余命のままのとき、長生きした場合の確かめ方(ADR 0054) -->
                     <p class="soft-notice" id="result_longevity_note" hidden><span aria-hidden="true">ⓘ</span><span>平均余命は、半数を超える人がそれより長生きする年齢です。長生きしても足りるかは、死亡予測年齢を「4人に1人が生きている年齢」にして確かめられます。<button type="button" class="btn-link" id="btn_result_change_death_age">死亡予測年齢を変える</button></span></p>
                     <!-- 障害年金をやめてから老齢年金を受け取るまでの空白の期間と、繰り下げられるか(ADR 0009「2026-10-29改訂」) -->
@@ -307,7 +313,21 @@
                 </div>
 
                 <!-- 資産の推移(グラフ)。引退直後の暴落のシナリオ(ADR 0055)は、グラフの見出しの下の3つのボタンで切り替える -->
-                <div class="section-title-sub">資産の推移</div>
+                <!-- グラフの表示の切り替えは見出しの右に小さく置き、グラフまでの高さを縮める(lifeplan ADR 0088) -->
+                <div class="section-title-sub chart-title-row">
+                    <span>資産の推移</span>
+                    <span class="chart-switches">
+                        <span class="sub-tabs-bar compare-chart-series saved-plan-range" id="saved_plan_range" role="group" aria-label="表示する期間" hidden>
+                            <button type="button" class="sub-tab-btn" data-saved-range="recent">保存してから今まで</button>
+                            <button type="button" class="sub-tab-btn" data-saved-range="all">全期間</button>
+                        </span>
+                        <!-- タブ名はグラフの形式ではなく「何を見るか」で表す(中身はそれぞれ積み上げ面グラフ・折れ線グラフ) -->
+                        <span class="sub-tabs-bar compare-chart-series" id="asset_chart_type_tabs_row" role="group" aria-label="グラフの見方">
+                            <button type="button" class="sub-tab-btn active" data-action="select-asset-chart-type" data-asset-chart-type="stacked">総資産で見る</button>
+                            <button type="button" class="sub-tab-btn" data-action="select-asset-chart-type" data-asset-chart-type="line">資産ごとに見る</button>
+                        </span>
+                    </span>
+                </div>
                 <!-- 表示するプランの選択と保存(lifeplan ADR 0087) -->
                 <div id="saved_plan_bar"></div>
                 <!-- 運用がうまくいかなかったら(docs/lifeplan/decisions/0055)。世帯主が引退した年から過去の実際の下落を当てはめ、
@@ -317,16 +337,6 @@
                 <!-- 以前の「グラフ/明細」タブ(全年齢の明細表)は廃止し、グラフの下の「明細を見る」で1年分を
                      表示する(MEMO.md 2026/9/28コメント1-(2)、docs/lifeplan/decisions/0032) -->
                 <div id="asset_chart_wrap">
-                    <div class="sub-tabs-bar compare-chart-series saved-plan-range" id="saved_plan_range" role="group" aria-label="表示する期間" hidden>
-                        <button type="button" class="sub-tab-btn" data-saved-range="recent">保存してから今まで</button>
-                        <button type="button" class="sub-tab-btn" data-saved-range="all">全期間</button>
-                    </div>
-                    <div class="sub-tabs-bar" id="asset_chart_type_tabs_row">
-                        <!-- タブ名はグラフの形式ではなく「何を見るか」で表す(MEMO.md 2026/9/28コメント1-(4)。以前は
-                             「積み上げ面グラフ」「折れ線グラフ」)。中身はそれぞれ積み上げ面グラフ・折れ線グラフのまま -->
-                        <button type="button" class="sub-tab-btn active" data-action="select-asset-chart-type" data-asset-chart-type="stacked">総資産で見る</button>
-                        <button type="button" class="sub-tab-btn" data-action="select-asset-chart-type" data-asset-chart-type="line">資産ごとに見る</button>
-                    </div>
                     <!-- キャンバスは高さ固定の専用の枠に入れる(サブタブと同じ枠だとキャンバスが枠からはみ出し、下の
                          「明細を見る」に重なってクリックできなかった、ADR 0032) -->
                     <div id="asset_chart_canvas_wrap">
@@ -945,11 +955,11 @@
     <script src="ui-records.dede0a2e83.js"></script>
     <script src="ui-person-form.15b17158ad.js"></script>
     <script src="ui-asset-expense-form.553f217161.js"></script>
-    <script src="ui-results.a90f82741c.js"></script>
+    <script src="ui-results.1abfb2161a.js"></script>
     <script src="ui-inheritance.9291923e2f.js"></script>
     <script src="ui-compare.946701b42d.js"></script>
     <script src="ui-revisit.6385eb6e97.js"></script>
-    <script src="ui.fb3ae26f9d.js"></script>
+    <script src="ui.4b3842d0bc.js"></script>
     <script>
         CarryOver.init();
         window.model = new LifeplanModel({ window: window, storage: AppStorage });

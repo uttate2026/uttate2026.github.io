@@ -2371,6 +2371,67 @@ th, td {
     gap: 8px;
 }
 
+/* 見出しと書き出しの操作を同じ段に置く(lifeplan ADR 0088) */
+.answer-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 8px 12px;
+}
+
+.answer-export {
+    position: relative;
+    flex-shrink: 0;
+}
+
+.answer-export-toggle {
+    display: none;
+    padding: 6px 8px;
+    line-height: 0;
+}
+
+.answer-real-terms-hint {
+    display: inline-flex;
+    align-items: center;
+    gap: 3px;
+    margin-left: 8px;
+    font-weight: normal;
+    color: var(--text-secondary);
+    letter-spacing: 0;
+}
+
+.soft-notice-close {
+    margin-left: auto;
+    border: none;
+    background: none;
+    font-size: 18px;
+    line-height: 1;
+    color: inherit;
+    cursor: pointer;
+    padding: 0 0 0 8px;
+}
+
+/* 資産の推移の見出しの右の、グラフの表示の切り替え */
+.chart-title-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 6px 12px;
+}
+
+.chart-switches {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+    gap: 6px 12px;
+    font-weight: normal;
+}
+
+.chart-switches .sub-tabs-bar {
+    margin: 0;
+}
+
 .field-with-copy {
     display: flex;
     align-items: center;
@@ -2445,7 +2506,6 @@ th, td {
     margin: 0;
     font-size: 14px;
     line-height: 1.7;
-    max-width: 48em;
 }
 
 /* 現金・預金が足りなくなるときは、金額と札をお知らせの色にする(赤字の警告にはしない) */
@@ -2659,6 +2719,31 @@ details.conditions {
 @media (max-width: 600px) {
     .answer-card {
         padding: 14px 16px;
+    }
+
+    /* スマホでは書き出しの操作をアイコン1つにまとめ、押すとメニューで開く(lifeplan ADR 0088) */
+    .answer-export-toggle {
+        display: inline-block;
+    }
+
+    .answer-export .answer-card-actions {
+        display: none;
+        position: absolute;
+        top: calc(100% + 4px);
+        right: 0;
+        z-index: 40;
+        flex-direction: column;
+        align-items: stretch;
+        width: max-content;
+        padding: 8px;
+        background: var(--bg-card);
+        border: 1px solid var(--border);
+        border-radius: 8px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+    }
+
+    .answer-export.is-open .answer-card-actions {
+        display: flex;
     }
 
     .answer-amount {

@@ -122,8 +122,170 @@ header h1 {
     color: var(--text-secondary);
 }
 
-[data-section]:not(.is-collapsed) .section-summary {
+[data-section]:not(.is-collapsed) .section-summary:not(.section-summary-always) {
     display: none;
+}
+
+/* 「2. 資産」の見出し: 開閉のボタンの横に残高の操作を置く(lifeplan ADR 0086)。スマホでは操作を2段目に送る */
+.section-head {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 6px 12px;
+}
+
+.section-head .section-toggle {
+    flex: 1 1 auto;
+    width: auto;
+    min-width: 0;
+}
+
+.section-head-actions {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.section-head-actions .btn {
+    padding: 4px 12px;
+    font-size: 13px;
+}
+
+.section-head-actions .btn-link {
+    padding: 4px 0;
+}
+
+.section-summary.section-summary-always {
+    color: var(--text-main);
+    font-weight: 600;
+}
+
+.section-summary.is-empty {
+    color: var(--text-secondary);
+    font-weight: 400;
+}
+
+@media (max-width: 600px) {
+    .section-head-actions {
+        width: 100%;
+        padding-left: 26px;
+    }
+}
+
+/* 「資産の推移」の下の、表示するプランの選択と保存(lifeplan ADR 0087) */
+.saved-plan-bar {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 8px 12px;
+    margin-bottom: 10px;
+}
+
+.saved-plan-bar label {
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.saved-plan-bar select {
+    width: auto;
+    max-width: 100%;
+    min-width: 220px;
+}
+
+.saved-plan-bar .btn {
+    padding: 6px 12px;
+}
+
+.saved-plan-diff {
+    margin: 0 0 10px;
+    font-size: 14px;
+}
+
+.saved-plan-range {
+    justify-content: flex-end;
+}
+
+.saved-plan-range[hidden] {
+    display: none;
+}
+
+.saved-plan-diff strong {
+    white-space: nowrap;
+}
+
+.saved-plan-actions {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 8px 16px;
+}
+
+.saved-plan-actions .row-delete-btn {
+    font-size: 14px;
+}
+
+.balance-history-import {
+    margin-top: 12px;
+}
+
+/* 資産タブの「現在の残高(実績)」の表示 */
+.actual-balance-head {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 0 10px;
+}
+
+.actual-balance-head .btn-link {
+    font-size: 13px;
+    white-space: nowrap;
+}
+
+.actual-balance {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 4px 10px;
+    min-height: 36px;
+    padding-top: 6px;
+}
+
+.actual-balance-amount {
+    font-weight: 600;
+}
+
+.actual-balance-date,
+.actual-balance-empty {
+    font-size: 13px;
+    color: var(--text-secondary);
+}
+
+/* 残高のダイアログの外貨の資産: 外国通貨の額と今の為替 */
+.balance-foreign {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.balance-foreign-rate {
+    flex-shrink: 0;
+    margin-right: 6px;
+    font-size: 13px;
+    color: var(--text-secondary);
+}
+
+.record-balance-history {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.record-balance-history th,
+.record-balance-history td {
+    padding: 6px 8px;
+    border-bottom: 1px solid var(--border);
+    text-align: left;
+    font-size: 14px;
 }
 
 /* 検討していないときの相続税の見込み(lifeplan ADR 0077) */
@@ -1733,20 +1895,11 @@ th, td {
     flex-wrap: wrap;
 }
 
-.record-banner-date {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    margin-top: 8px;
-}
 
-.record-banner-date input {
-    width: auto;
-}
 
 /* 基準は固定のため、タブの追加・削除も隠す(入力欄は押せなくする、ui.jsの_applyRecordLocks) */
-#dashboard_workspace.is-record-baseline .input-card .tab-delete,
-#dashboard_workspace.is-record-baseline .input-card .sub-tab-add {
+#dashboard_workspace.is-saved-plan .input-card .tab-delete,
+#dashboard_workspace.is-saved-plan .input-card .sub-tab-add {
     display: none;
 }
 
@@ -1763,32 +1916,10 @@ th, td {
     padding: 6px 10px;
 }
 
-.record-intro ol {
-    padding-left: 20px;
-    margin: 8px 0 12px;
-}
 
-.record-intro li {
-    margin-bottom: 6px;
-}
 
-.record-start,
-.record-actions {
-    display: flex;
-    align-items: center;
-    flex-wrap: wrap;
-    gap: 8px;
-    margin: 8px 0;
-}
 
-.record-start select {
-    width: auto;
-}
 
-.record-status-plan,
-.record-status-latest {
-    margin: 4px 0;
-}
 
 .positive {
     color: #15803d;
@@ -1805,31 +1936,15 @@ th, td {
     white-space: normal;
 }
 
-.record-baseline-row td {
+.record-list-empty {
     color: var(--text-secondary);
 }
 
-.record-past {
-    margin-top: 12px;
-}
 
-.record-past summary {
-    cursor: pointer;
-    font-size: 13px;
-    color: var(--text-secondary);
-    padding: 4px 0;
-}
 
-.record-past-chain {
-    font-size: 13px;
-    padding: 4px 0;
-    border-top: 1px solid var(--border);
-}
 
-.record-past-chain ul {
-    margin: 4px 0;
-    padding-left: 20px;
-}
+
+
 
 .balance-record-table {
     width: 100%;
@@ -1940,39 +2055,15 @@ th, td {
     }
 }
 
-#record_compare_chart_wrap {
-    position: relative;
-    height: 400px;
-    margin: 8px 0 16px;
-}
 
 /* 計画と実績のグラフの「総資産で見る/資産ごとに見る」と、右の表示期間の切り替え(MEMO.md 2026/11/6コメント1-(1)) */
-.record-chart-controls {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-    align-items: center;
-    gap: 4px 12px;
-}
-.record-chart-controls .sub-tabs-bar {
-    margin-bottom: 0;
-}
-.record-chart-controls #record_compare_range {
-    margin-left: auto;
-}
 
-.record-compare-row {
-    cursor: pointer;
-}
 
 #record_compare_table th,
 #record_compare_table td {
     white-space: nowrap;
 }
 
-.record-compare-row:hover td {
-    background: var(--bg-main);
-}
 
 /* rebalanceとの連携(ADR 0039) */
 .rebalance-hint {
@@ -2280,6 +2371,67 @@ th, td {
     gap: 8px;
 }
 
+/* 見出しと書き出しの操作を同じ段に置く(lifeplan ADR 0088) */
+.answer-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 8px 12px;
+}
+
+.answer-export {
+    position: relative;
+    flex-shrink: 0;
+}
+
+.answer-export-toggle {
+    display: none;
+    padding: 6px 8px;
+    line-height: 0;
+}
+
+.answer-real-terms-hint {
+    display: inline-flex;
+    align-items: center;
+    gap: 3px;
+    margin-left: 8px;
+    font-weight: normal;
+    color: var(--text-secondary);
+    letter-spacing: 0;
+}
+
+.soft-notice-close {
+    margin-left: auto;
+    border: none;
+    background: none;
+    font-size: 18px;
+    line-height: 1;
+    color: inherit;
+    cursor: pointer;
+    padding: 0 0 0 8px;
+}
+
+/* 資産の推移の見出しの右の、グラフの表示の切り替え */
+.chart-title-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 6px 12px;
+}
+
+.chart-switches {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+    gap: 6px 12px;
+    font-weight: normal;
+}
+
+.chart-switches .sub-tabs-bar {
+    margin: 0;
+}
+
 .field-with-copy {
     display: flex;
     align-items: center;
@@ -2354,7 +2506,6 @@ th, td {
     margin: 0;
     font-size: 14px;
     line-height: 1.7;
-    max-width: 48em;
 }
 
 /* 現金・預金が足りなくなるときは、金額と札をお知らせの色にする(赤字の警告にはしない) */
@@ -2568,6 +2719,31 @@ details.conditions {
 @media (max-width: 600px) {
     .answer-card {
         padding: 14px 16px;
+    }
+
+    /* スマホでは書き出しの操作をアイコン1つにまとめ、押すとメニューで開く(lifeplan ADR 0088) */
+    .answer-export-toggle {
+        display: inline-block;
+    }
+
+    .answer-export .answer-card-actions {
+        display: none;
+        position: absolute;
+        top: calc(100% + 4px);
+        right: 0;
+        z-index: 40;
+        flex-direction: column;
+        align-items: stretch;
+        width: max-content;
+        padding: 8px;
+        background: var(--bg-card);
+        border: 1px solid var(--border);
+        border-radius: 8px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+    }
+
+    .answer-export.is-open .answer-card-actions {
+        display: flex;
     }
 
     .answer-amount {
