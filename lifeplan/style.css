@@ -172,6 +172,62 @@ header h1 {
     }
 }
 
+/* 「資産の推移」の下の、表示するプランの選択と保存(lifeplan ADR 0087) */
+.saved-plan-bar {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 8px 12px;
+    margin-bottom: 10px;
+}
+
+.saved-plan-bar label {
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.saved-plan-bar select {
+    width: auto;
+    max-width: 100%;
+    min-width: 220px;
+}
+
+.saved-plan-bar .btn {
+    padding: 6px 12px;
+}
+
+.saved-plan-diff {
+    margin: 0 0 10px;
+    font-size: 14px;
+}
+
+.saved-plan-range {
+    justify-content: flex-end;
+}
+
+.saved-plan-range[hidden] {
+    display: none;
+}
+
+.saved-plan-diff strong {
+    white-space: nowrap;
+}
+
+.saved-plan-actions {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 8px 16px;
+}
+
+.saved-plan-actions .row-delete-btn {
+    font-size: 14px;
+}
+
+.balance-history-import {
+    margin-top: 12px;
+}
+
 /* 資産タブの「現在の残高(実績)」の表示 */
 .actual-balance-head {
     display: flex;
@@ -1839,20 +1895,11 @@ th, td {
     flex-wrap: wrap;
 }
 
-.record-banner-date {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    margin-top: 8px;
-}
 
-.record-banner-date input {
-    width: auto;
-}
 
 /* 基準は固定のため、タブの追加・削除も隠す(入力欄は押せなくする、ui.jsの_applyRecordLocks) */
-#dashboard_workspace.is-record-baseline .input-card .tab-delete,
-#dashboard_workspace.is-record-baseline .input-card .sub-tab-add {
+#dashboard_workspace.is-saved-plan .input-card .tab-delete,
+#dashboard_workspace.is-saved-plan .input-card .sub-tab-add {
     display: none;
 }
 
@@ -1869,32 +1916,10 @@ th, td {
     padding: 6px 10px;
 }
 
-.record-intro ol {
-    padding-left: 20px;
-    margin: 8px 0 12px;
-}
 
-.record-intro li {
-    margin-bottom: 6px;
-}
 
-.record-start,
-.record-actions {
-    display: flex;
-    align-items: center;
-    flex-wrap: wrap;
-    gap: 8px;
-    margin: 8px 0;
-}
 
-.record-start select {
-    width: auto;
-}
 
-.record-status-plan,
-.record-status-latest {
-    margin: 4px 0;
-}
 
 .positive {
     color: #15803d;
@@ -1915,37 +1940,11 @@ th, td {
     color: var(--text-secondary);
 }
 
-.record-status-plan-ops {
-    margin-left: 8px;
-    white-space: nowrap;
-}
 
-.record-status-plan-ops .btn-link {
-    margin-right: 10px;
-    font-size: 13px;
-}
 
-.record-past {
-    margin-top: 12px;
-}
 
-.record-past summary {
-    cursor: pointer;
-    font-size: 13px;
-    color: var(--text-secondary);
-    padding: 4px 0;
-}
 
-.record-past-chain {
-    font-size: 13px;
-    padding: 4px 0;
-    border-top: 1px solid var(--border);
-}
 
-.record-past-chain ul {
-    margin: 4px 0;
-    padding-left: 20px;
-}
 
 .balance-record-table {
     width: 100%;
@@ -2056,39 +2055,15 @@ th, td {
     }
 }
 
-#record_compare_chart_wrap {
-    position: relative;
-    height: 400px;
-    margin: 8px 0 16px;
-}
 
 /* 計画と実績のグラフの「総資産で見る/資産ごとに見る」と、右の表示期間の切り替え(MEMO.md 2026/11/6コメント1-(1)) */
-.record-chart-controls {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-    align-items: center;
-    gap: 4px 12px;
-}
-.record-chart-controls .sub-tabs-bar {
-    margin-bottom: 0;
-}
-.record-chart-controls #record_compare_range {
-    margin-left: auto;
-}
 
-.record-compare-row {
-    cursor: pointer;
-}
 
 #record_compare_table th,
 #record_compare_table td {
     white-space: nowrap;
 }
 
-.record-compare-row:hover td {
-    background: var(--bg-main);
-}
 
 /* rebalanceとの連携(ADR 0039) */
 .rebalance-hint {

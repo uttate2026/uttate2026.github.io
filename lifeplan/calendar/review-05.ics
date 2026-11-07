@@ -10,9 +10,9 @@ DTEND;VALUE=DATE:20260116
 RRULE:FREQ=YEARLY
 SUMMARY:ライフプランの見直し(源泉徴収票
  が届いたら)
-DESCRIPTION:源泉徴収票の金額と年末の
- 残高を、ライフプランシミュレーターの「📋 計画
- と実績」に入れると、計画とのずれが分かります。\
+DESCRIPTION:源泉徴収票の金額をプラン
+ に、年末の残高を「2. 資産」の「残高を更新」に
+ 入れると、保存したプランとのずれが分かります。\
  nhttps://uttate.com/tool
  s/lifeplan/
 URL:https://uttate.com/tools/lifeplan/
