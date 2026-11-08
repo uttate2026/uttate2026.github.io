@@ -222,6 +222,7 @@ header h1 {
 
 .saved-plan-actions .row-delete-btn {
     font-size: 14px;
+    color: var(--danger);
 }
 
 .balance-history-import {
@@ -237,7 +238,10 @@ header h1 {
     gap: 0 10px;
 }
 
+/* ボタンの上下の余白でラベルが下がり、隣の欄のラベルと段がずれないよう、余白を持たせない */
 .actual-balance-head .btn-link {
+    padding: 0;
+    line-height: inherit;
     font-size: 13px;
     white-space: nowrap;
 }
@@ -580,6 +584,7 @@ html.auth-skip #auth_overlay {
 #pattern_tabs_row .tab-btn,
 #pattern_tabs_row .btn-link {
     flex-shrink: 0;
+    white-space: nowrap;
 }
 
 .tab-btn {
@@ -1397,7 +1402,9 @@ th, td {
 }
 
 .sub-tabs-scroll {
-    flex: 1;
+    /* 段の幅が180pxを切るときは、右端の操作(.tabs-bar-action)を次の行に送り、選んでいるタブと「その他」の場所を残す
+       (docs/shared/decisions/0021) */
+    flex: 1 1 180px;
     min-width: 0;
     overflow-x: auto;
     display: flex;
@@ -1405,7 +1412,7 @@ th, td {
 }
 
 /* タブの段の右端の、タブ全体に対する操作(資産タブの「🔗 資産リバランスシミュレーターと連携」)。サイト名で書くと長いため
-   (MEMO.md 2026/10/2コメント2-(2))、スマホ幅では段の半分までにして折り返し、タブの場所を残す */
+   (MEMO.md 2026/10/2コメント2-(2))、スマホ幅では段の半分までにして折り返す */
 .tabs-bar-action {
     flex-shrink: 0;
     margin-left: auto;
@@ -3109,4 +3116,50 @@ th .help-btn {
     color: var(--text-primary, #0f172a);
     text-decoration: none;
     font-size: 14px;
+}
+
+/* 1段に入りきらないタブをまとめる「その他(n) ▾」と、そのメニュー(src/shared/tab-overflow.js、docs/shared/decisions/0021)。
+   メニューはタブの段のスクロールで切られないよう、bodyに置いてボタンの下に出す */
+.tab-overflow-btn {
+    flex-shrink: 0;
+    white-space: nowrap;
+}
+
+/* タブの右の余白は「×」の場所。「その他」には×が無いので詰める */
+.tab-btn.tab-overflow-btn {
+    padding-right: 12px;
+}
+
+.tab-overflow-menu {
+    position: absolute;
+    z-index: 1000;
+    display: flex;
+    flex-direction: column;
+    min-width: 160px;
+    max-width: calc(100vw - 16px);
+    padding: 4px 0;
+    background: var(--bg-card);
+    border: 1px solid var(--border-strong);
+    border-radius: 8px;
+    box-shadow: 0 6px 20px rgba(15, 23, 42, 0.15);
+}
+
+.tab-overflow-menu button {
+    padding: 9px 16px;
+    background: none;
+    border: none;
+    color: var(--text-main);
+    font: inherit;
+    font-size: 14px;
+    text-align: left;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    cursor: pointer;
+}
+
+.tab-overflow-menu button:hover,
+.tab-overflow-menu button:focus-visible {
+    background: var(--bg-main);
+    outline: none;
 }
