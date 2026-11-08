@@ -325,6 +325,77 @@ header h1 {
     border-top: none;
 }
 
+/* 給与収入・老齢年金タブの中の、畳める小見出し(lifeplan ADR 0090)。文字は小見出しと同じで、見出しの行全体を押せる。
+   畳んでいるときは右に要約を出し、スマホでは要約を次の行に送る */
+.fold-group {
+    border-top: 1px solid var(--border);
+}
+
+.fold-group-head {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 2px 6px;
+    padding: 10px 0;
+    font-weight: bold;
+    font-size: 13px;
+    cursor: pointer;
+}
+
+.fold-group-toggle {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 0;
+    background: none;
+    border: none;
+    color: inherit;
+    font: inherit;
+    text-align: left;
+    cursor: pointer;
+}
+
+.fold-group-icon::before {
+    content: '▾';
+    display: inline-block;
+    width: 1em;
+    font-size: 15px;
+    line-height: 1;
+    text-align: center;
+    color: var(--text-secondary);
+    transform: rotate(-90deg);
+    transition: transform 0.15s;
+}
+
+.fold-group.is-open .fold-group-icon::before {
+    transform: none;
+}
+
+.fold-group-summary {
+    margin-left: auto;
+    font-weight: normal;
+    font-size: 12px;
+    color: var(--text-secondary);
+}
+
+.fold-group-body {
+    padding-bottom: 12px;
+}
+
+/* スマホでは見出しの文字がボタンの中で折り返し、ⓘはその右に置く。要約は次の行にする */
+@media (max-width: 600px) {
+    .fold-group-head {
+        display: grid;
+        grid-template-columns: minmax(0, max-content) auto;
+        justify-content: start;
+    }
+
+    .fold-group-summary {
+        grid-column: 1 / -1;
+        margin: 0 0 0 21px;
+    }
+}
+
 /* 折りたたみの見出しになっている小見出し(相続税の「ステップ2: 誰がいくら払うか」)も、同じ役割の「ステップ1: 相続税の総額」と
    同じ文字にする(コメント1-(11)。以前は折りたたみの既定の12px・青緑だった) */
 .detail-toggle.as-section-title-sub > summary {
