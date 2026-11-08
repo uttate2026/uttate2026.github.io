@@ -165,6 +165,11 @@ header h1 {
     font-weight: 400;
 }
 
+/* 書類の更新の時期を過ぎた(lifeplan ADR 0093) */
+.section-summary.is-warning {
+    color: var(--danger);
+}
+
 @media (max-width: 600px) {
     .section-head-actions {
         width: 100%;
@@ -3162,4 +3167,81 @@ th .help-btn {
 .tab-overflow-menu button:focus-visible {
     background: var(--bg-main);
     outline: none;
+}
+
+/* 書類の値(lifeplan ADR 0093): 収入のタブでは見るだけ。入れるのは「書類から更新」のダイアログ */
+.doc-value {
+    min-height: 32px;
+    align-items: center;
+}
+
+.doc-value output,
+.doc-value-text {
+    font-weight: 600;
+}
+
+.doc-value output:empty::before {
+    content: '未入力';
+    color: var(--text-secondary);
+    font-weight: 400;
+}
+
+.doc-value output:empty + .unit {
+    display: none;
+}
+
+.doc-update-row {
+    align-items: center;
+    gap: 8px;
+    margin: 8px 0 16px;
+}
+
+.doc-update-row .field-note {
+    margin: 0;
+}
+
+.doc-stale-note {
+    color: var(--danger);
+}
+
+.doc-section-head {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+    margin: 16px 0 4px;
+}
+
+.doc-section-head select,
+.doc-section-sub select {
+    width: auto;
+}
+
+.doc-has-salary {
+    margin-left: auto;
+}
+
+.doc-section-sub {
+    font-size: 13px;
+    color: var(--text-secondary);
+    margin-bottom: 4px;
+}
+
+.doc-person-tabs {
+    margin: 8px 0 0;
+}
+
+/* 書類の値は見るだけなので、詰めて並べる。スマホでも1行に2項目(lifeplan ADR 0093) */
+.form-grid.doc-values {
+    row-gap: 8px;
+}
+
+.doc-values .form-field {
+    margin-bottom: 0;
+}
+
+@media (max-width: 600px) {
+    .form-grid.doc-values {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
 }
