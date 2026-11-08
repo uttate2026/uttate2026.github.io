@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ライフプランシミュレーター</title>
-    <link rel="stylesheet" href="style.1e336fe119.css">
+    <link rel="stylesheet" href="style.f352064e21.css">
     <!-- 待っている間の表示(回る輪+文字)の見た目は4アプリで共通(docs/shared/decisions/0017)。起動時の表示より先に読む -->
     <link rel="stylesheet" href="shared/busy-indicator.6fbf9e1ca8.css">
     <!-- uttate.comに埋め込まれているとき(iframeの外にページの見出しがある)は、中のタイトルを出さない(MEMO.md 2026/9/30コメント1-(12))。
@@ -868,6 +868,18 @@
         </div>
     </div>
 
+    <!-- 保存したプランの一覧(lifeplan ADR 0087「2026-11-08改訂」) -->
+    <div id="saved_plans_modal" class="modal-overlay" style="display: none;" role="dialog" aria-modal="true" aria-labelledby="saved_plans_modal_title">
+        <div class="card modal-card modal-card-balance">
+            <button type="button" id="btn_saved_plans_close" class="modal-close" aria-label="閉じる">×</button>
+            <div class="section-title" id="saved_plans_modal_title">保存したプラン</div>
+            <div id="saved_plans_body"></div>
+            <div class="modal-actions">
+                <button type="button" id="btn_saved_plans_done" class="btn btn-link">閉じる</button>
+            </div>
+        </div>
+    </div>
+
     <!-- 残高の履歴(lifeplan ADR 0087) -->
     <div id="balance_history_modal" class="modal-overlay" style="display: none;" role="dialog" aria-modal="true" aria-labelledby="balance_history_modal_title">
         <div class="card modal-card modal-card-balance">
@@ -952,14 +964,14 @@
     <script src="vendor/chart.46424b781a.js"></script>
     <script src="shared/busy-indicator.985410e3ab.js"></script>
     <script src="ui-helpers.11167b6d63.js"></script>
-    <script src="ui-records.dede0a2e83.js"></script>
+    <script src="ui-records.a079732877.js"></script>
     <script src="ui-person-form.2ea530e088.js"></script>
     <script src="ui-asset-expense-form.b0640abcb4.js"></script>
     <script src="ui-results.80309f2d4e.js"></script>
     <script src="ui-inheritance.9291923e2f.js"></script>
     <script src="ui-compare.946701b42d.js"></script>
     <script src="ui-revisit.6385eb6e97.js"></script>
-    <script src="ui.c0bfcf9899.js"></script>
+    <script src="ui.d868ce794c.js"></script>
     <script>
         CarryOver.init();
         window.model = new LifeplanModel({ window: window, storage: AppStorage });

@@ -222,6 +222,7 @@ header h1 {
 
 .saved-plan-actions .row-delete-btn {
     font-size: 14px;
+    color: var(--danger);
 }
 
 .balance-history-import {
