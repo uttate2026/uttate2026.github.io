@@ -237,7 +237,10 @@ header h1 {
     gap: 0 10px;
 }
 
+/* ボタンの上下の余白でラベルが下がり、隣の欄のラベルと段がずれないよう、余白を持たせない */
 .actual-balance-head .btn-link {
+    padding: 0;
+    line-height: inherit;
     font-size: 13px;
     white-space: nowrap;
 }
