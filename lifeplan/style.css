@@ -3267,3 +3267,22 @@ th .help-btn {
         grid-template-columns: repeat(2, minmax(0, 1fr));
     }
 }
+
+/* 数年おきの支出の、買い替えの時期を過ぎた行の注意(lifeplan ADR 0094)。表の幅を崩さないよう、行の下に全幅で出す */
+.durable-overdue-row[hidden] {
+    display: none !important;
+}
+.durable-overdue-row td {
+    padding-top: 0;
+}
+.durable-overdue-row .field-note {
+    margin: 0;
+    /* 表を横にスクロールしても、注意は画面の幅に収めて左に留める */
+    position: sticky;
+    left: 0;
+    max-width: calc(100vw - 72px);
+}
+/* スマホで項目名の欄が潰れないよう、幅の下限を置く(入りきらなければ表を横にスクロールする) */
+#durable_expense_rows input[data-field="name"] {
+    min-width: 8em;
+}
