@@ -2100,6 +2100,27 @@ th, td {
     gap: 4px 16px;
     margin-bottom: 12px;
 }
+/* 残高のダイアログの「➕ 口座を追加」(lifeplan ADR 0086「2026-11-10改訂」) */
+.balance-add-asset {
+    margin: 4px 0 12px;
+}
+.balance-add-asset-form {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 8px;
+}
+.balance-add-asset-form[hidden],
+.balance-add-asset-form select[hidden] {
+    display: none;
+}
+.balance-add-asset-form select {
+    width: auto;
+}
+.balance-add-asset-form .field-note {
+    flex-basis: 100%;
+    margin: 0;
+}
 
 /* 狭い画面では、資産ごとに資産名・入力欄・参考の値を縦に並べる(列の見出しは各欄の上に小さく出す) */
 @media (max-width: 600px) {
