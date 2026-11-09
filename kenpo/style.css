@@ -904,7 +904,8 @@ tr.subtotal-row td:first-child {
 }
 .help-popover {
     position: absolute;
-    z-index: 2000;
+    /* ダイアログ(z-index 9998)の中のアイコンからも前面に出す */
+    z-index: 10000;
     width: max-content;
     max-width: min(380px, calc(100vw - 16px));
     background: var(--bg-card);
