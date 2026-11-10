@@ -922,6 +922,11 @@ input[inputmode="numeric"], input[inputmode="decimal"] {
 
 /* 資産残高推移グラフ・全プラン比較グラフ(ADR 0004、Chart.js)。高さは2026-09-14の
    フィードバックで280pxから560px(約2倍)に拡大した */
+/* 「2. 資産」の額面で見た運用資産の伸び(lifeplan ADR 0096) */
+.asset-nominal-growth { margin-top: 16px; }
+.asset-nominal-figures { display: flex; flex-wrap: wrap; gap: 4px 24px; margin: 8px 0; font-size: 14px; }
+.asset-nominal-canvas-wrap { position: relative; height: 260px; }
+
 #asset_chart_canvas_wrap, #compare_chart_wrap {
     position: relative;
     height: 560px;
