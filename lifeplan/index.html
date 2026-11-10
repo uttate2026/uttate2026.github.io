@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ライフプランシミュレーター</title>
-    <link rel="stylesheet" href="style.8bf37b4a7e.css">
+    <link rel="stylesheet" href="style.0968c41a2e.css">
     <!-- 待っている間の表示(回る輪+文字)の見た目は4アプリで共通(docs/shared/decisions/0017)。起動時の表示より先に読む -->
     <link rel="stylesheet" href="shared/busy-indicator.6fbf9e1ca8.css">
     <!-- uttate.comに埋め込まれているとき(iframeの外にページの見出しがある)は、中のタイトルを出さない(MEMO.md 2026/9/30コメント1-(12))。
@@ -418,13 +418,11 @@
 
             <div class="card input-card" data-section="inheritance">
                 <div class="section-title">5. 相続税(任意)</div>
-                <!-- 開閉はせず、検討していないときは見込み(額・前提・減らせる額)と「検討する」のボタンを常に出す(docs/lifeplan/decisions/0077) -->
+                <!-- 検討していないときは開閉せず、見込み(額・前提・減らせる額)と「検討する」のボタンを常に出す(docs/lifeplan/decisions/0077)。
+                     検討を始めた後は他のセクションと同じく畳める(docs/lifeplan/decisions/0095) -->
                 <div id="inheritance_intro">
                     <div id="inheritance_outlook" class="inheritance-outlook"></div>
                     <button type="button" class="btn btn-primary" id="btn_inheritance_start">相続税を減らせるか検討する</button>
-                </div>
-                <div class="inheritance-toggle-row" id="inheritance_stop_row" hidden>
-                    <button type="button" class="btn-link" id="btn_inheritance_stop">検討をやめる</button>
                 </div>
                 <!-- ステップ1(相続税の総額)とステップ2(誰がいくら払うか、任意)に分ける(MEMO.md 2026/9/28コメント2-(1)、
                      ADR 0033)。ステップ1だけでもおおよその負担が分かるよう、法定相続分どおりに分けた場合の納付額(目安)を出す -->
@@ -949,7 +947,7 @@
     <script src="shared/kenpo-bridge.3380b50c30.js"></script>
     <script src="shared/chart-age-cursor.6b007e2eae.js"></script>
     <script src="shared/age-stepper.1b938669bf.js"></script>
-    <script src="shared/parameter-catalog.74cd221d87.js"></script>
+    <script src="shared/parameter-catalog.61d19d907c.js"></script>
     <script src="shared/revisit.457211bfd9.js"></script>
     <script src="shared/rebalance-reader.0f7f25ff6f.js"></script>
     <script src="shared/embed-overlay.3e451105d1.js"></script>
@@ -968,16 +966,16 @@
     <script src="resize-notifier.853bd3d284.js"></script>
     <script src="vendor/chart.722c971079.js"></script>
     <script src="shared/busy-indicator.985410e3ab.js"></script>
-    <script src="ui-helpers.66a26dffeb.js"></script>
+    <script src="ui-helpers.81fc5a0984.js"></script>
     <script src="ui-records.9c0caaf837.js"></script>
     <script src="ui-person-form.59173a7138.js"></script>
-    <script src="ui-asset-expense-form.08a6781756.js"></script>
+    <script src="ui-asset-expense-form.2de4a34d55.js"></script>
     <script src="ui-results.541c4ecf5e.js"></script>
-    <script src="ui-inheritance.6c43a4377a.js"></script>
+    <script src="ui-inheritance.1ad2fa583e.js"></script>
     <script src="ui-compare.8eacdc9ee5.js"></script>
     <script src="ui-revisit.25cedf5dc4.js"></script>
     <script src="ui-documents.52295535b4.js"></script>
-    <script src="ui.9f4c8565a3.js"></script>
+    <script src="ui.31833d48ef.js"></script>
     <script>
         CarryOver.init();
         window.model = new LifeplanModel({ window: window, storage: AppStorage });

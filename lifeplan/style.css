@@ -116,6 +116,15 @@ header h1 {
 .is-collapsed .section-toggle-icon::before {
     transform: rotate(-90deg);
 }
+/* 相続税は、検討する前は開閉しない(lifeplan ADR 0095) */
+.is-static .section-toggle-icon {
+    display: none;
+}
+.is-static .section-toggle:disabled {
+    cursor: default;
+    opacity: 1;
+    color: inherit;
+}
 
 .section-summary {
     font-size: 13px;
@@ -1617,14 +1626,6 @@ th, td {
 }
 
 /* 相続税検討画面(ADR 0007) */
-#inheritance_stop_row {
-    justify-content: flex-end;
-}
-
-#inheritance_stop_row[hidden] {
-    display: none;
-}
-
 .inheritance-toggle-row {
     display: flex;
     align-items: center;
