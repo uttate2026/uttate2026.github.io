@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ライフプランシミュレーター</title>
-    <link rel="stylesheet" href="style.348222129d.css">
+    <link rel="stylesheet" href="style.e46aea573c.css">
     <!-- 待っている間の表示(回る輪+文字)の見た目は4アプリで共通(docs/shared/decisions/0017)。起動時の表示より先に読む -->
     <link rel="stylesheet" href="shared/busy-indicator.6fbf9e1ca8.css">
     <!-- uttate.comに埋め込まれているとき(iframeの外にページの見出しがある)は、中のタイトルを出さない(MEMO.md 2026/9/30コメント1-(12))。
@@ -136,9 +136,9 @@
                     <button type="button" id="btn_rebalance_link" class="btn btn-link tabs-bar-action">🔗 資産リバランスシミュレーターと連携</button>
                 </div>
                 <div id="asset_form_container"></div>
-                <!-- 運用する資産(現金・預金を除く)の額面の伸び(lifeplan ADR 0096)。結果とは切り離し、いつも想定どおりの計算から出す。開閉はブラウザが覚える -->
+                <!-- 運用する資産(現金・預金を除く)の額面の推移(lifeplan ADR 0096)。結果とは切り離し、いつも想定どおりの計算から出す。開閉はブラウザが覚える -->
                 <details class="detail-toggle asset-nominal-growth" id="asset_nominal_growth" hidden>
-                    <summary data-track="open_nominal_growth">📈 額面で見た運用資産の伸び</summary>
+                    <summary data-track="open_nominal_growth">📈 額面で見た運用資産の推移</summary>
                     <p class="field-note">現金・預金を除いた、運用する資産の額面(証券口座などに表示される金額)の見通しです。積立額と想定利回り(どちらも額面)のとおりに増え、取り崩した分だけ減ります。「4. シミュレーション結果」は、現金・預金を含めて今のお金の価値で表しています。</p>
                     <p class="asset-nominal-figures" id="asset_nominal_figures"></p>
                     <div class="asset-nominal-canvas-wrap"><canvas id="asset_nominal_canvas"></canvas></div>
@@ -180,6 +180,8 @@
                             <tbody id="living_cost_change_rows"></tbody>
                         </table>
                     </div>
+                    <!-- 残高の記録から見た、実際に使った生活費の目安(lifeplan ADR 0097)。記録が足りなければ出さない -->
+                    <div id="living_cost_estimate" class="living-cost-estimate" hidden></div>
                     <button type="button" class="btn btn-link" id="btn_add_living_cost_change">➕ 生活費の変化を追加</button><button type="button" class="help-btn help-btn-info" data-help="info" aria-label="解説" aria-expanded="false" tabindex="-1"></button><template class="help-content"><p>子が独立した後・退職後・75歳以降など、生活費が変わる年齢ごとに行を足します。各行の生活費は、その年齢から次の行の年齢の前まで続きます。</p><p>年間の生活費は「毎月の生活費×12+年1回などの支出」です。</p></template>
                     <!-- 世帯主・配偶者の一方が亡くなった後の生活費の割合(docs/lifeplan/decisions/0053)。配偶者がいる場合だけ出す -->
                     <div id="living_cost_after_death_wrap" class="form-grid">
@@ -933,7 +935,7 @@
     <script src="storage.2256143742.js"></script>
     <script src="constants.a8ce91d379.js"></script>
     <script src="shared/pattern-builders.509e0988e8.js"></script>
-    <script src="shared/calculator.c355ff7768.js"></script>
+    <script src="shared/calculator.7e8519f23c.js"></script>
     <!-- 生涯合計の集計(全プラン比較・各ウィザード・ideco-bridge.js等が使う、docs/shared/decisions/0007参照) -->
     <script src="shared/lifetime-totals.e81d44cee3.js"></script>
     <!-- ideco→lifeplanへのデータ引き継ぎ(model.jsのcheckIdecoHandoff/importHandoffPatternが
@@ -954,7 +956,7 @@
     <script src="shared/kenpo-bridge.3380b50c30.js"></script>
     <script src="shared/chart-age-cursor.6b007e2eae.js"></script>
     <script src="shared/age-stepper.1b938669bf.js"></script>
-    <script src="shared/parameter-catalog.9a6cad2df4.js"></script>
+    <script src="shared/parameter-catalog.01e6036723.js"></script>
     <script src="shared/revisit.457211bfd9.js"></script>
     <script src="shared/rebalance-reader.0f7f25ff6f.js"></script>
     <script src="shared/embed-overlay.3e451105d1.js"></script>
@@ -973,16 +975,16 @@
     <script src="resize-notifier.853bd3d284.js"></script>
     <script src="vendor/chart.722c971079.js"></script>
     <script src="shared/busy-indicator.985410e3ab.js"></script>
-    <script src="ui-helpers.c78a30d311.js"></script>
+    <script src="ui-helpers.17a355d517.js"></script>
     <script src="ui-records.9c0caaf837.js"></script>
-    <script src="ui-person-form.59173a7138.js"></script>
-    <script src="ui-asset-expense-form.2de4a34d55.js"></script>
-    <script src="ui-results.a393948055.js"></script>
+    <script src="ui-person-form.09c09c443e.js"></script>
+    <script src="ui-asset-expense-form.bb959b2ec8.js"></script>
+    <script src="ui-results.9c4665b630.js"></script>
     <script src="ui-inheritance.1ad2fa583e.js"></script>
     <script src="ui-compare.8eacdc9ee5.js"></script>
     <script src="ui-revisit.25cedf5dc4.js"></script>
     <script src="ui-documents.52295535b4.js"></script>
-    <script src="ui.1b28bc3b63.js"></script>
+    <script src="ui.6b1484e9d7.js"></script>
     <script>
         CarryOver.init();
         window.model = new LifeplanModel({ window: window, storage: AppStorage });

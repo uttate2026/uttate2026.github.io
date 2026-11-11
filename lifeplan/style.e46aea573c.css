@@ -116,6 +116,15 @@ header h1 {
 .is-collapsed .section-toggle-icon::before {
     transform: rotate(-90deg);
 }
+/* 相続税は、検討する前は開閉しない(lifeplan ADR 0095) */
+.is-static .section-toggle-icon {
+    display: none;
+}
+.is-static .section-toggle:disabled {
+    cursor: default;
+    opacity: 1;
+    color: inherit;
+}
 
 .section-summary {
     font-size: 13px;
@@ -913,6 +922,19 @@ input[inputmode="numeric"], input[inputmode="decimal"] {
 
 /* 資産残高推移グラフ・全プラン比較グラフ(ADR 0004、Chart.js)。高さは2026-09-14の
    フィードバックで280pxから560px(約2倍)に拡大した */
+/* 生活費のタブの、残高の記録から見た生活費の目安(lifeplan ADR 0097) */
+.living-cost-estimate { margin: 10px 0 6px; padding: 10px 12px; background: var(--primary-wash); border: 1px solid var(--primary-tint); border-radius: 8px; font-size: 14px; line-height: 1.6; }
+.living-cost-estimate p { margin: 0; }
+.living-cost-estimate .living-cost-estimate-basis { margin-top: 2px; font-size: 12px; color: var(--text-secondary); }
+.help-table { border-collapse: collapse; margin: 6px 0; }
+.help-table td { padding: 2px 6px 2px 0; vertical-align: top; }
+.help-table td.text-right { white-space: nowrap; text-align: right; }
+
+/* 「2. 資産」の額面で見た運用資産の推移(lifeplan ADR 0096) */
+.asset-nominal-growth { margin-top: 16px; }
+.asset-nominal-figures { display: flex; flex-wrap: wrap; gap: 4px 24px; margin: 8px 0; font-size: 14px; }
+.asset-nominal-canvas-wrap { position: relative; height: 260px; }
+
 #asset_chart_canvas_wrap, #compare_chart_wrap {
     position: relative;
     height: 560px;
@@ -1617,14 +1639,6 @@ th, td {
 }
 
 /* 相続税検討画面(ADR 0007) */
-#inheritance_stop_row {
-    justify-content: flex-end;
-}
-
-#inheritance_stop_row[hidden] {
-    display: none;
-}
-
 .inheritance-toggle-row {
     display: flex;
     align-items: center;
@@ -2099,6 +2113,27 @@ th, td {
 .balance-record-fill {
     gap: 4px 16px;
     margin-bottom: 12px;
+}
+/* 残高のダイアログの「➕ 口座を追加」(lifeplan ADR 0086「2026-11-10改訂」) */
+.balance-add-asset {
+    margin: 4px 0 12px;
+}
+.balance-add-asset-form {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 8px;
+}
+.balance-add-asset-form[hidden],
+.balance-add-asset-form select[hidden] {
+    display: none;
+}
+.balance-add-asset-form select {
+    width: auto;
+}
+.balance-add-asset-form .field-note {
+    flex-basis: 100%;
+    margin: 0;
 }
 
 /* 狭い画面では、資産ごとに資産名・入力欄・参考の値を縦に並べる(列の見出しは各欄の上に小さく出す) */
@@ -2856,12 +2891,12 @@ details.conditions {
     min-width: 76px;
 }
 
-/* 引き継ぎ・取り込みで足した・変えたタブの印(MEMO.md 2026/10/4コメント1-(1))。数回だけ点滅させて目を引き、印はタブを押すまで残す */
-.sub-tab-btn.handoff-mark {
-    animation: handoff-pulse 1s ease-in-out 4;
+/* 見てほしいタブの印(引き継ぎ・取り込みで足した・変えたタブ、生活費の目安<lifeplan ADR 0097>)。数回だけ点滅させて目を引き、印はタブを見るまで残す */
+.sub-tab-btn.notice-mark {
+    animation: notice-pulse 1s ease-in-out 4;
 }
 
-.handoff-badge {
+.notice-badge {
     display: inline-block;
     margin-left: 6px;
     padding: 0 6px;
@@ -2876,7 +2911,7 @@ details.conditions {
     pointer-events: none;
 }
 
-@keyframes handoff-pulse {
+@keyframes notice-pulse {
     0%, 100% { box-shadow: 0 0 0 0 rgba(245, 158, 11, 0); }
     50% { box-shadow: 0 0 0 4px rgba(245, 158, 11, 0.45); }
 }
@@ -3245,4 +3280,23 @@ th .help-btn {
     .form-grid.doc-values {
         grid-template-columns: repeat(2, minmax(0, 1fr));
     }
+}
+
+/* 数年おきの支出の、買い替えの時期を過ぎた行の注意(lifeplan ADR 0094)。表の幅を崩さないよう、行の下に全幅で出す */
+.durable-overdue-row[hidden] {
+    display: none !important;
+}
+.durable-overdue-row td {
+    padding-top: 0;
+}
+.durable-overdue-row .field-note {
+    margin: 0;
+    /* 表を横にスクロールしても、注意は画面の幅に収めて左に留める */
+    position: sticky;
+    left: 0;
+    max-width: calc(100vw - 72px);
+}
+/* スマホで項目名の欄が潰れないよう、幅の下限を置く(入りきらなければ表を横にスクロールする) */
+#durable_expense_rows input[data-field="name"] {
+    min-width: 8em;
 }
