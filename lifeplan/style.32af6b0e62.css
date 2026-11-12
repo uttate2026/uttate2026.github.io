@@ -523,6 +523,11 @@ html.auth-skip #auth_overlay {
     font-size: 0.85rem;
 }
 
+/* タブの段の下に出すとき(項目を足した・消した、lifeplan ADR 0099)は、下の欄との間をあける */
+.sub-tabs-bar + .plan-propagate {
+    margin: 4px 0 10px;
+}
+
 .plan-propagate-row,
 .plan-propagate-row td {
     display: table-row;
@@ -920,8 +925,7 @@ input[inputmode="numeric"], input[inputmode="decimal"] {
     accent-color: var(--primary);
 }
 
-/* 資産残高推移グラフ・全プラン比較グラフ(ADR 0004、Chart.js)。高さは2026-09-14の
-   フィードバックで280pxから560px(約2倍)に拡大した */
+/* 資産残高推移グラフ・全プラン比較グラフ(ADR 0004、Chart.js)。結果のグラフは答えのカードから「明細を見る」までが1画面に収まりやすい高さ(MEMO.md 2026/11/13コメント1-(2)) */
 /* 生活費のタブの、残高の記録から見た生活費の目安(lifeplan ADR 0097) */
 .living-cost-estimate { margin: 10px 0 6px; padding: 10px 12px; background: var(--primary-wash); border: 1px solid var(--primary-tint); border-radius: 8px; font-size: 14px; line-height: 1.6; }
 .living-cost-estimate p { margin: 0; }
@@ -931,13 +935,14 @@ input[inputmode="numeric"], input[inputmode="decimal"] {
 .help-table td.text-right { white-space: nowrap; text-align: right; }
 
 /* 「2. 資産」の額面で見た運用資産の推移(lifeplan ADR 0096) */
-.asset-nominal-growth { margin-top: 16px; }
+/* 資産のタブ全体(現金・預金を除く)にまたがるため、お住まいの級地(.household-setting)と同じく上に境界線を引く(MEMO.md 2026/11/12コメント1-(4)) */
+.asset-nominal-growth { margin-top: 16px; padding-top: 12px; border-top: 1px solid var(--border); }
 .asset-nominal-figures { display: flex; flex-wrap: wrap; gap: 4px 24px; margin: 8px 0; font-size: 14px; }
 .asset-nominal-canvas-wrap { position: relative; height: 260px; }
 
 #asset_chart_canvas_wrap, #compare_chart_wrap {
     position: relative;
-    height: 560px;
+    height: 370px;
     margin-top: 16px;
 }
 
@@ -2508,26 +2513,26 @@ th, td {
     line-height: 0;
 }
 
-.answer-real-terms-hint {
-    display: inline-flex;
-    align-items: center;
-    gap: 3px;
-    margin-left: 8px;
-    font-weight: normal;
-    color: var(--text-secondary);
-    letter-spacing: 0;
+/* 計算の前提の帯(lifeplan ADR 0098)。閉じられない1行で、スマホでも2行に収める */
+.result-premise {
+    margin: 6px 0 0;
+    padding: 3px 8px;
+    font-size: 13px;
+    line-height: 1.5;
+    color: var(--primary);
+    background: var(--primary-wash);
+    border-left: 4px solid var(--primary);
+    border-radius: 4px;
 }
 
-.soft-notice-close {
-    margin-left: auto;
-    border: none;
-    background: none;
-    font-size: 18px;
-    line-height: 1;
-    color: inherit;
-    cursor: pointer;
-    padding: 0 0 0 8px;
+#compare_premise {
+    margin-bottom: 8px;
 }
+
+.result-premise .result-premise-dot {
+    color: var(--text-secondary);
+}
+
 
 /* 資産の推移の見出しの右の、グラフの表示の切り替え */
 .chart-title-row {
@@ -3265,6 +3270,30 @@ th .help-btn {
 
 .doc-person-tabs {
     margin: 8px 0 0;
+}
+
+/* 給与の書類の値は「名前 金額」の組を横に流し、縦を短くする。書類から更新はPCでは行の右端(lifeplan ADR 0093「2026-11-13改訂」) */
+.doc-line {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 6px 22px;
+    margin: 4px 0 8px;
+    font-size: 14px;
+    line-height: 1.5;
+}
+.doc-line-item { white-space: nowrap; }
+.doc-line-label { color: var(--text-secondary); margin-right: 6px; }
+.doc-line output { font-weight: 600; }
+.doc-line output:empty::before { content: '未入力'; color: var(--text-secondary); font-weight: 400; }
+.doc-line output:empty + .unit { display: none; }
+.doc-line .unit { margin-left: 2px; font-size: 12px; color: var(--text-secondary); }
+.doc-line-sub { margin-left: 6px; font-size: 12px; color: var(--text-secondary); white-space: normal; }
+.doc-line-actions { margin-left: auto; }
+.doc-line-actions .doc-update-row { margin: 0; }
+@media (max-width: 600px) {
+    .doc-line { flex-direction: column; align-items: flex-start; gap: 4px; }
+    .doc-line-actions { margin: 4px 0 0; }
 }
 
 /* 書類の値は見るだけなので、詰めて並べる。スマホでも1行に2項目(lifeplan ADR 0093) */

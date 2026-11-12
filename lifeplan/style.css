@@ -3272,6 +3272,30 @@ th .help-btn {
     margin: 8px 0 0;
 }
 
+/* 給与の書類の値は「名前 金額」の組を横に流し、縦を短くする。書類から更新はPCでは行の右端(lifeplan ADR 0093「2026-11-13改訂」) */
+.doc-line {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 6px 22px;
+    margin: 4px 0 8px;
+    font-size: 14px;
+    line-height: 1.5;
+}
+.doc-line-item { white-space: nowrap; }
+.doc-line-label { color: var(--text-secondary); margin-right: 6px; }
+.doc-line output { font-weight: 600; }
+.doc-line output:empty::before { content: '未入力'; color: var(--text-secondary); font-weight: 400; }
+.doc-line output:empty + .unit { display: none; }
+.doc-line .unit { margin-left: 2px; font-size: 12px; color: var(--text-secondary); }
+.doc-line-sub { margin-left: 6px; font-size: 12px; color: var(--text-secondary); white-space: normal; }
+.doc-line-actions { margin-left: auto; }
+.doc-line-actions .doc-update-row { margin: 0; }
+@media (max-width: 600px) {
+    .doc-line { flex-direction: column; align-items: flex-start; gap: 4px; }
+    .doc-line-actions { margin: 4px 0 0; }
+}
+
 /* 書類の値は見るだけなので、詰めて並べる。スマホでも1行に2項目(lifeplan ADR 0093) */
 .form-grid.doc-values {
     row-gap: 8px;
