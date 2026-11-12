@@ -925,8 +925,7 @@ input[inputmode="numeric"], input[inputmode="decimal"] {
     accent-color: var(--primary);
 }
 
-/* 資産残高推移グラフ・全プラン比較グラフ(ADR 0004、Chart.js)。高さは2026-09-14の
-   フィードバックで280pxから560px(約2倍)に拡大した */
+/* 資産残高推移グラフ・全プラン比較グラフ(ADR 0004、Chart.js)。結果のグラフは答えのカードから「明細を見る」までが1画面に収まりやすい高さ(MEMO.md 2026/11/13コメント1-(2)) */
 /* 生活費のタブの、残高の記録から見た生活費の目安(lifeplan ADR 0097) */
 .living-cost-estimate { margin: 10px 0 6px; padding: 10px 12px; background: var(--primary-wash); border: 1px solid var(--primary-tint); border-radius: 8px; font-size: 14px; line-height: 1.6; }
 .living-cost-estimate p { margin: 0; }
@@ -943,7 +942,7 @@ input[inputmode="numeric"], input[inputmode="decimal"] {
 
 #asset_chart_canvas_wrap, #compare_chart_wrap {
     position: relative;
-    height: 560px;
+    height: 370px;
     margin-top: 16px;
 }
 
