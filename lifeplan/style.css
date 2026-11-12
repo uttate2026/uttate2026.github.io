@@ -396,8 +396,9 @@ header h1 {
     color: var(--text-secondary);
 }
 
+/* 中身は見出しの文字の位置にそろえる(MEMO.md 2026/11/13コメント1-(5)) */
 .fold-group-body {
-    padding-bottom: 12px;
+    padding: 0 0 12px 21px;
 }
 
 /* スマホでは見出しの文字がボタンの中で折り返し、ⓘはその右に置く。要約は次の行にする */
@@ -3284,7 +3285,8 @@ th .help-btn {
 }
 .doc-line-item { white-space: nowrap; }
 .doc-line-label { color: var(--text-secondary); margin-right: 6px; }
-.doc-line output { font-weight: 600; }
+.doc-line output,
+.doc-line-text { font-weight: 600; }
 .doc-line output:empty::before { content: '未入力'; color: var(--text-secondary); font-weight: 400; }
 .doc-line output:empty + .unit { display: none; }
 .doc-line .unit { margin-left: 2px; font-size: 12px; color: var(--text-secondary); }
