@@ -2508,26 +2508,26 @@ th, td {
     line-height: 0;
 }
 
-.answer-real-terms-hint {
-    display: inline-flex;
-    align-items: center;
-    gap: 3px;
-    margin-left: 8px;
-    font-weight: normal;
-    color: var(--text-secondary);
-    letter-spacing: 0;
+/* 計算の前提の帯(lifeplan ADR 0098)。閉じられない1行で、スマホでも2行に収める */
+.result-premise {
+    margin: 6px 0 0;
+    padding: 3px 8px;
+    font-size: 13px;
+    line-height: 1.5;
+    color: var(--primary);
+    background: var(--primary-wash);
+    border-left: 4px solid var(--primary);
+    border-radius: 4px;
 }
 
-.soft-notice-close {
-    margin-left: auto;
-    border: none;
-    background: none;
-    font-size: 18px;
-    line-height: 1;
-    color: inherit;
-    cursor: pointer;
-    padding: 0 0 0 8px;
+#compare_premise {
+    margin-bottom: 8px;
 }
+
+.result-premise .result-premise-dot {
+    color: var(--text-secondary);
+}
+
 
 /* 資産の推移の見出しの右の、グラフの表示の切り替え */
 .chart-title-row {

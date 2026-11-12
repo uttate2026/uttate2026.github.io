@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ライフプランシミュレーター</title>
-    <link rel="stylesheet" href="style.e46aea573c.css">
+    <link rel="stylesheet" href="style.46ee14f680.css">
     <!-- 待っている間の表示(回る輪+文字)の見た目は4アプリで共通(docs/shared/decisions/0017)。起動時の表示より先に読む -->
     <link rel="stylesheet" href="shared/busy-indicator.6fbf9e1ca8.css">
     <!-- uttate.comに埋め込まれているとき(iframeの外にページの見出しがある)は、中のタイトルを出さない(MEMO.md 2026/9/30コメント1-(12))。
@@ -139,7 +139,7 @@
                 <!-- 運用する資産(現金・預金を除く)の額面の推移(lifeplan ADR 0096)。結果とは切り離し、いつも想定どおりの計算から出す。開閉はブラウザが覚える -->
                 <details class="detail-toggle asset-nominal-growth" id="asset_nominal_growth" hidden>
                     <summary data-track="open_nominal_growth">📈 額面で見た運用資産の推移</summary>
-                    <p class="field-note">現金・預金を除いた、運用する資産の額面(証券口座などに表示される金額)の見通しです。積立額と想定利回り(どちらも額面)のとおりに増え、取り崩した分だけ減ります。「4. シミュレーション結果」は、現金・預金を含めて今のお金の価値で表しています。</p>
+                    <p class="field-note">現金・預金を除いた、運用する資産の額面(証券口座などに表示される金額)の見通しです。積立額と想定利回り(どちらも額面)のとおりに増え、取り崩した分だけ減ります。「4. シミュレーション結果」は、現金・預金を含めて今の物価に換算して表しています。</p>
                     <p class="asset-nominal-figures" id="asset_nominal_figures"></p>
                     <div class="asset-nominal-canvas-wrap"><canvas id="asset_nominal_canvas"></canvas></div>
                 </details>
@@ -288,7 +288,7 @@
                         <!-- 見出しの右に書き出しの操作を置き、カードを低くする(lifeplan ADR 0088)。スマホでは書き出しのアイコン1つにまとめ、押すとメニューで開く -->
                         <div class="answer-head">
                             <div>
-                                <div class="answer-label"><span id="result_answer_label">資産の見通し</span><span class="answer-real-terms-hint" id="result_real_terms_hint" hidden></span></div>
+                                <div class="answer-label"><span id="result_answer_label">資産の見通し</span></div>
                                 <p class="answer-how" id="result_answer_how"></p>
                             </div>
                             <div class="answer-export" id="answer_export">
@@ -311,12 +311,11 @@
                             <span class="answer-delta" id="result_answer_delta" hidden></span>
                         </div>
                         <p class="answer-basis" id="result_answer_basis" hidden></p>
+                        <!-- 計算の前提(物価・年金の目減り・今の物価への換算)。閉じられない1行で常に出す(lifeplan ADR 0098) -->
+                        <p class="result-premise" id="result_premise"></p>
                     </div>
                     <!-- 資金不足のときの、考えられる原因とその入力欄へのボタン(MEMO.md 2026/10/2コメント2-(6)) -->
                     <div id="result_shortage_note" class="shortage-note" role="status" hidden></div>
-                    <!-- 想定どおりは物価が毎年2%上がる前提で、金額は今のお金の価値(lifeplan ADR 0078)。年金は財政検証の過去30年投影ケースに沿って目減りする(ADR 0079)。
-                         物価高のシナリオを選んだときは説明に書くため出さない -->
-                    <p class="soft-notice" id="result_real_terms_note"><span aria-hidden="true">ⓘ</span><span id="result_real_terms_text">金額は今のお金の価値です。物価は毎年<span id="result_inflation_rate"></span>%(日本銀行の目標)上がり、年金は政府の年金の見通し(財政検証)に沿って目減りします。<span id="pension_outlook_help"></span>物価がもっと上がる場合は「うまくいかなかったら？」の物価の上昇で確かめられます。</span><button type="button" class="soft-notice-close" id="btn_real_terms_note_close" aria-label="閉じる" title="閉じる(見出しの横のⓘでいつでも読めます)">×</button></p>
                     <!-- 死亡予測年齢が平均余命のままのとき、長生きした場合の確かめ方(ADR 0054) -->
                     <p class="soft-notice" id="result_longevity_note" hidden><span aria-hidden="true">ⓘ</span><span>平均余命は、半数を超える人がそれより長生きする年齢です。長生きしても足りるかは、死亡予測年齢を「4人に1人が生きている年齢」にして確かめられます。<button type="button" class="btn-link" id="btn_result_change_death_age">死亡予測年齢を変える</button></span></p>
                     <!-- 障害年金をやめてから老齢年金を受け取るまでの空白の期間と、繰り下げられるか(ADR 0009「2026-10-29改訂」) -->
@@ -508,6 +507,7 @@
                 </div>
                 <!-- 全プランに同じ「うまくいかなかったら？」を当てはめる(lifeplan ADR 0071) -->
                 <div id="compare_return_scenario" class="result-return-scenario"></div>
+                <p class="result-premise" id="compare_premise"></p>
                 <!-- 総資産・現金・預金だけの切り替え(lifeplan ADR 0073、保存しない)。シナリオの選択欄とグラフの間を詰めるため、見出しを置かず
                      グラフの右上の小さな切り替えにする(lifeplan ADR 0080) -->
                 <div class="sub-tabs-bar compare-chart-series" id="compare_chart_series_tabs" role="group" aria-label="グラフに出すもの">
@@ -956,7 +956,7 @@
     <script src="shared/kenpo-bridge.3380b50c30.js"></script>
     <script src="shared/chart-age-cursor.6b007e2eae.js"></script>
     <script src="shared/age-stepper.1b938669bf.js"></script>
-    <script src="shared/parameter-catalog.e93892ab9f.js"></script>
+    <script src="shared/parameter-catalog.f0c185ee6c.js"></script>
     <script src="shared/revisit.457211bfd9.js"></script>
     <script src="shared/rebalance-reader.0f7f25ff6f.js"></script>
     <script src="shared/embed-overlay.3e451105d1.js"></script>
@@ -975,16 +975,16 @@
     <script src="resize-notifier.853bd3d284.js"></script>
     <script src="vendor/chart.722c971079.js"></script>
     <script src="shared/busy-indicator.985410e3ab.js"></script>
-    <script src="ui-helpers.17a355d517.js"></script>
+    <script src="ui-helpers.6b55452dc3.js"></script>
     <script src="ui-records.2bd4739e60.js"></script>
     <script src="ui-person-form.09c09c443e.js"></script>
-    <script src="ui-asset-expense-form.bb959b2ec8.js"></script>
-    <script src="ui-results.f5aeab027f.js"></script>
+    <script src="ui-asset-expense-form.60706c5c84.js"></script>
+    <script src="ui-results.3131561c58.js"></script>
     <script src="ui-inheritance.1ad2fa583e.js"></script>
-    <script src="ui-compare.8eacdc9ee5.js"></script>
+    <script src="ui-compare.52ba0f8b17.js"></script>
     <script src="ui-revisit.25cedf5dc4.js"></script>
     <script src="ui-documents.52295535b4.js"></script>
-    <script src="ui.6b1484e9d7.js"></script>
+    <script src="ui.ac8cbbc9dd.js"></script>
     <script>
         CarryOver.init();
         window.model = new LifeplanModel({ window: window, storage: AppStorage });
