@@ -931,7 +931,8 @@ input[inputmode="numeric"], input[inputmode="decimal"] {
 .help-table td.text-right { white-space: nowrap; text-align: right; }
 
 /* 「2. 資産」の額面で見た運用資産の推移(lifeplan ADR 0096) */
-.asset-nominal-growth { margin-top: 16px; }
+/* 資産のタブ全体(現金・預金を除く)にまたがるため、お住まいの級地(.household-setting)と同じく上に境界線を引く(MEMO.md 2026/11/12コメント1-(4)) */
+.asset-nominal-growth { margin-top: 16px; padding-top: 12px; border-top: 1px solid var(--border); }
 .asset-nominal-figures { display: flex; flex-wrap: wrap; gap: 4px 24px; margin: 8px 0; font-size: 14px; }
 .asset-nominal-canvas-wrap { position: relative; height: 260px; }
 
