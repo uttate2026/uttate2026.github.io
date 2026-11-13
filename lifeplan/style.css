@@ -3211,37 +3211,6 @@ th .help-btn {
     outline: none;
 }
 
-/* 書類の値(lifeplan ADR 0093): 収入のタブでは見るだけ。入れるのは「書類から更新」のダイアログ */
-.doc-value {
-    min-height: 32px;
-    align-items: center;
-}
-
-.doc-value output,
-.doc-value-text {
-    font-weight: 600;
-}
-
-.doc-value output:empty::before {
-    content: '未入力';
-    color: var(--text-secondary);
-    font-weight: 400;
-}
-
-.doc-value output:empty + .unit {
-    display: none;
-}
-
-.doc-update-row {
-    align-items: center;
-    gap: 8px;
-    margin: 8px 0 16px;
-}
-
-.doc-update-row .field-note {
-    margin: 0;
-}
-
 .doc-stale-note {
     color: var(--danger);
 }
@@ -3292,26 +3261,12 @@ th .help-btn {
 .doc-line .unit { margin-left: 2px; font-size: 12px; color: var(--text-secondary); }
 .doc-line-sub { margin-left: 6px; font-size: 12px; color: var(--text-secondary); white-space: normal; }
 .doc-line-actions { margin-left: auto; }
-.doc-line-actions .doc-update-row { margin: 0; }
+.doc-line-item > .btn { margin-left: 10px; }
 @media (max-width: 600px) {
     .doc-line { flex-direction: column; align-items: flex-start; gap: 4px; }
     .doc-line-actions { margin: 4px 0 0; }
 }
 
-/* 書類の値は見るだけなので、詰めて並べる。スマホでも1行に2項目(lifeplan ADR 0093) */
-.form-grid.doc-values {
-    row-gap: 8px;
-}
-
-.doc-values .form-field {
-    margin-bottom: 0;
-}
-
-@media (max-width: 600px) {
-    .form-grid.doc-values {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-    }
-}
 
 /* 数年おきの支出の、買い替えの時期を過ぎた行の注意(lifeplan ADR 0094)。表の幅を崩さないよう、行の下に全幅で出す */
 .durable-overdue-row[hidden] {

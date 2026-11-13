@@ -396,8 +396,9 @@ header h1 {
     color: var(--text-secondary);
 }
 
+/* 中身は見出しの文字の位置にそろえる(MEMO.md 2026/11/13コメント1-(5)) */
 .fold-group-body {
-    padding-bottom: 12px;
+    padding: 0 0 12px 21px;
 }
 
 /* スマホでは見出しの文字がボタンの中で折り返し、ⓘはその右に置く。要約は次の行にする */
@@ -521,6 +522,11 @@ html.auth-skip #auth_overlay {
     gap: 4px 10px;
     margin-top: 4px;
     font-size: 0.85rem;
+}
+
+/* タブの段の下に出すとき(項目を足した・消した、lifeplan ADR 0099)は、下の欄との間をあける */
+.sub-tabs-bar + .plan-propagate {
+    margin: 4px 0 10px;
 }
 
 .plan-propagate-row,
@@ -920,8 +926,7 @@ input[inputmode="numeric"], input[inputmode="decimal"] {
     accent-color: var(--primary);
 }
 
-/* 資産残高推移グラフ・全プラン比較グラフ(ADR 0004、Chart.js)。高さは2026-09-14の
-   フィードバックで280pxから560px(約2倍)に拡大した */
+/* 資産残高推移グラフ・全プラン比較グラフ(ADR 0004、Chart.js)。結果のグラフは答えのカードから「明細を見る」までが1画面に収まりやすい高さ(MEMO.md 2026/11/13コメント1-(2)) */
 /* 生活費のタブの、残高の記録から見た生活費の目安(lifeplan ADR 0097) */
 .living-cost-estimate { margin: 10px 0 6px; padding: 10px 12px; background: var(--primary-wash); border: 1px solid var(--primary-tint); border-radius: 8px; font-size: 14px; line-height: 1.6; }
 .living-cost-estimate p { margin: 0; }
@@ -938,7 +943,7 @@ input[inputmode="numeric"], input[inputmode="decimal"] {
 
 #asset_chart_canvas_wrap, #compare_chart_wrap {
     position: relative;
-    height: 560px;
+    height: 370px;
     margin-top: 16px;
 }
 
@@ -3206,37 +3211,6 @@ th .help-btn {
     outline: none;
 }
 
-/* 書類の値(lifeplan ADR 0093): 収入のタブでは見るだけ。入れるのは「書類から更新」のダイアログ */
-.doc-value {
-    min-height: 32px;
-    align-items: center;
-}
-
-.doc-value output,
-.doc-value-text {
-    font-weight: 600;
-}
-
-.doc-value output:empty::before {
-    content: '未入力';
-    color: var(--text-secondary);
-    font-weight: 400;
-}
-
-.doc-value output:empty + .unit {
-    display: none;
-}
-
-.doc-update-row {
-    align-items: center;
-    gap: 8px;
-    margin: 8px 0 16px;
-}
-
-.doc-update-row .field-note {
-    margin: 0;
-}
-
 .doc-stale-note {
     color: var(--danger);
 }
@@ -3268,20 +3242,31 @@ th .help-btn {
     margin: 8px 0 0;
 }
 
-/* 書類の値は見るだけなので、詰めて並べる。スマホでも1行に2項目(lifeplan ADR 0093) */
-.form-grid.doc-values {
-    row-gap: 8px;
+/* 給与の書類の値は「名前 金額」の組を横に流し、縦を短くする。書類から更新はPCでは行の右端(lifeplan ADR 0093「2026-11-13改訂」) */
+.doc-line {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 6px 22px;
+    margin: 4px 0 8px;
+    font-size: 14px;
+    line-height: 1.5;
 }
-
-.doc-values .form-field {
-    margin-bottom: 0;
-}
-
+.doc-line-item { white-space: nowrap; }
+.doc-line-label { color: var(--text-secondary); margin-right: 6px; }
+.doc-line output,
+.doc-line-text { font-weight: 600; }
+.doc-line output:empty::before { content: '未入力'; color: var(--text-secondary); font-weight: 400; }
+.doc-line output:empty + .unit { display: none; }
+.doc-line .unit { margin-left: 2px; font-size: 12px; color: var(--text-secondary); }
+.doc-line-sub { margin-left: 6px; font-size: 12px; color: var(--text-secondary); white-space: normal; }
+.doc-line-actions { margin-left: auto; }
+.doc-line-item > .btn { margin-left: 10px; }
 @media (max-width: 600px) {
-    .form-grid.doc-values {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-    }
+    .doc-line { flex-direction: column; align-items: flex-start; gap: 4px; }
+    .doc-line-actions { margin: 4px 0 0; }
 }
+
 
 /* 数年おきの支出の、買い替えの時期を過ぎた行の注意(lifeplan ADR 0094)。表の幅を崩さないよう、行の下に全幅で出す */
 .durable-overdue-row[hidden] {
