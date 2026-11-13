@@ -939,7 +939,8 @@ input[inputmode="numeric"], input[inputmode="decimal"] {
 /* 資産のタブ全体(現金・預金を除く)にまたがるため、お住まいの級地(.household-setting)と同じく上に境界線を引く(MEMO.md 2026/11/12コメント1-(4)) */
 .asset-nominal-growth { margin-top: 16px; padding-top: 12px; border-top: 1px solid var(--border); }
 .asset-nominal-figures { display: flex; flex-wrap: wrap; gap: 4px 24px; margin: 8px 0; font-size: 14px; }
-.asset-nominal-canvas-wrap { position: relative; height: 260px; }
+.asset-nominal-canvas-wrap { position: relative; height: 370px; }
+.asset-nominal-controls { display: flex; flex-wrap: wrap; gap: 6px 12px; justify-content: space-between; margin: 6px 0; }
 
 #asset_chart_canvas_wrap, #compare_chart_wrap {
     position: relative;

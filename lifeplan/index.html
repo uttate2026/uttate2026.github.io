@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ライフプランシミュレーター</title>
-    <link rel="stylesheet" href="style.9bcc89c864.css">
+    <link rel="stylesheet" href="style.0ce037fc3c.css">
     <!-- 待っている間の表示(回る輪+文字)の見た目は4アプリで共通(docs/shared/decisions/0017)。起動時の表示より先に読む -->
     <link rel="stylesheet" href="shared/busy-indicator.6fbf9e1ca8.css">
     <!-- uttate.comに埋め込まれているとき(iframeの外にページの見出しがある)は、中のタイトルを出さない(MEMO.md 2026/9/30コメント1-(12))。
@@ -139,8 +139,20 @@
                 <!-- 運用する資産(現金・預金を除く)の額面の推移(lifeplan ADR 0096)。結果とは切り離し、いつも想定どおりの計算から出す。開閉はブラウザが覚える -->
                 <details class="detail-toggle asset-nominal-growth" id="asset_nominal_growth" hidden>
                     <summary data-track="open_nominal_growth">📈 額面で見た運用資産の推移</summary>
-                    <p class="field-note">現金・預金を除いた、運用する資産の額面(証券口座などに表示される金額)の見通しです。積立額と想定利回り(どちらも額面)のとおりに増え、取り崩した分だけ減ります。「4. シミュレーション結果」は、現金・預金を含めて今の物価に換算して表しています。</p>
+                    <p class="field-note">現金・預金を除いた、運用する資産の額面(証券口座などに表示される金額)の見通しです。◆はこれまでの残高の記録です。積立額と想定利回り(どちらも額面)のとおりに増え、取り崩した分だけ減ります。「4. シミュレーション結果」は、現金・預金を含めて今の物価に換算して表しています。</p>
                     <p class="asset-nominal-figures" id="asset_nominal_figures"></p>
+                    <!-- 見方(総資産/資産ごと)と、横軸の期間(lifeplan ADR 0100)。短い期間に絞ると、これまでの実績と近い先を拡大して見られる -->
+                    <div class="asset-nominal-controls" id="asset_nominal_controls">
+                        <span class="sub-tabs-bar compare-chart-series" role="group" aria-label="グラフの見方">
+                            <button type="button" class="sub-tab-btn active" data-nominal-type="stacked">総資産で見る</button>
+                            <button type="button" class="sub-tab-btn" data-nominal-type="line">資産ごとに見る</button>
+                        </span>
+                        <span class="sub-tabs-bar compare-chart-series" role="group" aria-label="表示する期間">
+                            <button type="button" class="sub-tab-btn" data-nominal-range="5">これまで+5年</button>
+                            <button type="button" class="sub-tab-btn active" data-nominal-range="10">これまで+10年</button>
+                            <button type="button" class="sub-tab-btn" data-nominal-range="all">全期間</button>
+                        </span>
+                    </div>
                     <div class="asset-nominal-canvas-wrap"><canvas id="asset_nominal_canvas"></canvas></div>
                 </details>
             </div>
@@ -330,11 +342,6 @@
                         <span class="sub-tabs-bar compare-chart-series saved-plan-range" id="saved_plan_range" role="group" aria-label="表示する期間" hidden>
                             <button type="button" class="sub-tab-btn" data-saved-range="recent">保存してから今まで</button>
                             <button type="button" class="sub-tab-btn" data-saved-range="all">全期間</button>
-                        </span>
-                        <!-- タブ名はグラフの形式ではなく「何を見るか」で表す(中身はそれぞれ積み上げ面グラフ・折れ線グラフ) -->
-                        <span class="sub-tabs-bar compare-chart-series" id="asset_chart_type_tabs_row" role="group" aria-label="グラフの見方">
-                            <button type="button" class="sub-tab-btn active" data-action="select-asset-chart-type" data-asset-chart-type="stacked">総資産で見る</button>
-                            <button type="button" class="sub-tab-btn" data-action="select-asset-chart-type" data-asset-chart-type="line">資産ごとに見る</button>
                         </span>
                     </span>
                 </div>
@@ -956,7 +963,7 @@
     <script src="shared/kenpo-bridge.3380b50c30.js"></script>
     <script src="shared/chart-age-cursor.6b007e2eae.js"></script>
     <script src="shared/age-stepper.1b938669bf.js"></script>
-    <script src="shared/parameter-catalog.40f4969b16.js"></script>
+    <script src="shared/parameter-catalog.eff8fa0710.js"></script>
     <script src="shared/revisit.457211bfd9.js"></script>
     <script src="shared/rebalance-reader.0f7f25ff6f.js"></script>
     <script src="shared/embed-overlay.3e451105d1.js"></script>
@@ -975,16 +982,16 @@
     <script src="resize-notifier.853bd3d284.js"></script>
     <script src="vendor/chart.722c971079.js"></script>
     <script src="shared/busy-indicator.985410e3ab.js"></script>
-    <script src="ui-helpers.6b55452dc3.js"></script>
+    <script src="ui-helpers.6c8b40400a.js"></script>
     <script src="ui-records.2bd4739e60.js"></script>
     <script src="ui-person-form.60dab36e32.js"></script>
     <script src="ui-asset-expense-form.60706c5c84.js"></script>
-    <script src="ui-results.3131561c58.js"></script>
+    <script src="ui-results.39c6379cee.js"></script>
     <script src="ui-inheritance.1ad2fa583e.js"></script>
     <script src="ui-compare.52ba0f8b17.js"></script>
     <script src="ui-revisit.25cedf5dc4.js"></script>
     <script src="ui-documents.cf9197b626.js"></script>
-    <script src="ui.81aca993ef.js"></script>
+    <script src="ui.dfe407e946.js"></script>
     <script>
         CarryOver.init();
         window.model = new LifeplanModel({ window: window, storage: AppStorage });
