@@ -2436,6 +2436,18 @@ th, td {
     padding-top: 12px;
     border-top: 1px solid var(--border);
 }
+/* 生年月日は中身の幅のまま、横の欄(級地・続柄等)が残りを使って縮み、狭すぎれば次の行へ回る(lifeplan ADR 0101) */
+.form-grid.person-head-grid {
+    display: flex;
+    flex-wrap: wrap;
+}
+.person-head-grid > * {
+    flex: 1 1 220px;
+    min-width: 0;
+}
+.person-head-grid > .form-field:first-child {
+    flex: 0 0 auto;
+}
 /* 世帯主のタブでは生年月日の横に並べる(lifeplan ADR 0101) */
 .household-setting.in-person-grid {
     margin-top: 0;
