@@ -2436,6 +2436,12 @@ th, td {
     padding-top: 12px;
     border-top: 1px solid var(--border);
 }
+/* 世帯主のタブでは生年月日の横に並べる(lifeplan ADR 0101) */
+.household-setting.in-person-grid {
+    margin-top: 0;
+    padding-top: 0;
+    border-top: none;
+}
 
 /* 入力の状況(MEMO.md 2026/10/4コメント1-(8)、ADR 0047)。資金不足の案内と同じ形で、注意ではなく案内のため青系にする */
 .input-status-note {
