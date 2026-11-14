@@ -129,6 +129,8 @@
                 <details class="detail-toggle asset-nominal-growth" id="income_current_law">
                     <summary data-track="open_income_current_law">📊 今の制度の額で見た収入</summary>
                     <p class="field-note">物価の上昇・年金の目減り(マクロ経済スライド)を入れず、今の制度・今の額のまま計算した、税・保険料を引く前の収入です。年金事務所の試算やねんきん定期便の額と比べるときに使います。在職老齢年金で減る分・加給年金・繰上げ・繰下げは入れています。「4. シミュレーション結果」は、物価の上昇と年金の目減りを入れて今の物価に換算しています。</p>
+                    <!-- 見る人の切り替え(世帯/人ごと)。収入のある人が2人以上のときだけ出す -->
+                    <div class="sub-tabs-bar compare-chart-series" id="income_current_law_people" role="group" aria-label="見る人" hidden></div>
                     <div class="asset-nominal-canvas-wrap"><canvas id="income_current_law_canvas"></canvas></div>
                     <div class="table-responsive"><table class="dynamic-list-table income-current-law-table" id="income_current_law_table"></table></div>
                 </details>
@@ -993,12 +995,12 @@
     <script src="ui-records.2bd4739e60.js"></script>
     <script src="ui-person-form.60dab36e32.js"></script>
     <script src="ui-asset-expense-form.60706c5c84.js"></script>
-    <script src="ui-results.5d508c2932.js"></script>
+    <script src="ui-results.921bad7e8e.js"></script>
     <script src="ui-inheritance.1ad2fa583e.js"></script>
-    <script src="ui-compare.9ec905414d.js"></script>
+    <script src="ui-compare.aa43c778c5.js"></script>
     <script src="ui-revisit.25cedf5dc4.js"></script>
     <script src="ui-documents.cf9197b626.js"></script>
-    <script src="ui.b570cd5b13.js"></script>
+    <script src="ui.40220fe47d.js"></script>
     <script>
         CarryOver.init();
         window.model = new LifeplanModel({ window: window, storage: AppStorage });
