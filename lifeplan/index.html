@@ -125,6 +125,13 @@
                     <!-- 何に使うかを、ⓘを押さなくても分かるように書く(MEMO.md 2026/10/18コメント1-(5)) -->
                     <p class="field-note">住民税が非課税になるかの判定に使います(基準が市区町村の規模で違うため)。分からなければ3級地のままで構いません。</p>
                 </div>
+                <!-- 今の制度の額で見た収入(lifeplan ADR 0101)。年金事務所・ねんきん定期便と同じ考え方の、税・保険料を引く前の額。開閉はブラウザが覚える -->
+                <details class="detail-toggle asset-nominal-growth" id="income_current_law">
+                    <summary data-track="open_income_current_law">📊 今の制度の額で見た収入</summary>
+                    <p class="field-note">物価の上昇・年金の目減り(マクロ経済スライド)を入れず、今の制度・今の額のまま計算した、税・保険料を引く前の収入です。年金事務所の試算やねんきん定期便の額と比べるときに使います。在職老齢年金で減る分・加給年金・繰上げ・繰下げは入れています。「4. シミュレーション結果」は、物価の上昇と年金の目減りを入れて今の物価に換算しています。</p>
+                    <div class="asset-nominal-canvas-wrap"><canvas id="income_current_law_canvas"></canvas></div>
+                    <div class="table-responsive"><table class="dynamic-list-table income-current-law-table" id="income_current_law_table"></table></div>
+                </details>
             </div>
 
             <div class="card input-card" data-section="assets">
@@ -963,7 +970,7 @@
     <script src="shared/kenpo-bridge.3380b50c30.js"></script>
     <script src="shared/chart-age-cursor.6b007e2eae.js"></script>
     <script src="shared/age-stepper.1b938669bf.js"></script>
-    <script src="shared/parameter-catalog.eff8fa0710.js"></script>
+    <script src="shared/parameter-catalog.f57484642e.js"></script>
     <script src="shared/revisit.457211bfd9.js"></script>
     <script src="shared/rebalance-reader.0f7f25ff6f.js"></script>
     <script src="shared/embed-overlay.3e451105d1.js"></script>
@@ -982,16 +989,16 @@
     <script src="resize-notifier.853bd3d284.js"></script>
     <script src="vendor/chart.722c971079.js"></script>
     <script src="shared/busy-indicator.985410e3ab.js"></script>
-    <script src="ui-helpers.657b018d38.js"></script>
+    <script src="ui-helpers.a51b0417bc.js"></script>
     <script src="ui-records.2bd4739e60.js"></script>
     <script src="ui-person-form.60dab36e32.js"></script>
     <script src="ui-asset-expense-form.60706c5c84.js"></script>
-    <script src="ui-results.484651201e.js"></script>
+    <script src="ui-results.5d508c2932.js"></script>
     <script src="ui-inheritance.1ad2fa583e.js"></script>
-    <script src="ui-compare.52ba0f8b17.js"></script>
+    <script src="ui-compare.9ec905414d.js"></script>
     <script src="ui-revisit.25cedf5dc4.js"></script>
     <script src="ui-documents.cf9197b626.js"></script>
-    <script src="ui.dfe407e946.js"></script>
+    <script src="ui.b570cd5b13.js"></script>
     <script>
         CarryOver.init();
         window.model = new LifeplanModel({ window: window, storage: AppStorage });
