@@ -291,6 +291,12 @@
                         <button type="button" id="btn_add_gift" class="btn btn-link">➕ 世帯外への生前贈与を追加</button>
                     </div>
                 </div>
+                <!-- 今の物価で見た支出(lifeplan ADR 0102)。タブをまたいだ支出を、物価の上昇を入れない入力どおりの額で見る。開閉はブラウザが覚える -->
+                <details class="detail-toggle asset-nominal-growth" id="expense_overview">
+                    <summary data-track="open_expense_overview">📊 今の物価で見た支出<button type="button" class="help-btn help-btn-info" data-help="info" aria-label="解説" aria-expanded="false" tabindex="-1"></button><template class="help-content"><p>支出のタブに入れた内容を合わせて、年ごとの支出と生涯の合計を、今の物価(入力したとおりの額)で出します。</p><p>残高の記録から実際に使った生活費の目安が出せるときは、その期間に線で重ねます。</p><p>支出は物価と同じだけ上がる前提のため、「4. シミュレーション結果」の明細の支出と同じ額です。</p></template></summary>
+                    <div class="asset-nominal-canvas-wrap"><canvas id="expense_overview_canvas"></canvas></div>
+                    <div class="table-responsive"><table class="dynamic-list-table income-current-law-table" id="expense_overview_table"></table></div>
+                </details>
             </div>
 
             <div class="card" data-section="result">
@@ -969,7 +975,7 @@
     <script src="shared/kenpo-bridge.3380b50c30.js"></script>
     <script src="shared/chart-age-cursor.6b007e2eae.js"></script>
     <script src="shared/age-stepper.1b938669bf.js"></script>
-    <script src="shared/parameter-catalog.26a0a94dcd.js"></script>
+    <script src="shared/parameter-catalog.7628ef210e.js"></script>
     <script src="shared/revisit.457211bfd9.js"></script>
     <script src="shared/rebalance-reader.0f7f25ff6f.js"></script>
     <script src="shared/embed-overlay.3e451105d1.js"></script>
@@ -992,12 +998,12 @@
     <script src="ui-records.2bd4739e60.js"></script>
     <script src="ui-person-form.1c00535780.js"></script>
     <script src="ui-asset-expense-form.60706c5c84.js"></script>
-    <script src="ui-results.b231723477.js"></script>
+    <script src="ui-results.6bb520a706.js"></script>
     <script src="ui-inheritance.1ad2fa583e.js"></script>
     <script src="ui-compare.60c3bc6a70.js"></script>
     <script src="ui-revisit.25cedf5dc4.js"></script>
     <script src="ui-documents.cf9197b626.js"></script>
-    <script src="ui.6712fd3f8c.js"></script>
+    <script src="ui.a4997c12b4.js"></script>
     <script>
         CarryOver.init();
         window.model = new LifeplanModel({ window: window, storage: AppStorage });
