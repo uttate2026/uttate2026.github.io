@@ -284,7 +284,8 @@ header h1 {
 .actual-balance-line { margin: 0; }
 .actual-balance-line .doc-line-label,
 .asset-now-lines .doc-line-label { font-weight: bold; color: var(--text-main); }
-.asset-now-lines { display: flex; flex-direction: column; gap: 6px; }
+.asset-now-lines { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 22px; }
+.asset-now-lines > .actual-balance-field { flex: 1 1 auto; }
 .asset-now-lines .doc-line { margin: 0; }
 .asset-now-lines .doc-line-item { display: inline-flex; align-items: center; flex-wrap: wrap; gap: 4px 0; }
 .asset-now-lines .birth-date-fields { flex-wrap: nowrap; }
