@@ -279,6 +279,22 @@ header h1 {
     color: var(--text-secondary);
 }
 
+/* 資産タブの残高の1行(lifeplan ADR 0103)。欄の並び(form-grid)の中でも行の幅いっぱいに置き、余白を詰める */
+.actual-balance-field { grid-column: 1 / -1; margin-bottom: 0; }
+.actual-balance-line { margin: 0; }
+.actual-balance-line .doc-line-label,
+.asset-now-lines .doc-line-label { font-weight: bold; color: var(--text-main); }
+.asset-now-lines { display: flex; flex-direction: column; gap: 6px; }
+.asset-now-lines .doc-line { margin: 0; }
+.asset-now-lines .doc-line-item { display: inline-flex; align-items: center; flex-wrap: wrap; gap: 4px 0; }
+.asset-now-lines .birth-date-fields { flex-wrap: nowrap; }
+.asset-now-lines .birth-date-fields select { width: auto; flex: 0 0 auto; }
+/* スマホでも、残高の行は「名前 金額」とボタンを横に並べる(折り返すときだけ下へ) */
+@media (max-width: 600px) {
+    .actual-balance-line,
+    .asset-now-lines .doc-line { flex-direction: row; flex-wrap: wrap; align-items: center; gap: 4px 10px; }
+}
+
 /* 残高のダイアログの外貨の資産: 外国通貨の額と今の為替 */
 .balance-foreign {
     display: flex;
