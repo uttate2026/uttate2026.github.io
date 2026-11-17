@@ -502,11 +502,11 @@
     <script src="auth.6abee73805.js"></script>
     <script src="consent.8a242ea3de.js"></script>
     <!-- 利用状況の計測(GA4、docs/shared/decisions/0019)。同意の後にタグを読み込む -->
-    <script src="shared/analytics.52738646c9.js" data-app="nenkin"></script>
+    <script src="shared/analytics.28948d3411.js" data-app="nenkin"></script>
     <script src="resize-notifier.eda0f90457.js"></script>
     <!-- ホーム画面に追加するときのデータの移し替え(docs/shared/decisions/0020)。アプリが最初の保存をする前に取り込むかを決めるため、先に読む -->
     <script src="shared/plan-share-link.184c819c6d.js"></script>
-    <script src="shared/carry-over.7d0dbbeb39.js"></script>
+    <script src="shared/carry-over.2f036be51a.js"></script>
     <script src="vendor/chart.80de9e19f1.js"></script>
     <!-- トピックA(年金受給開始年齢の比較)がlifeplanエンジンを再利用するための共有モジュール
          (docs/shared/decisions/0004参照)。scripts/sync-shared.jsがsrc/shared/からコピーする
@@ -534,6 +534,7 @@
     <script src="ui.7311bb5e01.js"></script>
     <script>
         CarryOver.init();
+        CarryOver.moveFromOldEmbed();
         window.model = new NenkinModel({ window: window, storage: AppStorage });
         AppAuth.init();
         AppConsent.init();
