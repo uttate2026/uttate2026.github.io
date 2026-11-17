@@ -596,11 +596,11 @@
     <script src="auth.6abee73805.js"></script>
     <script src="consent.834b993147.js"></script>
     <!-- 利用状況の計測(GA4、docs/shared/decisions/0019)。同意の後にタグを読み込む -->
-    <script src="shared/analytics.906a22523c.js" data-app="ideco"></script>
+    <script src="shared/analytics.21e77e61ee.js" data-app="ideco"></script>
     <script src="resize-notifier.8b3c8e9088.js"></script>
     <!-- ホーム画面に追加するときのデータの移し替え(docs/shared/decisions/0020)。アプリが最初の保存をする前に取り込むかを決めるため、先に読む -->
     <script src="shared/plan-share-link.6f4a605822.js"></script>
-    <script src="shared/carry-over.3720f1297e.js"></script>
+    <script src="shared/carry-over.87c266c0d6.js"></script>
     <script src="vendor/chart.8969a0df03.js"></script>
     <!-- 比較結果表示がlifeplanエンジンを再利用するための共有モジュール
          (docs/shared/decisions/0004参照)。scripts/sync-shared.jsがsrc/shared/からコピーする
@@ -629,6 +629,7 @@
     <script src="ui.536ec04b54.js"></script>
     <script>
         CarryOver.init();
+        CarryOver.moveFromOldEmbed();
         window.model = new IdecoModel({ window: window, storage: AppStorage });
         AppAuth.init();
         AppConsent.init();
