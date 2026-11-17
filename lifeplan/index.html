@@ -125,7 +125,7 @@
                 </div>
                 <!-- 今の制度の額で見た収入(lifeplan ADR 0101)。年金事務所・ねんきん定期便と同じ考え方の、税・保険料を引く前の額。開閉はブラウザが覚える -->
                 <details class="detail-toggle asset-nominal-growth" id="income_current_law">
-                    <summary data-track="open_income_current_law">📊 今の制度の額で見た収入<button type="button" class="help-btn help-btn-info" data-help="info" aria-label="解説" aria-expanded="false" tabindex="-1"></button><template class="help-content"><p>物価の上昇・年金の目減り(マクロ経済スライド)を入れず、今の制度・今の額のまま計算した収入です。年金事務所の試算やねんきん定期便の額と比べるときに使います。在職老齢年金で減る分・加給年金・繰上げ・繰下げは入れています。</p><p>手取りは、収入から税金・社会保険料を引いた額です。</p><p>「4. シミュレーション結果」は、物価の上昇と年金の目減りを入れて今の物価に換算しています。</p></template></summary>
+                    <summary data-track="open_income_current_law">📊 今の制度の額で見た収入の推移<button type="button" class="help-btn help-btn-info" data-help="info" aria-label="解説" aria-expanded="false" tabindex="-1"></button><template class="help-content"><p>物価の上昇・年金の目減り(マクロ経済スライド)を入れず、今の制度・今の額のまま計算した収入です。年金事務所の試算やねんきん定期便の額と比べるときに使います。在職老齢年金で減る分・加給年金・繰上げ・繰下げは入れています。</p><p>手取りは、収入から税金・社会保険料を引いた額です。</p><p>「4. シミュレーション結果」は、物価の上昇と年金の目減りを入れて今の物価に換算しています。</p></template></summary>
                     <!-- 見る人の切り替え(世帯/人ごと)。収入のある人が2人以上のときだけ出す -->
                     <div class="sub-tabs-bar compare-chart-series" id="income_current_law_people" role="group" aria-label="見る人" hidden></div>
                     <div class="asset-nominal-canvas-wrap"><canvas id="income_current_law_canvas"></canvas></div>
@@ -293,7 +293,7 @@
                 </div>
                 <!-- 今の物価で見た支出(lifeplan ADR 0102)。タブをまたいだ支出を、物価の上昇を入れない入力どおりの額で見る。開閉はブラウザが覚える -->
                 <details class="detail-toggle asset-nominal-growth" id="expense_overview">
-                    <summary data-track="open_expense_overview">📊 今の物価で見た支出<button type="button" class="help-btn help-btn-info" data-help="info" aria-label="解説" aria-expanded="false" tabindex="-1"></button><template class="help-content"><p>支出のタブに入れた内容を合わせて、年ごとの支出と生涯の合計を、今の物価(入力したとおりの額)で出します。</p><p>残高の記録から実際に使った生活費の目安が出せるときは、その期間に線で重ねます。</p><p>支出は物価と同じだけ上がる前提のため、「4. シミュレーション結果」の明細の支出と同じ額です。</p></template></summary>
+                    <summary data-track="open_expense_overview">📊 今の物価で見た支出の推移<button type="button" class="help-btn help-btn-info" data-help="info" aria-label="解説" aria-expanded="false" tabindex="-1"></button><template class="help-content"><p>支出のタブに入れた内容を合わせて、年ごとの支出と生涯の合計を、今の物価(入力したとおりの額)で出します。</p><p>残高の記録から実際に使った生活費の目安が出せるときは、その期間に線で重ねます。</p><p>支出は物価と同じだけ上がる前提のため、「4. シミュレーション結果」の明細の支出と同じ額です。</p></template></summary>
                     <div class="asset-nominal-canvas-wrap"><canvas id="expense_overview_canvas"></canvas></div>
                     <div class="table-responsive"><table class="dynamic-list-table income-current-law-table" id="expense_overview_table"></table></div>
                 </details>
@@ -976,7 +976,7 @@
     <script src="shared/kenpo-bridge.a7ca3183fd.js"></script>
     <script src="shared/chart-age-cursor.c469c782db.js"></script>
     <script src="shared/age-stepper.4675826299.js"></script>
-    <script src="shared/parameter-catalog.1881ae4750.js"></script>
+    <script src="shared/parameter-catalog.4e3b6c62e9.js"></script>
     <script src="shared/revisit.a89ae414c6.js"></script>
     <script src="shared/rebalance-reader.1455c2a186.js"></script>
     <script src="shared/embed-overlay.991ec63cf8.js"></script>
@@ -987,7 +987,7 @@
     <!-- ホーム画面に追加するときのデータの移し替え(docs/shared/decisions/0020)。アプリが最初の保存をする前に取り込むかを決めるため、先に読む -->
     <script src="shared/carry-over.a094052c38.js"></script>
     <script src="vendor/qrcode.1077df7491.js"></script>
-    <script src="model.268b4a9bdd.js"></script>
+    <script src="model.b8016c3e5a.js"></script>
     <script src="auth.cc293ef58f.js"></script>
     <script src="consent.8e68c64ec9.js"></script>
     <!-- 利用状況の計測(GA4、docs/shared/decisions/0019)。同意の後にタグを読み込む -->
@@ -1004,7 +1004,7 @@
     <script src="ui-compare.843959fe5c.js"></script>
     <script src="ui-revisit.5db7ebca38.js"></script>
     <script src="ui-documents.3a60e8d014.js"></script>
-    <script src="ui.31be00c501.js"></script>
+    <script src="ui.c14115b2c4.js"></script>
     <script>
         CarryOver.init();
         CarryOver.moveFromOldEmbed();
