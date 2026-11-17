@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="robots" content="noindex">
+<title>保存データの移し替え</title>
+</head>
+<body>
+<!-- uttate.comのミラー(/app/<アプリ>/)が隠したiframeで開き、この保存場所(uttate2026.github.io)のデータを受け取る
+     (docs/shared/decisions/0022、受け取る側はcarry-over.jsのmoveFromOldEmbed)。uttate.comの中で開かれたときだけ、uttate.comにだけ送る。
+     index.htmlを経由せずに読むため、ファイル名にハッシュを付けない(deploy-lifeplan.ymlの「Copy Static Files」でコピーする) -->
+<script>
+(function () {
+    var PARENT_ORIGIN = 'https://uttate.com';
+    if (window.parent === window) return;
+    var data = {};
+    try {
+        for (var i = 0; i < localStorage.length; i++) {
+            var key = localStorage.key(i);
+            if (key) data[key] = localStorage.getItem(key);
+        }
+    } catch (e) { /* 読めなければ空で答える */ }
+    window.parent.postMessage({ type: 'uttate-storage-export', payload: data }, PARENT_ORIGIN);
+})();
+</script>
+</body>
+</html>
