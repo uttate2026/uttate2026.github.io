@@ -3337,6 +3337,10 @@ th .help-btn {
 .doc-line .unit { margin-left: 2px; font-size: 12px; color: var(--text-secondary); }
 .doc-line-sub { margin-left: 6px; font-size: 12px; color: var(--text-secondary); white-space: normal; }
 .doc-line-actions { margin-left: auto; }
+.doc-line .doc-line-select { width: auto; padding-top: 4px; padding-bottom: 4px; font-weight: normal; }
+/* 選択欄のある組は、狭い画面で折り返せるようにする */
+.doc-line-item:has(.doc-line-select) { white-space: normal; display: inline-flex; flex-wrap: wrap; align-items: center; gap: 2px 0; }
+.doc-line-item:has(.doc-line-select) .doc-line-sub { margin-left: 6px; }
 .doc-line-item > .btn { margin-left: 10px; }
 @media (max-width: 600px) {
     .doc-line { flex-direction: column; align-items: flex-start; gap: 4px; }
