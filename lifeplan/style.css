@@ -3366,3 +3366,15 @@ th .help-btn {
 #durable_expense_rows input[data-field="name"] {
     min-width: 8em;
 }
+
+/* 計算の確認用の選択肢(lifeplan ADR 0105)を選んだときの警告。ライフプランに使わないよう目立たせる */
+.check-scenario-warning {
+    display: block;
+    margin-bottom: 6px;
+    padding: 8px 10px;
+    border: 1px solid #f59e0b;
+    border-radius: 6px;
+    background: #fef3c7;
+    color: #78350f;
+    font-weight: 600;
+}
