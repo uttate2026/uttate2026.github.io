@@ -813,12 +813,50 @@ html.auth-skip #auth_overlay {
     margin: 0 0 14px;
 }
 
-.work-stage-note {
-    display: block;
-    font-weight: normal;
+/* 「これからの働き方」の①②③の年齢(lifeplan ADR 0106)。PCでは時間の順に横1行に並べて矢印でつなぎ、スマホでは縦に並べる */
+.work-timeline {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 12px;
+    margin: 0 0 16px;
+}
+
+.work-timeline-step {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    min-width: 0;
+    position: relative;
+}
+
+.work-timeline-title {
+    font-weight: bold;
+    font-size: 13px;
+}
+
+.work-timeline-note {
     font-size: 12px;
     color: var(--text-secondary);
-    margin-top: 2px;
+}
+
+.work-timeline-step .field-static {
+    margin: 6px 0;
+}
+
+@media (min-width: 700px) {
+    .work-timeline {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        column-gap: 36px;
+    }
+
+    .work-timeline-step + .work-timeline-step::before {
+        content: '→';
+        position: absolute;
+        left: -26px;
+        top: 30px;
+        color: var(--text-secondary);
+        font-size: 16px;
+    }
 }
 
 /* 失業給付の補足。すぐ下の「勤め先の健康保険を抜けた後」の見出しと間を空ける(lifeplan ADR 0064) */
