@@ -223,21 +223,16 @@
                     <span class="conditions-toggle" aria-hidden="true"><span class="when-closed">開く ＋</span><span class="when-open">閉じる −</span></span>
                 </summary>
                 <div class="conditions-body">
-                    <div class="form-field">
-                        <label class="checkbox-label">
-                            <input type="checkbox" id="input_has_part_time">
-                            退職した後もパート等で働く(勤め先の社会保険には入らない)
-                        </label>
-                    </div>
-                    <div id="part_time_fields" class="form-grid form-grid-pair" style="display: none;">
+                    <!-- 空欄なら退職した後は働かない(チェック欄は置かない、docs/kenpo/decisions/0003)。年収を入れると何歳まで働くかを出す -->
+                    <div id="part_time_fields" class="form-grid form-grid-pair">
                         <div class="form-field">
-                            <label for="input_part_time_income">パート等の年収</label>
+                            <label for="input_part_time_income">退職した後のパート等の年収(勤め先の社会保険に入らない)</label>
                             <div class="field-with-unit">
-                                <input type="text" id="input_part_time_income" inputmode="numeric" autocomplete="off" spellcheck="false">
+                                <input type="text" id="input_part_time_income" inputmode="numeric" autocomplete="off" spellcheck="false" placeholder="働かない">
                                 <span class="unit">円</span>
                             </div>
                         </div>
-                        <div class="form-field">
+                        <div class="form-field part-time-detail" hidden>
                             <label for="input_part_time_until_age">何歳まで働くか</label>
                             <select id="input_part_time_until_age"></select>
                         </div>
@@ -294,7 +289,7 @@
     </div>
 
     <script src="storage.f0a5a25a42.js"></script>
-    <script src="model.89f4cc9fe5.js"></script>
+    <script src="model.4748e0e377.js"></script>
     <script src="auth.cfd77754c1.js"></script>
     <script src="consent.22426c859b.js"></script>
     <!-- 利用状況の計測(GA4、docs/shared/decisions/0019)。同意の後にタグを読み込む -->
@@ -315,7 +310,7 @@
     <script src="shared/help-popover.e3930f8888.js"></script>
     <script src="shared/step-history.05f0e5dff3.js"></script>
     <script src="shared/busy-indicator.688f03bda4.js"></script>
-    <script src="ui.618d350207.js"></script>
+    <script src="ui.4e1383c9b8.js"></script>
     <script>
         CarryOver.init();
         CarryOver.moveFromOldEmbed();
