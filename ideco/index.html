@@ -506,25 +506,20 @@
                     <input type="range" id="input_death_age_slider" class="range-input" min="40" max="110" step="1" value="90">
                 </div>
 
-                <div class="form-field">
-                    <label class="checkbox-label">
-                        <input type="checkbox" id="input_employer_exists">
-                        勤務先からの退職金がある(受け取り済みの場合も含みます)<button type="button" class="help-btn help-btn-info" data-help="info" aria-label="解説" aria-expanded="false" tabindex="-1"></button><template class="help-content"><p>退職一時金だけでなく、確定給付企業年金(DB)・企業型確定拠出年金(企業型DC)を一時金で受け取る場合も対象です(いずれもiDeCoの一時金との9年/19年ルールの対象になるため)。年金(分割)で受け取る企業年金は対象外です。</p></template>
-                    </label>
-                </div>
-                <div id="employer_severance_fields" class="form-grid" style="display: none;">
+                <!-- 勤務先からの退職金。空欄なら退職金なし(チェック欄は置かない、docs/ideco/decisions/0015)。金額を入れると受給年齢・勤続年数を出す -->
+                <div id="employer_severance_fields" class="form-grid">
                     <div class="form-field">
-                        <label for="input_employer_receipt_age">受給年齢<button type="button" class="help-btn help-btn-hint" data-help="hint" aria-label="入力のヒント" aria-expanded="false" tabindex="-1"></button><template class="help-content"><p>退職金を受け取る(受け取った)年齢です。既に受け取っている場合は、実際に受け取った年齢を入力してください。</p></template></label>
-                        <select id="input_employer_receipt_age"></select>
-                    </div>
-                    <div class="form-field">
-                        <label for="input_employer_amount">金額<button type="button" class="help-btn help-btn-hint" data-help="hint" aria-label="入力のヒント" aria-expanded="false" tabindex="-1"></button><template class="help-content"><p>税金を引く前の額です。勤め先の退職金規程・退職金の試算(人事部門や社内のWebサービス)で確かめられます。</p></template></label>
+                        <label for="input_employer_amount">勤務先からの退職金(受け取り済みも含む)<button type="button" class="help-btn help-btn-hint" data-help="hint" aria-label="入力のヒント" aria-expanded="false" tabindex="-1"></button><template class="help-content"><p>税金を引く前の額です。空欄なら退職金なしとして計算します。勤め先の退職金規程・退職金の試算(人事部門や社内のWebサービス)で確かめられます。</p><p>退職一時金だけでなく、確定給付企業年金(DB)・企業型確定拠出年金(企業型DC)を一時金で受け取る場合も含めます(いずれもiDeCoの一時金との9年/19年ルールの対象になるため)。年金(分割)で受け取る企業年金は含めません。</p></template></label>
                         <div class="field-with-unit">
-                            <input type="text" id="input_employer_amount" inputmode="numeric" autocomplete="off" spellcheck="false">
+                            <input type="text" id="input_employer_amount" inputmode="numeric" autocomplete="off" spellcheck="false" placeholder="退職金なし">
                             <span class="unit">円</span>
                         </div>
                     </div>
-                    <div class="form-field">
+                    <div class="form-field employer-severance-detail" hidden>
+                        <label for="input_employer_receipt_age">受給年齢<button type="button" class="help-btn help-btn-hint" data-help="hint" aria-label="入力のヒント" aria-expanded="false" tabindex="-1"></button><template class="help-content"><p>退職金を受け取る(受け取った)年齢です。既に受け取っている場合は、実際に受け取った年齢を入力してください。</p></template></label>
+                        <select id="input_employer_receipt_age"></select>
+                    </div>
+                    <div class="form-field employer-severance-detail" hidden>
                         <label for="input_employer_service_years">勤続年数<button type="button" class="help-btn help-btn-info" data-help="info" aria-label="解説" aria-expanded="false" tabindex="-1"></button><template class="help-content"><p>退職所得控除と、9年/19年ルール(退職金とiDeCoの一時金の控除の重なりの調整)の計算に使います。「未入力」なら、受給年齢から22歳を引いた年数と見積もります。</p></template><button type="button" class="help-btn help-btn-hint" data-help="hint" aria-label="入力のヒント" aria-expanded="false" tabindex="-1"></button><template class="help-content"><p>退職金を受け取るときの勤続年数です。1年未満の端数は1年に切り上げます。</p></template></label>
                         <select id="input_employer_service_years"></select>
                     </div>
@@ -626,7 +621,7 @@
     <script src="shared/parameter-catalog.118a698a58.js"></script>
     <script src="shared/revisit.434ba99c64.js"></script>
     <script src="shared/busy-indicator.94ba04a1a4.js"></script>
-    <script src="ui.a887b40404.js"></script>
+    <script src="ui.60cecb9124.js"></script>
     <script>
         CarryOver.init();
         CarryOver.moveFromOldEmbed();
