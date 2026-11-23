@@ -155,25 +155,20 @@
                 <p class="info-note">50歳未満の場合、ねんきん定期便の金額はこれまでの加入実績に基づくもので、将来の受給見込額ではありません。<a href="https://www.nenkin.go.jp/n_net/" target="_blank" rel="noopener">ねんきんネット</a>で将来の見込額を試算してから入力してください。</p>
 
                 <!-- 勤め先の企業年金を年金で受け取る分(docs/nenkin/decisions/0003)。公的年金と合わせて課税されるため、受け取り始める年齢の手取りの比較に効く -->
-                <div class="form-field">
-                    <label class="checkbox-label">
-                        <input type="checkbox" id="input_has_employer_pension">
-                        勤め先の企業年金(確定給付企業年金など)を年金で受け取る
-                    </label>
-                </div>
-                <div id="employer_pension_fields" class="form-grid" style="display: none;">
+                <!-- 空欄なら企業年金なし(チェック欄は置かない、docs/nenkin/decisions/0004)。年額を入れると受け取り始める年齢・期間を出す -->
+                <div id="employer_pension_fields" class="form-grid">
                     <div class="form-field">
-                        <label for="input_employer_pension_amount">企業年金の年額<button type="button" class="help-btn help-btn-hint" data-help="hint" aria-label="入力のヒント" aria-expanded="false" tabindex="-1"></button><template class="help-content"><p>勤め先の確定給付企業年金(DB)・厚生年金基金などを、年金(分割)で受け取る1年の額(税金を引く前)です。退職のときに会社・企業年金基金から届く「年金・一時金の選択」の案内や、在職中なら企業年金の加入者向けのWebサイト・お知らせで確かめられます。</p><p>公的年金と合わせて「公的年金等の雑所得」として課税され、国民健康保険料・介護保険料の計算にも入ります。一時金で受け取る分は、ここには入れません。</p></template></label>
+                        <label for="input_employer_pension_amount">勤め先の企業年金(年金で受け取る年額)<button type="button" class="help-btn help-btn-hint" data-help="hint" aria-label="入力のヒント" aria-expanded="false" tabindex="-1"></button><template class="help-content"><p>勤め先の確定給付企業年金(DB)・厚生年金基金などを、年金(分割)で受け取る1年の額(税金を引く前)です。空欄なら企業年金なしとして計算します。退職のときに会社・企業年金基金から届く「年金・一時金の選択」の案内や、在職中なら企業年金の加入者向けのWebサイト・お知らせで確かめられます。</p><p>公的年金と合わせて「公的年金等の雑所得」として課税され、国民健康保険料・介護保険料の計算にも入ります。一時金で受け取る分は、ここには入れません。</p></template></label>
                         <div class="field-with-unit">
-                            <input type="text" id="input_employer_pension_amount" inputmode="numeric" autocomplete="off" spellcheck="false">
+                            <input type="text" id="input_employer_pension_amount" inputmode="numeric" autocomplete="off" spellcheck="false" placeholder="企業年金なし">
                             <span class="unit">円</span>
                         </div>
                     </div>
-                    <div class="form-field">
+                    <div class="form-field employer-pension-detail" hidden>
                         <label for="input_employer_pension_start_age">受け取り始める年齢</label>
                         <select id="input_employer_pension_start_age"></select>
                     </div>
-                    <div class="form-field">
+                    <div class="form-field employer-pension-detail" hidden>
                         <label for="input_employer_pension_years">受け取る期間<button type="button" class="help-btn help-btn-hint" data-help="hint" aria-label="入力のヒント" aria-expanded="false" tabindex="-1"></button><template class="help-content"><p>5年・10年・15年・20年などの有期か、終身(一生涯)かは、制度の規約で決まっています。案内で確かめてください。</p></template></label>
                         <select id="input_employer_pension_years"></select>
                     </div>
@@ -432,19 +427,14 @@
                         </div>
                     </div>
 
-                    <div class="form-field">
-                        <label class="checkbox-label">
-                            <input type="checkbox" id="input_has_position_retirement">
-                            役職定年等で年収が下がる予定がある
-                        </label>
-                    </div>
-                    <div id="position_retirement_fields" class="form-grid form-grid-pair" style="display: none;">
+                    <!-- 年収が下がる年齢の最初の選択肢は「なし」(チェック欄は置かない、docs/nenkin/decisions/0004)。選ぶと下がった後の年収を出す -->
+                    <div id="position_retirement_fields" class="form-grid form-grid-pair">
                         <div class="form-field">
-                            <label for="input_position_retirement_age">年収が下がる年齢<button type="button" class="help-btn help-btn-hint" data-help="hint" aria-label="入力のヒント" aria-expanded="false" tabindex="-1"></button><template class="help-content"><p>役職定年・定年後の再雇用などで年収が下がる年齢です。下がった後の年収で1年以上働く前提のため、引退年齢の前の年までです。引退年齢より後を選ぶと、引退年齢をその翌年に延ばします。</p><p>定年後の再雇用では、年収が定年前の7〜9割程度(平均で約8割)になるという調査があります(労働政策研究・研修機構、2020年)。勤め先の制度を確かめてください。</p></template></label>
+                            <label for="input_position_retirement_age">役職定年等で年収が下がる年齢<button type="button" class="help-btn help-btn-hint" data-help="hint" aria-label="入力のヒント" aria-expanded="false" tabindex="-1"></button><template class="help-content"><p>役職定年・定年後の再雇用などで年収が下がる年齢です。下がった後の年収で1年以上働く前提のため、引退年齢の前の年までです。引退年齢より後を選ぶと、引退年齢をその翌年に延ばします。</p><p>定年後の再雇用では、年収が定年前の7〜9割程度(平均で約8割)になるという調査があります(労働政策研究・研修機構、2020年)。勤め先の制度を確かめてください。</p></template></label>
                             <select id="input_position_retirement_age"></select>
                             <p id="position_retirement_extended_note" class="field-note" style="display: none;"></p>
                         </div>
-                        <div class="form-field">
+                        <div class="form-field position-retirement-detail" hidden>
                             <label for="input_income_after_position_retirement">下がった後の年収(年額)</label>
                             <div class="field-with-unit">
                                 <input type="text" id="input_income_after_position_retirement" inputmode="numeric" autocomplete="off" spellcheck="false">
@@ -498,7 +488,7 @@
     </div>
 
     <script src="storage.f0a5a25a42.js"></script>
-    <script src="model.d68997da34.js"></script>
+    <script src="model.cc7ccc32fb.js"></script>
     <script src="auth.cfd77754c1.js"></script>
     <script src="consent.0ecf909943.js"></script>
     <!-- 利用状況の計測(GA4、docs/shared/decisions/0019)。同意の後にタグを読み込む -->
@@ -531,7 +521,7 @@
     <script src="shared/help-popover.e3930f8888.js"></script>
     <script src="shared/step-history.05f0e5dff3.js"></script>
     <script src="shared/busy-indicator.688f03bda4.js"></script>
-    <script src="ui.856859cafc.js"></script>
+    <script src="ui.971e2c650c.js"></script>
     <script>
         CarryOver.init();
         CarryOver.moveFromOldEmbed();
