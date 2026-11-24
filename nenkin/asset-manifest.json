@@ -1,39 +1,6 @@
 {
   "deploys": [
     {
-      "deployedAt": "2026-11-19T20:08:10.593Z",
-      "files": [
-        "auth.cfd77754c1.js",
-        "consent.0ecf909943.js",
-        "model.d68997da34.js",
-        "resize-notifier.86c53e68d8.js",
-        "shared/age-stepper.c67caa653a.js",
-        "shared/analytics.294f5adc23.js",
-        "shared/busy-indicator.688f03bda4.js",
-        "shared/busy-indicator.6fbf9e1ca8.css",
-        "shared/calculator.e79edb00d7.js",
-        "shared/carry-over.d9a6fe0bfd.js",
-        "shared/chart-age-cursor.af1512c6c9.js",
-        "shared/embed-overlay.ce406a292d.js",
-        "shared/help-popover.e3930f8888.js",
-        "shared/lifeplan-constants.8757c36411.js",
-        "shared/lifeplan-link.978a66b655.js",
-        "shared/lifetime-totals.1a3c8672db.js",
-        "shared/nenkin-bridge.33fac6ebcb.js",
-        "shared/numeric-input-select.37acd39cad.js",
-        "shared/parameter-catalog.fd15c67d48.js",
-        "shared/pattern-builders.a4ed639e0a.js",
-        "shared/pension-claim-optimizer.a079485460.js",
-        "shared/plan-share-link.4ed4c51362.js",
-        "shared/revisit.a89ae414c6.js",
-        "shared/step-history.05f0e5dff3.js",
-        "storage.f0a5a25a42.js",
-        "style.ae728f3595.css",
-        "ui.856859cafc.js",
-        "vendor/chart.44bfd27a4e.js"
-      ]
-    },
-    {
       "deployedAt": "2026-11-19T21:48:55.307Z",
       "files": [
         "auth.cfd77754c1.js",
@@ -134,6 +101,39 @@
     },
     {
       "deployedAt": "2026-11-23T02:24:34.056Z",
+      "files": [
+        "auth.cfd77754c1.js",
+        "consent.0ecf909943.js",
+        "model.cc7ccc32fb.js",
+        "resize-notifier.86c53e68d8.js",
+        "shared/age-stepper.c67caa653a.js",
+        "shared/analytics.294f5adc23.js",
+        "shared/busy-indicator.688f03bda4.js",
+        "shared/busy-indicator.6fbf9e1ca8.css",
+        "shared/calculator.4f0e853570.js",
+        "shared/carry-over.d9a6fe0bfd.js",
+        "shared/chart-age-cursor.af1512c6c9.js",
+        "shared/embed-overlay.ce406a292d.js",
+        "shared/help-popover.e3930f8888.js",
+        "shared/lifeplan-constants.6475266d43.js",
+        "shared/lifeplan-link.978a66b655.js",
+        "shared/lifetime-totals.1a3c8672db.js",
+        "shared/nenkin-bridge.33fac6ebcb.js",
+        "shared/numeric-input-select.37acd39cad.js",
+        "shared/parameter-catalog.ad32e93d89.js",
+        "shared/pattern-builders.b1b4ad7fe5.js",
+        "shared/pension-claim-optimizer.a079485460.js",
+        "shared/plan-share-link.4ed4c51362.js",
+        "shared/revisit.a89ae414c6.js",
+        "shared/step-history.05f0e5dff3.js",
+        "storage.f0a5a25a42.js",
+        "style.ae728f3595.css",
+        "ui.971e2c650c.js",
+        "vendor/chart.44bfd27a4e.js"
+      ]
+    },
+    {
+      "deployedAt": "2026-11-24T22:36:44.282Z",
       "files": [
         "auth.cfd77754c1.js",
         "consent.0ecf909943.js",
