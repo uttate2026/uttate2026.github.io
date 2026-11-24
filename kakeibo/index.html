@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noindex">
+    <title>家計簿(仮)</title>
+    <link rel="stylesheet" href="style.4004467731.css">
+    <script>
+        try {
+            if (localStorage.getItem('app_auth_hash')) document.documentElement.classList.add('auth-skip');
+        } catch (e) { /* 保存領域が使えないときは今までどおり認証画面を出す */ }
+    </script>
+</head>
+<body>
+
+    <div id="auth_overlay" class="auth-overlay">
+        <div class="card auth-card">
+            <div class="section-title">セキュリティ認証</div>
+            <p class="auth-desc">このツールにアクセスするには、専用のトークン(パスワード)を入力してください。</p>
+            <input type="password" id="token_input" placeholder="トークンを入力" autocomplete="off">
+            <p id="auth_error" class="alert-text" style="display: none;">⚠️ パスワードが正しくありません。</p>
+            <button type="button" id="btn_auth" class="btn btn-primary">認証する</button>
+        </div>
+    </div>
+
+    <!-- 入れたデータはこのブラウザの中だけに保存し、サーバーには送らない(docs/kakeibo/requirements.md 3章) -->
+    <div id="app_container" class="app-container">
+        <h1 class="site-name">家計簿(仮)</h1>
+
+        <section class="card" id="section_raw">
+            <h2 class="section-title">1. 生データ</h2>
+            <textarea id="paste_input" rows="3" placeholder="マネーフォワードの「月次推移」の表を選んでコピーし、ここに貼り付けてください"></textarea>
+            <p id="paste_result" class="note" aria-live="polite"></p>
+            <details id="raw_details">
+                <summary id="raw_summary">貼り付けた表を見る</summary>
+                <div class="table-wrap" id="raw_table"></div>
+            </details>
+        </section>
+
+        <section class="card" id="section_monthly">
+            <h2 class="section-title">2. 月次集計(毎月の支出)</h2>
+            <p class="note">単位: 万円。金額を押すと、その下に月・項目の補正(足す・除く)を開きます。右上の<span class="adj-legend" aria-label="三角の印"></span>は補正がある月・項目です。</p>
+            <div class="table-wrap" id="monthly_table"></div>
+            <p class="estimate" id="living_cost"></p>
+            <details id="map_details">
+                <summary>項目をまとめる(任意)</summary>
+                <p class="note">まとめ先の名前が同じ項目を、月次集計の1行にまとめます(例: 食費と日用品を「生活必需品」に)。空欄ならマネーフォワードの項目のままです。</p>
+                <div id="category_map"></div>
+            </details>
+        </section>
+
+        <section class="card" id="section_other">
+            <h2 class="section-title">3. その他の集計(1年おき・数年おき)</h2>
+            <p class="note">月次集計の補正で除いた支出と、カードで払っていない年払い・数年おきの支出です。</p>
+            <div class="table-wrap" id="other_table"></div>
+            <button type="button" class="btn btn-small" id="btn_add_manual">➕ 手入力で足す</button>
+            <p class="estimate" id="other_total"></p>
+        </section>
+
+        <section class="card" id="section_backup">
+            <h2 class="section-title">バックアップ</h2>
+            <p class="note">データはこのブラウザの中だけにあります。ブラウザのデータを消すと消えるため、ときどき書き出してください。</p>
+            <button type="button" class="btn btn-small" id="btn_export">書き出す</button>
+            <button type="button" class="btn btn-small" id="btn_import">読み込む</button>
+            <input type="file" id="import_file" accept="application/json,.json" hidden>
+        </section>
+    </div>
+
+    <script src="storage.dc4807f2ea.js"></script>
+    <script src="auth.d0b92838b8.js"></script>
+    <!-- 数値の入力欄の全選択(scripts/sync-shared.jsがsrc/shared/からコピーする。このディレクトリはGit管理対象外) -->
+    <script src="shared/numeric-input-select.2072d2db4c.js"></script>
+    <script src="model.b2b5b87f5b.js"></script>
+    <script src="ui.34ee63abc9.js"></script>
+</body>
+</html>
