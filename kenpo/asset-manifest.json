@@ -1,33 +1,6 @@
 {
   "deploys": [
     {
-      "deployedAt": "2026-11-19T20:07:58.885Z",
-      "files": [
-        "auth.cfd77754c1.js",
-        "consent.22426c859b.js",
-        "model.89f4cc9fe5.js",
-        "resize-notifier.86c53e68d8.js",
-        "shared/analytics.294f5adc23.js",
-        "shared/busy-indicator.688f03bda4.js",
-        "shared/busy-indicator.6fbf9e1ca8.css",
-        "shared/calculator.e79edb00d7.js",
-        "shared/carry-over.d9a6fe0bfd.js",
-        "shared/embed-overlay.ce406a292d.js",
-        "shared/help-popover.e3930f8888.js",
-        "shared/kenpo-bridge.5aeff041be.js",
-        "shared/lifeplan-constants.8757c36411.js",
-        "shared/lifeplan-link.978a66b655.js",
-        "shared/numeric-input-select.37acd39cad.js",
-        "shared/parameter-catalog.fd15c67d48.js",
-        "shared/pattern-builders.a4ed639e0a.js",
-        "shared/plan-share-link.4ed4c51362.js",
-        "shared/step-history.05f0e5dff3.js",
-        "storage.f0a5a25a42.js",
-        "style.8c5e3dabd5.css",
-        "ui.618d350207.js"
-      ]
-    },
-    {
       "deployedAt": "2026-11-19T21:48:51.500Z",
       "files": [
         "auth.cfd77754c1.js",
@@ -110,6 +83,33 @@
     },
     {
       "deployedAt": "2026-11-23T02:24:33.701Z",
+      "files": [
+        "auth.cfd77754c1.js",
+        "consent.22426c859b.js",
+        "model.4748e0e377.js",
+        "resize-notifier.86c53e68d8.js",
+        "shared/analytics.294f5adc23.js",
+        "shared/busy-indicator.688f03bda4.js",
+        "shared/busy-indicator.6fbf9e1ca8.css",
+        "shared/calculator.4f0e853570.js",
+        "shared/carry-over.d9a6fe0bfd.js",
+        "shared/embed-overlay.ce406a292d.js",
+        "shared/help-popover.e3930f8888.js",
+        "shared/kenpo-bridge.5aeff041be.js",
+        "shared/lifeplan-constants.6475266d43.js",
+        "shared/lifeplan-link.978a66b655.js",
+        "shared/numeric-input-select.37acd39cad.js",
+        "shared/parameter-catalog.ad32e93d89.js",
+        "shared/pattern-builders.b1b4ad7fe5.js",
+        "shared/plan-share-link.4ed4c51362.js",
+        "shared/step-history.05f0e5dff3.js",
+        "storage.f0a5a25a42.js",
+        "style.8c5e3dabd5.css",
+        "ui.4e1383c9b8.js"
+      ]
+    },
+    {
+      "deployedAt": "2026-11-24T22:36:43.366Z",
       "files": [
         "auth.cfd77754c1.js",
         "consent.22426c859b.js",
