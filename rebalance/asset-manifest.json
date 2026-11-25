@@ -1,29 +1,6 @@
 {
   "deploys": [
     {
-      "deployedAt": "2026-11-08T21:20:08.627Z",
-      "files": [
-        "auth.555cecb68f.js",
-        "consent.5f472d3d0b.js",
-        "model.97409d2a24.js",
-        "ocr.d404f0c6f5.js",
-        "resize-notifier.026b62acdf.js",
-        "shared/analytics.52738646c9.js",
-        "shared/busy-indicator.4a72177cfe.js",
-        "shared/busy-indicator.6fbf9e1ca8.css",
-        "shared/carry-over.e5f191d6b8.js",
-        "shared/embed-overlay.c8925dca51.js",
-        "shared/numeric-input-select.176d1dee33.js",
-        "shared/plan-share-link.15f04ff2c2.js",
-        "shared/tab-overflow.30ea38acfd.js",
-        "solver.ec60e3402f.js",
-        "storage.fcc487daf1.js",
-        "style.374f81c0e8.css",
-        "ui.344c075cbe.js",
-        "vendor/chart.5e218aa7fa.js"
-      ]
-    },
-    {
       "deployedAt": "2026-11-17T20:36:36.428Z",
       "files": [
         "auth.555cecb68f.js",
@@ -94,6 +71,29 @@
     },
     {
       "deployedAt": "2026-11-24T22:36:40.383Z",
+      "files": [
+        "auth.e9c7bdce47.js",
+        "consent.14893ce4ef.js",
+        "model.1827c0b593.js",
+        "ocr.c5c248784d.js",
+        "resize-notifier.21d983df00.js",
+        "shared/analytics.294f5adc23.js",
+        "shared/busy-indicator.688f03bda4.js",
+        "shared/busy-indicator.6fbf9e1ca8.css",
+        "shared/carry-over.9e6c45b956.js",
+        "shared/embed-overlay.c288d56e99.js",
+        "shared/numeric-input-select.202ab91279.js",
+        "shared/plan-share-link.68cb1a0998.js",
+        "shared/tab-overflow.3f23ac0fb2.js",
+        "solver.e0aea110f1.js",
+        "storage.9f35636938.js",
+        "style.374f81c0e8.css",
+        "ui.aec79a3dca.js",
+        "vendor/chart.9c3fb0cc66.js"
+      ]
+    },
+    {
+      "deployedAt": "2026-11-25T21:57:41.712Z",
       "files": [
         "auth.e9c7bdce47.js",
         "consent.14893ce4ef.js",
