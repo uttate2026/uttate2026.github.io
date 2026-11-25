@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="robots" content="noindex">
     <title>家計簿(仮)</title>
-    <link rel="stylesheet" href="style.85f96d1272.css">
+    <link rel="stylesheet" href="style.b24245afbd.css">
     <script>
         try {
             if (localStorage.getItem('app_auth_hash')) document.documentElement.classList.add('auth-skip');
@@ -40,49 +40,66 @@
             </div>
         </header>
 
+        <!-- 貼り付けは全部の年に共通のため、年のタブの上に置く(kakeibo ADR 0001「2026-11-26改訂(続き)」) -->
+        <section class="card" id="paste_card">
+            <textarea id="paste_input" rows="3" placeholder="マネーフォワードの「月次推移」の表を選んでコピーし、ここに貼り付けてください" aria-label="マネーフォワードの月次推移の貼り付け"></textarea>
+            <p id="paste_result" class="note" aria-live="polite"></p>
+        </section>
+
+        <!-- 年(暦年)のタブ。古い年から並べ、入りきらなければ「その他(n)」にまとめる(src/shared/tab-overflow.js) -->
+        <div class="year-tabs" id="year_tabs" role="tablist" aria-label="年"></div>
+        <p class="note" id="no_data_note">まだデータがありません。上の欄にマネーフォワードの月次推移を貼り付けてください。</p>
+
+        <div id="year_workspace">
         <section class="card" id="section_raw" data-section="raw">
             <button type="button" class="section-toggle" data-section-toggle="raw" aria-expanded="true" aria-controls="section_body_raw"><span class="section-toggle-icon" aria-hidden="true"></span><span class="section-title">1. 生データ</span><span class="section-summary" id="summary_raw"></span></button>
             <div class="section-body" id="section_body_raw">
-            <textarea id="paste_input" rows="3" placeholder="マネーフォワードの「月次推移」の表を選んでコピーし、ここに貼り付けてください"></textarea>
-            <p id="paste_result" class="note" aria-live="polite"></p>
-            <details id="raw_details">
-                <summary id="raw_summary">貼り付けた表を見る</summary>
-                <div class="table-wrap" id="raw_table"></div>
-            </details>
+            <p class="note">マネーフォワードの額のままです。月の🗑️で、その月を消せます。</p>
+            <div class="table-wrap" id="raw_table"></div>
             </div>
         </section>
 
         <section class="card" id="section_monthly" data-section="monthly">
             <button type="button" class="section-toggle" data-section-toggle="monthly" aria-expanded="true" aria-controls="section_body_monthly"><span class="section-toggle-icon" aria-hidden="true"></span><span class="section-title">2. 月次集計(毎月の支出)</span><span class="section-summary" id="summary_monthly"></span></button>
             <div class="section-body" id="section_body_monthly">
-            <p class="note">単位: 万円。金額を押すと、その下に月・項目の補正(足す・除く)を開きます。右上の<span class="adj-legend" aria-label="三角の印"></span>は補正がある月・項目です。</p>
+            <p class="note">単位: 万円。金額を押すと、その下に月・項目の補正(足す・除く)を開きます。右上の<span class="adj-legend" aria-label="三角の印"></span>は補正がある月・項目、<span class="high-legend">色の付いたマス</span>はいつもより多い月です(補正が要るかもしれません)。</p>
             <div class="table-wrap" id="monthly_table"></div>
             <p class="estimate" id="living_cost"></p>
+            <details id="highlight_details">
+                <summary>いつもより多い月の条件</summary>
+                <p class="highlight-setting">直前12か月(補正の後)の平均の
+                    <input type="text" inputmode="decimal" id="highlight_ratio" data-focus-key="highlight:ratio" aria-label="倍率">倍以上、かつ
+                    <input type="text" inputmode="numeric" id="highlight_min_diff" data-focus-key="highlight:minDiff" aria-label="差額">円以上多い月</p>
+                <p class="note">直前12か月のうち取り込んだ月が3か月に満たないときは、いつもの額が定まらないため色を付けません。</p>
+            </details>
             <details id="map_details">
                 <summary>項目をまとめる(任意)</summary>
-                <p class="note">まとめ先の名前が同じ項目を、月次集計の1行にまとめます(例: 食費と日用品を「生活必需品」に)。空欄ならマネーフォワードの項目のままです。</p>
+                <p class="note">まとめ先の名前が同じ項目を、月次集計の1行にまとめます(例: 食費と日用品を「生活必需品」に)。空欄ならマネーフォワードの項目のままです。全部の年に効きます。</p>
                 <div id="category_map"></div>
             </details>
             </div>
         </section>
 
         <section class="card" id="section_other" data-section="other">
-            <button type="button" class="section-toggle" data-section-toggle="other" aria-expanded="true" aria-controls="section_body_other"><span class="section-toggle-icon" aria-hidden="true"></span><span class="section-title">3. その他の集計(1年おき・数年おき)</span><span class="section-summary" id="summary_other"></span></button>
+            <button type="button" class="section-toggle" data-section-toggle="other" aria-expanded="true" aria-controls="section_body_other"><span class="section-toggle-icon" aria-hidden="true"></span><span class="section-title">3. その他の集計(毎月以外の支出)</span><span class="section-summary" id="summary_other"></span></button>
             <div class="section-body" id="section_body_other">
-            <p class="note">月次集計の補正で除いた支出と、カードで払っていない年払い・数年おきの支出です。</p>
+            <p class="note">この年の月次集計の補正で除いた支出と、カードで払っていない年払いなどの支出です。「この年だけ」はその年の贅沢枠など来年は別のものに使う支出、「毎年」は年払いの保険など来年も同じようにある支出です。</p>
             <div class="table-wrap" id="other_table"></div>
             <button type="button" class="btn btn-small" id="btn_add_manual">➕ 手入力で足す</button>
+            <button type="button" class="btn btn-small" id="btn_copy_manual" hidden></button>
             <p class="estimate" id="other_total"></p>
             </div>
         </section>
+        </div>
 
     </div>
 
-    <script src="storage.dc4807f2ea.js"></script>
+    <script src="storage.4583ffddd2.js"></script>
     <script src="auth.d0b92838b8.js"></script>
-    <!-- 数値の入力欄の全選択(scripts/sync-shared.jsがsrc/shared/からコピーする。このディレクトリはGit管理対象外) -->
+    <!-- 数値の入力欄の全選択・入りきらないタブのまとめ(scripts/sync-shared.jsがsrc/shared/からコピーする。このディレクトリはGit管理対象外) -->
     <script src="shared/numeric-input-select.2072d2db4c.js"></script>
-    <script src="model.d498ce05a9.js"></script>
-    <script src="ui.0c9716b83d.js"></script>
+    <script src="shared/tab-overflow.669d0dc670.js"></script>
+    <script src="model.3201d4f3e7.js"></script>
+    <script src="ui.70ab5675e0.js"></script>
 </body>
 </html>

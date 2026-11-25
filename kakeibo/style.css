@@ -100,7 +100,7 @@ input[type="text"], select, textarea {
     font: inherit; font-size: 14px; padding: 6px 8px; border: 1px solid var(--border-strong); border-radius: 6px; background: #fff;
 }
 textarea { width: 100%; resize: vertical; }
-input[inputmode="numeric"] { text-align: right; width: 8em; ime-mode: disabled; }
+input[inputmode="numeric"], input[inputmode="decimal"] { text-align: right; width: 8em; ime-mode: disabled; }
 input.name-input { width: 10em; }
 
 /* 表 */
@@ -143,3 +143,29 @@ table.grid { border-collapse: collapse; width: 100%; font-size: 14px; font-varia
 
 .map-row { display: flex; gap: 8px; align-items: center; margin: 4px 0; font-size: 14px; }
 .map-row span { width: 8em; }
+
+/* 年のタブ(rebalanceの口座タブと同じ見た目を簡単にしたもの)。入りきらない分は「その他(n) ▾」(src/shared/tab-overflow.js) */
+.year-tabs { display: flex; flex-wrap: nowrap; gap: 6px; overflow: hidden; margin-bottom: 12px; }
+.tab-btn {
+    flex-shrink: 0; padding: 8px 16px; border: 1px solid var(--border-strong); border-radius: 8px;
+    background: var(--bg-card); cursor: pointer; font: inherit; font-size: 14px; color: var(--text-main);
+}
+.tab-btn.active { border-color: var(--primary); background: var(--primary); color: #fff; font-weight: bold; }
+.tab-overflow-btn { flex-shrink: 0; white-space: nowrap; }
+.tab-overflow-menu {
+    position: absolute; z-index: 1000; display: flex; flex-direction: column; min-width: 160px; max-width: calc(100vw - 16px);
+    padding: 4px 0; background: var(--bg-card); border: 1px solid var(--border-strong); border-radius: 8px;
+    box-shadow: 0 6px 20px rgba(15, 23, 42, 0.15);
+}
+.tab-overflow-menu button {
+    padding: 9px 16px; background: none; border: none; color: var(--text-main); font: inherit; font-size: 14px;
+    text-align: left; white-space: nowrap; cursor: pointer;
+}
+.tab-overflow-menu button:hover, .tab-overflow-menu button:focus-visible { background: var(--bg-main); outline: none; }
+
+/* いつもより多い月(補正が要るかもしれない)。補正の印(右上の三角)とは別に、マスの背景で示す */
+.grid td.cell.is-high, .high-legend { background: #ffedd5; color: #9a3412; font-weight: bold; }
+.grid td.cell.is-high:hover { background: #fed7aa; }
+.high-legend { padding: 0 4px; border-radius: 4px; }
+.highlight-setting { font-size: 14px; display: flex; flex-wrap: wrap; align-items: center; gap: 6px; }
+#highlight_ratio { width: 4em; }
