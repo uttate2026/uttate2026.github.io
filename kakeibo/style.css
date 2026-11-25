@@ -169,3 +169,8 @@ table.grid { border-collapse: collapse; width: 100%; font-size: 14px; font-varia
 .high-legend { padding: 0 4px; border-radius: 4px; }
 .highlight-setting { font-size: 14px; display: flex; flex-wrap: wrap; align-items: center; gap: 6px; }
 #highlight_ratio { width: 4em; }
+
+/* その他の集計の並べ替え: 列名の右に▲▼を上下に並べ、並べている向きだけ濃くする */
+.sort-btn { background: none; border: 0; padding: 0; font: inherit; font-weight: bold; color: inherit; cursor: pointer; display: inline-flex; align-items: center; gap: 4px; }
+.sort-icons { display: inline-flex; flex-direction: column; font-size: 0.7em; line-height: 0.95; color: #cbd5e1; }
+.sort-icons .on { color: var(--primary); }

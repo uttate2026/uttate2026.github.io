@@ -27,7 +27,8 @@ body {
 }
 
 .app-container { max-width: 1100px; margin: 0 auto; padding: 24px 16px 64px; }
-.site-name { font-size: 20px; color: var(--primary-dark); margin: 0 0 16px; }
+.app-header { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 16px; }
+.site-name { font-size: 20px; color: var(--primary-dark); margin: 0; }
 
 .card {
     background: var(--bg-card);
@@ -37,7 +38,22 @@ body {
     margin-bottom: 20px;
     box-shadow: 0 1px 2px rgba(15, 23, 42, 0.04), 0 4px 10px rgba(15, 23, 42, 0.04);
 }
-.section-title { font-weight: bold; font-size: 16px; color: var(--primary-dark); margin: 0 0 12px; }
+.section-title { font-weight: bold; font-size: 15px; }
+
+/* 大見出しの開閉(lifeplanと同じ見た目と振る舞い): 見出し全体がボタンで、畳んでいるときは右に要約を出す。開閉はブラウザが覚える */
+.section-toggle {
+    display: flex; align-items: center; flex-wrap: wrap; gap: 4px 8px; width: 100%;
+    padding: 0; margin: 0; background: none; border: none; color: inherit; font: inherit; text-align: left; cursor: pointer;
+}
+.section-toggle-icon::before {
+    content: '▾'; display: inline-block; width: 1em; font-size: 18px; line-height: 1; text-align: center;
+    color: var(--text-secondary); transition: transform 0.15s;
+}
+.is-collapsed .section-toggle-icon::before { transform: rotate(-90deg); }
+.section-summary { font-size: 13px; color: var(--text-secondary); }
+[data-section]:not(.is-collapsed) .section-summary { display: none; }
+.section-body { margin-top: 12px; }
+.is-collapsed .section-body { display: none; }
 .note { font-size: 13px; color: var(--text-secondary); line-height: 1.6; margin: 8px 0; }
 .note.error { color: var(--danger); font-weight: bold; }
 .estimate { background: var(--primary-wash); border-radius: 8px; padding: 8px 12px; font-size: 14px; }
@@ -61,6 +77,22 @@ html.auth-skip #auth_overlay { display: none; }
 }
 .btn-primary { background: var(--primary); border-color: var(--primary); color: #fff; }
 .btn-small { font-size: 13px; padding: 6px 10px; }
+.btn-secondary { border-color: var(--primary); color: var(--primary); }
+.btn-secondary:hover { background: var(--primary-wash); }
+
+/* 「📦 バックアップ ▼」のメニュー(lifeplanと同じ) */
+.menu-wrap { position: relative; }
+.record-menu {
+    position: absolute; top: 100%; right: 0; z-index: 50; width: min(420px, calc(100vw - 32px));
+    background: var(--bg-card); border: 1px solid var(--border-strong); border-radius: 8px;
+    box-shadow: 0 4px 16px rgba(15, 23, 42, 0.15); padding: 12px;
+}
+.record-menu-item {
+    display: block; width: 100%; text-align: left; padding: 8px; margin-bottom: 4px; font: inherit; font-size: 14px;
+    border: 1px solid var(--border); border-radius: 6px; background: var(--bg-card); cursor: pointer;
+}
+.record-menu-item:hover { background: var(--primary-wash); }
+.record-menu-note { font-size: 12px; color: var(--text-secondary); margin: 8px 0 0; line-height: 1.6; }
 .link-btn { background: none; border: none; padding: 0; color: var(--primary); text-decoration: underline; cursor: pointer; font-size: inherit; }
 .icon-btn { background: none; border: none; cursor: pointer; font-size: 16px; padding: 2px 4px; }
 
@@ -68,7 +100,7 @@ input[type="text"], select, textarea {
     font: inherit; font-size: 14px; padding: 6px 8px; border: 1px solid var(--border-strong); border-radius: 6px; background: #fff;
 }
 textarea { width: 100%; resize: vertical; }
-input[inputmode="numeric"] { text-align: right; width: 8em; ime-mode: disabled; }
+input[inputmode="numeric"], input[inputmode="decimal"] { text-align: right; width: 8em; ime-mode: disabled; }
 input.name-input { width: 10em; }
 
 /* 表 */
@@ -84,6 +116,8 @@ table.grid { border-collapse: collapse; width: 100%; font-size: 14px; font-varia
 /* 月次集計の金額のセル(押すと補正を開く) */
 .grid td.cell { cursor: pointer; position: relative; }
 .grid td.cell:hover { background: var(--primary-wash); }
+/* 押すと補正が開くことが分かるよう、金額に薄い点線の下線を付ける(平均・合計は押せないため付けない) */
+.grid td.cell { text-decoration: underline dotted; text-decoration-color: #94a3b8; text-underline-offset: 4px; }
 .grid td.cell.is-open { outline: 2px solid var(--primary); outline-offset: -2px; background: var(--primary-wash); }
 /* 補正がある月・項目の印: セルの右上の三角(編集の印と取られないよう、ペンのアイコンにしない) */
 .grid td.cell.has-adj::after, .adj-legend {
@@ -95,13 +129,48 @@ table.grid { border-collapse: collapse; width: 100%; font-size: 14px; font-varia
 
 /* 補正の欄(押したセルの行のすぐ下に開く) */
 .grid tr.editor-row > td { text-align: left; background: var(--primary-wash); padding: 8px; white-space: normal; }
-.editor { max-width: 680px; background: #fff; border: 1px solid var(--primary); border-radius: 8px; padding: 10px 14px; }
+.editor { max-width: 760px; background: #fff; border: 1px solid var(--primary); border-radius: 8px; padding: 10px 14px; }
 .editor-head { display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px; }
 .editor-line { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin: 6px 0; }
-.editor-line .label { width: 13em; }
+.editor-line .label { width: 11em; }
+.editor-note { font-size: 12px; color: var(--text-secondary); margin: 0 0 6px; }
 .editor-line .amount { margin-left: auto; font-weight: bold; }
 .editor-total { border-top: 1px solid var(--border-strong); padding-top: 6px; }
+.period-note { width: 100%; padding-left: calc(11em + 8px); font-size: 12px; color: var(--text-secondary); }
+.period-note .link-btn { font-size: 12px; }
+@media (max-width: 600px) { .period-note { padding-left: 0; } }
 .editor-actions { display: flex; flex-wrap: wrap; gap: 8px; margin: 8px 0; }
 
 .map-row { display: flex; gap: 8px; align-items: center; margin: 4px 0; font-size: 14px; }
 .map-row span { width: 8em; }
+
+/* 年のタブ(rebalanceの口座タブと同じ見た目を簡単にしたもの)。入りきらない分は「その他(n) ▾」(src/shared/tab-overflow.js) */
+.year-tabs { display: flex; flex-wrap: nowrap; gap: 6px; overflow: hidden; margin-bottom: 12px; }
+.tab-btn {
+    flex-shrink: 0; padding: 8px 16px; border: 1px solid var(--border-strong); border-radius: 8px;
+    background: var(--bg-card); cursor: pointer; font: inherit; font-size: 14px; color: var(--text-main);
+}
+.tab-btn.active { border-color: var(--primary); background: var(--primary); color: #fff; font-weight: bold; }
+.tab-overflow-btn { flex-shrink: 0; white-space: nowrap; }
+.tab-overflow-menu {
+    position: absolute; z-index: 1000; display: flex; flex-direction: column; min-width: 160px; max-width: calc(100vw - 16px);
+    padding: 4px 0; background: var(--bg-card); border: 1px solid var(--border-strong); border-radius: 8px;
+    box-shadow: 0 6px 20px rgba(15, 23, 42, 0.15);
+}
+.tab-overflow-menu button {
+    padding: 9px 16px; background: none; border: none; color: var(--text-main); font: inherit; font-size: 14px;
+    text-align: left; white-space: nowrap; cursor: pointer;
+}
+.tab-overflow-menu button:hover, .tab-overflow-menu button:focus-visible { background: var(--bg-main); outline: none; }
+
+/* いつもより多い月(補正が要るかもしれない)。補正の印(右上の三角)とは別に、マスの背景で示す */
+.grid td.cell.is-high, .high-legend { background: #ffedd5; color: #9a3412; font-weight: bold; }
+.grid td.cell.is-high:hover { background: #fed7aa; }
+.high-legend { padding: 0 4px; border-radius: 4px; }
+.highlight-setting { font-size: 14px; display: flex; flex-wrap: wrap; align-items: center; gap: 6px; }
+#highlight_ratio { width: 4em; }
+
+/* その他の集計の並べ替え: 列名の右に▲▼を上下に並べ、並べている向きだけ濃くする */
+.sort-btn { background: none; border: 0; padding: 0; font: inherit; font-weight: bold; color: inherit; cursor: pointer; display: inline-flex; align-items: center; gap: 4px; }
+.sort-icons { display: inline-flex; flex-direction: column; font-size: 0.7em; line-height: 0.95; color: #cbd5e1; }
+.sort-icons .on { color: var(--primary); }

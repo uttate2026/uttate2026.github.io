@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="robots" content="noindex">
     <title>家計簿(仮)</title>
-    <link rel="stylesheet" href="style.b24245afbd.css">
+    <link rel="stylesheet" href="style.81a8143173.css">
     <script>
         try {
             if (localStorage.getItem('app_auth_hash')) document.documentElement.classList.add('auth-skip');
@@ -62,7 +62,7 @@
         <section class="card" id="section_monthly" data-section="monthly">
             <button type="button" class="section-toggle" data-section-toggle="monthly" aria-expanded="true" aria-controls="section_body_monthly"><span class="section-toggle-icon" aria-hidden="true"></span><span class="section-title">2. 月次集計(毎月の支出)</span><span class="section-summary" id="summary_monthly"></span></button>
             <div class="section-body" id="section_body_monthly">
-            <p class="note">単位: 万円。金額を押すと、その下に月・項目の補正(足す・除く)を開きます。右上の<span class="adj-legend" aria-label="三角の印"></span>は補正がある月・項目、<span class="high-legend">色の付いたマス</span>はいつもより多い月です(補正が要るかもしれません)。</p>
+            <p class="note">単位: 万円。金額を押すと、その下に月・項目の補正(足す・除く・振り替える)を開きます。右上の<span class="adj-legend" aria-label="三角の印"></span>は補正がある月・項目、<span class="high-legend">色の付いたマス</span>はいつもより多い月です(補正が要るかもしれません)。</p>
             <div class="table-wrap" id="monthly_table"></div>
             <p class="estimate" id="living_cost"></p>
             <details id="highlight_details">
@@ -104,7 +104,7 @@
     <!-- 数値の入力欄の全選択・入りきらないタブのまとめ(scripts/sync-shared.jsがsrc/shared/からコピーする。このディレクトリはGit管理対象外) -->
     <script src="shared/numeric-input-select.2072d2db4c.js"></script>
     <script src="shared/tab-overflow.669d0dc670.js"></script>
-    <script src="model.ef7cb90170.js"></script>
-    <script src="ui.fe662c898e.js"></script>
+    <script src="model.7ea627470a.js"></script>
+    <script src="ui.adacb36f64.js"></script>
 </body>
 </html>
