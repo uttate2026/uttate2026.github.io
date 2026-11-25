@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="robots" content="noindex">
     <title>家計簿(仮)</title>
-    <link rel="stylesheet" href="style.4004467731.css">
+    <link rel="stylesheet" href="style.65d3397860.css">
     <script>
         try {
             if (localStorage.getItem('app_auth_hash')) document.documentElement.classList.add('auth-skip');
@@ -26,20 +26,35 @@
 
     <!-- 入れたデータはこのブラウザの中だけに保存し、サーバーには送らない(docs/kakeibo/requirements.md 3章) -->
     <div id="app_container" class="app-container">
-        <h1 class="site-name">家計簿(仮)</h1>
+        <!-- バックアップは保存データ全体に対する操作のため、ほかのアプリ(lifeplan・rebalance)と同じく右上に「📦 バックアップ」として置く -->
+        <header class="app-header">
+            <h1 class="site-name">家計簿(仮)</h1>
+            <div class="menu-wrap">
+                <button type="button" id="btn_backup_menu" class="btn btn-secondary" aria-haspopup="true" aria-expanded="false">📦 バックアップ ▼</button>
+                <div id="backup_menu" class="record-menu" hidden>
+                    <button type="button" class="record-menu-item" data-action="backup-export">ファイルに書き出す</button>
+                    <button type="button" class="record-menu-item" data-action="backup-import">ファイルから読み込む</button>
+                    <p class="record-menu-note" id="backup_note"></p>
+                </div>
+                <input type="file" id="import_file" accept="application/json,.json" hidden>
+            </div>
+        </header>
 
-        <section class="card" id="section_raw">
-            <h2 class="section-title">1. 生データ</h2>
+        <section class="card" id="section_raw" data-section="raw">
+            <button type="button" class="section-toggle" data-section-toggle="raw" aria-expanded="true" aria-controls="section_body_raw"><span class="section-toggle-icon" aria-hidden="true"></span><span class="section-title">1. 生データ</span><span class="section-summary" id="summary_raw"></span></button>
+            <div class="section-body" id="section_body_raw">
             <textarea id="paste_input" rows="3" placeholder="マネーフォワードの「月次推移」の表を選んでコピーし、ここに貼り付けてください"></textarea>
             <p id="paste_result" class="note" aria-live="polite"></p>
             <details id="raw_details">
                 <summary id="raw_summary">貼り付けた表を見る</summary>
                 <div class="table-wrap" id="raw_table"></div>
             </details>
+            </div>
         </section>
 
-        <section class="card" id="section_monthly">
-            <h2 class="section-title">2. 月次集計(毎月の支出)</h2>
+        <section class="card" id="section_monthly" data-section="monthly">
+            <button type="button" class="section-toggle" data-section-toggle="monthly" aria-expanded="true" aria-controls="section_body_monthly"><span class="section-toggle-icon" aria-hidden="true"></span><span class="section-title">2. 月次集計(毎月の支出)</span><span class="section-summary" id="summary_monthly"></span></button>
+            <div class="section-body" id="section_body_monthly">
             <p class="note">単位: 万円。金額を押すと、その下に月・項目の補正(足す・除く)を開きます。右上の<span class="adj-legend" aria-label="三角の印"></span>は補正がある月・項目です。</p>
             <div class="table-wrap" id="monthly_table"></div>
             <p class="estimate" id="living_cost"></p>
@@ -48,23 +63,19 @@
                 <p class="note">まとめ先の名前が同じ項目を、月次集計の1行にまとめます(例: 食費と日用品を「生活必需品」に)。空欄ならマネーフォワードの項目のままです。</p>
                 <div id="category_map"></div>
             </details>
+            </div>
         </section>
 
-        <section class="card" id="section_other">
-            <h2 class="section-title">3. その他の集計(1年おき・数年おき)</h2>
+        <section class="card" id="section_other" data-section="other">
+            <button type="button" class="section-toggle" data-section-toggle="other" aria-expanded="true" aria-controls="section_body_other"><span class="section-toggle-icon" aria-hidden="true"></span><span class="section-title">3. その他の集計(1年おき・数年おき)</span><span class="section-summary" id="summary_other"></span></button>
+            <div class="section-body" id="section_body_other">
             <p class="note">月次集計の補正で除いた支出と、カードで払っていない年払い・数年おきの支出です。</p>
             <div class="table-wrap" id="other_table"></div>
             <button type="button" class="btn btn-small" id="btn_add_manual">➕ 手入力で足す</button>
             <p class="estimate" id="other_total"></p>
+            </div>
         </section>
 
-        <section class="card" id="section_backup">
-            <h2 class="section-title">バックアップ</h2>
-            <p class="note">データはこのブラウザの中だけにあります。ブラウザのデータを消すと消えるため、ときどき書き出してください。</p>
-            <button type="button" class="btn btn-small" id="btn_export">書き出す</button>
-            <button type="button" class="btn btn-small" id="btn_import">読み込む</button>
-            <input type="file" id="import_file" accept="application/json,.json" hidden>
-        </section>
     </div>
 
     <script src="storage.dc4807f2ea.js"></script>
@@ -72,6 +83,6 @@
     <!-- 数値の入力欄の全選択(scripts/sync-shared.jsがsrc/shared/からコピーする。このディレクトリはGit管理対象外) -->
     <script src="shared/numeric-input-select.2072d2db4c.js"></script>
     <script src="model.b2b5b87f5b.js"></script>
-    <script src="ui.34ee63abc9.js"></script>
+    <script src="ui.71b676afa4.js"></script>
 </body>
 </html>

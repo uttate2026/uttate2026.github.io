@@ -27,7 +27,8 @@ body {
 }
 
 .app-container { max-width: 1100px; margin: 0 auto; padding: 24px 16px 64px; }
-.site-name { font-size: 20px; color: var(--primary-dark); margin: 0 0 16px; }
+.app-header { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 16px; }
+.site-name { font-size: 20px; color: var(--primary-dark); margin: 0; }
 
 .card {
     background: var(--bg-card);
@@ -37,7 +38,22 @@ body {
     margin-bottom: 20px;
     box-shadow: 0 1px 2px rgba(15, 23, 42, 0.04), 0 4px 10px rgba(15, 23, 42, 0.04);
 }
-.section-title { font-weight: bold; font-size: 16px; color: var(--primary-dark); margin: 0 0 12px; }
+.section-title { font-weight: bold; font-size: 15px; }
+
+/* 大見出しの開閉(lifeplanと同じ見た目と振る舞い): 見出し全体がボタンで、畳んでいるときは右に要約を出す。開閉はブラウザが覚える */
+.section-toggle {
+    display: flex; align-items: center; flex-wrap: wrap; gap: 4px 8px; width: 100%;
+    padding: 0; margin: 0; background: none; border: none; color: inherit; font: inherit; text-align: left; cursor: pointer;
+}
+.section-toggle-icon::before {
+    content: '▾'; display: inline-block; width: 1em; font-size: 18px; line-height: 1; text-align: center;
+    color: var(--text-secondary); transition: transform 0.15s;
+}
+.is-collapsed .section-toggle-icon::before { transform: rotate(-90deg); }
+.section-summary { font-size: 13px; color: var(--text-secondary); }
+[data-section]:not(.is-collapsed) .section-summary { display: none; }
+.section-body { margin-top: 12px; }
+.is-collapsed .section-body { display: none; }
 .note { font-size: 13px; color: var(--text-secondary); line-height: 1.6; margin: 8px 0; }
 .note.error { color: var(--danger); font-weight: bold; }
 .estimate { background: var(--primary-wash); border-radius: 8px; padding: 8px 12px; font-size: 14px; }
@@ -61,6 +77,22 @@ html.auth-skip #auth_overlay { display: none; }
 }
 .btn-primary { background: var(--primary); border-color: var(--primary); color: #fff; }
 .btn-small { font-size: 13px; padding: 6px 10px; }
+.btn-secondary { border-color: var(--primary); color: var(--primary); }
+.btn-secondary:hover { background: var(--primary-wash); }
+
+/* 「📦 バックアップ ▼」のメニュー(lifeplanと同じ) */
+.menu-wrap { position: relative; }
+.record-menu {
+    position: absolute; top: 100%; right: 0; z-index: 50; width: min(420px, calc(100vw - 32px));
+    background: var(--bg-card); border: 1px solid var(--border-strong); border-radius: 8px;
+    box-shadow: 0 4px 16px rgba(15, 23, 42, 0.15); padding: 12px;
+}
+.record-menu-item {
+    display: block; width: 100%; text-align: left; padding: 8px; margin-bottom: 4px; font: inherit; font-size: 14px;
+    border: 1px solid var(--border); border-radius: 6px; background: var(--bg-card); cursor: pointer;
+}
+.record-menu-item:hover { background: var(--primary-wash); }
+.record-menu-note { font-size: 12px; color: var(--text-secondary); margin: 8px 0 0; line-height: 1.6; }
 .link-btn { background: none; border: none; padding: 0; color: var(--primary); text-decoration: underline; cursor: pointer; font-size: inherit; }
 .icon-btn { background: none; border: none; cursor: pointer; font-size: 16px; padding: 2px 4px; }
 
