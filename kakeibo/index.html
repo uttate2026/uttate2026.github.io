@@ -85,9 +85,14 @@
             <div class="section-body" id="section_body_other">
             <p class="note">この年の月次集計の補正で除いた支出と、カードで払っていない年払いなどの支出です。「この年だけ」はその年の贅沢枠など来年は別のものに使う支出、「毎年」は年払いの保険など来年も同じようにある支出です。</p>
             <div class="table-wrap" id="other_table"></div>
-            <button type="button" class="btn btn-small" id="btn_add_manual">➕ 手入力で足す</button>
-            <button type="button" class="btn btn-small" id="btn_copy_manual" hidden></button>
             <p class="estimate" id="other_total"></p>
+            <!-- 手入力の支出は、名前でまとめた表では直せないため、ここでまとめて直す(kakeibo ADR 0001「2026-11-27改訂」) -->
+            <details id="manual_details">
+                <summary id="manual_summary">手入力</summary>
+                <div class="table-wrap" id="manual_list"></div>
+                <button type="button" class="btn btn-small" id="btn_add_manual">➕ 手入力で足す</button>
+                <button type="button" class="btn btn-small" id="btn_copy_manual" hidden></button>
+            </details>
             </div>
         </section>
         </div>
@@ -99,7 +104,7 @@
     <!-- 数値の入力欄の全選択・入りきらないタブのまとめ(scripts/sync-shared.jsがsrc/shared/からコピーする。このディレクトリはGit管理対象外) -->
     <script src="shared/numeric-input-select.2072d2db4c.js"></script>
     <script src="shared/tab-overflow.669d0dc670.js"></script>
-    <script src="model.3201d4f3e7.js"></script>
-    <script src="ui.70ab5675e0.js"></script>
+    <script src="model.ef7cb90170.js"></script>
+    <script src="ui.fe662c898e.js"></script>
 </body>
 </html>
