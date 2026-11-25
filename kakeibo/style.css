@@ -116,6 +116,8 @@ table.grid { border-collapse: collapse; width: 100%; font-size: 14px; font-varia
 /* 月次集計の金額のセル(押すと補正を開く) */
 .grid td.cell { cursor: pointer; position: relative; }
 .grid td.cell:hover { background: var(--primary-wash); }
+/* 押すと補正が開くことが分かるよう、金額に薄い点線の下線を付ける(平均・合計は押せないため付けない) */
+.grid td.cell { text-decoration: underline dotted; text-decoration-color: #94a3b8; text-underline-offset: 4px; }
 .grid td.cell.is-open { outline: 2px solid var(--primary); outline-offset: -2px; background: var(--primary-wash); }
 /* 補正がある月・項目の印: セルの右上の三角(編集の印と取られないよう、ペンのアイコンにしない) */
 .grid td.cell.has-adj::after, .adj-legend {
@@ -127,12 +129,16 @@ table.grid { border-collapse: collapse; width: 100%; font-size: 14px; font-varia
 
 /* 補正の欄(押したセルの行のすぐ下に開く) */
 .grid tr.editor-row > td { text-align: left; background: var(--primary-wash); padding: 8px; white-space: normal; }
-.editor { max-width: 680px; background: #fff; border: 1px solid var(--primary); border-radius: 8px; padding: 10px 14px; }
+.editor { max-width: 760px; background: #fff; border: 1px solid var(--primary); border-radius: 8px; padding: 10px 14px; }
 .editor-head { display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px; }
 .editor-line { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin: 6px 0; }
-.editor-line .label { width: 13em; }
+.editor-line .label { width: 11em; }
+.editor-note { font-size: 12px; color: var(--text-secondary); margin: 0 0 6px; }
 .editor-line .amount { margin-left: auto; font-weight: bold; }
 .editor-total { border-top: 1px solid var(--border-strong); padding-top: 6px; }
+.period-note { width: 100%; padding-left: calc(11em + 8px); font-size: 12px; color: var(--text-secondary); }
+.period-note .link-btn { font-size: 12px; }
+@media (max-width: 600px) { .period-note { padding-left: 0; } }
 .editor-actions { display: flex; flex-wrap: wrap; gap: 8px; margin: 8px 0; }
 
 .map-row { display: flex; gap: 8px; align-items: center; margin: 4px 0; font-size: 14px; }

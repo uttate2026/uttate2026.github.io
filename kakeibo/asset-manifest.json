@@ -21,6 +21,17 @@
         "style.65d3397860.css",
         "ui.71b676afa4.js"
       ]
+    },
+    {
+      "deployedAt": "2026-11-25T20:33:26.773Z",
+      "files": [
+        "auth.d0b92838b8.js",
+        "model.d498ce05a9.js",
+        "shared/numeric-input-select.2072d2db4c.js",
+        "storage.dc4807f2ea.js",
+        "style.85f96d1272.css",
+        "ui.0c9716b83d.js"
+      ]
     }
   ]
 }
