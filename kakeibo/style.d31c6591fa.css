@@ -100,7 +100,7 @@ input[type="text"], select, textarea {
     font: inherit; font-size: 14px; padding: 6px 8px; border: 1px solid var(--border-strong); border-radius: 6px; background: #fff;
 }
 textarea { width: 100%; resize: vertical; }
-input[inputmode="numeric"] { text-align: right; width: 8em; ime-mode: disabled; }
+input[inputmode="numeric"], input[inputmode="decimal"] { text-align: right; width: 8em; ime-mode: disabled; }
 input.name-input { width: 10em; }
 
 /* 表 */
@@ -143,3 +143,50 @@ table.grid { border-collapse: collapse; width: 100%; font-size: 14px; font-varia
 
 .map-row { display: flex; gap: 8px; align-items: center; margin: 4px 0; font-size: 14px; }
 .map-row span { width: 8em; }
+
+/* 年のタブ(rebalanceの口座タブと同じ見た目を簡単にしたもの)。入りきらない分は「その他(n) ▾」(src/shared/tab-overflow.js) */
+.year-tabs { display: flex; flex-wrap: nowrap; gap: 6px; overflow: hidden; margin-bottom: 12px; }
+.tab-btn {
+    flex-shrink: 0; padding: 8px 16px; border: 1px solid var(--border-strong); border-radius: 8px;
+    background: var(--bg-card); cursor: pointer; font: inherit; font-size: 14px; color: var(--text-main);
+}
+.tab-btn.active { border-color: var(--primary); background: var(--primary); color: #fff; font-weight: bold; }
+.tab-overflow-btn { flex-shrink: 0; white-space: nowrap; }
+.tab-overflow-menu {
+    position: absolute; z-index: 1000; display: flex; flex-direction: column; min-width: 160px; max-width: calc(100vw - 16px);
+    padding: 4px 0; background: var(--bg-card); border: 1px solid var(--border-strong); border-radius: 8px;
+    box-shadow: 0 6px 20px rgba(15, 23, 42, 0.15);
+}
+.tab-overflow-menu button {
+    padding: 9px 16px; background: none; border: none; color: var(--text-main); font: inherit; font-size: 14px;
+    text-align: left; white-space: nowrap; cursor: pointer;
+}
+.tab-overflow-menu button:hover, .tab-overflow-menu button:focus-visible { background: var(--bg-main); outline: none; }
+
+/* いつもより多い月(補正が要るかもしれない)。補正の印(右上の三角)とは別に、マスの背景で示す */
+.grid td.cell.is-high, .high-legend { background: #ffedd5; color: #9a3412; font-weight: bold; }
+.grid td.cell.is-high:hover { background: #fed7aa; }
+.high-legend { padding: 0 4px; border-radius: 4px; }
+.highlight-setting { font-size: 14px; display: flex; flex-wrap: wrap; align-items: center; gap: 6px; }
+#highlight_ratio { width: 4em; }
+
+/* その他の集計の並べ替え: 列名の右に▲▼を上下に並べ、並べている向きだけ濃くする */
+.sort-btn { background: none; border: 0; padding: 0; font: inherit; font-weight: bold; color: inherit; cursor: pointer; display: inline-flex; align-items: center; gap: 4px; }
+.sort-icons { display: inline-flex; flex-direction: column; font-size: 0.7em; line-height: 0.95; color: #cbd5e1; }
+.sort-icons .on { color: var(--primary); }
+
+/* 年のタブ(入りきらなければ「その他(n)」)と、その右の「年ごとの推移」のタブ。その下の行に機能のボタン(右端にバックアップ) */
+.tabs-bar { display: flex; align-items: flex-end; gap: 6px; margin-bottom: 8px; }
+.tabs-bar .year-tabs { flex: 1 1 auto; min-width: 0; margin-bottom: 0; }
+.tabs-bar #trend_tab { flex: 0 0 auto; }
+.toolbar { display: flex; align-items: center; gap: 8px; margin-bottom: 12px; }
+.toolbar .toolbar-end { margin-left: auto; }
+.trend-title { margin: 0 0 8px; font-size: 1.05rem; }
+#trend_grid tfoot tr.subtotal td { border-top: 2px solid var(--border-strong); }
+
+/* 表とグラフの切り替え(資産リバランスシミュレーターの分析と同じ見た目)と、グラフの枠 */
+.view-switch { display: flex; gap: 6px; margin-bottom: 8px; }
+.subtab-btn { padding: 6px 14px; border: 1px solid var(--border); border-radius: 8px; background: var(--bg-card); cursor: pointer; font-size: 13px; color: inherit; }
+.subtab-btn.active { background: var(--primary); border-color: var(--primary); color: #fff; font-weight: bold; }
+.chart-wrap { position: relative; height: 420px; margin-bottom: 8px; }
+@media (max-width: 600px) { .chart-wrap { height: 360px; } }

@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="robots" content="noindex">
     <title>家計簿(仮)</title>
-    <link rel="stylesheet" href="style.c7f956a621.css">
+    <link rel="stylesheet" href="style.d31c6591fa.css">
     <script>
         try {
             if (localStorage.getItem('app_auth_hash')) document.documentElement.classList.add('auth-skip');
@@ -60,7 +60,9 @@
         <section class="card" id="trend_workspace" hidden>
             <h2 class="trend-title">年ごとの推移</h2>
             <p class="note">単位: 万円(月あたり)。各年の、補正の後の月あたりの平均です。取り込んだ月が少ない年も比べられるよう、年の合計ではなく月あたりで並べます。毎月以外の支出は、その年のその他の集計の1年あたりを12で割った額です。直すときは年のタブで補正してください。</p>
+            <div class="view-switch" role="group" aria-label="表示"><button type="button" class="subtab-btn" data-view-mode="table">表</button><button type="button" class="subtab-btn" data-view-mode="chart">グラフ</button></div>
             <div class="table-wrap" id="trend_table"></div>
+            <div class="chart-wrap" id="trend_chart_wrap" hidden><canvas id="trend_chart" aria-label="年ごとの支出の積み上げ棒グラフ"></canvas></div>
         </section>
 
         <div id="year_workspace">
@@ -76,7 +78,10 @@
             <button type="button" class="section-toggle" data-section-toggle="monthly" aria-expanded="true" aria-controls="section_body_monthly"><span class="section-toggle-icon" aria-hidden="true"></span><span class="section-title">2. 月次集計(毎月の支出)</span><span class="section-summary" id="summary_monthly"></span></button>
             <div class="section-body" id="section_body_monthly">
             <p class="note">単位: 万円。金額を押すと、その下に月・項目の補正(足す・除く・振り替える・立て替え)を開きます。右上の<span class="adj-legend" aria-label="三角の印"></span>は補正がある月・項目、<span class="high-legend">色の付いたマス</span>はいつもより多い月です(補正が要るかもしれません)。</p>
+            <!-- 表とグラフの切り替え(資産リバランスシミュレーターの分析の「履歴表/履歴グラフ」と同じ見た目、kakeibo ADR 0006) -->
+            <div class="view-switch" role="group" aria-label="表示"><button type="button" class="subtab-btn" data-view-mode="table">表</button><button type="button" class="subtab-btn" data-view-mode="chart">グラフ</button></div>
             <div class="table-wrap" id="monthly_table"></div>
+            <div class="chart-wrap" id="monthly_chart_wrap" hidden><canvas id="monthly_chart" aria-label="月ごとの支出の積み上げ棒グラフ"></canvas></div>
             <p class="estimate" id="living_cost"></p>
             <details id="highlight_details">
                 <summary>いつもより多い月の条件</summary>
@@ -112,12 +117,14 @@
 
     </div>
 
-    <script src="storage.4583ffddd2.js"></script>
+    <script src="storage.a6b584f58c.js"></script>
     <script src="auth.d0b92838b8.js"></script>
     <!-- 数値の入力欄の全選択・入りきらないタブのまとめ(scripts/sync-shared.jsがsrc/shared/からコピーする。このディレクトリはGit管理対象外) -->
-    <script src="shared/numeric-input-select.2072d2db4c.js"></script>
-    <script src="shared/tab-overflow.669d0dc670.js"></script>
-    <script src="model.2869c55346.js"></script>
-    <script src="ui.4bffa7a700.js"></script>
+    <script src="shared/numeric-input-select.bb3e7a6d22.js"></script>
+    <script src="shared/tab-overflow.e07dd519e4.js"></script>
+    <script src="vendor/chart.87d4f12d68.js"></script>
+    <script src="model.3dc6a59f73.js"></script>
+    <script src="chart-view.88c14dc020.js"></script>
+    <script src="ui.5115e9a627.js"></script>
 </body>
 </html>

@@ -183,3 +183,10 @@ table.grid { border-collapse: collapse; width: 100%; font-size: 14px; font-varia
 .toolbar .toolbar-end { margin-left: auto; }
 .trend-title { margin: 0 0 8px; font-size: 1.05rem; }
 #trend_grid tfoot tr.subtotal td { border-top: 2px solid var(--border-strong); }
+
+/* 表とグラフの切り替え(資産リバランスシミュレーターの分析と同じ見た目)と、グラフの枠 */
+.view-switch { display: flex; gap: 6px; margin-bottom: 8px; }
+.subtab-btn { padding: 6px 14px; border: 1px solid var(--border); border-radius: 8px; background: var(--bg-card); cursor: pointer; font-size: 13px; color: inherit; }
+.subtab-btn.active { background: var(--primary); border-color: var(--primary); color: #fff; font-weight: bold; }
+.chart-wrap { position: relative; height: 420px; margin-bottom: 8px; }
+@media (max-width: 600px) { .chart-wrap { height: 360px; } }
