@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="robots" content="noindex">
     <title>家計簿(仮)</title>
-    <link rel="stylesheet" href="style.81a8143173.css">
+    <link rel="stylesheet" href="style.c7f956a621.css">
     <script>
         try {
             if (localStorage.getItem('app_auth_hash')) document.documentElement.classList.add('auth-skip');
@@ -26,10 +26,25 @@
 
     <!-- 入れたデータはこのブラウザの中だけに保存し、サーバーには送らない(docs/kakeibo/requirements.md 3章) -->
     <div id="app_container" class="app-container">
-        <!-- バックアップは保存データ全体に対する操作のため、ほかのアプリ(lifeplan・rebalance)と同じく右上に「📦 バックアップ」として置く -->
         <header class="app-header">
             <h1 class="site-name">家計簿(仮)</h1>
-            <div class="menu-wrap">
+        </header>
+
+        <!-- 貼り付けは全部の年に共通のため、年のタブの上に置く(kakeibo ADR 0003) -->
+        <section class="card" id="paste_card">
+            <textarea id="paste_input" rows="3" placeholder="マネーフォワードの「月次推移」の表を選んでコピーし、ここに貼り付けてください" aria-label="マネーフォワードの月次推移の貼り付け"></textarea>
+            <p id="paste_result" class="note" aria-live="polite"></p>
+        </section>
+
+        <!-- 年(暦年)のタブ。古い年から並べ、入りきらなければ「その他(n)」にまとめる(src/shared/tab-overflow.js) -->
+        <!-- 年のタブの右に、年をまたいだ「年ごとの推移」のタブ(入りきらないときも見えるよう、年のタブとは別の枠に置く) -->
+        <div class="tabs-bar" id="tabs_bar">
+            <div class="year-tabs" id="year_tabs" role="tablist" aria-label="年"></div>
+            <button type="button" class="tab-btn" id="trend_tab" role="tab" aria-selected="false">年ごとの推移</button>
+        </div>
+        <!-- 機能のボタンの行。保存データ全体に対する操作のバックアップは、ほかのアプリと同じく右端に置く(kakeibo ADR 0003) -->
+        <div class="toolbar">
+            <div class="menu-wrap toolbar-end">
                 <button type="button" id="btn_backup_menu" class="btn btn-secondary" aria-haspopup="true" aria-expanded="false">📦 バックアップ ▼</button>
                 <div id="backup_menu" class="record-menu" hidden>
                     <button type="button" class="record-menu-item" data-action="backup-export">ファイルに書き出す</button>
@@ -38,17 +53,15 @@
                 </div>
                 <input type="file" id="import_file" accept="application/json,.json" hidden>
             </div>
-        </header>
-
-        <!-- 貼り付けは全部の年に共通のため、年のタブの上に置く(kakeibo ADR 0001「2026-11-26改訂(続き)」) -->
-        <section class="card" id="paste_card">
-            <textarea id="paste_input" rows="3" placeholder="マネーフォワードの「月次推移」の表を選んでコピーし、ここに貼り付けてください" aria-label="マネーフォワードの月次推移の貼り付け"></textarea>
-            <p id="paste_result" class="note" aria-live="polite"></p>
-        </section>
-
-        <!-- 年(暦年)のタブ。古い年から並べ、入りきらなければ「その他(n)」にまとめる(src/shared/tab-overflow.js) -->
-        <div class="year-tabs" id="year_tabs" role="tablist" aria-label="年"></div>
+        </div>
         <p class="note" id="no_data_note">まだデータがありません。上の欄にマネーフォワードの月次推移を貼り付けてください。</p>
+
+        <!-- 年ごとの推移(読むだけ。補正は年のタブで) -->
+        <section class="card" id="trend_workspace" hidden>
+            <h2 class="trend-title">年ごとの推移</h2>
+            <p class="note">単位: 万円(月あたり)。各年の、補正の後の月あたりの平均です。取り込んだ月が少ない年も比べられるよう、年の合計ではなく月あたりで並べます。毎月以外の支出は、その年のその他の集計の1年あたりを12で割った額です。直すときは年のタブで補正してください。</p>
+            <div class="table-wrap" id="trend_table"></div>
+        </section>
 
         <div id="year_workspace">
         <section class="card" id="section_raw" data-section="raw">
@@ -62,7 +75,7 @@
         <section class="card" id="section_monthly" data-section="monthly">
             <button type="button" class="section-toggle" data-section-toggle="monthly" aria-expanded="true" aria-controls="section_body_monthly"><span class="section-toggle-icon" aria-hidden="true"></span><span class="section-title">2. 月次集計(毎月の支出)</span><span class="section-summary" id="summary_monthly"></span></button>
             <div class="section-body" id="section_body_monthly">
-            <p class="note">単位: 万円。金額を押すと、その下に月・項目の補正(足す・除く・振り替える)を開きます。右上の<span class="adj-legend" aria-label="三角の印"></span>は補正がある月・項目、<span class="high-legend">色の付いたマス</span>はいつもより多い月です(補正が要るかもしれません)。</p>
+            <p class="note">単位: 万円。金額を押すと、その下に月・項目の補正(足す・除く・振り替える・立て替え)を開きます。右上の<span class="adj-legend" aria-label="三角の印"></span>は補正がある月・項目、<span class="high-legend">色の付いたマス</span>はいつもより多い月です(補正が要るかもしれません)。</p>
             <div class="table-wrap" id="monthly_table"></div>
             <p class="estimate" id="living_cost"></p>
             <details id="highlight_details">
@@ -86,7 +99,7 @@
             <p class="note">この年の月次集計の補正で除いた支出と、カードで払っていない年払いなどの支出です。「この年だけ」はその年の贅沢枠など来年は別のものに使う支出、「毎年」は年払いの保険など来年も同じようにある支出です。</p>
             <div class="table-wrap" id="other_table"></div>
             <p class="estimate" id="other_total"></p>
-            <!-- 手入力の支出は、名前でまとめた表では直せないため、ここでまとめて直す(kakeibo ADR 0001「2026-11-27改訂」) -->
+            <!-- 手入力の支出は、名前でまとめた表では直せないため、ここでまとめて直す(kakeibo ADR 0005) -->
             <details id="manual_details">
                 <summary id="manual_summary">手入力</summary>
                 <div class="table-wrap" id="manual_list"></div>
@@ -104,7 +117,7 @@
     <!-- 数値の入力欄の全選択・入りきらないタブのまとめ(scripts/sync-shared.jsがsrc/shared/からコピーする。このディレクトリはGit管理対象外) -->
     <script src="shared/numeric-input-select.2072d2db4c.js"></script>
     <script src="shared/tab-overflow.669d0dc670.js"></script>
-    <script src="model.7ea627470a.js"></script>
-    <script src="ui.adacb36f64.js"></script>
+    <script src="model.2869c55346.js"></script>
+    <script src="ui.4bffa7a700.js"></script>
 </body>
 </html>

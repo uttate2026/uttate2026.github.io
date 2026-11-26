@@ -174,3 +174,12 @@ table.grid { border-collapse: collapse; width: 100%; font-size: 14px; font-varia
 .sort-btn { background: none; border: 0; padding: 0; font: inherit; font-weight: bold; color: inherit; cursor: pointer; display: inline-flex; align-items: center; gap: 4px; }
 .sort-icons { display: inline-flex; flex-direction: column; font-size: 0.7em; line-height: 0.95; color: #cbd5e1; }
 .sort-icons .on { color: var(--primary); }
+
+/* 年のタブ(入りきらなければ「その他(n)」)と、その右の「年ごとの推移」のタブ。その下の行に機能のボタン(右端にバックアップ) */
+.tabs-bar { display: flex; align-items: flex-end; gap: 6px; margin-bottom: 8px; }
+.tabs-bar .year-tabs { flex: 1 1 auto; min-width: 0; margin-bottom: 0; }
+.tabs-bar #trend_tab { flex: 0 0 auto; }
+.toolbar { display: flex; align-items: center; gap: 8px; margin-bottom: 12px; }
+.toolbar .toolbar-end { margin-left: auto; }
+.trend-title { margin: 0 0 8px; font-size: 1.05rem; }
+#trend_grid tfoot tr.subtotal td { border-top: 2px solid var(--border-strong); }
