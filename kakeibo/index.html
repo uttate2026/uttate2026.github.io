@@ -77,11 +77,12 @@
         <section class="card" id="section_monthly" data-section="monthly">
             <button type="button" class="section-toggle" data-section-toggle="monthly" aria-expanded="true" aria-controls="section_body_monthly"><span class="section-toggle-icon" aria-hidden="true"></span><span class="section-title">2. 月次集計(毎月の支出)</span><span class="section-summary" id="summary_monthly"></span></button>
             <div class="section-body" id="section_body_monthly">
-            <p class="note">単位: 万円。金額を押すと、その下に月・項目の補正(足す・除く・振り替える・立て替え)を開きます。右上の<span class="adj-legend" aria-label="三角の印"></span>は補正がある月・項目、<span class="high-legend">色の付いたマス</span>はいつもより多い月です(補正が要るかもしれません)。</p>
+            <p class="note">単位: 万円。金額(グラフでは棒の色の部分)を押すと、その下に月・項目の補正(足す・除く・振り替える・立て替え)を開きます。右上の<span class="adj-legend" aria-label="三角の印"></span>は補正がある月・項目、<span class="high-legend">色の付いたマス</span>(グラフではオレンジの枠)はいつもより多い月です(補正が要るかもしれません)。</p>
             <!-- 表とグラフの切り替え(資産リバランスシミュレーターの分析の「履歴表/履歴グラフ」と同じ見た目、kakeibo ADR 0006) -->
             <div class="view-switch" role="group" aria-label="表示"><button type="button" class="subtab-btn" data-view-mode="table">表</button><button type="button" class="subtab-btn" data-view-mode="chart">グラフ</button></div>
             <div class="table-wrap" id="monthly_table"></div>
             <div class="chart-wrap" id="monthly_chart_wrap" hidden><canvas id="monthly_chart" aria-label="月ごとの支出の積み上げ棒グラフ"></canvas></div>
+            <div id="monthly_chart_editor" hidden></div>
             <p class="estimate" id="living_cost"></p>
             <details id="highlight_details">
                 <summary>いつもより多い月の条件</summary>
@@ -124,7 +125,7 @@
     <script src="shared/tab-overflow.e07dd519e4.js"></script>
     <script src="vendor/chart.87d4f12d68.js"></script>
     <script src="model.5544fb5bda.js"></script>
-    <script src="chart-view.88c14dc020.js"></script>
-    <script src="ui.5115e9a627.js"></script>
+    <script src="chart-view.b0dde94272.js"></script>
+    <script src="ui.381f0acd2d.js"></script>
 </body>
 </html>
