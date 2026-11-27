@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="robots" content="noindex">
     <title>家計簿(仮)</title>
-    <link rel="stylesheet" href="style.d31c6591fa.css">
+    <link rel="stylesheet" href="style.379024133f.css">
     <script>
         try {
             if (localStorage.getItem('app_auth_hash')) document.documentElement.classList.add('auth-skip');
@@ -44,6 +44,8 @@
         </div>
         <!-- 機能のボタンの行。保存データ全体に対する操作のバックアップは、ほかのアプリと同じく右端に置く(kakeibo ADR 0003) -->
         <div class="toolbar">
+            <!-- 開いている年のデータをURLに書き出す(lifeplanと同じく行の左端、kakeibo ADR 0007)。年ごとの推移では押せない -->
+            <button type="button" class="btn btn-link" id="btn_share_link" hidden>🔗 URLに書き出す</button>
             <div class="menu-wrap toolbar-end">
                 <button type="button" id="btn_backup_menu" class="btn btn-secondary" aria-haspopup="true" aria-expanded="false">📦 バックアップ ▼</button>
                 <div id="backup_menu" class="record-menu" hidden>
@@ -54,6 +56,18 @@
                 <input type="file" id="import_file" accept="application/json,.json" hidden>
             </div>
         </div>
+        <!-- URLに書き出すダイアログ -->
+        <div class="modal-overlay" id="share_modal" hidden>
+            <div class="modal" role="dialog" aria-modal="true" aria-labelledby="share_modal_title">
+                <button type="button" class="modal-close" id="btn_share_close" aria-label="閉じる">×</button>
+                <h2 id="share_modal_title" class="modal-title"></h2>
+                <p class="note">このURLを別の端末(iPhoneなど)で開くと、その端末の家計簿のこの年のデータを、このURLの中身で置き換えます(ほかの年はそのまま)。サーバーには送りません。</p>
+                <p class="note warn">⚠️ 家計の金額がそのまま入っています。人に送らないでください。</p>
+                <textarea id="share_url" rows="4" readonly aria-label="書き出したURL"></textarea>
+                <p><button type="button" class="btn btn-secondary" id="btn_share_copy">コピー</button> <span id="share_copy_result" class="note" aria-live="polite"></span></p>
+            </div>
+        </div>
+
         <p class="note" id="no_data_note">まだデータがありません。上の欄にマネーフォワードの月次推移を貼り付けてください。</p>
 
         <!-- 年ごとの推移(読むだけ。補正は年のタブで) -->
@@ -118,14 +132,15 @@
 
     </div>
 
-    <script src="storage.a6b584f58c.js"></script>
+    <script src="storage.4535af7632.js"></script>
     <script src="auth.d0b92838b8.js"></script>
     <!-- 数値の入力欄の全選択・入りきらないタブのまとめ(scripts/sync-shared.jsがsrc/shared/からコピーする。このディレクトリはGit管理対象外) -->
     <script src="shared/numeric-input-select.bb3e7a6d22.js"></script>
-    <script src="shared/tab-overflow.e07dd519e4.js"></script>
-    <script src="vendor/chart.87d4f12d68.js"></script>
-    <script src="model.5544fb5bda.js"></script>
+    <script src="shared/tab-overflow.626a888297.js"></script>
+    <script src="shared/plan-share-link.d732bd6644.js"></script>
+    <script src="vendor/chart.54c4957fd4.js"></script>
+    <script src="model.4f31f9cb0c.js"></script>
     <script src="chart-view.b0dde94272.js"></script>
-    <script src="ui.381f0acd2d.js"></script>
+    <script src="ui.85e15dad1d.js"></script>
 </body>
 </html>
