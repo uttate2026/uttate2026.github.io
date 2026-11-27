@@ -1,18 +1,6 @@
 {
   "deploys": [
     {
-      "deployedAt": "2026-11-26T20:50:32.118Z",
-      "files": [
-        "auth.d0b92838b8.js",
-        "model.2869c55346.js",
-        "shared/numeric-input-select.2072d2db4c.js",
-        "shared/tab-overflow.669d0dc670.js",
-        "storage.4583ffddd2.js",
-        "style.c7f956a621.css",
-        "ui.4bffa7a700.js"
-      ]
-    },
-    {
       "deployedAt": "2026-11-26T21:23:33.018Z",
       "files": [
         "auth.d0b92838b8.js",
@@ -66,6 +54,21 @@
         "storage.4535af7632.js",
         "style.379024133f.css",
         "ui.85e15dad1d.js",
+        "vendor/chart.54c4957fd4.js"
+      ]
+    },
+    {
+      "deployedAt": "2026-11-27T19:59:57.219Z",
+      "files": [
+        "auth.d0b92838b8.js",
+        "chart-view.b0dde94272.js",
+        "model.4f31f9cb0c.js",
+        "shared/numeric-input-select.bb3e7a6d22.js",
+        "shared/plan-share-link.d732bd6644.js",
+        "shared/tab-overflow.626a888297.js",
+        "storage.4535af7632.js",
+        "style.c1d3edbb90.css",
+        "ui.4c5e15e968.js",
         "vendor/chart.54c4957fd4.js"
       ]
     }

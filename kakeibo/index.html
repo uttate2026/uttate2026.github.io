@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="robots" content="noindex">
     <title>家計簿(仮)</title>
-    <link rel="stylesheet" href="style.379024133f.css">
+    <link rel="stylesheet" href="style.c1d3edbb90.css">
     <script>
         try {
             if (localStorage.getItem('app_auth_hash')) document.documentElement.classList.add('auth-skip');
@@ -34,6 +34,29 @@
         <section class="card" id="paste_card">
             <textarea id="paste_input" rows="3" placeholder="マネーフォワードの「月次推移」の表を選んでコピーし、ここに貼り付けてください" aria-label="マネーフォワードの月次推移の貼り付け"></textarea>
             <p id="paste_result" class="note" aria-live="polite"></p>
+            <!-- 初めての人への貼り付け方の案内。データが無いときは開いて出し、後は「貼り付け方」で開く(kakeibo ADR 0008)。
+                 マネーフォワードの画面そのものではなく、架空の数字の表を簡単に描いたアニメーション(実際の画面は家計の金額が写るため) -->
+            <details id="paste_guide">
+                <summary>貼り付け方</summary>
+                <ol class="guide-steps">
+                    <li>パソコンのブラウザでマネーフォワード MEを開き、「家計簿」→「月次推移」を開く</li>
+                    <li>表の「2026/05/01〜」のような月の行から、一番下の行まで、ドラッグで選ぶ</li>
+                    <li>コピー(Ctrl+C、Macは⌘+C)して、上の欄に貼り付ける(Ctrl+V、Macは⌘+V)</li>
+                </ol>
+                <div class="guide-anim" aria-hidden="true">
+                    <table>
+                        <tr><td></td><td>2026/05/01〜</td><td>2026/06/01〜</td><td>2026/07/01〜</td></tr>
+                        <tr><td>食費</td><td>80,000円</td><td>75,000円</td><td>82,000円</td></tr>
+                        <tr><td>日用品</td><td>20,000円</td><td>22,000円</td><td>18,000円</td></tr>
+                        <tr><td>趣味・娯楽</td><td>10,000円</td><td>14,000円</td><td>9,000円</td></tr>
+                        <tr><td>水道・光熱費</td><td>15,000円</td><td>13,000円</td><td>12,000円</td></tr>
+                    </table>
+                    <div class="guide-select"></div>
+                    <div class="guide-cursor">➤</div>
+                    <div class="guide-copy">Ctrl+C → 上の欄に貼り付け</div>
+                </div>
+                <p class="note">数字は例です。マネーフォワードの画面の見た目は、これと少し違います。</p>
+            </details>
         </section>
 
         <!-- 年(暦年)のタブ。古い年から並べ、入りきらなければ「その他(n)」にまとめる(src/shared/tab-overflow.js) -->
@@ -141,6 +164,6 @@
     <script src="vendor/chart.54c4957fd4.js"></script>
     <script src="model.4f31f9cb0c.js"></script>
     <script src="chart-view.b0dde94272.js"></script>
-    <script src="ui.85e15dad1d.js"></script>
+    <script src="ui.4c5e15e968.js"></script>
 </body>
 </html>
