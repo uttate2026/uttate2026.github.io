@@ -202,7 +202,7 @@ table.grid { border-collapse: collapse; width: 100%; font-size: 14px; font-varia
 .toolbar .btn-link[disabled] { opacity: 0.4; cursor: not-allowed; }
 .btn-link { background: none; border: 0; padding: 4px 0; color: var(--primary); text-decoration: underline; cursor: pointer; font: inherit; }
 
-/* 貼り付け方の案内: 選ぶ範囲が上から下へ広がり、コピーの印が出る(5秒で繰り返す)。動きを減らす設定では選んだ後の絵だけ */
+/* 貼り付け方の案内: 選ぶ範囲が上から下へ広がり、コピーの印が出る(5秒で繰り返す)。動きを減らす設定でも止めず、ゆっくり(10秒)動かす(動きで手順を伝えるため、shared ADR 0017と同じ考え方、kakeibo ADR 0008) */
 #paste_guide { margin-top: 6px; }
 #paste_guide summary { cursor: pointer; color: var(--primary); font-size: 0.9rem; }
 .guide-steps { margin: 8px 0; padding-left: 1.4em; font-size: 0.9rem; }
@@ -217,8 +217,6 @@ table.grid { border-collapse: collapse; width: 100%; font-size: 14px; font-varia
 @keyframes kakeibo-guide-cursor { 0%, 10% { top: 8px; left: 14px; } 55%, 100% { top: calc(100% - 26px); left: calc(100% - 30px); } }
 @keyframes kakeibo-guide-copy { 0%, 60% { opacity: 0; } 70%, 95% { opacity: 1; } 100% { opacity: 0; } }
 @media (prefers-reduced-motion: reduce) {
-    .guide-select { animation: none; height: calc(100% - 20px); }
-    .guide-cursor { display: none; }
-    .guide-copy { animation: none; opacity: 1; }
+    .guide-select, .guide-cursor, .guide-copy { animation-duration: 10s; }
 }
 @media (max-width: 600px) { .guide-anim td:nth-child(4) { display: none; } }
