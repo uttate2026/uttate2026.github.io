@@ -220,3 +220,11 @@ table.grid { border-collapse: collapse; width: 100%; font-size: 14px; font-varia
     .guide-select, .guide-cursor, .guide-copy { animation-duration: 10s; }
 }
 @media (max-width: 600px) { .guide-anim td:nth-child(4) { display: none; } }
+
+/* 横スクロールの表の左右の影(lifeplan・rebalanceと同じ)。影の位置の基準は、スクロールしない外側の枠にする
+   (スクロールする要素の中に置くと、影もスクロールにつれて動くため) */
+.table-shadow-box { position: relative; }
+.scroll-shadow { position: absolute; top: 0; bottom: 0; width: 24px; pointer-events: none; opacity: 0; transition: opacity 0.15s; z-index: 1; }
+.scroll-shadow.is-visible { opacity: 1; }
+.scroll-shadow-left { left: 0; background: linear-gradient(to right, rgba(15, 23, 42, 0.18), rgba(15, 23, 42, 0)); }
+.scroll-shadow-right { right: 0; background: linear-gradient(to left, rgba(15, 23, 42, 0.18), rgba(15, 23, 42, 0)); }
