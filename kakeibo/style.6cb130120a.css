@@ -151,6 +151,17 @@ table.grid { border-collapse: collapse; width: 100%; font-size: 14px; font-varia
     background: var(--bg-card); cursor: pointer; font: inherit; font-size: 14px; color: var(--text-main);
 }
 .tab-btn.active { border-color: var(--primary); background: var(--primary); color: #fff; font-weight: bold; }
+/* 年のタブ・年ごとの推移のタブは、lifeplanのプランのタブと同じく下が四角いタブにし、選んでいるタブを下の枠(.tab-panel)と
+   地続きにして、切り替わる範囲が分かるようにする(kakeibo ADR 0003) */
+.tabs-bar .tab-btn { border-bottom-left-radius: 0; border-bottom-right-radius: 0; border-bottom: 0; }
+/* 選んでいるタブだけ枠の上の線に1px重ねて線を隠し、枠と地続きにする(ほかのタブの下には線が見える) */
+.tabs-bar .tab-btn.active { margin-bottom: -1px; position: relative; z-index: 1; }
+.tabs-bar .tab-btn.active { background: var(--primary-wash); color: var(--primary); border-color: var(--primary); padding-bottom: 9px; }
+.tabs-bar .year-tabs { padding-top: 2px; }
+.tab-panel { border: 1px solid var(--primary); border-radius: 0 8px 8px 8px; background: var(--primary-wash); padding: 10px 12px 2px; margin-bottom: 16px; }
+.tab-panel.is-trend { border-radius: 8px 0 8px 8px; }
+.tab-panel.is-empty { border: 0; background: none; padding: 0; }
+.tab-panel .card:last-child { margin-bottom: 10px; }
 .tab-overflow-btn { flex-shrink: 0; white-space: nowrap; }
 .tab-overflow-menu {
     position: absolute; z-index: 1000; display: flex; flex-direction: column; min-width: 160px; max-width: calc(100vw - 16px);
@@ -176,8 +187,8 @@ table.grid { border-collapse: collapse; width: 100%; font-size: 14px; font-varia
 .sort-icons .on { color: var(--primary); }
 
 /* 年のタブ(入りきらなければ「その他(n)」)と、その右の「年ごとの推移」のタブ。その下の行に機能のボタン(右端にバックアップ) */
-.tabs-bar { display: flex; align-items: flex-end; gap: 6px; margin-bottom: 8px; }
-.tabs-bar .year-tabs { flex: 1 1 auto; min-width: 0; margin-bottom: 0; }
+.tabs-bar { display: flex; align-items: flex-end; gap: 6px; margin-bottom: 0; }
+.tabs-bar .year-tabs { flex: 1 1 auto; min-width: 0; margin-bottom: 0; align-items: flex-end; }
 .tabs-bar #trend_tab { flex: 0 0 auto; }
 .toolbar { display: flex; align-items: center; gap: 8px; margin-bottom: 12px; }
 .toolbar .toolbar-end { margin-left: auto; }
@@ -190,3 +201,41 @@ table.grid { border-collapse: collapse; width: 100%; font-size: 14px; font-varia
 .subtab-btn.active { background: var(--primary); border-color: var(--primary); color: #fff; font-weight: bold; }
 .chart-wrap { position: relative; height: 420px; margin-bottom: 8px; }
 @media (max-width: 600px) { .chart-wrap { height: 360px; } }
+
+/* URLに書き出すダイアログ(閉じるボタンは中身をスクロールしても右上に見える、common-requirements 3章) */
+.modal-overlay { position: fixed; inset: 0; z-index: 100; background: rgba(15, 23, 42, 0.45); display: flex; align-items: center; justify-content: center; padding: 16px; }
+.modal-overlay[hidden] { display: none; }
+.modal { position: relative; background: var(--bg-card); border-radius: 10px; padding: 20px; width: min(560px, 100%); max-height: calc(100vh - 32px); overflow: auto; }
+.modal-close { position: sticky; top: 0; float: right; border: 0; background: none; font-size: 1.4rem; cursor: pointer; color: inherit; }
+.modal-title { margin: 0 0 8px; font-size: 1.05rem; }
+#share_url { width: 100%; box-sizing: border-box; font-size: 12px; word-break: break-all; }
+.note.warn { color: #9a3412; }
+.toolbar .btn-link[disabled] { opacity: 0.4; cursor: not-allowed; }
+.btn-link { background: none; border: 0; padding: 4px 0; color: var(--primary); text-decoration: underline; cursor: pointer; font: inherit; }
+
+/* 貼り付け方の案内: 選ぶ範囲が上から下へ広がり、コピーの印が出る(5秒で繰り返す)。動きを減らす設定でも止めず、ゆっくり(10秒)動かす(動きで手順を伝えるため、shared ADR 0017と同じ考え方、kakeibo ADR 0008) */
+#paste_guide { margin-top: 6px; }
+#paste_guide summary { cursor: pointer; color: var(--primary); font-size: 0.9rem; }
+.guide-steps { margin: 8px 0; padding-left: 1.4em; font-size: 0.9rem; }
+.guide-anim { position: relative; overflow: hidden; border: 1px solid var(--border); border-radius: 8px; padding: 10px; background: #fff; max-width: 520px; }
+.guide-anim table { border-collapse: collapse; font-size: 12px; width: 100%; position: relative; z-index: 1; }
+.guide-anim td { padding: 4px 6px; text-align: right; white-space: nowrap; border-bottom: 1px solid #eef2f6; }
+.guide-anim td:first-child { text-align: left; }
+.guide-select { position: absolute; left: 10px; right: 10px; top: 10px; height: 0; background: rgba(37, 99, 235, 0.22); animation: kakeibo-guide-select 5s infinite; }
+.guide-cursor { position: absolute; left: 14px; top: 8px; z-index: 2; font-size: 14px; color: #0f172a; transform: rotate(45deg); animation: kakeibo-guide-cursor 5s infinite; }
+.guide-copy { position: absolute; right: 12px; bottom: 8px; z-index: 2; background: var(--primary); color: #fff; font-size: 12px; padding: 3px 8px; border-radius: 6px; opacity: 0; animation: kakeibo-guide-copy 5s infinite; }
+@keyframes kakeibo-guide-select { 0%, 10% { height: 0; } 55%, 100% { height: calc(100% - 20px); } }
+@keyframes kakeibo-guide-cursor { 0%, 10% { top: 8px; left: 14px; } 55%, 100% { top: calc(100% - 26px); left: calc(100% - 30px); } }
+@keyframes kakeibo-guide-copy { 0%, 60% { opacity: 0; } 70%, 95% { opacity: 1; } 100% { opacity: 0; } }
+@media (prefers-reduced-motion: reduce) {
+    .guide-select, .guide-cursor, .guide-copy { animation-duration: 10s; }
+}
+@media (max-width: 600px) { .guide-anim td:nth-child(4) { display: none; } }
+
+/* 横スクロールの表の左右の影(lifeplan・rebalanceと同じ)。影の位置の基準は、スクロールしない外側の枠にする
+   (スクロールする要素の中に置くと、影もスクロールにつれて動くため) */
+.table-shadow-box { position: relative; }
+.scroll-shadow { position: absolute; top: 0; bottom: 0; width: 24px; pointer-events: none; opacity: 0; transition: opacity 0.15s; z-index: 1; }
+.scroll-shadow.is-visible { opacity: 1; }
+.scroll-shadow-left { left: 0; background: linear-gradient(to right, rgba(15, 23, 42, 0.18), rgba(15, 23, 42, 0)); }
+.scroll-shadow-right { right: 0; background: linear-gradient(to left, rgba(15, 23, 42, 0.18), rgba(15, 23, 42, 0)); }

@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="robots" content="noindex">
     <title>家計簿(仮)</title>
-    <link rel="stylesheet" href="style.605752d20a.css">
+    <link rel="stylesheet" href="style.6cb130120a.css">
     <script>
         try {
             if (localStorage.getItem('app_auth_hash')) document.documentElement.classList.add('auth-skip');
@@ -65,6 +65,8 @@
             <div class="year-tabs" id="year_tabs" role="tablist" aria-label="年"></div>
             <button type="button" class="tab-btn" id="trend_tab" role="tab" aria-selected="false">年ごとの推移</button>
         </div>
+        <!-- タブが切り替える範囲(機能のボタンの行から年の中身まで)を、選んでいるタブと地続きの枠で囲む(lifeplanの人物のタブと同じ見せ方、kakeibo ADR 0003) -->
+        <div class="tab-panel" id="tab_panel">
         <!-- 機能のボタンの行。保存データ全体に対する操作のバックアップは、ほかのアプリと同じく右端に置く(kakeibo ADR 0003) -->
         <div class="toolbar">
             <!-- 開いている年のデータをURLに書き出す(lifeplanと同じく行の左端、kakeibo ADR 0007)。年ごとの推移では押せない -->
@@ -152,6 +154,7 @@
             </div>
         </section>
         </div>
+        </div>
 
     </div>
 
@@ -164,6 +167,6 @@
     <script src="vendor/chart.54c4957fd4.js"></script>
     <script src="model.4f31f9cb0c.js"></script>
     <script src="chart-view.b0dde94272.js"></script>
-    <script src="ui.effd4a239e.js"></script>
+    <script src="ui.fe8bd976a2.js"></script>
 </body>
 </html>
